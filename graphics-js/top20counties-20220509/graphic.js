@@ -3,43 +3,23 @@ var ANALYTICS = require("./lib/analytics");
 require("./lib/webfonts");
 var { isMobile } = require("./lib/breakpoints");
 
-var d3 = {
-  ...require("d3-array/dist/d3-array.min"),
-  ...require("d3-axis/dist/d3-axis.min"),
-  ...require("d3-scale/dist/d3-scale.min"),
-  ...require("d3-selection/dist/d3-selection.min")
-};
+pym.then(child => {
 
-var pymChild = null;
-pym.then(function(child) {
-  pymChild = child;
-  child.sendHeight();
-  window.addEventListener("resize", render);
-});
-
-var render = function() {
-  var containerElement = document.querySelector(".graphic");
-  //remove fallback
-  containerElement.innerHTML = "";
-  var containerWidth = containerElement.offsetWidth;
-
-  var container = d3.select(containerSelector);
-
-   /*
+      /*
 ------------------------------
 METHOD: set the size of the canvas
 ------------------------------
 */
-let height = 500;
-let width = 1000;
+let height = 200;
+let width = 700;
 let margin = ({top: 0, right: 40, bottom: 34, left: 40});
 
 
 // Data structure describing volume of displayed data
 let Count = {
-  total: "percent_chronic",
-  perCap: "percent_chronic",
-  population: "percent_medicalDebt"
+  total: "medical_debt_collections_pct",
+  perCap: "six_chronic_pct",
+  population: "population"
 };
 
 // Data structure describing legend fields value
@@ -54,6 +34,7 @@ chartState.measure = Count.total;
 chartState.radius = 0
 chartState.scale = "scaleLinear";
 chartState.legend = Legend.total;
+chartState.radiusSize = Count.total
 
 /*
 ------------------------------
@@ -66,8 +47,6 @@ let svg = d3.select("#svganchor")
     .attr("width", width)
     .attr("height", height);
 
-    
-container.append(svg);
 /*
 ------------------------------
 METHOD: add in the x-axis
@@ -90,16 +69,24 @@ let tooltip = d3.select("#svganchor").append("div")
 .attr("class", "tooltip")
 .style("opacity", 0);
 
-
-
 /*
 ------------------------------
 METHOD: load in and process data
 ------------------------------
 */
-d3.csv("https://raw.githubusercontent.com/juweek/beeswarm/main/medicalDebt_KHN_NPR/datasets/top_chronic_illnesses.csv").then(function (data) {
+d3.csv("https://raw.githubusercontent.com/juweek/beeswarm/main/medicalDebt_KHN_NPR/datasets/top20Counties.csv").then(function (data) {
 
     let dataSet = data;
+
+
+    let listOfValues = []
+    
+
+    data.forEach((element) => {
+        console.log(element.collection_debt_state_avg)
+        listOfValues.push(element.collection_debt_state_avg)
+      })
+
 
     // Set chart domain max value to the highest total value in data set. this will affect the key
     xScale.domain(d3.extent(data, function (d) {
@@ -131,6 +118,16 @@ d3.csv("https://raw.githubusercontent.com/juweek/beeswarm/main/medicalDebt_KHN_N
             return +d[chartState.measure];
         }));
 
+        /*
+        var rscale = d3.scaleLinear().domain(d3.extent(dataSet, function(d) {
+            return +d[chartState.radiusSize];
+        })).range([3, 9]) 
+        */
+
+        var rscale = d3.scaleLinear()
+        .domain([300, d3.max(listOfValues)])
+        .range([1, 15])
+
         // Set X axis based on new scale. If chart is set to "per capita" use numbers with one decimal point
         let xAxis;
         if (chartState.measure === Count.perCap) {
@@ -159,7 +156,7 @@ d3.csv("https://raw.githubusercontent.com/juweek/beeswarm/main/medicalDebt_KHN_N
                 return xScale(+d[chartState.measure]);  // This is the desired position
             }).strength(2))  // Increase velocity
             .force("y", d3.forceY((height / 2) - margin.bottom / 2))  // // Apply positioning force to push nodes towards center along Y axis
-            .force("collide", d3.forceCollide(5)) // Apply collision force with radius of 9 - keeps nodes centers 9 pixels apart
+            .force("collide", d3.forceCollide(14)) // Apply collision force with radius of 9 - keeps nodes centers 9 pixels apart
             .stop();  // Stop simulation from starting automatically
 
         // Manually run simulation
@@ -184,23 +181,20 @@ d3.csv("https://raw.githubusercontent.com/juweek/beeswarm/main/medicalDebt_KHN_N
             .attr("class", "countries")
             .attr("cx", 0)
             .attr("cy", (height / 2) - margin.bottom / 2)
-            .attr("r", 3)
             /*.attr("r", function(d){
-                if (chartState.radius == 5) {return 5}
-                else 	{ return (d.population)/300000}
+                if (chartState.radius == 5) {return 8}
+                else 	{ 
+                    console.log(rscale(parseInt(d.collection_debt_state_avg)))
+                    return rscale(parseInt(d.collection_debt_state_avg))}
+            })*/
+            .attr("r", function(d){
+                if (chartState.radius == 5) {return 7}
+                else { return parseInt(rscale(d.collection_debt_state_avg))}
+                //else 	{ return parseInt(d.collection_debt_state_avg)/80}
             })
-            */
-            .attr("fill", function(d){
-                if (d.percent_medicalDebt > 30) {
-                    return '#CC1A29'
-                  } else if(d.percent_medicalDebt > 20) {
-                    return '#F98C6D'
-                  } else if(d.percent_medicalDebt > 10) {
-                    return '#E6E0C4'
-                 }  else {
-                    return '#4DA083'
-                }})
-            .attr("stroke", "#dfdfdf")
+                //else 	{ return parseInt(d.collection_debt_state_avg)/80}
+            .attr("fill", function(d){return '#D21A55'})
+            .attr("stroke", "#333333")
             .merge(countriesCircles)
             .transition()
             .duration(2000)
@@ -211,8 +205,8 @@ d3.csv("https://raw.githubusercontent.com/juweek/beeswarm/main/medicalDebt_KHN_N
         d3.selectAll(".countries").on("mousemove", function(d) {
             tooltip.html(`<strong>${d.target.__data__.County}, ${d.target.__data__.State}</strong><br>
                           <strong>${chartState.legend.slice(0, chartState.legend.indexOf(","))}</strong>: 
-                          ${d.target.__data__.percent_medicalDebt}%<br>
-                          <strong>% with 6+ chronic: </strong>${d.target.__data__.percent_chronic}`)
+                          ${d.target.__data__.medical_debt_collections_pct}%<br>
+                          <strong>Avg amount of debt: </strong>${d.target.__data__.collection_debt_state_avg}`)
                 .style('top', (d.pageY - 12) + 'px')
                 .style('left', (d.pageX + 25) + 'px')
                 .style("opacity", 0.9);
@@ -227,14 +221,22 @@ d3.csv("https://raw.githubusercontent.com/juweek/beeswarm/main/medicalDebt_KHN_N
             tooltip.style("opacity", 0);
             xLine.attr("opacity", 0);
         });
+
     }
     
 }).catch(function (error) {
     if (error) throw error;
 });
 
-  pymChild.sendHeight();
-};
+    child.sendHeight();
 
-//first render
-render();
+    // child.onMessage("on-screen", function(bucket) {
+    //     ANALYTICS.trackEvent("on-screen", bucket);
+    // });
+    // child.onMessage("scroll-depth", function(data) {
+    //     data = JSON.parse(data);
+    //     ANALYTICS.trackEvent("scroll-depth", data.percent, data.seconds);
+    // });
+
+    window.addEventListener("resize", () => child.sendHeight());
+});

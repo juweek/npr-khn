@@ -37,26 +37,16 @@ div.tooltip {
   font: 10px sans-serif;
 }
   </style>
-  
 
 <h2 style="margin-bottom: 10px;">When looking at the 500 counties with the most people with medical debt, and the 500 counties with the least people with medical debt, there is a disparity with how many chronic conditions they have.  </h2>
 <div style="margin-bottom: 10px;">Percentage of US county that has some medical debt in collections (Top 500/Bottom 500)</div>
 <div class="key_block" style="display: flex;">
-    <div class="key_break" style="background-color: #6CC2AF; height: 20px; width: 30px; margin: 2px 2px;"></div>
-    <span class="sequenceRate_text"> Under 10% have 6+ chronic conditions</span>
+  <div class="measure-group" style="display: flex;">
+    <button type="button" class="measure mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="total">Total</button>
+    <button type="button" class="measure mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="nonSize">Hide population size</button>
+</div>
   </div>
-  <div class="key_block" style="display: flex;">
-    <div class="key_break" style="background-color: #E6E0C4; height: 20px; width: 30px; margin: 2px 2px;"></div>
-    <span class="sequenceRate_text"> 10-19% have 6+ chronic conditions</span>
-  </div>
-  <div class="key_block" style="display: flex;">
-    <div class="key_break" style="background-color: #F98C6D; height: 20px; width: 30px; margin: 2px 2px;"></div>
-    <span class="sequenceRate_text"> 20-29% have 6+ chronic conditions</span>
-  </div>
-  <div class="key_block" style="display: flex;">
-    <div class="key_break" style="background-color: #CC1A29; height: 20px; width: 30px; margin: 2px 2px;"></div>
-    <span class="sequenceRate_text"> Over 30% have 6+ chronic conditions</span>
-  </div>
+  
 <div id="svganchor" class="graphic" role="img">
     <img src="fallback.png" alt="" class="fallback" />
 </div>
