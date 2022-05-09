@@ -1,0 +1,56 @@
+<style>
+    .measure-group {
+    display:inline;
+  }
+  
+  button {
+    margin:0 auto;
+    display:block;
+  }
+  
+  svg {
+    background-color: white;
+  }
+  
+  div.tooltip {
+    position: absolute;
+    text-align: left;
+    color: white;
+    white-space: normal;
+    padding: 6px;
+    font-size: 14px;
+    background: rgb(96,125,139);
+    border: 1px solid rgb(96,125,139);
+    border-radius: 2px;
+    pointer-events: none;
+    cursor: none;
+  }
+  
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: rgb(96,125,139);
+    shape-rendering: crispEdges;
+  }
+  
+  .axis text {
+    font: 10px sans-serif;
+  }
+    </style>
+  
+  <h2 style="margin-bottom: 10px;">When looking at the 500 counties with the most people with medical debt, and the 500 counties with the least people with medical debt, there is a disparity with how many chronic conditions they have.  </h2>
+  <div style="margin-bottom: 10px;">Percentage of US county that has some medical debt in collections (Top 500/Bottom 500)</div>
+    
+
+  <div id="svganchor" class="graphic" role="img" class="graph centered">
+  </div>
+  
+
+  <div class="footer"></div>
+  </div>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
+  <script src="https://unpkg.com/topojson-client@3"></script>
+  <script src="https://unpkg.com/d3-tip@0.9.1/dist/index.js"></script>
+  <script src="./graphic.js"></script>
+  
