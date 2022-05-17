@@ -170,21 +170,23 @@ d3.csv("https://raw.githubusercontent.com/juweek/beeswarm/main/medicalDebt_KHN_N
             })
             */
             .attr("fill", function(d){
-                if (d.percent_medicalDebt > 30) {
+                if (d.percent_medicalDebt > 20) {
                     return '#CC1A29'
-                  } else if(d.percent_medicalDebt > 20) {
-                    return '#F98C6D'
-                  } else if(d.percent_medicalDebt > 10) {
-                    return '#E6E0C4'
-                 }  else {
+                  } else if(d.percent_medicalDebt < 10) {
                     return '#4DA083'
+                 }  else {
+                    return '#fff'
                 }})
             .attr("stroke", "#dfdfdf")
             .merge(countriesCircles)
             .transition()
             .duration(2000)
+            .attr("data-county", function(d) { return d.County; })
+            .attr("data-state", function(d) { return d.State; })
+            .attr("data-medicalDebt", function(d) { return d.percent_medicalDebt; })
+            .attr("data-percentChronic", function(d) { return d.percent_chronic; })
             .attr("cx", function(d) { return d.x; })
-            .attr("cy", function(d) { return d.y; });
+            .attr("cy", function(d) { return d.y; })
 
                // Show tooltip when hovering over circle (data for respective country)
         d3.selectAll(".countries").on("mousemove", function(d) {
