@@ -9,6 +9,7 @@ pym.then((child) => {
 METHOD: set the size of the canvas
 ------------------------------
 */
+
   let height = 400;
   let width = 700;
   let margin = { top: 0, right: 40, bottom: 34, left: 40 };
@@ -40,11 +41,17 @@ METHOD: select the d3 div and set the width and height
 ------------------------------
 */
 
-  let svg = d3
-    .select("#svganchor")
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height);
+  let svg = d3.select("#svganchor").append("svg")
+  .attr("width", width)
+ .attr("height", height);
+
+    /*
+  d3.select(window).on("resize", function () {
+    var targetWidth = svg.node().getBoundingClientRect().width;
+    svg.attr("width", targetWidth);
+    svg.attr("height", targetWidth / aspect);
+  });
+*/
 
   /*
 ------------------------------
@@ -214,10 +221,9 @@ METHOD: load in and process data
           })
           .attr("cy", function (d) {
             return d.y;
-          })
-          ;
+          });
 
-          countriesCircles
+        countriesCircles
           .enter()
           .append("text")
           .attr("class", "textGraph")
@@ -227,7 +233,8 @@ METHOD: load in and process data
           .attr("y", function (d) {
             return d.y;
           })
-          .text(function (d) {return (d.County);
+          .text(function (d) {
+            return d.County;
           });
 
         // Show tooltip when hovering over circle (data for respective country)
