@@ -1,0 +1,82 @@
+<style>
+   section {
+    position: relative;
+  }
+  
+  section > div {
+    position: absolute;
+    top: 0;
+  }
+  
+  .active{
+    background-color: #c70000;
+  }
+  
+  #treeMapContainer > div {
+    opacity: 0;
+  }
+
+  #treeMapContainer img {
+      width: 100%;
+  }
+
+  #treeMapContainer {
+    height: 500px;
+  }
+
+  #treeMapContainer > div.active {
+    opacity: 1;
+    background-color: transparent;
+  }
+
+  .centered {
+    display: table;
+    margin: 20px auto;
+  }
+  
+  .graph {
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  .buttonsContainer {
+    display: flex;
+  }
+  
+  button {
+    margin:0 auto;
+    display:block;
+    width: 50%;
+  }
+    </style>
+  
+  <h2 style="margin-bottom: 10px;">Big geographic variations in debt from medical and dental bills</h2>
+  <div style="margin-bottom: 10px;">The share of people with medical bills in collections varies widely from one county to another across the country.</div>
+
+  <div class="buttonsContainer">
+    <button class="active" data-filter="all">All US Counties</button>
+    <button data-filter="top100" class="">Top 100</button>
+    </div>
+
+
+  <section id="treeMapContainer">
+  <div data-chart="all" class="active">
+    <h2>All US Counties</h2>
+    <img src="./countymap1.png" alt="Chloropleth map of every US county in the US, with dark blue corresponding to lower levels of debt, while red correlates to higher levels of debt. There is a large concentration of dark blue in Midwest and Northwestern states, while the Southeast shows varying degrees of red.">
+  </div>
+  <div data-chart="top100">
+    <h2>Top 100</h2>
+    <img src="./countymap2.png" alt="Map of every US county in the US, with the top 100 counties with US debt highlighted in red. These counties are generally concentratd in the Southeast, going as far west as Texas, and as far north as West Virginia.">
+  </div>
+
+</section>
+  
+
+  <div class="footer"></div>
+  </div>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
+  <script src="https://unpkg.com/topojson-client@3"></script>
+  <script src="https://unpkg.com/d3-tip@0.9.1/dist/index.js"></script>
+  <script src="./graphic.js"></script>
+  

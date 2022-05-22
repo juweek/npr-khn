@@ -1,0 +1,38 @@
+@import "./lib/base";
+
+section {
+    position: relative;
+  }
+  
+  section > div {
+    position: absolute;
+    top: 0;
+  }
+  
+  .active{
+    background-color: #c70000;
+  }
+  
+  #treeMapContainer > div {
+    opacity: 0;
+  }
+  
+  #treeMapContainer > div.active {
+    opacity: 1;
+    background-color: transparent;
+  }
+
+  .centered {
+    display: table;
+    margin: 20px auto;
+  }
+  
+  .graph {
+    width: 50%;
+    margin: 0 auto;
+  }
+  
+  button {
+    margin:0 auto;
+    display:block;
+  }

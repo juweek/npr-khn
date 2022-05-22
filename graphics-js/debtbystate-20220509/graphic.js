@@ -100,7 +100,7 @@ d3.json("https://raw.githubusercontent.com/xuanyoulim/fcc-internet-complaints-ma
 
 	// for circle
 	svg.append("g")
-		.attr("fill", "brown")
+		.attr("fill", "#2FACD3")
         .attr("class", "state")
 		.attr("fill-opacity", 0.5)
 		.attr("stroke", "#fff")
@@ -152,14 +152,12 @@ d3.json("https://raw.githubusercontent.com/xuanyoulim/fcc-internet-complaints-ma
 	});
 
 	update(svg, us, radius);
+	child.sendHeight();
+
+    window.addEventListener("resize", () => child.sendHeight());
 })
 .catch(function(error){
 	console.log(error);
 });
 
-
-    child.sendHeight();
-
-
-    window.addEventListener("resize", () => child.sendHeight());
 });
