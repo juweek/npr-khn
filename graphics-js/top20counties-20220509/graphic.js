@@ -54,7 +54,7 @@ METHOD: select the d3 div and set the width and height
 */
 
   /*
-------------------------------
+-----------------------------
 METHOD: add in the x-axis
 ------------------------------
 */
