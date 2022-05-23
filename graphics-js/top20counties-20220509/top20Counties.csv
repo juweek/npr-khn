@@ -1,0 +1,21 @@
+FIPS,County,State,medical_debt_collections_pct,six_chronic_pct,uninsured_pct,population,collection_debt_state_avg
+48439,Tarrant,Texas,27.3,20.3,16.1,"2,110,640",1068
+48113,Dallas,Texas,22.5,20.5,21.0,"2,613,539",1068
+48029,Bexar,Texas,20.9,18.2,15.2,"2,009,324",1068
+32003,Clark,Nevada,17.6,18.0,11.7,"2,265,461",909
+4013,Maricopa,Arizona,15.6,15.5,10.6,"4,420,568",942
+12011,Broward,Florida,15.4,23.3,14.2,"1,944,375",1065
+48201,Harris,Texas,14.5,19.5,20.2,"4,731,145",1068
+26163,Wayne,Michigan,14.5,25.3,6.3,"1,793,561",492
+17031,Cook,Illinois,13.8,19.3,8.8,"5,275,541",644
+12086,Miami-Dade,Florida,10.9,29.7,16.8,"2,701,767",1065
+6071,San Bernardino,California,10.5,19.3,8.4,"2,181,654",750
+6073,San Diego,California,9.6,15.1,7.8,"3,298,634",750
+6065,Riverside,California,9.6,17.8,8.8,"2,418,185",750
+6037,Los Angeles,California,7.6,23.8,9.6,"10,014,009",750
+6059,Orange,California,7.4,18.3,7.6,"3,186,989",750
+53033,King,Washington,4.7,11.6,5.3,"2,269,675",604
+36081,Queens,New York,3.9,22.0,9.5,"2,405,464",484
+6085,Santa Clara,California,3.8,12.9,4.3,"1,936,259",750
+36047,Kings,New York,3.4,28.2,7.3,"2,736,074",484
+36061,New York,New York,3.0,15.8,5.2,"1,694,251",484

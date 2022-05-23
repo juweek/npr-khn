@@ -10,9 +10,25 @@ METHOD: set the size of the canvas
 ------------------------------
 */
 
-  let height = 400;
-  let width = 700;
+  let height = 0;
+  let width = 0;
   let margin = { top: 0, right: 40, bottom: 34, left: 40 };
+  let forceCollision = 30;
+  let radiusRange = 15
+
+  let isMobile = window.matchMedia(
+    "only screen and (max-width: 729px)"
+  ).matches;
+
+  if (isMobile) {
+    height = 460;
+    width = 360;
+  } else {
+    height = 380;
+    width = 700;
+    forceCollision = 25
+    radiusRange = 21
+  }
 
   // Data structure describing volume of displayed data
   let Count = {
@@ -41,17 +57,32 @@ METHOD: select the d3 div and set the width and height
 ------------------------------
 */
 
-  let svg = d3.select("#svganchor").append("svg")
-  .attr("width", width)
- .attr("height", height);
+  let svg = d3
+    .select("#svganchor")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
 
-    /*
+  
   d3.select(window).on("resize", function () {
-    var targetWidth = svg.node().getBoundingClientRect().width;
-    svg.attr("width", targetWidth);
-    svg.attr("height", targetWidth / aspect);
+    let isMobile = window.matchMedia(
+      "only screen and (max-width: 729px)"
+    ).matches;
+  
+    if (isMobile) {
+      height = 460;
+      width = 360;
+    } else {
+      height = 380;
+      width = 700;
+      forceCollision = 25
+      radiusRange = 21
+    }
+
+    svg.attr("width", width);
+    svg.attr("height", height);
   });
-*/
+
 
   /*
 -----------------------------
@@ -83,9 +114,7 @@ METHOD: add in the x-axis
 METHOD: load in and process data
 ------------------------------
 */
-  d3.csv(
-    "https://raw.githubusercontent.com/juweek/beeswarm/main/medicalDebt_KHN_NPR/datasets/top20Counties.csv"
-  )
+  d3.csv("./top20Counties.csv")
     .then(function (data) {
       let dataSet = data;
 
@@ -101,18 +130,6 @@ METHOD: load in and process data
           return +d.total;
         })
       );
-
-      // Listen to click on "total" and "per capita" buttons and trigger redraw when they are clicked
-      d3.selectAll(".measure").on("click", function () {
-        let thisClicked = this.value;
-        //chartState.measure = thisClicked;
-        if (thisClicked == "nonSize") {
-          chartState.radius = 5;
-        } else {
-          chartState.radius = 0;
-        }
-        redraw();
-      });
 
       redraw();
 
@@ -137,7 +154,7 @@ METHOD: load in and process data
         var rscale = d3
           .scaleLinear()
           .domain([300, d3.max(listOfValues)])
-          .range([1, 15]);
+          .range([1, radiusRange]);
 
         // Set X axis based on new scale. If chart is set to "per capita" use numbers with one decimal point
         let xAxis;
@@ -168,7 +185,7 @@ METHOD: load in and process data
               .strength(10)
           ) // Increase velocity
           .force("y", d3.forceY(height / 2 - margin.bottom / 2)) // // Apply positioning force to push nodes towards center along Y axis
-          .force("collide", d3.forceCollide(20)) // Apply collision force with radius of 9 - keeps nodes centers 9 pixels apart
+          .force("collide", d3.forceCollide(forceCollision)) // Apply collision force with radius of 9 - keeps nodes centers 9 pixels apart
           .stop(); // Stop simulation from starting automatically
 
         // Manually run simulation
@@ -228,10 +245,34 @@ METHOD: load in and process data
           .append("text")
           .attr("class", "textGraph")
           .attr("x", function (d) {
-            return d.x;
+            if (d.County == "Miami-Dade") {
+              return d.x + 10;
+            }
+            if (d.County == "Maricopa") {
+              return d.x + 10;
+            }
+            if (d.County == "Tarrant") {
+              return d.x - 40;
+            }
+            if (d.County == "Dallas") {
+              return d.x + 20;
+            }
+            if (d.County == "Broward") {
+              return d.x + 18;
+            }
+            return d.x + 12;
           })
           .attr("y", function (d) {
-            return d.y;
+            if (d.County == "Maricopa") {
+              return d.y - 8;
+            }
+            if (d.County == "Miami-Dade") {
+              return d.y + 14;
+            }
+            if (d.County == "Riverside") {
+              return d.y + 14;
+            }
+            return d.y + 6;
           })
           .text(function (d) {
             return d.County;
@@ -289,4 +330,15 @@ METHOD: load in and process data
   // });
 
   window.addEventListener("resize", () => child.sendHeight());
+  window.addEventListener("resize", () => function () {
+    
+    if (isMobile) {
+      height = 460;
+      width = 360;
+    } else {
+      height = 400;
+      width = 700;
+    }
+    svg.attr("width", width).attr("height", height);
+  } )
 });
