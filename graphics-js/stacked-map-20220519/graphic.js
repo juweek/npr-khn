@@ -7,7 +7,7 @@ pym.then(child => {
 
 var svgElement = document.getElementById("treeMapContainer");
 var buttonElements = document.querySelectorAll(".buttonsContainer button");
-var chartElements = document.querySelectorAll("#treeMapContainer > div");
+var chartElements = document.querySelectorAll(".hiddenDiv");
 
 /*
 ------------------------------
