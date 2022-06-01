@@ -20,10 +20,6 @@
       width: 100%;
   }
 
-  #treeMapContainer {
-    height: 500px;
-  }
-
   #treeMapContainer > div.active {
     opacity: 1;
     background-color: transparent;
@@ -48,6 +44,16 @@
     display:block;
     width: 50%;
   }
+
+      #treeMapContainer {
+    height: 300px;
+  }
+
+  @media screen and (min-width: 729px) {
+    #treeMapContainer {
+      height: 520px;
+    }
+  }
     </style>
   
   <h2 style="margin-bottom: 10px;">Big geographic variations in debt from medical and dental bills</h2>
@@ -62,11 +68,11 @@
   <section id="treeMapContainer">
   <div data-chart="all" class="active">
     <h2>All US Counties</h2>
-    <img src="./countymap1.png" alt="Chloropleth map of every US county in the US, with dark blue corresponding to lower levels of debt, while red correlates to higher levels of debt. There is a large concentration of dark blue in Midwest and Northwestern states, while the Southeast shows varying degrees of red.">
+    <img src="./medicalDebtMap.svg" alt="Chloropleth map of every US county in the US, with dark blue corresponding to lower levels of debt, while red correlates to higher levels of debt. There is a large concentration of dark blue in Midwest and Northwestern states, while the Southeast shows varying degrees of red.">
   </div>
   <div data-chart="top100">
     <h2>Top 100</h2>
-    <img src="./countymap2.png" alt="Map of every US county in the US, with the top 100 counties with US debt highlighted in red. These counties are generally concentratd in the Southeast, going as far west as Texas, and as far north as West Virginia.">
+    <img src="./alteredSVG.svg" alt="Map of every US county in the US, with the top 100 counties with US debt highlighted in red. These counties are generally concentratd in the Southeast, going as far west as Texas, and as far north as West Virginia.">
   </div>
 
 </section>

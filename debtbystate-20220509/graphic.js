@@ -131,6 +131,25 @@ METHOD: fetch the data and draw the chart
         .append("title")
         .text((d) => `${d.properties.name}${format(d.value)}`);
 
+      // Create tooltip div and make it invisible
+      let tooltip = d3
+        .select("#svganchor")
+        .append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+    
+      svg.selectAll(".state")
+        .on("mousemove", function (d) {
+          tooltip
+            .html(d.target.__data__.properties.name + ": $" + parseInt((d.target.__data__.value)) + "<br>")
+            .style("top", d.pageY - 12 + "px")
+            .style("left", d.pageX + 25 + "px")
+            .style("opacity", 0.9);
+        })
+        .on("mouseout", function (_) {
+          tooltip.style("opacity", 0);
+        });
+
       svg
         .select("g")
         .selectAll("text")
@@ -201,6 +220,7 @@ METHOD: load in the map
         .attr("stroke", "#fff")
         .attr("stroke-width", 0.5);
 
+
       let radius = d3.scaleSqrt([450, 1100], [0, 45]);
 
       const legend = svg
@@ -225,28 +245,6 @@ METHOD: load in the map
         .attr("y", (d) => -2 * radius(d))
         .attr("dy", "1.3em")
         .text(d3.format(".4"));
-
-      // Create tooltip div and make it invisible
-      let tooltip = d3
-        .select("#svganchor")
-        .append("div")
-        .attr("class", "tooltip")
-        .style("opacity", 0);
-
-      d3.selectAll(".state")
-        .on("mousemove", function (d) {
-          tooltip
-            .html(
-              `<strong>State: ${d.target.__data__.id}</strong><br>
-					  <strong>Avg amount of medical debt: X,XX</strong>`
-            )
-            .style("top", d.pageY - 12 + "px")
-            .style("left", d.pageX + 25 + "px")
-            .style("opacity", 0.9);
-        })
-        .on("mouseout", function (_) {
-          tooltip.style("opacity", 0);
-        });
 
       update(svg, us, radius);
       child.sendHeight();
