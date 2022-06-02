@@ -36,16 +36,47 @@
   .axis text {
     font: 10px sans-serif;
   }
+
+  .key_block {
+  display: flex;
+  flex-direction: column;
+}
+
+.key_break {
+  height: 30px;
+  width: 30px;
+  margin: 0 auto;
+  border-radius: 20px;
+}
+
+#keyContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 10px;
+}
     </style>
   
   <h2 style="margin-bottom: 10px;">How Much Do Americans Owe?</h2>
   <div style="margin-bottom: 10px;">The median amount of medical debt held by Americans also varies significantly by state.</div>
     
-
+  <section id="keyContainer">
+    <div class="key_block">
+      <div class="key_break" style="background-color: #9DD6E7;"></div>
+      <span class="">Under $700</span>
+    </div>
+    <div class="key_block">
+      <div class="key_break" style="background-color: #E6E0C4;"></div>
+      <span class="">$700 - $1,000</span>
+    </div>
+    <div class="key_block">
+      <div class="key_break" style="background-color: #CC1A29;"></div>
+      <span class="">Over $1,000</span>
+    </div>
+  </section>
   <div id="svganchor" class="graphic" role="img" class="graph centered">
   </div>
   
-
   <div class="footer"></div>
   </div>
   

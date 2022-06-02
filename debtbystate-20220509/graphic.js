@@ -20,64 +20,64 @@ METHOD: set the size of the canvas
 
   //create a row of three HTML buttons
   let states = {
-	"arizona": "AZ",
-	"alabama": "AL",
-	"alaska": "AK",
-	"arkansas": "AR",
-	"california": "CA",
-	"colorado": "CO",
-	"connecticut": "CT",
-	"district of columbia": "DC",
-	"delaware": "DE",
-	"florida": "FL",
-	"georgia": "GA",
-	"hawaii": "HI",
-	"idaho": "ID",
-	"illinois": "IL",
-	"indiana": "IN",
-	"iowa": "IA",
-	"kansas": "KS",
-	"kentucky": "KY",
-	"louisiana": "LA",
-	"maine": "ME",
-	"maryland": "MD",
-	"massachusetts": "MA",
-	"michigan": "MI",
-	"minnesota": "MN",
-	"mississippi": "MS",
-	"missouri": "MO",
-	"montana": "MT",
-	"nebraska": "NE",
-	"nevada": "NV",
-	"new hampshire": "NH",
-	"new jersey": "NJ",
-	"new mexico": "NM",
-	"new york": "NY",
-	"north carolina": "NC",
-	"north dakota": "ND",
-	"ohio": "OH",
-	"oklahoma": "OK",
-	"oregon": "OR",
-	"pennsylvania": "PA",
-	"rhode island": "RI",
-	"south carolina": "SC",
-	"south dakota": "SD",
-	"tennessee": "TN",
-	"texas": "TX",
-	"utah": "UT",
-	"vermont": "VT",
-	"virginia": "VA",
-	"washington": "WA",
-	"west virginia": "WV",
-	"wisconsin": "WI",
-	"wyoming": "WY",
-	"american samoa": "AS",
-	"guam": "GU",
-	"northern mariana islands": "MP",
-	"puerto rico": "PR",
-	"us virgin islands": "VI",
-	"us minor outlying islands": "UM"
-}
+    arizona: "AZ",
+    alabama: "AL",
+    alaska: "AK",
+    arkansas: "AR",
+    california: "CA",
+    colorado: "CO",
+    connecticut: "CT",
+    "district of columbia": "DC",
+    delaware: "DE",
+    florida: "FL",
+    georgia: "GA",
+    hawaii: "HI",
+    idaho: "ID",
+    illinois: "IL",
+    indiana: "IN",
+    iowa: "IA",
+    kansas: "KS",
+    kentucky: "KY",
+    louisiana: "LA",
+    maine: "ME",
+    maryland: "MD",
+    massachusetts: "MA",
+    michigan: "MI",
+    minnesota: "MN",
+    mississippi: "MS",
+    missouri: "MO",
+    montana: "MT",
+    nebraska: "NE",
+    nevada: "NV",
+    "new hampshire": "NH",
+    "new jersey": "NJ",
+    "new mexico": "NM",
+    "new york": "NY",
+    "north carolina": "NC",
+    "north dakota": "ND",
+    ohio: "OH",
+    oklahoma: "OK",
+    oregon: "OR",
+    pennsylvania: "PA",
+    "rhode island": "RI",
+    "south carolina": "SC",
+    "south dakota": "SD",
+    tennessee: "TN",
+    texas: "TX",
+    utah: "UT",
+    vermont: "VT",
+    virginia: "VA",
+    washington: "WA",
+    "west virginia": "WV",
+    wisconsin: "WI",
+    wyoming: "WY",
+    "american samoa": "AS",
+    guam: "GU",
+    "northern mariana islands": "MP",
+    "puerto rico": "PR",
+    "us virgin islands": "VI",
+    "us minor outlying islands": "UM",
+  };
 
   /*
 ------------------------------
@@ -122,6 +122,15 @@ METHOD: fetch the data and draw the chart
         .join("circle")
         .attr("transform", (d) => `translate(${path.centroid(d)})`)
         .attr("r", (d) => radius(d.value))
+        .attr("fill", (d) => {
+          if (d.value > 1000) {
+            return "#CC1A29";
+          } else if (d.value > 700) {
+            return "#FDF2BD";
+          } else {
+            return "#9DD6E7";
+          }
+        })
         .attr("data-coordinates", (d) => `${path.centroid(d)}`);
       //.attr("r", 5);
 
@@ -137,11 +146,17 @@ METHOD: fetch the data and draw the chart
         .append("div")
         .attr("class", "tooltip")
         .style("opacity", 0);
-    
-      svg.selectAll(".state")
+
+      svg
+        .selectAll(".state")
         .on("mousemove", function (d) {
           tooltip
-            .html(d.target.__data__.properties.name + ": $" + parseInt((d.target.__data__.value)) + "<br>")
+            .html(
+              d.target.__data__.properties.name +
+                ": $" +
+                parseInt(d.target.__data__.value) +
+                "<br>"
+            )
             .style("top", d.pageY - 12 + "px")
             .style("left", d.pageX + 25 + "px")
             .style("opacity", 0.9);
@@ -172,10 +187,9 @@ METHOD: fetch the data and draw the chart
             .toLowerCase(); //Trim, remove all non-word characters with the exception of spaces, and convert to lowercase
           if (states[a] !== null) {
             return states[a];
+          } else {
+            return d.properties.name;
           }
-		  else {
-			  return d.properties.name;
-		  }
         });
     });
   }
@@ -214,12 +228,10 @@ METHOD: load in the map
       // for circle
       svg
         .append("g")
-        .attr("fill", "#2FACD3")
         .attr("class", "state")
         .attr("fill-opacity", 0.5)
         .attr("stroke", "#fff")
         .attr("stroke-width", 0.5);
-
 
       let radius = d3.scaleSqrt([450, 1100], [0, 45]);
 

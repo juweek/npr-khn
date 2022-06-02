@@ -9,6 +9,7 @@
     "*.jpg",
     "*.gif",
     "*.json",
+    "*.svg",
     "!manifest.json",
     "*.geojson",
     "*.csv"

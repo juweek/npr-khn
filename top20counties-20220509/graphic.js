@@ -225,11 +225,20 @@ METHOD: load in and process data
           })
           //else 	{ return parseInt(d.collection_debt_state_avg)/80}
           .attr("fill", function (d) {
-            return "#2FACD3";
+            console.log(d.State)
+            if (d.State == ("New York")) {
+              return "#2FACD3";
+            }
+            else if (d.State == ("Texas")){
+              return "#c70000";
+            }
+            else {
+              return "#979797";
+            }
           })
           .attr("fill-opacity", 0.5)
-          .attr("stroke", "#2FACD3")
-          .attr("stroke-width", 2)
+          .attr("stroke", "#dfdfdf")
+          .attr("stroke-width", 1)
           .merge(countriesCircles)
           .transition()
           .duration(2000)
