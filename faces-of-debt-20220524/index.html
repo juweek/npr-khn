@@ -1,0 +1,176 @@
+<style>
+.wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 300px 300px;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+}
+
+@media only screen and (max-width: 729px) {
+    .wrapper {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 200px 200px;
+        grid-row-gap: 30px;
+        grid-column-gap: 10px;
+      }
+}
+
+.card {
+  background-color: antiquewhite;
+  border: 2px solid #e7e7e7;
+  border-radius: 4px;
+  padding: 0.5rem;
+  background-image: url("./assets/backgroundImage1.png");
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
+  background-position-x: right;
+  background-image: (rgba(7, 7, 9, 0.546),
+    url("./assets/backgroundImage1.png"));
+}
+.card.card1 {
+    background-image: linear-gradient(
+      rgba(19, 19, 23, 0.414),
+      rgba(14, 14, 12, 0.319)
+    ),
+    url("./assets/backgroundImage1.png");
+}
+
+.card1:hover {
+    background-image: linear-gradient(
+      rgba(157, 157, 243, 0.73),
+      rgba(14, 14, 12, 0.519)
+    ),
+    url("./assets/backgroundImage1.png");
+}
+.card.card2 {
+    background-image: linear-gradient(
+      rgba(19, 19, 23, 0.214),
+      rgba(14, 14, 12, 0.319)
+    ),
+    url("./assets/backgroundImage2.png");
+}
+.card2:hover {
+    background-image: linear-gradient(
+      rgba(157, 157, 243, 0.73),
+      rgba(14, 14, 12, 0.519)
+    ),
+    url("./assets/backgroundImage2.png");
+}
+.card.card3 {
+    background-image: linear-gradient(
+      rgba(19, 19, 23, 0.214),
+      rgba(14, 14, 12, 0.319)
+    ),
+    url("./assets/backgroundImage3.png");
+}
+.card3:hover {
+    background-image: linear-gradient(
+      rgba(157, 157, 243, 0.73),
+      rgba(14, 14, 12, 0.519)
+    ),
+    url("./assets/backgroundImage3.png");
+}
+.card.card4 {
+    background-image: linear-gradient(
+      rgba(19, 19, 23, 0.214),
+      rgba(14, 14, 12, 0.319)
+    ),
+    url("./assets/backgroundImage4.png");
+}
+.card4:hover {
+    background-image: linear-gradient(
+      rgba(157, 157, 243, 0.73),
+      rgba(14, 14, 12, 0.519)
+    ),
+    url("./assets/backgroundImage4.png");
+}
+
+.card header {
+  font-weight: bold;
+}
+
+#myVideo {
+  position: absolute;
+  left: -60px;
+  top: 0;
+  width: auto;
+  max-height: 100%;
+  min-width: 150%;
+}
+
+.contentArea, .topArea {
+  position: absolute;
+  bottom: 0;
+  background-color: white;
+  width: 100%;
+  left: 0;
+  padding: 10px;
+}
+
+
+.topArea {
+  top: 0;
+}
+     </style> 
+ 
+     <section class="wrapper">
+        <div class="card card1" style="color: white;">
+            <div class="contentArea" style="background-color: transparent;">
+              <div>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod"</div>
+            </div>
+            <div class="topArea" style="background-color: transparent;">
+              <header>Alyson Ward, 43, Chicago</header>
+              <div>Childbirth, $80k</div>
+            </div>
+          </div>
+        <div class="card card2" style="color: white;">
+            <div class="topArea" style="background-color: transparent;">
+              <header>Alyson Ward, 43, Chicago</header>
+              <div>Childbirth, $80k</div>
+            </div>
+          </div>
+        <div class="card card3" style="color: white;">
+          <div class="contentArea" style="background-color: transparent;">
+            <div>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod"</div>
+          </div>
+          <div class="topArea" style="background-color: transparent;">
+            <header>Alyson Ward, 43, Chicago</header>
+            <div>Childbirth, $80k</div>
+          </div>
+        </div>
+        <div class="card card4" style="color: white;">
+            <div class="contentArea" style="background-color: transparent;">
+              <div>"Lorem ipsum dolor sit amet, consectetur adipiscing."</div>
+            </div>
+            <div class="topArea" style="background-color: transparent;">
+              <header>Alyson Ward, 43, Chicago</header>
+              <div>Childbirth, $80k</div>
+            </div>
+          </div>
+          <div class="card videoCard">
+            <video autoplay muted loop id="myVideo">
+              <source src="https://github.com/juweek/contentModules/blob/main/gridCards/video_portrait_long.mp4?raw=true" type="video/mp4" />
+            </video>
+            <div class="contentArea">
+              <div>"Lorem ipsum dolor sit amet, consectetur adipiscing elit"</div>
+            </div>
+            <div class="topArea" style="background: rgba(0, 0, 0, 0.5); color: white; height: fit-content;">
+              <header>Alyson Ward, 43, Chicago</header>
+              <div>Childbirth, $80k</div>
+            </div>
+          </div>
+      </section>
+   
+ 
+   <div class="footer"></div>
+   </div>
+   
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
+   <script src="https://unpkg.com/topojson-client@3"></script>
+   <script src="https://unpkg.com/d3-tip@0.9.1/dist/index.js"></script>
+   <script src="./graphic.js"></script>
+   
