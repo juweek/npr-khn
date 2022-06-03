@@ -1,3 +1,106 @@
-// * {
-// 	border: 1px solid black !important;
-// }
+/* variables */
+body {
+  --red1: #6C2315;
+  --red2: #A23520;
+  --red3: #D8472B;
+  --red4: #E27560;
+  --red5: #ECA395;
+  --red6: #F5D1CA;
+}
+
+body.khn {
+  // reference: https://khn.org/news/article/poll-prescription-drug-price-negotiation-medicare-public-support/
+
+  --chart-font: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+  --chart-value-size: 14px;
+  --chart-value-weight: bold;
+
+  // --title-font: "PT Serif", Georgia, "Times New Roman", Times, serif;
+  --title-font: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+  --title-weight: bold;
+  --title-color: #333;
+  --title-size: 22px;
+
+  --subhed-font: var(--chart-font);
+  --subhed-weight: normal;
+  --subhed-size: 16px;
+  --subhed-color: #333;
+
+  --footer-style: normal;
+  --footer-size: 14px;
+  --footer-color: #333;
+
+  --khn-blue-1: #053d63;
+  --khn-blue-2: #1279c5;
+  --khn-blue-3: #81bce1;
+  --khn-blue-4: #c0ddf0;
+
+  --bar-color: var(--khn-blue-2);
+  --bar-highlight-color: var(--khn-blue-1);
+}
+
+body.npr {
+  --chart-font: Helvetica, Arial, sans-serif;
+  --chart-value-size: 11px;
+  --chart-value-weight: normal;
+
+  --title-font: 'Gotham SSm', Helvetica, Arial, sans-serif;
+  --title-weight: normal;
+  --title-color: #666;
+  --title-size: 20px;
+
+  --subhed-font: var(--chart-font);
+  --subhed-weight: normal;
+  --subhed-size: 12px;
+  --subhed-color: #777;
+
+  --footer-style: italic;
+  --footer-size: 11px;
+  --footer-color: #999;
+
+  --bar-color: var(--red3);
+  --bar-highlight-color: var(--red1);
+}
+
+
+/* header styles */
+body {
+  font-family: var(--chart-font, sans-serif);
+}
+
+h1 {
+  font-family: var(--title-font, sans-serif);
+  font-weight: var(--title-weight, bold);
+  color: var(--title-color, #333);
+  font-size: var(--title-size, 20px);
+}
+
+h2 {
+  font-family: var(--subhed-font, sans-serif);
+  font-weight: var(--subhed-weight, bold);
+  color: var(--subhed-color, #333);
+  font-size: var(--subhed-size, 20px);
+}
+
+.footnotes p,
+.footer p {
+  color: var(--footer-color, #666);
+  font-size: var(--footer-size, 12px);
+}
+.footer p {
+  font-style: var(--footer-style, normal);
+}
+
+/* chart defaults */
+.bars rect {
+  fill: var(--bar-color, #666);
+
+  &.bar-2014 {
+    fill: var(--bar-highlight-color, #333);
+  }
+}
+
+.value text {
+  font-size: var(--chart-value-size, 12px);
+  font-weight: var(--chart-value-weight, normal);
+}
