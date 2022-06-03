@@ -26,6 +26,11 @@ body.khn {
   --subhed-size: 16px;
   --subhed-color: #333;
 
+  --subtitle-font: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+  --subtitletitle-weight: normal;
+  --subtitletitle-color: #666;
+  --subtitletitle-size: 12px;
+
   --footer-style: normal;
   --footer-size: 14px;
   --footer-color: #333;
@@ -48,6 +53,11 @@ body.npr {
   --title-weight: normal;
   --title-color: #666;
   --title-size: 20px;
+
+  --subtitle-font: 'Knockout 31 4r', Helvetica, Arial, sans-serif;
+  --subtitletitle-weight: normal;
+  --subtitletitle-color: #666;
+  --subtitletitle-size: 12px;
 
   --subhed-font: var(--chart-font);
   --subhed-weight: normal;
@@ -80,6 +90,13 @@ h2 {
   font-weight: var(--subhed-weight, bold);
   color: var(--subhed-color, #333);
   font-size: var(--subhed-size, 20px);
+}
+
+h3 {
+  font-family: var(--subtitle-font, sans-serif);
+  font-weight: var(--subtitle-weight, normal);
+  color: var(--subtitle-color, #333);
+  font-size: var(--subtitle-size, 12px);
 }
 
 .footnotes p,
