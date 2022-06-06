@@ -17,154 +17,33 @@
       }
 }
 
-.card {
-  background-color: antiquewhite;
-  border: 2px solid #e7e7e7;
-  border-radius: 4px;
-  padding: 0.5rem;
-  background-image: url("./assets/backgroundImage1.png");
-  background-size: cover;
-  position: relative;
-  overflow: hidden;
-  min-height: 200px;
-  background-position-x: right;
-  background-image: (rgba(7, 7, 9, 0.546),
-    url("./assets/backgroundImage1.png"));
-}
-.card.card1 {
-    background-image: linear-gradient(
-      rgba(19, 19, 23, 0.414),
-      rgba(14, 14, 12, 0.319)
-    ),
-    url("./assets/backgroundImage1.png");
+.profileContainer {
+  color: white;
 }
 
-.card1:hover {
-    background-image: linear-gradient(
-      rgba(157, 157, 243, 0.73),
-      rgba(14, 14, 12, 0.519)
-    ),
-    url("./assets/backgroundImage1.png");
-}
-.card.card2 {
-    background-image: linear-gradient(
-      rgba(19, 19, 23, 0.214),
-      rgba(14, 14, 12, 0.319)
-    ),
-    url("./assets/backgroundImage2.png");
-}
-.card2:hover {
-    background-image: linear-gradient(
-      rgba(157, 157, 243, 0.73),
-      rgba(14, 14, 12, 0.519)
-    ),
-    url("./assets/backgroundImage2.png");
-}
-.card.card3 {
-    background-image: linear-gradient(
-      rgba(19, 19, 23, 0.214),
-      rgba(14, 14, 12, 0.319)
-    ),
-    url("./assets/backgroundImage3.png");
-}
-.card3:hover {
-    background-image: linear-gradient(
-      rgba(157, 157, 243, 0.73),
-      rgba(14, 14, 12, 0.519)
-    ),
-    url("./assets/backgroundImage3.png");
-}
-.card.card4 {
-    background-image: linear-gradient(
-      rgba(19, 19, 23, 0.214),
-      rgba(14, 14, 12, 0.319)
-    ),
-    url("./assets/backgroundImage4.png");
-}
-.card4:hover {
-    background-image: linear-gradient(
-      rgba(157, 157, 243, 0.73),
-      rgba(14, 14, 12, 0.519)
-    ),
-    url("./assets/backgroundImage4.png");
-}
-
-.card header {
+.profileQuote {
   font-weight: bold;
+  font-size: 1.4rem;
+  margin-top: 10px;
+  margin-bottom: 6px;
+  margin-left: 10px;
+  line-height: 1.5rem;
+  margin-right: 20%;
 }
 
-#myVideo {
-  position: absolute;
-  left: -60px;
-  top: 0;
-  width: auto;
-  max-height: 100%;
-  min-width: 150%;
+.profileAmt {
+  font-size: 1.1rem;
+  margin-left: 10px;
+  line-height: 1.3rem;
 }
-
-.contentArea, .topArea {
-  position: absolute;
-  bottom: 0;
-  background-color: white;
-  width: 100%;
-  left: 0;
-  padding: 10px;
-}
-
 
 .topArea {
   top: 0;
 }
      </style> 
  
-     <section class="wrapper">
-        <div class="card card1" style="color: white;">
-            <div class="contentArea" style="background-color: transparent;">
-              <div>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod"</div>
-            </div>
-            <div class="topArea" style="background-color: transparent;">
-              <header>Alyson Ward, 43, Chicago</header>
-              <div>Childbirth, $80k</div>
-            </div>
-          </div>
-        <div class="card card2" style="color: white;">
-            <div class="topArea" style="background-color: transparent;">
-              <header>Alyson Ward, 43, Chicago</header>
-              <div>Childbirth, $80k</div>
-            </div>
-          </div>
-        <div class="card card3" style="color: white;">
-          <div class="contentArea" style="background-color: transparent;">
-            <div>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod"</div>
-          </div>
-          <div class="topArea" style="background-color: transparent;">
-            <header>Alyson Ward, 43, Chicago</header>
-            <div>Childbirth, $80k</div>
-          </div>
-        </div>
-        <div class="card card4" style="color: white;">
-            <div class="contentArea" style="background-color: transparent;">
-              <div>"Lorem ipsum dolor sit amet, consectetur adipiscing."</div>
-            </div>
-            <div class="topArea" style="background-color: transparent;">
-              <header>Alyson Ward, 43, Chicago</header>
-              <div>Childbirth, $80k</div>
-            </div>
-          </div>
-          <div class="card videoCard">
-            <video autoplay muted loop id="myVideo">
-              <source src="https://github.com/juweek/contentModules/blob/main/gridCards/video_portrait_long.mp4?raw=true" type="video/mp4" />
-            </video>
-            <div class="contentArea">
-              <div>"Lorem ipsum dolor sit amet, consectetur adipiscing elit"</div>
-            </div>
-            <div class="topArea" style="background: rgba(0, 0, 0, 0.5); color: white; height: fit-content;">
-              <header>Alyson Ward, 43, Chicago</header>
-              <div>Childbirth, $80k</div>
-            </div>
-          </div>
+     <section id="profileCardsWrapper" class="wrapper">
       </section>
-   
  
    <div class="footer"></div>
    </div>
@@ -172,7 +51,7 @@
    <script type="text/javascript">
     var DATA = <%= JSON.stringify(COPY.data) %>;
     var data = window.DATA;
-  console.log(data)
+    //console.log(data)
   </script>
    
    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
