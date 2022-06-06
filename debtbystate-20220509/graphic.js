@@ -90,20 +90,21 @@ METHOD: fetch the data and draw the chart
     ).then(function (data) {
       data.forEach(function (d) {
         // extract only c_fips and per_capita (or total)
-        d.total = +d.avg_medical_debt;
-        d.per_capita = +d.avg_medical_debt;
+        d.avg_medical_debt = d.avg_medical_debt + ':' + d.pc_collections;
         delete d["county"];
         delete d["state"];
         delete d["total"];
         delete d["per_capita"];
         delete d["pc_collections"];
         delete d["state_name"];
-        // delete d['per_capita'];
+        delete d['per_capita'];
       });
 
       // transform data to Map of c_fips => per_capita
       data = data.map((x) => Object.values(x));
       data = new Map(data);
+
+      console.log(data)
 
       let path = d3.geoPath();
 
@@ -121,11 +122,15 @@ METHOD: fetch the data and draw the chart
         )
         .join("circle")
         .attr("transform", (d) => `translate(${path.centroid(d)})`)
-        .attr("r", (d) => radius(d.value))
+        .attr("r", function (d) {
+          let medicalDebt = d.value.split(':');
+          return radius(medicalDebt[0])
+      })
         .attr("fill", (d) => {
-          if (d.value > 1000) {
+          let medicalDebt = d.value.split(':');
+          if (parseInt(medicalDebt[0]) > 1000) {
             return "#CC1A29";
-          } else if (d.value > 700) {
+          } else if (parseInt(medicalDebt[0]) > 700) {
             return "#FDF2BD";
           } else {
             return "#9DD6E7";
@@ -150,12 +155,19 @@ METHOD: fetch the data and draw the chart
       svg
         .selectAll(".state")
         .on("mousemove", function (d) {
+          let medicalDebt = d.target.__data__.value;
+          let newmedicalDebt = medicalDebt.split(':')
+          //console.log(medicalDebt)
+          let medicalDebtAmt = newmedicalDebt[0]
+          let percentCollectionsAmt = parseFloat(newmedicalDebt[1]) * 100
           tooltip
             .html(
               d.target.__data__.properties.name +
                 ": $" +
-                parseInt(d.target.__data__.value) +
-                "<br>"
+                parseInt(medicalDebtAmt) +
+                "<br>Share of people with medical debt in collections" +
+                ": %" +
+                parseInt(percentCollectionsAmt)
             )
             .style("top", d.pageY - 12 + "px")
             .style("left", d.pageX + 25 + "px")
@@ -233,7 +245,7 @@ METHOD: load in the map
         .attr("stroke", "#fff")
         .attr("stroke-width", 0.5);
 
-      let radius = d3.scaleSqrt([450, 1100], [0, 45]);
+      let radius = d3.scaleSqrt([450, 1100], [12, 45]);
 
       const legend = svg
         .append("g")

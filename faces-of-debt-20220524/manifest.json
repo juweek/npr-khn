@@ -12,7 +12,7 @@
     "!manifest.json",
     "*.geojson",
     "*.csv"
-  ],
+  ],"sheet": "1gfhcQwKvdfpZRNuEVwk8MaaG944jWP6dswGf5A6doKc",
   "installedPackagesAtCreation": {
     "d3-array": "^3.1.6",
     "d3-axis": "^3.0.0",

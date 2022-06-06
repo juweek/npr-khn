@@ -229,6 +229,9 @@ METHOD: load in and process data
             if (d.State == ("New York")) {
               return "#2FACD3";
             }
+            else if (d.State == ("California")){
+              return "#2FACD3";
+            }
             else if (d.State == ("Texas")){
               return "#c70000";
             }
@@ -301,7 +304,7 @@ METHOD: load in and process data
                             chartState.legend.indexOf(",")
                           )}</strong>: 
                           ${d.target.__data__.medical_debt_collections_pct}%<br>
-                          <strong>Avg amount of debt: </strong>${
+                          <strong>Mean amount of debt: </strong>$${
                             d.target.__data__.collection_debt_state_avg
                           }`
               )

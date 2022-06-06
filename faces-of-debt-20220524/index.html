@@ -168,6 +168,12 @@
  
    <div class="footer"></div>
    </div>
+
+   <script type="text/javascript">
+    var DATA = <%= JSON.stringify(COPY.data) %>;
+    var data = window.DATA;
+  console.log(data)
+  </script>
    
    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
    <script src="https://unpkg.com/topojson-client@3"></script>

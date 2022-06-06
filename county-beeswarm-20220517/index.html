@@ -36,27 +36,40 @@
   .axis text {
     font: 10px sans-serif;
   }
+
+    .sequenceRate_text {
+      font-size: 1rem;
+  }
+
+  @media screen and (min-width: 729px) {
+    .sequenceRate_text {
+      font-size: 1.1rem;
+}
+}
     </style>
     
   
   <h2 style="margin-bottom: 10px;">What Predicts Medical Debt? </h2>
-  <div style="margin-bottom: 10px;">Counties with large shares of people with multiple chronic conditions (in blue) tend to have higher levels of debt than counties with less illness (red). Each dot represents a county.</div>
-  <span class="sequenceRate_text">(Percentage of county population who have 6+ chronic conditions)</span>
-  <div class="gradientKeyLabel" style="display: flex; justify-content: space-between; margin-top: 20px;">
-  <div class="key_block" style="display: flex;">
-      <span class="sequenceRate_text"> Under 10%</span>
+  <div class="sequenceRate_text" style="margin-bottom: 10px;">Counties with large shares of people with multiple chronic conditions (in blue) tend to have higher levels of debt than counties with less illness (red). Each dot represents a county.</div>
+ 
+    <span class="sequenceRate_text">(Percentage of county population who have 6+ chronic conditions)</span>
+    <div class="gradientKeyLabel" style="display: flex; justify-content: space-between; margin-top: 20px;">
+      <div class="key_block" style="display: flex;">
+          <span class="sequenceRate_text"> Under 10%</span>
+        </div>
+        <div class="key_block" style="display: flex;">
+          <span class="sequenceRate_text"> 19%</span>
+        </div>
+        <div class="key_block" style="display: flex;">
+          <span class="sequenceRate_text"> 40%</span>
+        </div>
+      </div>
+    <div style="width: 100%; height: 30px; background: linear-gradient(to right, #6AAACD, rgb(203, 242, 246), #D05950); margin-bottom: 20px;"></div>
+
+    <img src="./allCounties.svg" style="width: 100%;">
+    <span class="sequenceRate_text">(Percentage of county population who has medical debt in collections)</span>
+    <div id="svganchor" class="graphic" role="img" style="margin-top: 10px;">
     </div>
-    <div class="key_block" style="display: flex;">
-      <span class="sequenceRate_text"> 19%</span>
-    </div>
-    <div class="key_block" style="display: flex;">
-      <span class="sequenceRate_text"> 40%</span>
-    </div>
-  </div>
-    <div style="width: 100%; height: 30px; background: linear-gradient(to right, #D05950, white, #6AAACD); margin-bottom: 20px;"></div>
-  <img src="./allCounties.svg" style="width: 100%;">
-  <div id="svganchor" class="graphic" role="img">
-  </div>
   <div class="footer"></div>
   </div>
   

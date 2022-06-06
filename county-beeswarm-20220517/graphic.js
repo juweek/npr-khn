@@ -39,8 +39,8 @@ pym.then((child) => {
     console.log(isMobile)
 
     if (isMobile.matches) {
-      var width = 420,
-      height = 100;
+      var width = 430,
+      height = 60;
     }
     else {
       var width = 800,
@@ -56,7 +56,8 @@ pym.then((child) => {
     .select("#svganchor")
     .append("svg")
     .attr("width", width)
-    .attr("height", height);
+    .attr("height", height)
+    .style("margin-left", "4px");
 
   // Create scale
   var scale = d3
