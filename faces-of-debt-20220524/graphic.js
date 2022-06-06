@@ -6,7 +6,6 @@ var { isMobile } = require("./lib/breakpoints");
 pym.then(child => {
     child.sendHeight();
 
-    console.log(data)
 
     let wrapper = document.getElementById('profileCardsWrapper');
 
@@ -22,8 +21,6 @@ pym.then(child => {
         newDiv.style.backgroundSize = "cover";
         newDiv.style.backgroundPosition = "center";
         newDiv.style.backgroundRepeat = "no-repeat";
-        console.log('./assets/' + name.toLowerCase().replace(/\s/g, '') + ".jpg")
-
       
         let newDivText = document.createElement("h2");
         newDivText.className = "profileQuote";
