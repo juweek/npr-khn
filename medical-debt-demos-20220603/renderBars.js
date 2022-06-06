@@ -70,6 +70,7 @@ var renderBarChart = function(config) {
   );
 
   var max = Math.max.apply(null, ceilings);
+  var max = 80;
 
   var xScale = d3
     .scaleLinear()
