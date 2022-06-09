@@ -154,7 +154,7 @@ METHOD: load in and process data
         var rscale = d3
           .scaleLinear()
           .domain([300, d3.max(listOfValues)])
-          .range([1, radiusRange]);
+          .range([3, radiusRange]);
 
         // Set X axis based on new scale. If chart is set to "per capita" use numbers with one decimal point
         let xAxis;
@@ -227,19 +227,19 @@ METHOD: load in and process data
           .attr("fill", function (d) {
             console.log(d.State)
             if (d.State == ("New York")) {
-              return "#2FACD3";
+              return "#FEE5DB";
             }
             else if (d.State == ("California")){
-              return "#2FACD3";
+              return "#FEE5DB";
             }
             else if (d.State == ("Texas")){
-              return "#c70000";
+              return "#9c4f57";
             }
             else {
-              return "#979797";
+              return "#e2523b";
             }
           })
-          .attr("fill-opacity", 0.5)
+          .attr("fill-opacity", 0.75)
           .attr("stroke", "#dfdfdf")
           .attr("stroke-width", 1)
           .merge(countriesCircles)

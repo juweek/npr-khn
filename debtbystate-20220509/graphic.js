@@ -85,9 +85,7 @@ METHOD: fetch the data and draw the chart
 ------------------------------
 */
   function update(svg, us, radius) {
-    d3.csv(
-      "https://raw.githubusercontent.com/juweek/datasets/main/medicalState.csv"
-    ).then(function (data) {
+    d3.csv("./medicalState.csv").then(function (data) {
       data.forEach(function (d) {
         // extract only c_fips and per_capita (or total)
         d.avg_medical_debt = d.avg_medical_debt + ':' + d.pc_collections;
@@ -129,11 +127,11 @@ METHOD: fetch the data and draw the chart
         .attr("fill", (d) => {
           let medicalDebt = d.value.split(':');
           if (parseInt(medicalDebt[0]) > 1000) {
-            return "#CC1A29";
+            return "#9c4f57";
           } else if (parseInt(medicalDebt[0]) > 700) {
-            return "#FDF2BD";
+            return "#e2523b";
           } else {
-            return "#9DD6E7";
+            return "#FEE5DB";
           }
         })
         .attr("data-coordinates", (d) => `${path.centroid(d)}`);
