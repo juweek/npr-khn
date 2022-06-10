@@ -24,6 +24,7 @@
     border-radius: 2px;
     pointer-events: none;
     cursor: none;
+    width: 150px;
   }
   
   .axis path,
@@ -43,15 +44,15 @@
     </style>
     
   <h1>What Predicts Medical Debt? </h1>
-  <h2 class="sequenceRate_text">Counties with large shares of people with multiple chronic conditions (in blue) tend to have higher levels of debt than counties with less illness (red). Each dot represents a county.</h2>
+  <h2 style="padding-bottom: 20px;">Counties with large shares of people with multiple chronic conditions (in red) tend to have higher levels of debt than counties with less illness (blue). Each dot represents a county.</h2>
  
-    <h2 class="sequenceRate_text">(Percentage of county population who have 6+ chronic conditions)</h2>
+    <h3 class="sequenceRate_text" style="border-top: 2px dashed #333; padding-top: 20px;">Percent of Medicare population with 6+ chronic conditions</h3>
     <div class="gradientKeyLabel" style="display: flex; justify-content: space-between; margin-top: 20px;">
       <div class="key_block" style="display: flex;">
-          <span class="sequenceRate_text"> Under 10%</span>
+          <span class="sequenceRate_text"> 0%</span>
         </div>
         <div class="key_block" style="display: flex;">
-          <span class="sequenceRate_text"> 19%</span>
+          <span class="sequenceRate_text"> 20%</span>
         </div>
         <div class="key_block" style="display: flex;">
           <span class="sequenceRate_text"> 40%</span>
@@ -60,10 +61,12 @@
     <div style="width: 100%; height: 30px; background: linear-gradient(to right, #6AAACD, rgb(203, 242, 246), #D05950); margin-bottom: 20px;"></div>
 
     <img src="./allCounties.svg" style="width: 100%;">
-    <h3 class="sequenceRate_text">(Percentage of county population who has medical debt in collections)</h3>
     <div id="svganchor" class="graphic" role="img" style="margin-top: 10px;">
     </div>
-  <div class="footer"></div>
+    <h3 class="sequenceRate_text xAxisKey">Percent of people with credit records who have medical debt</h3>
+    <div class="footer">
+      <p>Source: Urban Institute</p>
+  </div>
   </div>
   
   

@@ -32,9 +32,9 @@ METHOD: set the size of the canvas
 
   let height = 0;
   let width = 0;
-  let margin = { top: 0, right: 40, bottom: 34, left: 40 };
+  let margin = { top: 0, right: 25, bottom: 34, left: 10 };
   let forceCollision = 30;
-  let radiusRange = 15
+  let radiusRange = 15;
 
   let isMobile = window.matchMedia(
     "only screen and (max-width: 729px)"
@@ -46,8 +46,8 @@ METHOD: set the size of the canvas
   } else {
     height = 380;
     width = 700;
-    forceCollision = 25
-    radiusRange = 21
+    forceCollision = 25;
+    radiusRange = 25;
   }
 
   // Data structure describing volume of displayed data
@@ -83,26 +83,24 @@ METHOD: select the d3 div and set the width and height
     .attr("width", width)
     .attr("height", height);
 
-  
   d3.select(window).on("resize", function () {
     let isMobile = window.matchMedia(
       "only screen and (max-width: 729px)"
     ).matches;
-  
+
     if (isMobile) {
       height = 460;
       width = 360;
     } else {
       height = 380;
       width = 700;
-      forceCollision = 25
-      radiusRange = 21
+      forceCollision = 25;
+      radiusRange = 21;
     }
 
     svg.attr("width", width);
     svg.attr("height", height);
   });
-
 
   /*
 -----------------------------
@@ -174,7 +172,7 @@ METHOD: load in and process data
         var rscale = d3
           .scaleLinear()
           .domain([300, d3.max(listOfValues)])
-          .range([3, radiusRange]);
+          .range([4, radiusRange]);
 
         // Set X axis based on new scale. If chart is set to "per capita" use numbers with one decimal point
         let xAxis;
@@ -245,16 +243,13 @@ METHOD: load in and process data
           })
           //else 	{ return parseInt(d.collection_debt_state_avg)/80}
           .attr("fill", function (d) {
-            if (d.State == ("New York")) {
+            if (d.State == "New York") {
               return "#FEE5DB";
-            }
-            else if (d.State == ("California")){
+            } else if (d.State == "California") {
               return "#FEE5DB";
-            }
-            else if (d.State == ("Texas")){
+            } else if (d.State == "Texas") {
               return "#9c4f57";
-            }
-            else {
+            } else {
               return "#e2523b";
             }
           })
@@ -279,6 +274,9 @@ METHOD: load in and process data
             if (d.County == "Miami-Dade") {
               return d.x + 10;
             }
+            if (d.County == "Santa Clara") {
+              return d.x - 10;
+            }
             if (d.County == "Maricopa") {
               return d.x + 10;
             }
@@ -295,7 +293,10 @@ METHOD: load in and process data
           })
           .attr("y", function (d) {
             if (d.County == "Maricopa") {
-              return d.y - 8;
+              return d.y + 12;
+            }
+            if (d.County == "San Bernardino") {
+              return d.y - 3;
             }
             if (d.County == "Miami-Dade") {
               return d.y + 14;
@@ -310,7 +311,6 @@ METHOD: load in and process data
           });
 
         // Show tooltip when hovering over circle (data for respective country)
-        // Show tooltip when hovering over circle (data for respective country)
         d3.selectAll(".countries")
           .on("mousemove", function (d) {
             tooltip
@@ -323,12 +323,32 @@ METHOD: load in and process data
                             chartState.legend.indexOf(",")
                           )}</strong>: 
                           ${d.target.__data__.medical_debt_collections_pct}%<br>
-                          <strong>Mean amount of debt: </strong>$${
+                          <strong>Median amount of debt: </strong>$${
                             d.target.__data__.collection_debt_state_avg
                           }`
               )
-              .style("top", d.pageY - 12 + "px")
-              .style("left", d.pageX + 25 + "px")
+              .style("left", function () {
+                // Get calculated tooltip coordinates and size
+                let boundingBox = document.querySelector("body")
+                var tooltip_rect = boundingBox.getBoundingClientRect();
+                if((d.pageX + 140) > tooltip_rect.width){
+                  return (d.pageX - 120) + "px";
+                }
+                else {
+                  return d.pageX + "px";
+                }
+                })
+              .style("top", function () {
+                // Get calculated tooltip coordinates and size
+                let boundingBox = document.querySelector("body")
+                var tooltip_rect = boundingBox.getBoundingClientRect();
+                if((d.pageY + 60) > tooltip_rect.height){
+                  return d.pageY + "px";
+                }
+                else {
+                  return (d.pageY - 200) + "px";
+                }
+              })
               .style("opacity", 0.9);
 
             xLine
@@ -343,6 +363,8 @@ METHOD: load in and process data
             xLine.attr("opacity", 0);
           });
       }
+
+      
 
       // Add annotation to the chart
     })
@@ -361,15 +383,19 @@ METHOD: load in and process data
   // });
 
   window.addEventListener("resize", () => child.sendHeight());
-  window.addEventListener("resize", () => function () {
-    
-    if (isMobile) {
-      height = 460;
-      width = 360;
-    } else {
-      height = 400;
-      width = 700;
-    }
-    svg.attr("width", width).attr("height", height);
-  } )
+  window.addEventListener(
+    "resize",
+    () =>
+      function () {
+        if (isMobile) {
+          height = 460;
+          width = 360;
+        } else {
+          height = 400;
+          width = 700;
+        }
+        svg.attr("width", width).attr("height", height);
+        redraw();
+      }
+  );
 });

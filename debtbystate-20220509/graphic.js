@@ -3,7 +3,6 @@ var ANALYTICS = require("./lib/analytics");
 require("./lib/webfonts");
 var { isMobile } = require("./lib/breakpoints");
 
-
 var mode = null;
 if (document.querySelector("body").classList.contains("npr")) {
   mode = "npr";
@@ -12,7 +11,7 @@ if (document.querySelector("body").classList.contains("khn")) {
   mode = "khn";
 }
 
-switch(mode) {
+switch (mode) {
   case "khn":
     require("../_base/webfonts_khn.js");
     break;
@@ -109,21 +108,21 @@ METHOD: fetch the data and draw the chart
     d3.csv("./medicalState.csv").then(function (data) {
       data.forEach(function (d) {
         // extract only c_fips and per_capita (or total)
-        d.avg_medical_debt = d.avg_medical_debt + ':' + d.pc_collections;
+        d.avg_medical_debt = d.avg_medical_debt + ":" + d.pc_collections;
         delete d["county"];
         delete d["state"];
         delete d["total"];
         delete d["per_capita"];
         delete d["pc_collections"];
         delete d["state_name"];
-        delete d['per_capita'];
+        delete d["per_capita"];
       });
 
       // transform data to Map of c_fips => per_capita
       data = data.map((x) => Object.values(x));
       data = new Map(data);
 
-      console.log(data)
+      console.log(data);
 
       let path = d3.geoPath();
 
@@ -142,11 +141,11 @@ METHOD: fetch the data and draw the chart
         .join("circle")
         .attr("transform", (d) => `translate(${path.centroid(d)})`)
         .attr("r", function (d) {
-          let medicalDebt = d.value.split(':');
-          return radius(medicalDebt[0])
-      })
+          let medicalDebt = d.value.split(":");
+          return radius(medicalDebt[0]);
+        })
         .attr("fill", (d) => {
-          let medicalDebt = d.value.split(':');
+          let medicalDebt = d.value.split(":");
           if (parseInt(medicalDebt[0]) > 1000) {
             return "#9c4f57";
           } else if (parseInt(medicalDebt[0]) > 700) {
@@ -175,21 +174,38 @@ METHOD: fetch the data and draw the chart
         .selectAll(".state")
         .on("mousemove", function (d) {
           let medicalDebt = d.target.__data__.value;
-          let newmedicalDebt = medicalDebt.split(':')
-          //console.log(medicalDebt)
-          let medicalDebtAmt = newmedicalDebt[0]
-          let percentCollectionsAmt = parseFloat(newmedicalDebt[1]) * 100
+          let newmedicalDebt = medicalDebt.split(":");
+          let medicalDebtAmt = newmedicalDebt[0];
+          let percentCollectionsAmt = parseFloat(newmedicalDebt[1]) * 100;
           tooltip
             .html(
               d.target.__data__.properties.name +
                 ": $" +
                 parseInt(medicalDebtAmt) +
                 "<br>Share of people with medical debt in collections" +
-                ": %" +
-                parseInt(percentCollectionsAmt)
-            )
-            .style("top", d.pageY - 12 + "px")
-            .style("left", d.pageX + 25 + "px")
+                ": " + percentCollectionsAmt.toFixed() + "%" )
+            .style("left", function () {
+              // Get calculated tooltip coordinates and size
+              let boundingBox = document.querySelector("body")
+              var tooltip_rect = boundingBox.getBoundingClientRect();
+              if((d.pageX + 140) > tooltip_rect.width){
+                return (d.pageX - 120) + "px";
+              }
+              else {
+                return d.pageX + "px";
+              }
+              })
+            .style("top", function () {
+              // Get calculated tooltip coordinates and size
+              let boundingBox = document.querySelector("body")
+              var tooltip_rect = boundingBox.getBoundingClientRect();
+              if((d.pageY + 60) > tooltip_rect.height){
+                return d.pageY + "px";
+              }
+              else {
+                return (d.pageY - 200) + "px";
+              }
+            })
             .style("opacity", 0.9);
         })
         .on("mouseout", function (_) {

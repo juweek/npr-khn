@@ -61,11 +61,11 @@ pym.then((child) => {
 
     if (isMobile.matches) {
       var width = 430,
-      height = 60;
+      height = 30;
     }
     else {
       var width = 800,
-      height = 100;
+      height = 50;
     }
 
   let margin = ({top: 0, right: 40, bottom: 34, left: 10});
