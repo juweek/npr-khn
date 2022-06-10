@@ -11,8 +11,16 @@
 aria-label="<%- COPY.labels.screenreader %>"
 <% } %>
 >
-    <img src="fallback.png" alt="" class="fallback" />
 </div>
+
+<table class="sr-only">
+<% COPY.data.forEach(function(row) { %>
+  <tr>
+    <td><%= row.chart %>: <%= row.label %></td>
+    <td><%= row.amt %>%</td>
+  </tr>
+<% }); %>
+</table>
 
 <% if (COPY.labels["footnote_" + mode]) { %>
 <div class="footnotes">
@@ -21,8 +29,8 @@ aria-label="<%- COPY.labels.screenreader %>"
 <% } %>
 
 <div class="footer">
-    <% if (COPY.labels["source_" + mode]) { %><p>Source: <%= COPY.labels["source_" + mode] %></p><% } %>
-    <% if (COPY.labels.credit) { %><p>Credit: <%= COPY.labels.credit %></p><% } %>
+  <% if (COPY.labels["source_" + mode]) { %><p>Source: <%= t.smarty(COPY.labels["source_" + mode]) %></p><% } %>
+  <% if (COPY.labels.credit) { %><p>Credit: <%= COPY.labels.credit %></p><% } %>
 </div>
 
 <script type="text/javascript">
