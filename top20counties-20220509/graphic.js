@@ -3,6 +3,26 @@ var ANALYTICS = require("./lib/analytics");
 require("./lib/webfonts");
 var { isMobile } = require("./lib/breakpoints");
 
+var mode = null;
+if (document.querySelector("body").classList.contains("npr")) {
+  mode = "npr";
+}
+if (document.querySelector("body").classList.contains("khn")) {
+  mode = "khn";
+}
+
+switch (mode) {
+  case "khn":
+    require("../_base/webfonts_khn.js");
+    break;
+  case "npr":
+    require("../_base/webfonts_npr.js");
+    break;
+  default:
+    require("./lib/webfonts");
+    break;
+}
+
 pym.then((child) => {
   /*
 ------------------------------
@@ -225,7 +245,6 @@ METHOD: load in and process data
           })
           //else 	{ return parseInt(d.collection_debt_state_avg)/80}
           .attr("fill", function (d) {
-            console.log(d.State)
             if (d.State == ("New York")) {
               return "#FEE5DB";
             }

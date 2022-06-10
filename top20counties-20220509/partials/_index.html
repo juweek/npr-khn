@@ -1,0 +1,88 @@
+<style>
+  .measure-group {
+  display:inline;
+}
+
+button {
+  margin:0 auto;
+  display:block;
+}
+
+svg {
+  background-color: white;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: left;
+  color: white;
+  white-space: normal;
+  padding: 6px;
+  font-size: 14px;
+  background: rgb(96,125,139);
+  border: 1px solid rgb(96,125,139);
+  border-radius: 2px;
+  pointer-events: none;
+  cursor: none;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: rgb(96,125,139);
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.key_block {
+  display: flex;
+  flex-direction: column;
+}
+
+.key_break {
+  height: 30px;
+  width: 30px;
+  margin: 0 auto;
+  border-radius: 20px;
+  text-align: center;
+}
+
+#keyContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px dashed #333;
+}
+  </style>
+
+<h1>Big Variations Across Largest U.S. Counties</h1>
+<h2>The share of people with medical debt is highest in Texas counties (to the right) and lowest in New York and California (to the left). The size of the circles denotes the average amount of debt held by residents in each county.</h2>
+<section id="keyContainer">
+  <div class="key_block">
+    <div class="key_break" style="background-color: #FEE5DB;"></div>
+    <h3 class=""> NY/CA counties</h3>
+  </div>
+  <div class="key_block">
+    <div class="key_break" style="background-color: #F76C56;"></div>
+    <h3 class="">All other states</h3>
+  </div>
+  <div class="key_block">
+    <div class="key_break" style="background-color: #CA767F;"></div>
+    <h3 class=""> TX counties</h3>
+  </div>
+</section>
+  
+<div id="svganchor" class="graphic" role="img">
+</div>
+
+
+<div class="footer"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
+<script src="./graphic.js"></script>

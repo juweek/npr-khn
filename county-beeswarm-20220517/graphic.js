@@ -3,6 +3,27 @@ var ANALYTICS = require("./lib/analytics");
 require("./lib/webfonts");
 var { isMobile } = require("./lib/breakpoints");
 
+
+var mode = null;
+if (document.querySelector("body").classList.contains("npr")) {
+  mode = "npr";
+}
+if (document.querySelector("body").classList.contains("khn")) {
+  mode = "khn";
+}
+
+switch(mode) {
+  case "khn":
+    require("../_base/webfonts_khn.js");
+    break;
+  case "npr":
+    require("../_base/webfonts_npr.js");
+    break;
+  default:
+    require("./lib/webfonts");
+    break;
+}
+
 pym.then((child) => {
   const annotations = [
     {
@@ -50,7 +71,7 @@ pym.then((child) => {
   let margin = ({top: 0, right: 40, bottom: 34, left: 10});
 
 
-  var data = [0, 15, 20, 25, 30, 45];
+  var data = [0, 15, 20, 25, 30, 45, 50];
 
   let svgAxis = d3
     .select("#svganchor")

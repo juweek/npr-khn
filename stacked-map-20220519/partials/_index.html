@@ -1,0 +1,138 @@
+<style>
+  section {
+   position: relative;
+ }
+ 
+ .active{
+   background-color: #c70000;
+ }
+ 
+ #treeMapContainer > div {
+   opacity: 0;
+   position: absolute;
+   top: 0;
+   width: 100%;
+   margin-top: 20px;
+ }
+
+ #treeMapContainer img {
+     width: 100%;
+ }
+
+ #treeMapContainer > div.active {
+   opacity: 1;
+   background-color: transparent;
+ }
+
+ .centered {
+   display: table;
+   margin: 20px auto;
+ }
+ 
+ .graph {
+   width: 50%;
+   margin: 0 auto;
+ }
+
+ .buttonsContainer {
+   display: flex;
+ }
+ 
+ button {
+   margin:0 auto;
+   display:block;
+   width: 50%;
+   border-radius: 100px;
+ }
+ button:first-of-type {
+   margin-right: 10px;
+ }
+
+     #treeMapContainer {
+   height: 260px;
+ }
+
+ button.active {
+   color: white;
+   padding: 10px 4px;
+ }
+
+ @media screen and (min-width: 729px) {
+   #treeMapContainer {
+     height: 520px;
+   }
+
+   .buttonsContainer {
+     width: 40%;
+ }
+}
+
+.key_block {
+ display: flex;
+ flex-direction: column;
+}
+
+.key_break {
+ height: 30px;
+ width: 30px;
+ margin: 2px 2px;
+ border-radius: 20px;
+}
+
+#keyContainer {
+ display: flex;
+ flex-direction: row;
+ justify-content: space-between;
+ margin-top: 10px;
+}
+   </style>
+ 
+ <h1>Big geographic variations in debt from medical and dental bills</h1>
+ <h2>The share of people with medical bills in collections varies widely from one county to another across the country.</h2>
+
+ <div class="buttonsContainer">
+   <button class="active" data-filter="all">All US Counties</button>
+   <button data-filter="top100" class="">Top 100</button>
+   </div>
+
+<section id="keyContainer">
+ <div class="key_block">
+   <div class="key_break" style="background-color: #FEE5DA;"></div>
+   <h3 class=""> < 10% </h3>
+ </div>
+ <div class="key_block">
+   <div class="key_break" style="background-color: #FBAE94;"></div>
+   <h3 class="">11-20%</h3>
+ </div>
+ <div class="key_block">
+   <div class="key_break" style="background-color: #F96B50;"></div>
+   <h3 class="">21-30%</h3>
+ </div>
+ <div class="key_block">
+   <div class="key_break" style="background-color: #DC302E;"></div>
+   <h3 class="">31-40%</h3>
+ </div>
+ <div class="key_block">
+   <div class="key_break" style="background-color: #A3121C;"></div>
+   <h3 class="">> 40%</h3>
+ </div>
+</section>
+
+ <section id="treeMapContainer">
+   <div data-chart="all" class="active">
+     <img src="./medicalDebtMap.svg" alt="Chloropleth map of every US county in the US, with dark blue corresponding to lower levels of debt, while red correlates to higher levels of debt. There is a large concentration of dark blue in Midwest and Northwestern states, while the Southeast shows varying degrees of red.">
+   </div>
+   <div data-chart="top100">
+     <img src="./alteredSVG.svg" alt="Map of every US county in the US, with the top 100 counties with US debt highlighted in red. These counties are generally concentratd in the Southeast, going as far west as Texas, and as far north as West Virginia.">
+   </div>
+   </section>
+ 
+
+ <div class="footer"></div>
+ </div>
+ 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
+ <script src="https://unpkg.com/topojson-client@3"></script>
+ <script src="https://unpkg.com/d3-tip@0.9.1/dist/index.js"></script>
+ <script src="./graphic.js"></script>
+ 
