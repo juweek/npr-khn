@@ -1,0 +1,86 @@
+<style>
+  .measure-group {
+  display:inline;
+}
+
+button {
+  margin:0 auto;
+  display:block;
+}
+
+svg {
+  background-color: white;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: left;
+  color: white;
+  white-space: normal;
+  padding: 6px;
+  font-size: 14px;
+  background: rgb(96,125,139);
+  border: 1px solid rgb(96,125,139);
+  border-radius: 2px;
+  pointer-events: none;
+  cursor: none;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: rgb(96,125,139);
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.key_block {
+display: flex;
+flex-direction: column;
+}
+
+.key_break {
+height: 30px;
+width: 30px;
+margin: 0 auto;
+border-radius: 20px;
+}
+
+#keyContainer {
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+margin-top: 10px;
+}
+  </style>
+
+<h1>How Much Do Americans Owe?</h1>
+<h2>The median amount of medical debt held by Americans also varies significantly by state.</h2>
+  
+<section id="keyContainer">
+  <div class="key_block">
+    <div class="key_break" style="background-color: #FEE5DB;"></div>
+    <h3 class="">Under $700</h3>
+  </div>
+  <div class="key_block">
+    <div class="key_break" style="background-color: #F76C56;"></div>
+    <h3 class="">$700 - $1,000</span>
+  </div>
+  <div class="key_block">
+    <div class="key_break" style="background-color: #CA767F;"></div>
+    <h3 class="">Over $1,000</h3>
+  </div>
+</section>
+<div id="svganchor" class="graphic" role="img" class="graph centered">
+</div>
+
+<div class="footer"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
+<script src="https://unpkg.com/topojson-client@3"></script>
+<script src="https://unpkg.com/d3-tip@0.9.1/dist/index.js"></script>
+<script src="./graphic.js"></script>
