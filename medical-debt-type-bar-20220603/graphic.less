@@ -1,29 +1,21 @@
 @import "./lib/base";
 @import "../_base/khn-npr.less";
 
-.labels li.total-who-have-some-kind-of-health-care-debt > span {
-	font-weight: bold !important;
-}
-
-text.in {
-font-weight: bold !important;	
-}
-
 body.npr {
-	rect {
-		fill: @red4 !important;
-	}
-
-	.bar-5.total-who-have-some-kind-of-health-care-debt {
-		fill: @red3 !important;
-	}
+	--bar-color: @red4;
+	--bar-highlight-color: @red3;
 }
 
-body.khn {
-	rect {
-	}
+#bar-chart .labels li.total-who-have-some-kind-of-health-care-debt {
+	font-weight: bold;
+	color: #333;
+}
 
-	.bar-5.total-who-have-some-kind-of-health-care-debt {
-		fill: var(--khn-blue-1) !important;
-	}
+.value text.total-who-have-some-kind-of-health-care-debt {
+	font-weight: bold !important;
+	fill: #333;
+}
+
+.bar-5.total-who-have-some-kind-of-health-care-debt {
+	fill: var(--bar-highlight-color);
 }

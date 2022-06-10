@@ -1,12 +1,12 @@
-<% if (COPY.labels.headline) { %>
-<h1><%= t.smarty(COPY.labels.headline) %></h1>
+<% if (COPY.labels["headline_" + mode]) { %>
+<h1><%= t.smarty(COPY.labels["headline_" + mode]) %></h1>
 <% } %>
 
-<% if (COPY.labels.subhed) { %>
-<h2><%= t.smarty(COPY.labels.subhed) %></h2>
+<% if (COPY.labels["subhed_" + mode]) { %>
+<h2><%= t.smarty(COPY.labels["subhed_" + mode]) %></h2>
 <% } %>
 
-<div id="column-chart" class="graphic" role="img"
+<div id="bar-chart" class="graphic" role="img"
 <% if (COPY.labels.screenreader) { %>
 aria-label="<%- COPY.labels.screenreader %>"
 <% } %>
@@ -14,15 +14,14 @@ aria-label="<%- COPY.labels.screenreader %>"
     <img src="fallback.png" alt="" class="fallback" />
 </div>
 
-<% if (COPY.labels.footnote) { %>
+<% if (COPY.labels["footnote_" + mode]) { %>
 <div class="footnotes">
-    <h4>Notes</h4>
-    <p><%= COPY.labels.footnote %></p>
+    <p><strong>Note:</strong> <%= COPY.labels["footnote_" + mode] %></p>
 </div>
 <% } %>
 
 <div class="footer">
-    <% if (COPY.labels.source) { %><p>Source: <%= COPY.labels.source %></p><% } %>
+    <% if (COPY.labels["source_" + mode]) { %><p>Source: <%= COPY.labels["source_" + mode] %></p><% } %>
     <% if (COPY.labels.credit) { %><p>Credit: <%= COPY.labels.credit %></p><% } %>
 </div>
 

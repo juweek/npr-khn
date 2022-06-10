@@ -40,7 +40,7 @@ var onWindowLoaded = function() {
 // Render the graphic(s)
 var render = function(data) {
   // Render the chart!
-  var container = "#column-chart";
+  var container = "#bar-chart";
   var element = document.querySelector(container);
   var width = element.offsetWidth;
   renderBars({
@@ -48,7 +48,8 @@ var render = function(data) {
     width,
     data,
     labelColumn: "label",
-    valueColumn: "amt"
+    valueColumn: "amt",
+    mode
   });
 
   // Update iframe
