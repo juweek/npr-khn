@@ -15,8 +15,8 @@ var renderBarChart = function(config) {
 
   var barHeight = 40;
   var barGap = 5;
-  var labelWidth = 120;
-  var labelMargin = 6;
+  var labelWidth = 160;
+  var labelMargin = 10;
   var valueGap = 6;
 
   var margins = {
@@ -27,7 +27,7 @@ var renderBarChart = function(config) {
   };
 
   var ticksX = 4;
-  var roundTicksFactor = 5;
+  var roundTicksFactor = 20;
 
   // Calculate actual chart dimensions
   var chartWidth = config.width - margins.left - margins.right;
@@ -147,7 +147,13 @@ var renderBarChart = function(config) {
       return classify(d[labelColumn]);
     })
     .append("span")
-    .text(d => d[labelColumn]);
+    .text(function(d) {
+      if (d["label_" + config.mode]) {
+        return d["label_" + config.mode];
+      } else {
+        return d[labelColumn];
+      }
+    });
 
   // Render bar values.
   chartElement

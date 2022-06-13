@@ -14,6 +14,7 @@ body.khn {
   --chart-font: 'Source Sans Pro', Helvetica, Arial, sans-serif;
   --chart-value-size: 14px;
   --chart-value-weight: bold;
+  --chart-value-color: #666;
 
   // --title-font: "PT Serif", Georgia, "Times New Roman", Times, serif;
   --title-font: 'Source Sans Pro', Helvetica, Arial, sans-serif;
@@ -27,12 +28,12 @@ body.khn {
   --subhed-color: #333;
 
   --subtitle-font: 'Source Sans Pro', Helvetica, Arial, sans-serif;
-  --subtitletitle-weight: normal;
-  --subtitletitle-color: #666;
-  --subtitletitle-size: 12px;
+  --subtitle-weight: bold;
+  --subtitle-color: #333;
+  --subtitle-size: 12px;
 
   --footer-style: normal;
-  --footer-size: 14px;
+  --footer-size: 13px;
   --footer-color: #333;
 
   --khn-blue-1: #053d63;
@@ -42,12 +43,15 @@ body.khn {
 
   --bar-color: var(--khn-blue-2);
   --bar-highlight-color: var(--khn-blue-1);
+  --bar-label-size: 14px;
+  --bar-label-color: #333;
 }
 
 body.npr {
   --chart-font: Helvetica, Arial, sans-serif;
   --chart-value-size: 11px;
   --chart-value-weight: normal;
+  --chart-value-color: #666;
 
   --title-font: 'Gotham SSm', Helvetica, Arial, sans-serif;
   --title-weight: normal;
@@ -55,9 +59,9 @@ body.npr {
   --title-size: 20px;
 
   --subtitle-font: 'Knockout 31 4r', Helvetica, Arial, sans-serif;
-  --subtitletitle-weight: normal;
-  --subtitletitle-color: #666;
-  --subtitletitle-size: 12px;
+  --subtitle-weight: normal;
+  --subtitle-color: #666;
+  --subtitle-size: 12px;
 
   --subhed-font: var(--chart-font);
   --subhed-weight: normal;
@@ -70,6 +74,8 @@ body.npr {
 
   --bar-color: var(--red3);
   --bar-highlight-color: var(--red1);
+  --bar-label-size: 12px;
+  --bar-label-color: #666;
 }
 
 
@@ -120,4 +126,16 @@ h3 {
 .value text {
   font-size: var(--chart-value-size, 12px);
   font-weight: var(--chart-value-weight, normal);
+  fill: var(--chart-value-color, #999);
+
+  &.out {
+    fill: var(--chart-value-color, #999);
+  }
+}
+
+#bar-chart {
+  .labels li {
+    font-size: var(--bar-label-size, 12px);
+    color: var(--bar-label-color, #666);
+  }
 }
