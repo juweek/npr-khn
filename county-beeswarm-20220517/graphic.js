@@ -1,8 +1,8 @@
 var pym = require("./lib/pym");
+var pymChild = null;
 var ANALYTICS = require("./lib/analytics");
 require("./lib/webfonts");
 var { isMobile } = require("./lib/breakpoints");
-
 
 var mode = null;
 if (document.querySelector("body").classList.contains("npr")) {
@@ -24,7 +24,23 @@ switch(mode) {
     break;
 }
 
+/* INITIALIZE */
 pym.then((child) => {
+  pymChild = child;
+
+  renderChart();
+  pymChild.sendHeight();
+
+  window.addEventListener("resize", renderChart);
+});
+
+
+/* RENDER THE CHART */
+var renderChart = function() {
+  // clear out existing chart
+  var containerElement = document.querySelector("#svganchor");
+  containerElement.innerHTML = "";
+
   const annotations = [
     {
       note: {
@@ -58,17 +74,18 @@ pym.then((child) => {
     });
 
 
-    if (isMobile.matches) {
-      var width = 430,
-      height = 30;
-    }
-    else {
-      var width = 800,
-      height = 50;
-    }
+  // var width = containerElement.offsetWidth;
+
+  if (isMobile.matches) {
+    var width = 430,
+    height = 30;
+  }
+  else {
+    var width = 800,
+    height = 50;
+  }
 
   let margin = ({top: 0, right: 40, bottom: 34, left: 6});
-
 
   var data = [0, 15, 20, 25, 30, 45];
 
@@ -90,7 +107,6 @@ pym.then((child) => {
 
   //Append group and insert axis
   svgAxis.append("g").call(x_axis);
-  child.sendHeight();
 
-  window.addEventListener("resize", () => child.sendHeight());
-});
+  pymChild.sendHeight();
+};
