@@ -1,1 +1,93 @@
 @import "./lib/base";
+
+.wrapper {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 300px 300px 300px;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    grid-auto-flow: dense;
+}
+
+@media only screen and (max-width: 729px) {
+    .wrapper {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 200px 200px 200px;
+        grid-row-gap: 20px;
+        grid-column-gap: 10px;
+    }
+}
+
+@media only screen and (min-width: 729px) {
+    .wrapper .profileContainer:nth-child(1) {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+
+    .wrapper .profileContainer:nth-child(2) {
+        grid-row: span 1;
+    }
+
+    .wrapper .profileContainer:nth-child(3) {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+
+    .wrapper .profileContainer:nth-child(4) {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+
+    .wrapper .profileContainer:nth-child(5) {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+}
+
+
+.profileContainer {
+    color: white;
+    overflow: hidden;
+}
+
+.profileQuote {
+    margin-top: 10px;
+    margin-bottom: 6px;
+    margin-left: 10px;
+    line-height: 1.5rem;
+    margin-right: 20%;
+    color: white;
+    background: linear-gradient(0.84turn, #a63f3f00, #7c494233, #70190e69);
+}
+
+.profileAmt {
+    font-size: 1.1rem;
+    margin-left: 10px;
+    line-height: 1.3rem;
+    background: linear-gradient(0.84turn, #a63f3f00, #7c494233, #70190e69);
+}
+
+.topArea {
+    top: 0;
+}
+
+.bottom, .top {
+    position: relative;
+}
+
+.video video {
+    max-height: 100%;
+    position: absolute;
+    left: -30%;
+}
+
+.video.top .textContainer {
+    position: absolute;
+    top: 0px;
+}
+
+.bottom .textContainer {
+    position: absolute;
+    bottom: 20px;
+}

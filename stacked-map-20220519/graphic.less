@@ -10,3 +10,90 @@ text.in {
     }
   }
   
+
+  section {
+    position: relative;
+  }
+  
+  .active{
+    background-color: #c70000;
+  }
+  
+  #treeMapContainer > div {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    margin-top: 20px;
+  }
+ 
+  #treeMapContainer img {
+      width: 100%;
+  }
+ 
+  #treeMapContainer > div.active {
+    opacity: 1;
+    background-color: transparent;
+  }
+ 
+  .centered {
+    display: table;
+    margin: 20px auto;
+  }
+  
+  .graph {
+    width: 50%;
+    margin: 0 auto;
+  }
+ 
+  .buttonsContainer {
+    display: flex;
+  }
+  
+  button {
+    margin:0 auto;
+    display:block;
+    width: 50%;
+    border-radius: 100px;
+  }
+  button:first-of-type {
+    margin-right: 10px;
+  }
+ 
+      #treeMapContainer {
+    height: 260px;
+  }
+ 
+  button.active {
+    color: white;
+    padding: 10px 4px;
+  }
+ 
+  @media screen and (min-width: 729px) {
+    #treeMapContainer {
+      height: 520px;
+    }
+ 
+    .buttonsContainer {
+      width: 40%;
+  }
+ }
+ 
+ .key_block {
+  display: flex;
+  flex-direction: column;
+ }
+ 
+ .key_break {
+  height: 30px;
+  width: 30px;
+  margin: 2px 2px;
+  border-radius: 20px;
+ }
+ 
+ #keyContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+ }

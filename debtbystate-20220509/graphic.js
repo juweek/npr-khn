@@ -183,7 +183,7 @@ METHOD: fetch the data and draw the chart
                 ": $" +
                 parseInt(medicalDebtAmt) +
                 "<br>Share of people with medical debt in collections" +
-                ": " + percentCollectionsAmt.toFixed() + "%" )
+                ": " + percentCollectionsAmt.toFixed(1) + "%" )
             .style("left", function () {
               // Get calculated tooltip coordinates and size
               let boundingBox = document.querySelector("body")

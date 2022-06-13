@@ -1,10 +1,18 @@
 @import "./lib/base";
 
+body {
+  margin-left: 4px;
+  margin-right: 5px;
+}
 
 .key {
   display: flex;
   flex-direction: column;
   width: 50%;
+}
+
+#svganchor {
+  margin-top: 20px;
 }
 
 .key_block {
@@ -30,4 +38,47 @@ body.npr {
   rect {
     fill: @red4  !important;
   }
+}
+
+.measure-group {
+  display:inline;
+}
+
+button {
+  margin:0 auto;
+  display:block;
+}
+
+svg {
+  background-color: white;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: left;
+  color: white;
+  white-space: normal;
+  padding: 6px;
+  font-size: 14px;
+  background: rgb(96,125,139);
+  border: 1px solid rgb(96,125,139);
+  border-radius: 2px;
+  pointer-events: none;
+  cursor: none;
+  width: 150px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: rgb(96,125,139);
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+img:not([alt]) {
+  outline: none;
 }

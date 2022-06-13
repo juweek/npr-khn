@@ -57,7 +57,6 @@ pym.then((child) => {
       tooltip.style("opacity", 0);
     });
 
-    console.log(isMobile)
 
     if (isMobile.matches) {
       var width = 430,
@@ -68,23 +67,23 @@ pym.then((child) => {
       height = 50;
     }
 
-  let margin = ({top: 0, right: 40, bottom: 34, left: 10});
+  let margin = ({top: 0, right: 40, bottom: 34, left: 6});
 
 
-  var data = [0, 15, 20, 25, 30, 45, 50];
+  var data = [0, 15, 20, 25, 30, 45];
 
   let svgAxis = d3
     .select("#svganchor")
     .append("svg")
     .attr("width", width)
     .attr("height", height)
-    .style("margin-left", "4px");
+    .style("margin-left", margin.left);
 
   // Create scale
   var scale = d3
     .scaleLinear()
     .domain([d3.min(data), d3.max(data)])
-    .range([0, width - 100]);
+    .range([3, width - 100]);
 
   // Add scales to axis
   var x_axis = d3.axisBottom().scale(scale);

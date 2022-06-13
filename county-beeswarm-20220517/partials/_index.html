@@ -1,48 +1,3 @@
-<style>
-    .measure-group {
-    display:inline;
-  }
-  
-  button {
-    margin:0 auto;
-    display:block;
-  }
-  
-  svg {
-    background-color: white;
-  }
-  
-  div.tooltip {
-    position: absolute;
-    text-align: left;
-    color: white;
-    white-space: normal;
-    padding: 6px;
-    font-size: 14px;
-    background: rgb(96,125,139);
-    border: 1px solid rgb(96,125,139);
-    border-radius: 2px;
-    pointer-events: none;
-    cursor: none;
-    width: 150px;
-  }
-  
-  .axis path,
-  .axis line {
-    fill: none;
-    stroke: rgb(96,125,139);
-    shape-rendering: crispEdges;
-  }
-  
-  .axis text {
-    font: 10px sans-serif;
-  }
-
-  img:not([alt]) {
-    outline: none;
-  }
-    </style>
-    
   <h1>What Predicts Medical Debt? </h1>
   <h2 style="padding-bottom: 20px;">Counties with large shares of people with multiple chronic conditions (in red) tend to have higher levels of debt than counties with less illness (blue). Each dot represents a county.</h2>
  
@@ -61,7 +16,7 @@
     <div style="width: 100%; height: 30px; background: linear-gradient(to right, #6AAACD, rgb(203, 242, 246), #D05950); margin-bottom: 20px;"></div>
 
     <img src="./allCounties.svg" style="width: 100%;">
-    <div id="svganchor" class="graphic" role="img" style="margin-top: 10px;">
+    <div id="svganchor" class="graphic" role="img">
     </div>
     <h3 class="sequenceRate_text xAxisKey">Percent of people with credit records who have medical debt</h3>
     <div class="footer">
