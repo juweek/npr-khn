@@ -4,18 +4,18 @@
     width: 100%;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 300px 300px 300px;
-    grid-column-gap: 10px;
-    grid-row-gap: 10px;
+    grid-auto-rows: 300px;
+    grid-column-gap: 6px;
+    grid-row-gap: 6px;
     grid-auto-flow: dense;
 }
 
 @media only screen and (max-width: 729px) {
     .wrapper {
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: 200px 200px 200px;
-        grid-row-gap: 20px;
-        grid-column-gap: 10px;
+        grid-auto-rows: 220px;
+        grid-row-gap: 5px;
+        grid-column-gap: 5px;
     }
 }
 
@@ -59,6 +59,14 @@
     margin-right: 20%;
     color: white;
     background: linear-gradient(0.84turn, #a63f3f00, #7c494233, #70190e69);
+    font-weight: 700;
+}
+
+@media only screen and (max-width: 729px) {
+    .profileQuote {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
 }
 
 .profileAmt {
@@ -66,13 +74,16 @@
     margin-left: 10px;
     line-height: 1.3rem;
     background: linear-gradient(0.84turn, #a63f3f00, #7c494233, #70190e69);
+    color: white;
+    margin-bottom: 0px;
 }
 
 .topArea {
     top: 0;
 }
 
-.bottom, .top {
+.bottom,
+.top {
     position: relative;
 }
 
@@ -87,7 +98,40 @@
     top: 0px;
 }
 
+.textright .textContainer {
+    position: absolute;
+    text-align: right;
+    margin-right: 10px;
+}
+
+.textright .profileQuote {
+    margin-right: 0px;
+    margin-left: 40px;
+}
+
 .bottom .textContainer {
     position: absolute;
     bottom: 20px;
+}
+
+@media only screen and (max-width: 729px) {
+    .bottom .textContainer {
+        bottom: 10px;
+    }
+
+    .textright .profileQuote {
+        margin-left: 20px;
+    }
+}
+
+.imagecenter {
+    background-position: center !important;
+}
+
+.imageleft {
+    background-position: left !important;
+}
+
+.imageright {
+    background-position: right !important;
 }

@@ -22,6 +22,8 @@ pym.then(child => {
         newDiv.setAttribute("data-name", name);   
         newDiv.classList.add((item_data.media).toLowerCase());
         newDiv.classList.add((item_data.textPlacement).toLowerCase());
+        newDiv.classList.add('text' + (item_data.textAlignment).toLowerCase());
+        newDiv.classList.add('image' + (item_data.imageAlignment).toLowerCase());
         if((item_data.media).toLowerCase() == 'image'){
           newDiv.style.backgroundImage = 'url(https://raw.githubusercontent.com/juweek/npr-khn/main/faces-of-debt-20220524/assets/' + name.toLowerCase().replace(/\s/g, '') + ".jpg)";
         } else {
@@ -44,9 +46,9 @@ pym.then(child => {
         newDivText.className = "profileQuote";
         newDivText.innerHTML = '"' + item_data.quote + '"';
 
-        let newDivLabel = document.createElement("span");
+        let newDivLabel = document.createElement("h3");
         newDivLabel.className = "profileAmt";
-        newDivLabel.innerHTML = '$' + item_data.debt;
+        newDivLabel.innerHTML = 'Debt: $' + item_data.debt;
 
         newDivTextHolder.appendChild(newDivText);
         newDivTextHolder.appendChild(newDivLabel);
