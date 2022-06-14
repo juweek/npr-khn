@@ -8,6 +8,7 @@
     "*.png",
     "*.jpg",
     "*.gif",
+    "*.mp4",
     "*.json",
     "!manifest.json",
     "*.geojson",

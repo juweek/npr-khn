@@ -23,11 +23,11 @@ pym.then(child => {
         newDiv.classList.add((item_data.media).toLowerCase());
         newDiv.classList.add((item_data.textPlacement).toLowerCase());
         if((item_data.media).toLowerCase() == 'image'){
-          newDiv.style.backgroundImage = 'url(./assets/' + name.toLowerCase().replace(/\s/g, '') + ".jpg)";
+          newDiv.style.backgroundImage = 'url(https://raw.githubusercontent.com/juweek/npr-khn/main/faces-of-debt-20220524/assets/' + name.toLowerCase().replace(/\s/g, '') + ".jpg)";
         } else {
           let newVideo = document.createElement('video');
           let source = document.createElement('source');
-          source.setAttribute("src", "./assets/" + name.toLowerCase().replace(/\s/g, '') + ".mp4");
+          source.setAttribute("src", "https://raw.githubusercontent.com/juweek/npr-khn/main/faces-of-debt-20220524/assets/" + name.toLowerCase().replace(/\s/g, '') + ".mp4");
           source.setAttribute('type', 'video/webm');
           newVideo.appendChild(source);
           newVideo.setAttribute('loop', '');

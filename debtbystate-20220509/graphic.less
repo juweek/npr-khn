@@ -63,16 +63,20 @@ text.in {
     font: 10px sans-serif;
   }
 
+
   .key_block {
   display: flex;
   flex-direction: column;
+  width: 33%;
+  margin-right: .5%;
+  text-align: center;
 }
 
 .key_break {
-  height: 30px;
-  width: 30px;
+  height: 16px;
+  width: 100%;
   margin: 0 auto;
-  border-radius: 20px;
+  margin-bottom: 4px;
 }
 
 #keyContainer {
@@ -80,4 +84,11 @@ text.in {
   flex-direction: row;
   justify-content: space-around;
   margin-top: 10px;
+}
+
+@media screen and (min-width: 729px) {
+  #keyContainer {
+   width: 65%;
+   margin: 0 auto;
+  }
 }
