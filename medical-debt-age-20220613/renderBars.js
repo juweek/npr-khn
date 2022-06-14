@@ -37,10 +37,10 @@ var renderBarChart = function(config) {
   var containerElement = d3.select(config.container);
   containerElement.html("");
 
-  // if (config.title) {
-  //   containerElement.append('h3')
-  //     .html(config.title);
-  // }
+  if (config.title) {
+    containerElement.append('h3')
+      .html(config.title);
+  }
 
   // Create the root SVG element.
   var chartWrapper = containerElement
