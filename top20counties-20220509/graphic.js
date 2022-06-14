@@ -1,4 +1,5 @@
 var pym = require("./lib/pym");
+var pymChild = null;
 var ANALYTICS = require("./lib/analytics");
 require("./lib/webfonts");
 var { isMobile } = require("./lib/breakpoints");
@@ -23,15 +24,34 @@ switch (mode) {
     break;
 }
 
+var DATA = null;
+
+
+/* INITIALIZE */
 pym.then((child) => {
+  pymChild = child;
+
+  renderChart();
+  pymChild.sendHeight();
+
+  window.addEventListener("resize", renderChart);
+});
+
+
+/* RENDER THE CHART */
+var renderChart = function() {
+  // clear out existing chart
+  var containerElement = document.querySelector("#svganchor");
+  containerElement.innerHTML = "";
+
   /*
 ------------------------------
 METHOD: set the size of the canvas
 ------------------------------
 */
-
   let height = 0;
-  let width = 0;
+  // let width = 0;
+  let width = containerElement.offsetWidth;
   let margin = { top: 0, right: 25, bottom: 34, left: 10 };
   let forceCollision = 30;
   let radiusRange = 15;
@@ -42,10 +62,10 @@ METHOD: set the size of the canvas
 
   if (isMobile) {
     height = 460;
-    width = 360;
+    // width = 360;
   } else {
     height = 380;
-    width = 700;
+    // width = 700;
     forceCollision = 25;
     radiusRange = 25;
   }
@@ -166,7 +186,7 @@ METHOD: load in and process data
         /*
         var rscale = d3.scaleLinear().domain(d3.extent(dataSet, function(d) {
             return +d[chartState.radiusSize];
-        })).range([3, 9]) 
+        })).range([3, 9])
         */
 
         var rscale = d3
@@ -321,7 +341,7 @@ METHOD: load in and process data
                           <strong>${chartState.legend.slice(
                             0,
                             chartState.legend.indexOf(",")
-                          )}</strong>: 
+                          )}</strong>:
                           ${d.target.__data__.medical_debt_collections_pct}%<br>
                           <strong>Median amount of debt: </strong>$${
                             d.target.__data__.collection_debt_state_avg
@@ -363,39 +383,10 @@ METHOD: load in and process data
             xLine.attr("opacity", 0);
           });
       }
-
-      
-
-      // Add annotation to the chart
     })
     .catch(function (error) {
       if (error) throw error;
     });
 
-  child.sendHeight();
-
-  // child.onMessage("on-screen", function(bucket) {
-  //     ANALYTICS.trackEvent("on-screen", bucket);
-  // });
-  // child.onMessage("scroll-depth", function(data) {
-  //     data = JSON.parse(data);
-  //     ANALYTICS.trackEvent("scroll-depth", data.percent, data.seconds);
-  // });
-
-  window.addEventListener("resize", () => child.sendHeight());
-  window.addEventListener(
-    "resize",
-    () =>
-      function () {
-        if (isMobile) {
-          height = 460;
-          width = 360;
-        } else {
-          height = 400;
-          width = 700;
-        }
-        svg.attr("width", width).attr("height", height);
-        redraw();
-      }
-  );
-});
+  pymChild.sendHeight();
+}

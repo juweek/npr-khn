@@ -1,18 +1,19 @@
 @import "./lib/base";
+@import "../_base/khn-npr.less";
 
 .measure-group {
     display:inline;
   }
-  
+
   button {
     margin:0 auto;
     display:block;
   }
-  
+
   svg {
     background-color: white;
   }
-  
+
   div.tooltip {
     position: absolute;
     text-align: left;
@@ -26,18 +27,18 @@
     pointer-events: none;
     cursor: none;
   }
-  
+
   .axis path,
   .axis line {
     fill: none;
     stroke: rgb(96,125,139);
     shape-rendering: crispEdges;
   }
-  
+
   .axis text {
     font: 10px sans-serif;
   }
-  
+
   .key_block {
     display: flex;
     flex-direction: column;
@@ -45,21 +46,24 @@
     margin-right: .5%;
     text-align: center;
   }
-  
+
   .key_break {
     height: 16px;
     width: 100%;
     margin: 0 auto;
     margin-bottom: 4px;
   }
-  
+
   #keyContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     margin-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px dashed #333;
+
   }
-  
+
   @media screen and (min-width: 729px) {
     #keyContainer {
      width: 65%;
