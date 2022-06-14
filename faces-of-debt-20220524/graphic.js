@@ -6,15 +6,15 @@ var { isMobile } = require("./lib/breakpoints");
 pym.then(child => {
     child.sendHeight();
 
-
     let wrapper = document.getElementById('profileCardsWrapper');
 
     for (const item in data) {
         let item_data = data[item]
         let name = item_data.name
    
-        let newDiv = document.createElement("div");
+        let newDiv = document.createElement("a");
         let newDivTextHolder = document.createElement("div");
+        let newDivLink = document.createElement("a");
         newDivTextHolder.className = "textContainer";
 
         newDiv.className = "profileContainer";
@@ -24,9 +24,11 @@ pym.then(child => {
         newDiv.classList.add((item_data.textPlacement).toLowerCase());
         newDiv.classList.add('text' + (item_data.textAlignment).toLowerCase());
         newDiv.classList.add('image' + (item_data.imageAlignment).toLowerCase());
+        console.log(item_data.media)
         if((item_data.media).toLowerCase() == 'image'){
           newDiv.style.backgroundImage = 'url(https://raw.githubusercontent.com/juweek/npr-khn/main/faces-of-debt-20220524/assets/' + name.toLowerCase().replace(/\s/g, '') + ".jpg)";
         } else {
+          
           let newVideo = document.createElement('video');
           let source = document.createElement('source');
           source.setAttribute("src", "https://raw.githubusercontent.com/juweek/npr-khn/main/faces-of-debt-20220524/assets/" + name.toLowerCase().replace(/\s/g, '') + ".mp4");
@@ -49,10 +51,13 @@ pym.then(child => {
         let newDivLabel = document.createElement("h3");
         newDivLabel.className = "profileAmt";
         newDivLabel.innerHTML = 'Debt: $' + item_data.debt;
+        newDiv.href = '' + item_data.anchorlink
+        newDiv.setAttribute("target", "_self");
 
         newDivTextHolder.appendChild(newDivText);
         newDivTextHolder.appendChild(newDivLabel);
         newDiv.appendChild(newDivTextHolder);
+        //newDivLink.appendChild(newDiv)
         wrapper.appendChild(newDiv);
       }
       

@@ -147,11 +147,11 @@ METHOD: fetch the data and draw the chart
         .attr("fill", (d) => {
           let medicalDebt = d.value.split(":");
           if (parseInt(medicalDebt[0]) > 1000) {
-            return "#9c4f57";
+            return "#D64833";
           } else if (parseInt(medicalDebt[0]) > 700) {
-            return "#e2523b";
+            return "#E18D39";
           } else {
-            return "#FEE5DB";
+            return "#EBE2AA";
           }
         })
         .attr("data-coordinates", (d) => `${path.centroid(d)}`);
@@ -178,11 +178,11 @@ METHOD: fetch the data and draw the chart
           let medicalDebtAmt = newmedicalDebt[0];
           let percentCollectionsAmt = parseFloat(newmedicalDebt[1]) * 100;
           tooltip
-            .html(
+            .html('<b>' +
               d.target.__data__.properties.name +
-                ": $" +
+                "</b>: $" +
                 parseInt(medicalDebtAmt) +
-                "<br>Share of people with medical debt in collections" +
+                "<br><b>Share of people with medical debt in collections</b>" +
                 ": " + percentCollectionsAmt.toFixed(1) + "%" )
             .style("left", function () {
               // Get calculated tooltip coordinates and size

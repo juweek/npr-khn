@@ -264,13 +264,13 @@ METHOD: load in and process data
           //else 	{ return parseInt(d.collection_debt_state_avg)/80}
           .attr("fill", function (d) {
             if (d.State == "New York") {
-              return "#FEE5DB";
+              return "#EBE2AA";
             } else if (d.State == "California") {
-              return "#FEE5DB";
+              return "#EBE2AA";
             } else if (d.State == "Texas") {
-              return "#9c4f57";
+              return "#D64833";
             } else {
-              return "#e2523b";
+              return "#E18D39";
             }
           })
           .attr("fill-opacity", 0.75)
@@ -335,7 +335,7 @@ METHOD: load in and process data
           .on("mousemove", function (d) {
             tooltip
               .html(
-                `<strong>${d.target.__data__.County}, ${
+                `<strong>${d.target.__data__.County} County, ${
                   d.target.__data__.State
                 }</strong><br>
                           <strong>${chartState.legend.slice(
@@ -351,8 +351,8 @@ METHOD: load in and process data
                 // Get calculated tooltip coordinates and size
                 let boundingBox = document.querySelector("body")
                 var tooltip_rect = boundingBox.getBoundingClientRect();
-                if((d.pageX + 140) > tooltip_rect.width){
-                  return (d.pageX - 120) + "px";
+                if((d.pageX + 170) > tooltip_rect.width){
+                  return (d.pageX - 170) + "px";
                 }
                 else {
                   return d.pageX + "px";

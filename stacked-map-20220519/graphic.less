@@ -48,25 +48,49 @@ text.in {
  
   .buttonsContainer {
     display: flex;
+    width: 75%;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
   
   button {
-    margin:0 auto;
     display:block;
-    width: 50%;
-    border-radius: 100px;
+    font-family: 'Knockout 31 4r';
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    -webkit-font-smoothing: antialiased;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+     text-decoration: none;
+     background: #F5F5F5;
+    border: 1px solid #eee;
+    color: #555555;
+    font-size: 13px;
+    line-height: 25px;
+    padding: 0 15px;
   }
   button:first-of-type {
-    margin-right: 10px;
+    border-radius: 10px 0px 0px 10px;
   }
+
+    button:last-of-type {
+    border-radius: 0px 6px 6px 0px;
+  }
+
+  input[type="button"] {
+    border: none;
+    outline:none;
+    background: none;
+    }
  
-      #treeMapContainer {
+    #treeMapContainer {
     height: 260px;
   }
  
   button.active {
     color: white;
-    padding: 10px 4px;
   }
  
   @media screen and (min-width: 729px) {
@@ -77,6 +101,7 @@ text.in {
     .buttonsContainer {
       width: 40%;
       margin: 0 auto;
+      margin-bottom: 20px;
   }
  }
  
