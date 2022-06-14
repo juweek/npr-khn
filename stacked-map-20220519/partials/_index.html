@@ -1,6 +1,10 @@
+<% if (COPY.labels["headline_" + mode]) { %>
+<h1><%= t.smarty(COPY.labels["headline_" + mode]) %></h1>
+<% } %>
 
- <h1>Debt From Medical and Dental Bills Differs by Place</h1>
- <h2>The share of people with medical bills in collections varies widely from one county to another across the country.</h2>
+<% if (COPY.labels["subhed_" + mode]) { %>
+<h2><%= t.smarty(COPY.labels["subhed_" + mode]) %></h2>
+<% } %>
 
 
 <section id="keyContainer">
@@ -42,8 +46,9 @@
  
 
    <div class="footer">
-    <p>Source: Tabulations of the August 2021 Urban Institute credit bureau data.</p>
-</div>
+    <% if (COPY.labels["source_" + mode]) { %><p>Source: <%= t.smarty(COPY.labels["source_" + mode]) %></p><% } %>
+    <% if (COPY.labels.credit) { %><p>Credit: <%= COPY.labels.credit %></p><% } %>
+  </div>
  </div>
  
  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>

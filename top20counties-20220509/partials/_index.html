@@ -1,5 +1,11 @@
-<h1>How Medical Debt Varies Across Largest US Counties</h1>
-<h2>The share of people with medical debt is highest in Texas counties (to the right) and lowest in New York and California (to the left). The size of the circles denotes the average amount of debt held by residents in each county.</h2>
+<% if (COPY.labels["headline_" + mode]) { %>
+<h1><%= t.smarty(COPY.labels["headline_" + mode]) %></h1>
+<% } %>
+
+<% if (COPY.labels["subhed_" + mode]) { %>
+<h2><%= t.smarty(COPY.labels["subhed_" + mode]) %></h2>
+<% } %>
+
 <section id="keyContainer">
   <div class="key_block">
     <div class="key_break" style="background-color: #EBE2AA;"></div>
@@ -20,7 +26,8 @@
 <h3 style="border-bottom: 2px dashed #333; padding-bottom: 20px; padding-left: 20px; text-align: center;">Percent of people with credit records who have medical debt</h3>
 
 <div class="footer">
-  <p>Source: Tabulations of the August 2021 Urban Institute credit bureau data.</p>
+  <% if (COPY.labels["source_" + mode]) { %><p>Source: <%= t.smarty(COPY.labels["source_" + mode]) %></p><% } %>
+  <% if (COPY.labels.credit) { %><p>Credit: <%= COPY.labels.credit %></p><% } %>
 </div>
 </div>
 
