@@ -13,6 +13,7 @@
     "*.geojson",
     "*.csv"
   ],
+  "sheet": "1hWmhW-wL5wfHBgVEDloyGnxSvVnw2FlYUNmDhoXa-Nk",
   "installedPackagesAtCreation": {
     "d3-array": "^3.1.6",
     "d3-axis": "^3.0.0",
