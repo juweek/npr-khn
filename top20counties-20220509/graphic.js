@@ -50,7 +50,7 @@ METHOD: set the size of the canvas
   let height = 0;
   // let width = 0;
   let width = containerElement.offsetWidth;
-  let margin = { top: 0, right: 25, bottom: 34, left: 10 };
+  let margin = { top: 0, right: 25, bottom: 20, left: 10 };
   let forceCollision = 30;
   let radiusRange = 15;
 
@@ -195,9 +195,21 @@ METHOD: load in and process data
         // Set X axis based on new scale. If chart is set to "per capita" use numbers with one decimal point
         let xAxis;
         if (chartState.measure === Count.perCap) {
-          xAxis = d3.axisBottom(xScale).ticks(7, ".1f").tickSizeOuter(0);
+          xAxis = d3.axisBottom(xScale)
+          // .ticks(7, ".1f")
+            .ticks(7)
+            .tickSizeOuter(0)
+            .tickFormat(function(d) {
+              return d.toFixed(0) + "%";
+            });
         } else {
-          xAxis = d3.axisBottom(xScale).ticks(7, ".1s").tickSizeOuter(0);
+          xAxis = d3.axisBottom(xScale)
+          // .ticks(7, ".1s")
+            .ticks(7)
+            .tickSizeOuter(0)
+            .tickFormat(function(d) {
+              return d.toFixed(0) + "%";
+            });
         }
 
         //include a transition for the x axis if you change the scale

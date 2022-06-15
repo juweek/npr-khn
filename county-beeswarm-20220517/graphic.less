@@ -26,6 +26,21 @@ body {
   margin: 2px 2px;
 }
 
+
+.gradient-key {
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+
+  @media @screen-mobile {
+    width: 300px;
+  }
+
+  h3 { margin-bottom: 6px;}
+  .key_block { font-size: 11px; }
+}
+
 .xAxisKey {
   // border-bottom: 2px dashed #333;
   padding-bottom: 20px;
@@ -50,6 +65,18 @@ body.npr {
 
   rect {
     fill: @red4  !important;
+  }
+
+  .graphic {
+    margin-bottom: 0;
+  }
+
+  h3.xAxisKey {
+    .sans-serif();
+    text-transform: none;
+    letter-spacing: normal;
+    font-style: italic;
+    color: #454545;
   }
 }
 
@@ -89,7 +116,8 @@ div.tooltip {
 }
 
 .axis text {
-  font: 10px sans-serif;
+  font-size: 11px;
+  font-family: var(--chart-font, sans-serif);
 }
 
 img:not([alt]) {

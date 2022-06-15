@@ -37,7 +37,13 @@ div.tooltip {
 }
 
 .axis text {
-  font: 10px sans-serif;
+  font-size: 11px;
+  font-family: var(--chart-font, sans-serif);
+}
+
+.xAxisKey {
+  padding-bottom: 20px;
+  text-align: center;
 }
 
 .key_block {
@@ -68,7 +74,7 @@ div.tooltip {
   }
 }
 
-text {
+text.textGraph {
   font-weight: bold;
   -webkit-font-smoothing: antialiased;
   font-size: 12px;
@@ -84,8 +90,16 @@ body.npr {
     .mmedia-constrained();
   }
 
-  text {
+  text.textGraph {
     .gotham();
+  }
+
+  h3.xAxisKey {
+    .sans-serif();
+    text-transform: none;
+    letter-spacing: normal;
+    font-style: italic;
+    color: #454545;
   }
 }
 
