@@ -16,7 +16,7 @@ text.in {
   }
 
   .active{
-    background-color: #c70000;
+    background-color: #555252;
   }
 
   #treeMapContainer > div {
@@ -52,6 +52,7 @@ text.in {
     margin: 0 auto;
     margin-top: 20px;
     margin-bottom: 20px;
+    justify-content: center;
   }
 
   button {
@@ -86,24 +87,51 @@ text.in {
     }
 
     #treeMapContainer {
-    height: 260px;
+    height: 360px;
   }
 
   button.active {
     color: white;
   }
 
-  @media screen and (min-width: 729px) {
+  h1, h2 {
+    text-align: left;
+  }
+
+  @media screen and (min-width: 489px) {
     #treeMapContainer {
-      height: 520px;
+      height: 480px;
+    }
+
+ }
+
+  @media screen and (min-width: 729px) {
+    h1, h2 {
+      text-align: center;
+    }
+
+    #treeMapContainer {
+      height: 640px;
     }
 
     .buttonsContainer {
-      width: 40%;
+      width: 50%;
       margin: 0 auto;
       margin-bottom: 20px;
   }
  }
+
+ @media screen and (min-width: 1080px) {
+  #treeMapContainer {
+    height: 800px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  #treeMapContainer {
+    height: 920px;
+  }
+}
 
  .key_block {
   display: flex;
@@ -125,6 +153,8 @@ text.in {
   flex-direction: row;
   justify-content: space-around;
   margin-top: 10px;
+  max-width: 350px;
+  margin: 0 auto;
 }
 
 @media screen and (min-width: 729px) {

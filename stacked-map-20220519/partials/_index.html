@@ -6,6 +6,10 @@
 <h2><%= t.smarty(COPY.labels["subhed_" + mode]) %></h2>
 <% } %>
 
+<div class="buttonsContainer">
+  <button class="active" data-filter="all">All U.S. Counties</button>
+  <button data-filter="top100" class="">Top 100 Counties</button>
+  </div>
 
 <section id="keyContainer">
  <div class="key_block">
@@ -38,11 +42,7 @@
      <img src="./alteredSVG.svg" alt="Map of every US county in the US, with the top 100 counties with US debt highlighted in red. These counties are generally concentratd in the Southeast, going as far west as Texas, and as far north as West Virginia.">
    </div>
    </section>
-   
-    <div class="buttonsContainer">
-   <button class="active" data-filter="all">All U.S. Counties</button>
-   <button data-filter="top100" class="">Top 100</button>
-   </div>
+  
  
 
    <div class="footer">

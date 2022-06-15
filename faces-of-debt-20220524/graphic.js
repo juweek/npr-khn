@@ -52,7 +52,7 @@ pym.then(child => {
         newDivLabel.className = "profileAmt";
         newDivLabel.innerHTML = 'Debt: $' + item_data.debt;
         newDiv.href = '' + item_data.anchorlink
-        newDiv.setAttribute("target", "_self");
+        newDiv.setAttribute("target", "_parent");
 
         newDivTextHolder.appendChild(newDivText);
         newDivTextHolder.appendChild(newDivLabel);
