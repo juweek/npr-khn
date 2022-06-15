@@ -60,24 +60,11 @@ var renderChart = function() {
     },
   ];
 
-
-
-  // var width = containerElement.offsetWidth;
-
-  if (isMobile.matches) {
-    console.log(window.innerWidth)
-    var width = 430,
-    height = 30;
-  }
-  else {
-    var width = 840,
-    height = 50;
-  }
-
   var containerElement = document.querySelector("#svganchor");
-  width = containerElement.offsetWidth;
+  var width = containerElement.offsetWidth;
+  var height = 30;
 
-  let margin = ({top: 0, right: 6, bottom: 34, left: 6});
+  let margin = ({top: 0, right: 6, bottom: 0, left: 6});
 
   var data = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45];
 
@@ -92,13 +79,22 @@ var renderChart = function() {
   var scale = d3
     .scaleLinear()
     .domain([d3.min(data), d3.max(data)])
-    .range([3, width - 20]);
+    .range([ 7, width - 20 ]);
 
   // Add scales to axis
-  var x_axis = d3.axisBottom().scale(scale);
+  var x_axis =
+    d3.axisBottom()
+      .scale(scale)
+      .tickFormat(function(d) {
+        return d.toFixed(0) + "%";
+      });
 
   //Append group and insert axis
-  svgAxis.append("g").call(x_axis);
+  svgAxis
+    .append("g")
+    .attr("class", "x axis")
+    .call(x_axis);
+
 
   pymChild.sendHeight();
 };
