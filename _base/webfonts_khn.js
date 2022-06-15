@@ -6,7 +6,6 @@ script.onload = function() {
   WebFont.load({
       google: {
           families: [
-              'PT Serif:400,700',
               'Source Sans Pro:400,700'
           ]
       },
