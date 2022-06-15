@@ -41,38 +41,6 @@ var renderChart = function() {
   var containerElement = document.querySelector("#svganchor");
   containerElement.innerHTML = "";
 
-  const annotations = [
-    {
-      note: {
-        label: "Here is the annotation label",
-        title: "Annotation title",
-      },
-      type: d3.annotationCalloutCircle,
-      subject: {
-        radius: 20, // circle radius
-        radiusPadding: 20, // white space around circle befor connector
-      },
-      color: ["red"],
-      x: 40,
-      y: 160,
-      dy: 70,
-      dx: 70,
-    },
-  ];
-
-  let svg = d3
-    .selectAll("circle")
-    .on("mousemove", function (d) {
-      tooltip
-        .html(`<strong>'${d}Bro?</strong>`)
-        .style("top", d.pageY - 12 + "px")
-        .style("left", d.pageX + 25 + "px")
-        .style("opacity", 0.9);
-    })
-    .on("mouseout", function (_) {
-      tooltip.style("opacity", 0);
-    });
-
 
   // var width = containerElement.offsetWidth;
 
@@ -81,18 +49,22 @@ var renderChart = function() {
     height = 30;
   }
   else {
-    var width = 800,
+    var width = 840,
     height = 50;
   }
 
-  let margin = ({top: 0, right: 40, bottom: 34, left: 6});
+  let svgImage = document.querySelector('.svgImage')
+  let currentWidth = svgImage.width
 
-  var data = [0, 15, 20, 25, 30, 45];
+
+  let margin = ({top: 0, right: 60, bottom: 34, left: 6});
+
+  var data = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45];
 
   let svgAxis = d3
     .select("#svganchor")
     .append("svg")
-    .attr("width", width)
+    .attr("width", svgImage.width)
     .attr("height", height)
     .style("margin-left", margin.left);
 
