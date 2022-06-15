@@ -2,81 +2,91 @@
 @import "../_base/khn-npr.less";
 
 .measure-group {
-    display:inline;
-  }
+  display: inline;
+}
 
-  button {
-    margin:0 auto;
-    display:block;
-  }
+button {
+  margin: 0 auto;
+  display: block;
+}
 
-  svg {
-    background-color: white;
-  }
+svg {
+  background-color: white;
+}
 
-  div.tooltip {
-    position: absolute;
-    text-align: left;
-    color: #333;
-    white-space: normal;
-    padding: 6px;
-    font-size: 12px;
-    background: white;
-    border: 1px solid rgb(96,125,139);
-    border-radius: 2px;
-    pointer-events: none;
-    cursor: none;
-    width: 180px;
-  }
+div.tooltip {
+  position: absolute;
+  text-align: left;
+  color: #333;
+  white-space: normal;
+  padding: 6px;
+  font-size: 12px;
+  background: white;
+  border: 1px solid rgb(96,125,139);
+  border-radius: 2px;
+  pointer-events: none;
+  cursor: none;
+  width: 180px;
+}
 
-  .axis path,
-  .axis line {
-    fill: none;
-    stroke: rgb(96,125,139);
-    shape-rendering: crispEdges;
-  }
+.axis line,
+.axis path {
+  fill: none;
+  stroke: rgb(96,125,139);
+  shape-rendering: crispEdges;
+}
 
-  .axis text {
-    font: 10px sans-serif;
-  }
+.axis text {
+  font: 10px sans-serif;
+}
 
-  .key_block {
-    display: flex;
-    flex-direction: column;
-    width: 33%;
-    margin-right: .5%;
-    text-align: center;
-  }
+.key_block {
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  margin-right: 0.5%;
+  text-align: center;
+}
 
-  .key_break {
-    height: 16px;
-    width: 100%;
-    margin: 0 auto;
-    margin-bottom: 4px;
-  }
+.key_break {
+  height: 16px;
+  width: 100%;
+  margin: 0 auto 4px;
+}
 
+#keyContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px dashed #333;
+
+}
+
+@media screen and (min-width: 729px) {
   #keyContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin-top: 10px;
-    padding-bottom: 10px;
-    border-bottom: 2px dashed #333;
-
+    width: 65%;
+    margin: 0 auto;
   }
+}
 
-  @media screen and (min-width: 729px) {
-    #keyContainer {
-     width: 65%;
-     margin: 0 auto;
-    }
-  }
+text {
+  font-family: 'Knockout 31 4r';
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  -webkit-font-smoothing: antialiased;
+  font-size: 12px;
+}
 
-  text {
-    font-family: 'Knockout 31 4r';
-    font-weight: normal;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    -webkit-font-smoothing: antialiased;
-    font-size: 12px;
+
+body.npr {
+  h1, h2 {
+    .mmedia-constrained-centered();
   }
+  .footnotes,
+  .footer {
+    .mmedia-constrained();
+  }
+}

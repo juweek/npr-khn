@@ -4,26 +4,26 @@
 text.in {
     font-weight: bold !important;
   }
-  
+
   body.npr {
     rect {
       fill: @red4  !important;
     }
   }
-  
+
   .measure-group {
     display:inline;
   }
-  
+
   button {
     margin:0 auto;
     display:block;
   }
-  
+
   svg {
     background-color: white;
   }
-  
+
   div.tooltip {
     position: absolute;
     text-align: left;
@@ -38,14 +38,14 @@ text.in {
     cursor: none;
     width: 150px;
   }
-  
+
   .axis path,
   .axis line {
     fill: none;
     stroke: rgb(96,125,139);
     shape-rendering: crispEdges;
   }
-  
+
   .axis text {
     font: 10px sans-serif;
   }
@@ -77,5 +77,19 @@ text.in {
   #keyContainer {
    width: 65%;
    margin: 0 auto;
+  }
+}
+
+body.npr {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+
+  h1, h2 {
+    .mmedia-constrained-centered();
+  }
+  .footnotes,
+  .footer {
+    .mmedia-constrained();
   }
 }
