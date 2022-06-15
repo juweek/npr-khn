@@ -1,4 +1,4 @@
-#faces-of-debt-20220524/
+# faces-of-debt-20220524/
 
 This project contains a grid of photos and videos that appear at the top of a story on KHN.org and NPR.org. Clicking on a photo or video jumps the user down to the full profile (on the same page).
 
