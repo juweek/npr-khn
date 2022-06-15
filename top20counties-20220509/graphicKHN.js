@@ -26,6 +26,7 @@ switch (mode) {
 
 var DATA = null;
 
+
 /* INITIALIZE */
 pym.then((child) => {
   pymChild = child;
@@ -36,8 +37,9 @@ pym.then((child) => {
   window.addEventListener("resize", renderChart);
 });
 
+
 /* RENDER THE CHART */
-var renderChart = function () {
+var renderChart = function() {
   // clear out existing chart
   var containerElement = document.querySelector("#svganchor");
   containerElement.innerHTML = "";
@@ -261,26 +263,14 @@ METHOD: load in and process data
           })
           //else 	{ return parseInt(d.collection_debt_state_avg)/80}
           .attr("fill", function (d) {
-            if (mode == "npr") {
-              if (d.State == "New York") {
-                return "#EBE2AA";
-              } else if (d.State == "California") {
-                return "#EBE2AA";
-              } else if (d.State == "Texas") {
-                return "#D64833";
-              } else {
-                return "#E18D39";
-              }
-            } else if (mode == "khn") {
-              if (d.State == "New York") {
-                return "#FEECE5";
-              } else if (d.State == "California") {
-                return "#FEECE5";
-              } else if (d.State == "Texas") {
-                return "#B47C82";
-              } else {
-                return "#E87E71";
-              }
+            if (d.State == "New York") {
+              return "#FEECE5";
+            } else if (d.State == "California") {
+              return "#FEECE5";
+            } else if (d.State == "Texas") {
+              return "#B47C82";
+            } else {
+              return "#E87E71";
             }
           })
           .attr("fill-opacity", 0.75)
@@ -359,22 +349,24 @@ METHOD: load in and process data
               )
               .style("left", function () {
                 // Get calculated tooltip coordinates and size
-                let boundingBox = document.querySelector("body");
+                let boundingBox = document.querySelector("body")
                 var tooltip_rect = boundingBox.getBoundingClientRect();
-                if (d.pageX + 170 > tooltip_rect.width) {
-                  return d.pageX - 170 + "px";
-                } else {
+                if((d.pageX + 170) > tooltip_rect.width){
+                  return (d.pageX - 170) + "px";
+                }
+                else {
                   return d.pageX + "px";
                 }
-              })
+                })
               .style("top", function () {
                 // Get calculated tooltip coordinates and size
-                let boundingBox = document.querySelector("body");
+                let boundingBox = document.querySelector("body")
                 var tooltip_rect = boundingBox.getBoundingClientRect();
-                if (d.pageY + 60 > tooltip_rect.height) {
+                if((d.pageY + 60) > tooltip_rect.height){
                   return d.pageY + "px";
-                } else {
-                  return d.pageY - 200 + "px";
+                }
+                else {
+                  return (d.pageY - 200) + "px";
                 }
               })
               .style("opacity", 0.9);
@@ -397,4 +389,4 @@ METHOD: load in and process data
     });
 
   pymChild.sendHeight();
-};
+}

@@ -1,0 +1,37 @@
+<% if (COPY.labels["headline_" + mode]) { %>
+    <h1><%= t.smarty(COPY.labels["headline_" + mode]) %></h1>
+    <% } %>
+    
+    <% if (COPY.labels["subhed_" + mode]) { %>
+    <h2><%= t.smarty(COPY.labels["subhed_" + mode]) %></h2>
+    <% } %>
+    
+      
+    <section id="keyContainer">
+      <div class="key_block">
+        <div class="key_break" style="background-color: #FEECE5;"></div>
+        <h3 class="">$700 or less</h3>
+      </div>
+      <div class="key_block">
+        <div class="key_break" style="background-color: #E87E71;"></div>
+        <h3 class="">$701 - $1,000</span>
+      </div>
+      <div class="key_block">
+        <div class="key_break" style="background-color: #B47C82;"></div>
+        <h3 class="">More than $1,000</h3>
+      </div>
+    </section>
+    <div id="svganchor" class="graphic" role="img" class="graph centered">
+    </div>
+    
+    <div class="footer">
+      <% if (COPY.labels["source_" + mode]) { %><p>Source: <%= t.smarty(COPY.labels["source_" + mode]) %></p><% } %>
+      <% if (COPY.labels.credit) { %><p>Credit: <%= COPY.labels.credit %></p><% } %>
+    </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
+    <script src="https://unpkg.com/d3-tip@0.9.1/dist/index.js"></script>
+    <script src="./graphicKHN.js"></script>
+    

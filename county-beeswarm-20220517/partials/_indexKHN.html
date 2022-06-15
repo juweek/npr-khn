@@ -1,0 +1,38 @@
+
+<% if (COPY.labels["headline_" + mode]) { %>
+<h1><%= t.smarty(COPY.labels["headline_" + mode]) %></h1>
+<% } %>
+
+<% if (COPY.labels["subhed_" + mode]) { %>
+<h2><%= t.smarty(COPY.labels["subhed_" + mode]) %></h2>
+<% } %>  
+ 
+    <h3 class="sequenceRate_text" style="padding-top: 20px;">Percent of Medicare population with 6+ chronic conditions</h3>
+    <div class="gradientKeyLabel" style="display: flex; justify-content: space-between; margin-top: 20px;">
+      <div class="key_block" style="display: flex;">
+          <span class="sequenceRate_text"> 0%</span>
+        </div>
+        <div class="key_block" style="display: flex;">
+          <span class="sequenceRate_text"> 20%</span>
+        </div>
+        <div class="key_block" style="display: flex;">
+          <span class="sequenceRate_text"> 40%</span>
+        </div>
+      </div>
+    <div style="width: 100%; height: 20px; background: linear-gradient(to right, #EBE2AA, rgb(246, 233, 203), #D64833); margin-bottom: 20px;"></div>
+
+    <img class="svgImage" src="./allCounties.svg" style="width: 100%;">
+    <div id="svganchor" class="graphic" role="img">
+    </div>
+    <h3 class="sequenceRate_text xAxisKey">Percent of people with credit records who have medical debt</h3>
+    <div class="footer">
+  <% if (COPY.labels["source_" + mode]) { %><p>Source: <%= t.smarty(COPY.labels["source_" + mode]) %></p><% } %>
+  <% if (COPY.labels.credit) { %><p>Credit: <%= COPY.labels.credit %></p><% } %>
+</div>
+  </div>
+  
+  
+  <script src="https://d3js.org/d3.v4.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
+  <script src="./graphic.js"></script>
+  
