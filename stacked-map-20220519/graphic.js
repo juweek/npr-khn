@@ -34,6 +34,16 @@ METHOD: button click interaction
 ------------------------------
 */
 
+let currentMap = document.getElementById('medicalMap')
+switch (mode) {
+  case "khn":
+   currentMap.src = "./medicalDebtMapKHN.svg"
+   break;
+  case "npr":
+    currentMap.src = "./medicalDebtMap.svg"
+    break;
+}
+
   buttonElements.forEach((element) =>
     element.addEventListener("click", (event) => {
       buttonElements.forEach((button) => {

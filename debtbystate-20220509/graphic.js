@@ -146,13 +146,32 @@ METHOD: fetch the data and draw the chart
         })
         .attr("fill", (d) => {
           let medicalDebt = d.value.split(":");
-          
           if (parseInt(medicalDebt[0]) > 1000) {
             return "#D64833";
           } else if (parseInt(medicalDebt[0]) > 700) {
             return "#E18D39";
           } else {
             return "#EBE2AA";
+          }
+        })
+        .attr("fill", function (d) {
+          let medicalDebt = d.value.split(":");
+          if (mode == "npr") {
+            if (parseInt(medicalDebt[0]) > 1000) {
+              return "#D64833";
+            } else if (parseInt(medicalDebt[0]) > 700) {
+              return "#E18D39";
+            } else {
+              return "#EBE2AA";
+            }
+          } else if (mode == "khn") {
+            if (parseInt(medicalDebt[0]) > 1000) {
+              return "#B47C82";
+            } else if (parseInt(medicalDebt[0]) > 700) {
+              return "#E87E71";
+            } else {
+              return "#FEECE5";
+            }
           }
         })
         .attr("data-coordinates", (d) => `${path.centroid(d)}`);
