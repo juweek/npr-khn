@@ -28,7 +28,7 @@ These instructions assume that you're in terminal, in the `npr-khn/faces-of-debt
 
 ```
 ffmpeg \
--i sherriefoy.mp4 \
+-i joepitzo-new.mp4 \
 -an \
 -vcodec libx264 \
 -preset veryslow \
@@ -36,7 +36,7 @@ ffmpeg \
 -pix_fmt yuv420p \
 -crf 21 \
 -vf scale=600:-1 \
-../../assets/sherriefoy.mp4
+../../assets/joepitzo.mp4
 ```
 
 Note: If you get a `height not divisible by 2` error, adjust the `-vf scale=1002:-1 \` value until you no longer get that error.
