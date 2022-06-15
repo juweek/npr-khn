@@ -260,7 +260,7 @@ METHOD: load in the map
       svg
         .append("path")
         .datum(topojson.feature(us, us.objects.nation))
-        .attr("fill", "#ccc")
+        .attr("fill", "#ddd")
         .attr("d", path);
 
       // outline state border
@@ -276,9 +276,9 @@ METHOD: load in the map
       svg
         .append("g")
         .attr("class", "state")
-        .attr("fill-opacity", 0.5)
+        .attr("fill-opacity", 0.6)
         .attr("stroke", "#fff")
-        .attr("stroke-width", 0.5);
+        .attr("stroke-width", 1);
 
       let radius = d3.scaleSqrt([450, 1100], [12, 45]);
 
