@@ -3,6 +3,14 @@ var ANALYTICS = require("./lib/analytics");
 require("./lib/webfonts");
 var { isMobile } = require("./lib/breakpoints");
 
+var mode = null;
+if (document.querySelector("body").classList.contains("npr")) {
+  mode = "npr";
+}
+if (document.querySelector("body").classList.contains("khn")) {
+  mode = "khn";
+}
+
 pym.then(child => {
     child.sendHeight();
 
@@ -51,7 +59,11 @@ pym.then(child => {
         let newDivLabel = document.createElement("h3");
         newDivLabel.className = "profileAmt";
         newDivLabel.innerHTML = 'Debt: $' + item_data.debt;
-        newDiv.href = '' + item_data.anchorlink
+        if(mode == "npr") {
+          newDiv.href = '' + item_data.anchorlink_npr
+        } else {
+          newDiv.href = '' + item_data.anchorlink
+        }
         newDiv.setAttribute("target", "_parent");
 
         newDivTextHolder.appendChild(newDivText);
