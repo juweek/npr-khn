@@ -59,9 +59,6 @@ div.tooltip {
   flex-direction: row;
   justify-content: space-around;
   margin-top: 10px;
-  padding-bottom: 10px;
-  border-bottom: 2px dashed #333;
-
 }
 
 @media screen and (min-width: 729px) {
@@ -72,10 +69,7 @@ div.tooltip {
 }
 
 text {
-  font-family: 'Knockout 31 4r';
-  font-weight: normal;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-weight: bold;
   -webkit-font-smoothing: antialiased;
   font-size: 12px;
 }
@@ -89,4 +83,14 @@ body.npr {
   .footer {
     .mmedia-constrained();
   }
+
+  text {
+    .gotham();
+  }
 }
+
+body.khn {
+  text {
+    font-family: var(--subtitle-font, sans-serif);
+  }
+} 
