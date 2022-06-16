@@ -10,9 +10,15 @@ if (document.querySelector("body").classList.contains("npr")) {
 if (document.querySelector("body").classList.contains("khn")) {
   mode = "khn";
 }
+if (document.querySelector("body").classList.contains("khnSpanish")) {
+  mode = "khnSpanish";
+}
 
 switch (mode) {
   case "khn":
+    require("../_base/webfonts_khn.js");
+    break;
+  case "khnSpanish":
     require("../_base/webfonts_khn.js");
     break;
   case "npr":
@@ -101,7 +107,7 @@ METHOD: set the size of the canvas
 
   /*
 ------------------------------
-METHOD: fetch the data and draw the chart 
+METHOD: fetch the data and draw the chart
 ------------------------------
 */
   function update(svg, us, radius) {
@@ -164,7 +170,7 @@ METHOD: fetch the data and draw the chart
             } else {
               return "#EBE2AA";
             }
-          } else if (mode == "khn") {
+          } else if (mode == "khn" || mode == "khnSpanish") {
             if (parseInt(medicalDebt[0]) > 1000) {
               return "#B47C82";
             } else if (parseInt(medicalDebt[0]) > 700) {
