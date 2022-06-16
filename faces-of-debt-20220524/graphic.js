@@ -72,7 +72,7 @@ pym.then(child => {
         //newDivLink.appendChild(newDiv)
         wrapper.appendChild(newDiv);
       }
-
+    // child.sendHeight()
 
     // child.onMessage("on-screen", function(bucket) {
     //     ANALYTICS.trackEvent("on-screen", bucket);
@@ -82,6 +82,6 @@ pym.then(child => {
     //     ANALYTICS.trackEvent("scroll-depth", data.percent, data.seconds);
     // });
 
-    window.addEventListener("resize", () => child.sendHeight());
-    window.addEventListener("onload", () => child.sendHeight())
+    // window.addEventListener("resize", () => child.sendHeight());
+    // window.addEventListener("onload", () => child.sendHeight());
 });
