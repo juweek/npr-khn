@@ -83,4 +83,5 @@ pym.then(child => {
     // });
 
     window.addEventListener("resize", () => child.sendHeight());
+    window.addEventListener("onload", () => child.sendHeight())
 });
