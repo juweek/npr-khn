@@ -206,10 +206,9 @@ METHOD: fetch the data and draw the chart
               // Get calculated tooltip coordinates and size
               let boundingBox = document.querySelector("body")
               var tooltip_rect = boundingBox.getBoundingClientRect();
-              if((d.pageX + 140) > tooltip_rect.width){
-                return (d.pageX - 120) + "px";
-              }
-              else {
+              if (d.pageX + 170 > tooltip_rect.width) {
+                return d.pageX - 170 + "px";
+              } else {
                 return d.pageX + "px";
               }
               })

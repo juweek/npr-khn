@@ -36,7 +36,7 @@ pym.then(child => {
         if((item_data.media).toLowerCase() == 'image'){
           newDiv.style.backgroundImage = 'url(./assets/' + name.toLowerCase().replace(/\s/g, '') + ".jpg)";
         } else {
-
+          newDiv.style.backgroundImage = 'url(./assets/' + name.toLowerCase().replace(/\s/g, '') + ".jpg)";
           let newVideo = document.createElement('video');
           let source = document.createElement('source');
           source.setAttribute("src", "./assets/" + name.toLowerCase().replace(/\s/g, '') + ".mp4");
