@@ -7,52 +7,73 @@
 <% } %>
 
 <div class="buttonsContainer">
-  <button class="active" data-filter="all">All U.S. Counties</button>
-  <button data-filter="top100" class="">Top 100 Counties</button>
-  </div>
+  <button class="active" data-filter="all">
+    <% if (mode == "khnSpanish") { %>
+    <%= COPY.labels.toggle1_spanish %>
+    <% } else { %>
+    <%= COPY.labels.toggle1_english %>
+    <% } %>
+  </button>
+  <button data-filter="top100" class="">
+    <% if (mode == "khnSpanish") { %>
+    <%= COPY.labels.toggle2_spanish %>
+    <% } else { %>
+    <%= COPY.labels.toggle2_english %>
+    <% } %>
+  </button>
+</div>
 
 <section id="keyContainer">
- <div class="key_block">
-   <div id="keybreak1" class="key_break" style="background-color: #EBE2AA;"></div>
-   <h3 class=""> < 10% </h3>
- </div>
- <div class="key_block">
-   <div id="keybreak2" class="key_break" style="background-color: #EDB97F;"></div>
-   <h3 class="">11-20%</h3>
- </div>
- <div class="key_block">
-   <div id="keybreak3" class="key_break" style="background-color: #E18D39;"></div>
-   <h3 class="">21-30%</h3>
- </div>
- <div class="key_block">
-   <div id="keybreak4" class="key_break" style="background-color: #D64833;"></div>
-   <h3 class="">31-40%</h3>
- </div>
- <div class="key_block">
-   <div id="keybreak5" class="key_break" style="background-color: #A13626;"></div>
-   <h3 class="">> 40%</h3>
- </div>
+  <div class="key_block">
+    <div id="keybreak1" class="key_break" style="background-color: #EBE2AA;"></div>
+    <h3 class="">
+      < 10% </h3> </div> <div class="key_block">
+        <div id="keybreak2" class="key_break" style="background-color: #EDB97F;"></div>
+        <h3 class="">11-20%</h3>
+  </div>
+  <div class="key_block">
+    <div id="keybreak3" class="key_break" style="background-color: #E18D39;"></div>
+    <h3 class="">21-30%</h3>
+  </div>
+  <div class="key_block">
+    <div id="keybreak4" class="key_break" style="background-color: #D64833;"></div>
+    <h3 class="">31-40%</h3>
+  </div>
+  <div class="key_block">
+    <div id="keybreak5" class="key_break" style="background-color: #A13626;"></div>
+    <h3 class="">> 40%</h3>
+  </div>
 </section>
 
- <section id="treeMapContainer">
-   <div data-chart="all" class="active">
-     <img id="medicalMap" src="./medicalDebtMap.svg" alt="Chloropleth map of every US county in the US, with dark blue corresponding to lower levels of debt, while red correlates to higher levels of debt. There is a large concentration of dark blue in Midwest and Northwestern states, while the Southeast shows varying degrees of red.">
-   </div>
-   <div data-chart="top100">
-     <img src="./alteredSVG.svg" alt="Map of every US county in the US, with the top 100 counties with US debt highlighted in red. These counties are generally concentratd in the Southeast, going as far west as Texas, and as far north as West Virginia.">
-   </div>
-   </section>
-  
- 
-
-   <div class="footer">
-    <% if (COPY.labels["source_" + mode]) { %><p>Source: <%= t.smarty(COPY.labels["source_" + mode]) %></p><% } %>
-    <% if (COPY.labels.credit) { %><p>Credit: <%= COPY.labels.credit %></p><% } %>
+<section id="treeMapContainer">
+  <div data-chart="all" class="active">
+    <img id="medicalMap" src="./medicalDebtMap.svg"
+      alt="Chloropleth map of every US county in the US, with dark blue corresponding to lower levels of debt, while red correlates to higher levels of debt. There is a large concentration of dark blue in Midwest and Northwestern states, while the Southeast shows varying degrees of red.">
   </div>
- </div>
- 
- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
- <script src="https://unpkg.com/topojson-client@3"></script>
- <script src="https://unpkg.com/d3-tip@0.9.1/dist/index.js"></script>
- <script src="./graphic.js"></script>
- 
+  <div data-chart="top100">
+    <img src="./alteredSVG.svg"
+      alt="Map of every US county in the US, with the top 100 counties with US debt highlighted in red. These counties are generally concentratd in the Southeast, going as far west as Texas, and as far north as West Virginia.">
+  </div>
+</section>
+
+
+<div class="footer">
+  <% if (COPY.labels["source_" + mode]) { %>
+    <p>
+      <% if (mode == "khnSpanish") { %>Fuente:<% } else { %>Source:<% } %>
+      <%= t.smarty(COPY.labels["source_" + mode]) %>
+    </p>
+  <% } %>
+  <% if (COPY.labels["credit_" + mode]) { %>
+    <p>
+      <% if (mode == "khnSpanish") { %>Crédito:<% } else { %>Credit:<% } %>
+      <%= t.smarty(COPY.labels["credit_" + mode]) %>
+    </p>
+  <% } %>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
+<script src="https://unpkg.com/topojson-client@3"></script>
+<script src="https://unpkg.com/d3-tip@0.9.1/dist/index.js"></script>
+<script src="./graphic.js"></script>

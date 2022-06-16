@@ -43,9 +43,18 @@
 </div>
 
 <div class="footer">
-  <% if (COPY.labels["source_" + mode]) { %><p>Source: <%= t.smarty(COPY.labels["source_" + mode]) %></p><% } %>
-  <% if (COPY.labels.credit) { %><p>Credit: <%= COPY.labels.credit %></p><% } %>
-</div>
+  <% if (COPY.labels["source_" + mode]) { %>
+    <p>
+      <% if (mode == "khnSpanish") { %>Fuente:<% } else { %>Source:<% } %>
+      <%= t.smarty(COPY.labels["source_" + mode]) %>
+    </p>
+  <% } %>
+  <% if (COPY.labels["credit_" + mode]) { %>
+    <p>
+      <% if (mode == "khnSpanish") { %>Crédito:<% } else { %>Credit:<% } %>
+      <%= t.smarty(COPY.labels["credit_" + mode]) %>
+    </p>
+  <% } %>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>

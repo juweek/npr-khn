@@ -10,9 +10,15 @@ if (document.querySelector("body").classList.contains("npr")) {
 if (document.querySelector("body").classList.contains("khn")) {
   mode = "khn";
 }
+if (document.querySelector("body").classList.contains("khnSpanish")) {
+  mode = "khnSpanish";
+}
 
 switch (mode) {
   case "khn":
+    require("../_base/webfonts_khn.js");
+    break;
+  case "khnSpanish":
     require("../_base/webfonts_khn.js");
     break;
   case "npr":
@@ -22,6 +28,7 @@ switch (mode) {
     require("./lib/webfonts");
     break;
 }
+
 
 pym.then((child) => {
   var svgElement = document.getElementById("treeMapContainer");
@@ -39,6 +46,9 @@ switch (mode) {
   case "khn":
    currentMap.src = "./medicalDebtMapKHN.svg"
    break;
+  case "khnSpanish":
+    currentMap.src = "./medicalDebtMapKHN.svg"
+    break;
   case "npr":
     currentMap.src = "./medicalDebtMap.svg"
     break;
