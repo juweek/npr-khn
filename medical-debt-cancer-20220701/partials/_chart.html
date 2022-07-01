@@ -1,0 +1,53 @@
+<% if (COPY.labels["headline_" + mode]) { %>
+<h1><%= t.smarty(COPY.labels["headline_" + mode]) %></h1>
+<% } %>
+
+<% if (COPY.labels["subhed_" + mode]) { %>
+<h2><%= t.smarty(COPY.labels["subhed_" + mode]) %></h2>
+<% } %>
+
+<ul class="key">
+  <li class="key-item key-0 nocancer"><b></b><label><%= COPY.labels.hed_nocancer %></label></li>
+  <li class="key-item key-1 cancer"><b></b><label><%= COPY.labels.hed_cancer %></label></li>
+</ul>
+
+<div id="dot-chart" class="graphic" role="img"
+<% if (COPY.labels.screenreader) { %>
+aria-label="<%- COPY.labels.screenreader %>"
+<% } %>
+>
+</div>
+
+<table class="sr-only">
+  <thead>
+    <tr>
+      <th>Action</th>
+      <th><%= COPY.labels.hed_cancer %></th>
+      <th><%= COPY.labels.hed_nocancer %></th>
+    </tr>
+  </thead>
+<% COPY.data.forEach(function(row) { %>
+  <tr>
+    <td><%= row.label %></td>
+    <td><%= row.cancer %>%</td>
+    <td><%= row.nocancer %>%</td>
+  </tr>
+<% }); %>
+</table>
+
+<% if (COPY.labels.footnote) { %>
+<div class="footnotes">
+    <p><strong>Note:</strong> <%= COPY.labels.footnote %></p>
+</div>
+<% } %>
+
+<div class="footer">
+  <% if (COPY.labels["source_" + mode]) { %><p>Source: <%= t.smarty(COPY.labels["source_" + mode]) %></p><% } %>
+  <% if (COPY.labels.credit) { %><p>Credit: <%= COPY.labels.credit %></p><% } %>
+</div>
+
+<script type="text/javascript">
+    var DATA = <%= JSON.stringify(COPY.data) %>;
+</script>
+
+<script src="./graphic.js"></script>
