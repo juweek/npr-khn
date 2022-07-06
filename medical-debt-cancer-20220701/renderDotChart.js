@@ -97,7 +97,6 @@ module.exports = function(config) {
       // .attr("class", d => classify(d[labelColumn]))
       .append("span")
       .html(d => d[labelColumn]);
-      console.log(labelColumn);
   }
 
   // Create D3 scale objects.
