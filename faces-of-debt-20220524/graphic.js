@@ -72,6 +72,7 @@ pym.then(child => {
         //newDivLink.appendChild(newDiv)
         wrapper.appendChild(newDiv);
       }
+    child.sendHeight()
     // child.sendHeight()
 
     // child.onMessage("on-screen", function(bucket) {

@@ -5,10 +5,12 @@ This project contains a grid of photos and videos that appear at the top of a st
 The original, full-size media is stored on S3. To retrieve it, run this command in dailygraphics-next:
 
 ```
-node cli sync faces-of-debt-20220524
+node cli sync faces-of-debt-20220524 --push
 ```
 
 The files will download to the `synced/` folder in this project.
+
+After competing the below steps, run this command again in dailygraphics-next to push up changes to S3.
 
 Resizing images
 ---------------
