@@ -1,0 +1,109 @@
+@import "./lib/base";
+@import "../_base/khn-npr.less";
+
+.key {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0;
+  margin-bottom: 15px;
+  justify-content: center;
+
+  @media @screen-mobile {
+    margin-bottom: 25px;
+  }
+
+  .key-item {
+    display: block;
+    margin: 0 11px 3px 11px;
+
+    @media @screen-mobile {
+      &.overall {
+        flex-basis: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+      }
+    }
+
+    b {
+      border-radius: 50px;
+      overflow: hidden;
+      width: 12px;
+      height: 12px;
+      opacity: 0.7;
+      float: none;
+      display: inline-block;
+    }
+    &.black b { background: var(--bar-highlight-color, #666); }
+    &.white b { background: var(--bar-color, #999); }
+
+    label {
+      font-size: var(--bar-label-size, 12px);
+      color: var(--bar-color, #666);
+    }
+    &.black label {
+      color: var(--bar-highlight-color, #666);
+      font-weight: bold;
+    }
+    &.white label {
+      color: var(--bar-color, #666);
+    }
+  }
+}
+
+.bars line {
+    fill: none;
+    stroke-width: 5px;
+    stroke: #ddd;
+}
+
+circle {
+  fill: #D8472B;
+  fill-opacity: .75;
+
+  .black & { fill: var(--bar-highlight-color, #666); }
+  .white & { fill: var(--bar-color, #999); }
+}
+
+.value {
+  text {
+    fill: var(--chart-value-color, #999);
+    font-size: var(--chart-value-size, 12px);
+    text-anchor: middle;
+  }
+
+  .black text {
+    fill: var(--bar-highlight-color, #666);
+    font-weight: bold;
+  }
+  .white text {
+    fill: var(--bar-color, #999);
+    font-weight: normal;
+  }
+}
+
+.labels li {
+  font-size: var(--bar-label-size, 12px);
+  color: var(--bar-label-color, #666);
+}
+
+.chart h4 {
+  .khn & {
+    font-family: var(--subtitle-font, sans-serif);
+    font-weight: normal;
+    color: var(--bar-label-color, #666);
+    font-size: var(--bar-label-size, 12px);
+    margin: 0 0 11px 0;
+  }
+
+  .npr & {
+    .gotham();
+    color: #454545;
+    font-size: 13px;
+    margin: 0 0 11px 0;
+  }
+}
+
+.chart + .chart {
+  margin-top: 33px;
+}
