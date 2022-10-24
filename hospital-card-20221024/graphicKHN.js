@@ -10,15 +10,9 @@ if (document.querySelector("body").classList.contains("npr")) {
 if (document.querySelector("body").classList.contains("khn")) {
   mode = "khn";
 }
-if (document.querySelector("body").classList.contains("khnSpanish")) {
-  mode = "khnSpanish";
-}
 
 switch (mode) {
   case "khn":
-    require("../_base/webfonts_khn.js");
-    break;
-  case "khnSpanish":
     require("../_base/webfonts_khn.js");
     break;
   case "npr":
@@ -107,47 +101,65 @@ METHOD: set the size of the canvas
 
   /*
 ------------------------------
-METHOD: fetch the data and draw the chart
+METHOD: fetch the data and draw the chart 
 ------------------------------
 */
   function update(svg, us, radius) {
-    let path = d3.geoPath();
+    d3.csv("./medicalState.csv").then(function (data) {
+      data.forEach(function (d) {
+        // extract only c_fips and per_capita (or total)
+        d.avg_medical_debt = d.avg_medical_debt + ":" + d.pc_collections;
+        delete d["county"];
+        delete d["state"];
+        delete d["total"];
+        delete d["per_capita"];
+        delete d["pc_collections"];
+        delete d["state_name"];
+        delete d["per_capita"];
+      });
 
-    d3.csv('https://raw.githubusercontent.com/juweek/datasets/main/hospital_data_filtered_2.csv').then(function(data) {
-		data.forEach(function(d) {
-			// extract only c_fips and per_capita (or total)
-			d.total = +d.total;
-			d.per_capita = +d.per_capita
-			delete d['county'];
-			delete d['state'];
-			delete d['total'];
-			console.log(d)
-			// delete d['per_capita'];
-		});
-	
-		// transform data to Map of c_fips => per_capita
-		data = data.map(x => Object.values(x));
-		data = new Map(data);
-		
-		let format = d3.format(",.7f");
-		// radius = d3.scaleSqrt([0, d3.quantile([...data.values()].sort(d3.ascending), 0.985)], [0, 10])
+      // transform data to Map of c_fips => per_capita
+      data = data.map((x) => Object.values(x));
+      data = new Map(data);
 
-		svg.select("g")
-			.selectAll("circle")
-			.data(topojson.feature(us, us.objects.counties).features
-			.map(d => (d.value = data.get(d.id), d))
-			.sort((a, b) => b.value - a.value))
-		.join("circle")
-			.transition()
-			.duration(1000)
-			.ease(d3.easeLinear)
-			.attr("transform", d => `translate(${path.centroid(d)})`)
-			.attr("r", d => radius(d.value));
+      console.log(data);
 
-		svg.select("g")
-			.selectAll("circle")
-			.append("title")
-			.text(d => `${d.properties.name}${format(d.value)}`);
+      let path = d3.geoPath();
+
+      let format = d3.format(",.7f");
+      // radius = d3.scaleSqrt([0, d3.quantile([...data.values()].sort(d3.ascending), 0.985)], [0, 10])
+
+      svg
+        .select("g")
+        .selectAll("circle")
+        .data(
+          topojson
+            .feature(us, us.objects.states)
+            .features.map((d) => ((d.value = data.get(d.id)), d))
+            .sort((a, b) => b.value - a.value)
+        )
+        .join("circle")
+        .attr("transform", (d) => `translate(${path.centroid(d)})`)
+        .attr("r", function (d) {
+          let medicalDebt = d.value.split(":");
+          return radius(medicalDebt[0]);
+        })
+        .attr("fill", (d) => {
+          let medicalDebt = d.value.split(":");
+            if (parseInt(medicalDebt[0]) > 1000) {
+              return "#B47C82";
+            } else if (parseInt(medicalDebt[0]) > 700) {
+              return "#E87E71";
+            } else {
+              return "#FEECE5";
+            }
+        })
+        .attr("data-coordinates", (d) => `${path.centroid(d)}`);
+      //.attr("r", 5);
+
+      svg
+        .select("g")
+        .selectAll("circle")
 
       // Create tooltip div and make it invisible
       let tooltip = d3
@@ -156,7 +168,6 @@ METHOD: fetch the data and draw the chart
         .attr("class", "tooltip")
         .style("opacity", 0);
 
-      /*
       svg
         .selectAll(".state")
         .on("mousemove", function (d) {
@@ -175,9 +186,10 @@ METHOD: fetch the data and draw the chart
               // Get calculated tooltip coordinates and size
               let boundingBox = document.querySelector("body")
               var tooltip_rect = boundingBox.getBoundingClientRect();
-              if (d.pageX + 170 > tooltip_rect.width) {
-                return d.pageX - 170 + "px";
-              } else {
+              if((d.pageX + 140) > tooltip_rect.width){
+                return (d.pageX - 120) + "px";
+              }
+              else {
                 return d.pageX + "px";
               }
               })
@@ -197,7 +209,6 @@ METHOD: fetch the data and draw the chart
         .on("mouseout", function (_) {
           tooltip.style("opacity", 0);
         });
-        */
 
       svg
         .select("g")
@@ -267,7 +278,7 @@ METHOD: load in the map
         .attr("stroke", "#fff")
         .attr("stroke-width", 1);
 
-      let radius = d3.scaleSqrt([0, 10], [10, 10]);
+      let radius = d3.scaleSqrt([450, 1100], [12, 45]);
 
       const legend = svg
         .append("g")
@@ -290,7 +301,7 @@ METHOD: load in the map
         .append("text")
         .attr("y", (d) => -2 * radius(d))
         .attr("dy", "1.3em")
-      //  .text(d3.format(".4"));
+        .text(d3.format(".4"));
 
       update(svg, us, radius);
       child.sendHeight();
