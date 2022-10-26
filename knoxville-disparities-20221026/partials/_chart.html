@@ -1,0 +1,39 @@
+<% if (COPY.labels["headline_" + mode]) { %>
+<h1><%= t.smarty(COPY.labels["headline_" + mode]) %></h1>
+<% } %>
+
+<% if (COPY.labels["subhed_" + mode]) { %>
+<h2><%= t.smarty(COPY.labels["subhed_" + mode]) %></h2>
+<% } %>
+
+<div class="graphic" role="img"
+<% if (COPY.labels.screenreader) { %>
+aria-label="<%- COPY.labels.screenreader %>"
+<% } %>
+>
+  <div>
+    <h3><%= COPY.labels.subhed_population %></h3>
+    <img class="key" src="img/key-population.png" alt="">
+    <img src="img/map-population.png" alt="">
+  </div>
+
+  <div>
+    <h3><%= COPY.labels.subhed_debt %></h3>
+    <img class="key" src="img/key-debt.png" alt="">
+    <img src="img/map-debt.png" alt="">
+  </div>
+
+</div>
+
+<% if (COPY.labels.footnote) { %>
+<div class="footnotes">
+    <p><strong>Note:</strong> <%= COPY.labels.footnote %></p>
+</div>
+<% } %>
+
+<div class="footer">
+  <% if (COPY.labels["source_" + mode]) { %><p>Source: <%= t.smarty(COPY.labels["source_" + mode]) %></p><% } %>
+  <% if (COPY.labels.credit) { %><p>Credit: <%= COPY.labels.credit %></p><% } %>
+</div>
+
+<script src="./graphic.js"></script>

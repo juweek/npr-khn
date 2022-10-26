@@ -1,0 +1,43 @@
+@import "./lib/base";
+@import "../_base/khn-npr.less";
+
+.graphic {
+  h3 {
+    margin-bottom: 11px;
+    text-align: center;
+  }
+  img {
+    display: block;
+    margin: 0 auto;
+
+    &.key { margin-bottom: 22px;}
+  }
+}
+
+@media @screen-mobile {
+  .graphic > div + div {
+    margin-top: 22px;
+  }
+}
+
+@media @screen-mobile-above {
+  .graphic {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 22px;
+
+    > div {
+      &:first-child {
+        width: calc(50% - 2px);
+        padding-right: 22px;
+        border-right: 2px solid #eee;
+      }
+
+      &:last-child {
+        width: calc(50% - 2px);
+        padding-left: 22px;
+      }
+    }
+  }
+}
