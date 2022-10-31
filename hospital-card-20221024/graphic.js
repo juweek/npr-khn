@@ -112,22 +112,29 @@ METHOD: fetch the data and draw the chart
 */
   function update(svg, us, radius) {
     let path = d3.geoPath();
+    let originalData = {}
 
     d3.csv('https://raw.githubusercontent.com/juweek/datasets/main/hospital_data_filtered_2.csv').then(function(data) {
 		data.forEach(function(d) {
 			// extract only c_fips and per_capita (or total)
 			d.total = +d.total;
 			d.per_capita = +d.per_capita
-			delete d['county'];
+      let currentEntry = {
+        total: d.total,
+        per_capita: d.per_capita,
+        hospitalName: d.county,
+        state: d.state
+      }
+      delete d['county'];
 			delete d['state'];
 			delete d['total'];
 			console.log(d)
-			// delete d['per_capita'];
+      originalData[d.c_fips] = currentEntry; // add to the original data
 		});
 	
 		// transform data to Map of c_fips => per_capita
 		data = data.map(x => Object.values(x));
-		data = new Map(data);
+    data = new Map(data);
 		
 		let format = d3.format(",.7f");
 		// radius = d3.scaleSqrt([0, d3.quantile([...data.values()].sort(d3.ascending), 0.985)], [0, 10])
@@ -156,50 +163,22 @@ METHOD: fetch the data and draw the chart
         .attr("class", "tooltip")
         .style("opacity", 0);
 
-      // Create tooltip div and make it invisible
+      // move tooltip
       svg
         .selectAll(".state")
         .on("mousemove", function (d) {
-          console.log(d.srcElement.__data__.properties.name);
+          //console.log(originalData)
+          let currentEntry = originalData[d.srcElement.__data__.id]
           tooltip
             .style("opacity", 1)
             .style("left", d.pageX + "px")
             .style("top", d.pageY + "px")
             .html(
-              `<div class="tooltip__title">${d.srcElement.__data__.properties.name}</div><div class="tooltip__value">${format(
-                d.srcElement.__data__.properties.value
-              )}</div>`
+              `<div class="tooltip__hospital">${currentEntry.hospitalName} Hospital </div><div class="tooltip__value">${d.srcElement.__data__.value}</div><div class="tooltip__name">${d.srcElement.__data__.properties.name}, ${currentEntry.state}</div>`
             );
         })
         .on("mouseout", function (_) {
           tooltip.style("opacity", 0);
-        });
-
-      svg
-        .select("g")
-        .selectAll("text")
-        .data(
-          topojson
-            .feature(us, us.objects.states)
-            .features.map((d) => ((d.value = data.get(d.id)), d))
-            .sort((a, b) => b.value - a.value)
-        )
-        .join("text")
-        .attr("class", "textArea")
-        .attr("fill", "#000")
-        .attr("stroke", "none")
-        .attr("transform", (d) => `translate(${path.centroid(d)})`)
-        .attr("data-coordinates", (d) => `${path.centroid(d)}`)
-        .text(function (d) {
-          let a = d.properties.name
-            .trim()
-            .replace(/[^\w ]/g, "")
-            .toLowerCase(); //Trim, remove all non-word characters with the exception of spaces, and convert to lowercase
-          if (states[a] !== null) {
-            return states[a];
-          } else {
-            return d.properties.name;
-          }
         });
     });
   }
