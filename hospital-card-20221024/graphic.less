@@ -149,22 +149,53 @@ margin: 0 auto;
 margin-bottom: 4px;
 }
 
-#keyContainer {
+.hospitalCardContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.graphic {
+  min-width: 100%;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+@media screen and (min-width: 729px) {
+  .hospitalCardContainer {
+    flex-direction: row;
+  }
+  .graphic {
+    min-width: 75%;
+  }
+}
+
+#fixedSideColumn {
 display: flex;
 flex-direction: row;
 justify-content: space-around;
 margin-top: 10px;
-max-width: 350px;
-margin: 0 auto;
+margin-bottom: 10px;
+background-color: #c70000;
+//max-width: 350px;
 }
 
 @media screen and (min-width: 729px) {
-#keyContainer {
- width: 65%;
+#fixedSideColumn {
+ width: 25%;
  margin: 0 auto;
- margin-top: 20px;
-}
-}
+  position: relative;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+  background-color: #c70000;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}}
 
 
 body.npr {
@@ -183,19 +214,6 @@ body.npr {
 
 .textArea {
   display: none;
-}
-
-body.khn,
-body.khnSpanish {
-  #top {
-    background-color: #B47C82 !important;
-  }
-  #middle {
-    background-color: #E87E71 !important;
-  }
-  #bottom {
-    background-color: #FEECE5 !important;
-  }
 }
 
 div.tooltip {

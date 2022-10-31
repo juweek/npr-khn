@@ -6,41 +6,19 @@
     <h2><%= t.smarty(COPY.labels["subhed_" + mode]) %></h2>
     <% } %>
     
-    
-    <section id="keyContainer">
+    <div class="hospitalCardContainer">
+    <section id="fixedSideColumn">
       <div class="key_block">
-        <div id="bottom" class="key_break" style="background-color: #EBE2AA;"></div>
+        <div id="top" class="key_break"></div>
         <h3 class="">
-          <% if (mode == "khnSpanish") { %>
-            <%= COPY.labels.key_bin1_spanish %>
-          <% } else { %>
-            <%= COPY.labels.key_bin1_english %>
-          <% } %>
-        </h3>
-      </div>
-      <div class="key_block">
-        <div id="middle" class="key_break" style="background-color: #E18D39;"></div>
-        <h3 class="">
-          <% if (mode == "khnSpanish") { %>
-            <%= COPY.labels.key_bin2_spanish %>
-          <% } else { %>
-            <%= COPY.labels.key_bin2_english %>
-          <% } %>
-        </h3>
-      </div>
-      <div class="key_block">
-        <div id="top" class="key_break" style="background-color: #D64833;"></div>
-        <h3 class="">
-          <% if (mode == "khnSpanish") { %>
-            <%= COPY.labels.key_bin3_spanish %>
-          <% } else { %>
             <%= COPY.labels.key_bin3_english %>
-          <% } %>
         </h3>
       </div>
     </section>
-    <div id="svganchor" class="graphic" role="img" class="graph centered">
+    <section id="svganchor" class="graphic" role="img" class="graph centered">
+    </section>
     </div>
+    
     
     <div class="footer">
       <% if (COPY.labels["source_" + mode]) { %>
