@@ -156,48 +156,24 @@ METHOD: fetch the data and draw the chart
         .attr("class", "tooltip")
         .style("opacity", 0);
 
-      /*
+      // Create tooltip div and make it invisible
       svg
         .selectAll(".state")
         .on("mousemove", function (d) {
-          let medicalDebt = d.target.__data__.value;
-          let newmedicalDebt = medicalDebt.split(":");
-          let medicalDebtAmt = newmedicalDebt[0];
-          let percentCollectionsAmt = parseFloat(newmedicalDebt[1]) * 100;
+          console.log(d.srcElement.__data__.properties.name);
           tooltip
-            .html('<b>' +
-              d.target.__data__.properties.name +
-                "</b>: $" +
-                parseInt(medicalDebtAmt) +
-                "<br><b>Share of people with medical debt in collections</b>" +
-                ": " + percentCollectionsAmt.toFixed(1) + "%" )
-            .style("left", function () {
-              // Get calculated tooltip coordinates and size
-              let boundingBox = document.querySelector("body")
-              var tooltip_rect = boundingBox.getBoundingClientRect();
-              if (d.pageX + 170 > tooltip_rect.width) {
-                return d.pageX - 170 + "px";
-              } else {
-                return d.pageX + "px";
-              }
-              })
-            .style("top", function () {
-              // Get calculated tooltip coordinates and size
-              let boundingBox = document.querySelector("body")
-              var tooltip_rect = boundingBox.getBoundingClientRect();
-              if((d.pageY + 60) > tooltip_rect.height){
-                return d.pageY + "px";
-              }
-              else {
-                return (d.pageY - 200) + "px";
-              }
-            })
-            .style("opacity", 0.9);
+            .style("opacity", 1)
+            .style("left", d.pageX + "px")
+            .style("top", d.pageY + "px")
+            .html(
+              `<div class="tooltip__title">${d.srcElement.__data__.properties.name}</div><div class="tooltip__value">${format(
+                d.srcElement.__data__.properties.value
+              )}</div>`
+            );
         })
         .on("mouseout", function (_) {
           tooltip.style("opacity", 0);
         });
-        */
 
       svg
         .select("g")

@@ -34,6 +34,15 @@ pym.then((child) => {
   window.addEventListener("resize", renderChart);
 });
 
+var createLeftHandFixedColumn = function() {
+  var leftHandColumn = document.querySelector(".left-hand-column");
+  var leftHandColumnClone = leftHandColumn.cloneNode(true);
+  leftHandColumnClone.classList.add("fixed");
+  leftHandColumnClone.classList.remove("left-hand-column");
+  document.querySelector(".graphic").appendChild(leftHandColumnClone);
+}
+
+
 
 /* RENDER THE CHART */
 var renderChart = function() {
