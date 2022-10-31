@@ -128,7 +128,6 @@ METHOD: fetch the data and draw the chart
       delete d['county'];
 			delete d['state'];
 			delete d['total'];
-			console.log(d)
       originalData[d.c_fips] = currentEntry; // add to the original data
 		});
 	
@@ -180,8 +179,20 @@ METHOD: fetch the data and draw the chart
         .on("mouseout", function (_) {
           tooltip.style("opacity", 0);
         });
+
+        let fixedSideColumn = document.getElementById("fixedSideColumn");
+
+        for (const entry in originalData) {
+          let currentEntry = originalData[entry]
+          let newDiv = document.createElement("div");
+          newDiv.className = "sideColumnHospital";
+          newDiv.innerHTML = `<div><div>${currentEntry.hospitalName} Hospital </div><div>${currentEntry.total}</div><div>${currentEntry.state}</div></div>`
+          fixedSideColumn.appendChild(newDiv);
+        }
     });
   }
+
+
   /*
 ------------------------------
 METHOD: load in the map

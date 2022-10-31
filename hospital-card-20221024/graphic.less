@@ -175,7 +175,7 @@ margin-bottom: 4px;
 
 #fixedSideColumn {
 display: flex;
-flex-direction: row;
+flex-direction: column;
 justify-content: space-around;
 margin-top: 10px;
 margin-bottom: 10px;
@@ -185,18 +185,33 @@ background-color: #c70000;
 
 @media screen and (min-width: 729px) {
 #fixedSideColumn {
- width: 25%;
- margin: 0 auto;
+  width: 25%;
+  margin: 0 auto;
   position: relative;
   top: 0;
   left: 0;
-  bottom: 0;
   z-index: 100;
   background-color: #c70000;
   padding-top: 20px;
   padding-bottom: 20px;
+  max-height: 500px; 
+  overflow: scroll;
+  justify-content: flex-start;
 }}
 
+.sideColumnHospital {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #333;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+@media screen and (max-width: 729px) {
+  .sideColumnHospital {
+    display: none;
+  }}
 
 body.npr {
   max-width: 900px;
