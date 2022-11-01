@@ -1,29 +1,29 @@
 c_fips,county,state,total,per_capita
-1001,Autauga,AL,1,1.82E-05
-1003,Baldwin,AL,3,1.48E-05
-5045,Faulkner,AR,2,1.65E-05
-5051,Garland,AR,1,1.02E-05
-5145,White,AR,3,3.80E-05
+01001,Autauga,AL,1,1.82E-05
+01003,Baldwin,AL,3,1.48E-05
+05045,Faulkner,AR,2,1.65E-05
+05051,Garland,AR,1,1.02E-05
+05145,White,AR,3,3.80E-05
 24031,Montgomery,AR,1,9.68E-07
-6001,Alameda,CA,35,2.14E-05
-6005,Amador,CA,1,2.70E-05
-6007,Butte,CA,5,2.23E-05
-6013,Contra Costa,CA,19,1.69E-05
-6087,Santa Cruz,CA,6,2.19E-05
-6089,Shasta,CA,3,1.68E-05
+06001,Alameda,CA,35,2.14E-05
+06005,Amador,CA,1,2.70E-05
+06007,Butte,CA,5,2.23E-05
+06013,Contra Costa,CA,19,1.69E-05
+06087,Santa Cruz,CA,6,2.19E-05
+06089,Shasta,CA,3,1.68E-05
 53061,Snohomish,CA,1,1.30E-06
-8093,Park,CO,1,5.98E-05
-8097,Pitkin,CO,1,5.57E-05
-8119,Teller,CO,2,8.55E-05
-8123,Weld,CO,1,3.50E-06
-9011,New London,CT,1,3.71E-06
-9013,Tolland,CT,1,6.59E-06
-9015,Windham,CT,1,8.58E-06
+08093,Park,CO,1,5.98E-05
+08097,Pitkin,CO,1,5.57E-05
+08119,Teller,CO,2,8.55E-05
+08123,Weld,CO,1,3.50E-06
+09011,New London,CT,1,3.71E-06
+09013,Tolland,CT,1,6.59E-06
+09015,Windham,CT,1,8.58E-06
 11001,District of Columbia,DC,17,2.52E-05
 10001,Kent,DE,3,1.73E-05
 10003,New Castle,DE,8,1.45E-05
 10005,Sussex,DE,1,4.66E-06
-1003,Baldwin,FL,1,4.93E-06
+01003,Baldwin,FL,1,4.93E-06
 12001,Alachua,FL,5,1.93E-05
 12117,Seminole,FL,3,6.69E-06
 12119,Sumter,FL,2,1.71E-05

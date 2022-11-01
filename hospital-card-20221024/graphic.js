@@ -114,12 +114,13 @@ METHOD: fetch the data and draw the chart
     let path = d3.geoPath();
     let originalData = {}
 
-    d3.csv('https://raw.githubusercontent.com/juweek/datasets/main/hospital_data_filtered_2.csv').then(function(data) {
+    d3.csv('./hospitalScores.csv').then(function(data) {
 		data.forEach(function(d) {
 			// extract only c_fips and per_capita (or total)
 			d.total = +d.total;
 			d.per_capita = +d.per_capita
       let currentEntry = {
+        fips: (d.c_fips.length > 4) ? d.c_fips : '0' + d.c_fips,
         total: d.total,
         per_capita: d.per_capita,
         hospitalName: d.county,
@@ -148,6 +149,9 @@ METHOD: fetch the data and draw the chart
 			.duration(1000)
 			.ease(d3.easeLinear)
 			.attr("transform", d => `translate(${path.centroid(d)})`)
+      .attr('class', function (d) { return "hoverableContent " + d.id})
+      .attr("fill", "#000")
+      .attr("data-fips", function (d) { return d.id})
 			.attr("r", d => radius(d.value));
 
 		svg.select("g")
@@ -166,12 +170,12 @@ METHOD: fetch the data and draw the chart
       svg
         .selectAll(".state")
         .on("mousemove", function (d) {
-          //console.log(originalData)
           let currentEntry = originalData[d.srcElement.__data__.id]
+          console.log(currentEntry)
           tooltip
             .style("opacity", 1)
-            .style("left", d.pageX + "px")
-            .style("top", d.pageY + "px")
+            .style("left", (d.pageX - 150) + "px")
+            .style("top", (d.pageY - 100) + "px")
             .html(
               `<div class="tooltip__hospital">${currentEntry.hospitalName} Hospital </div><div class="tooltip__value">${d.srcElement.__data__.value}</div><div class="tooltip__name">${d.srcElement.__data__.properties.name}, ${currentEntry.state}</div>`
             );
@@ -186,10 +190,37 @@ METHOD: fetch the data and draw the chart
           let currentEntry = originalData[entry]
           let newDiv = document.createElement("div");
           newDiv.className = "sideColumnHospital";
-          newDiv.innerHTML = `<div><div>${currentEntry.hospitalName} Hospital </div><div>${currentEntry.total}</div><div>${currentEntry.state}</div></div>`
+          newDiv.innerHTML = `<div class="hoverableContent ${currentEntry.fips}"><div>${currentEntry.hospitalName} Hospital </div><div>${currentEntry.total}</div><div>${currentEntry.state}</div></div>`
           fixedSideColumn.appendChild(newDiv);
         }
+
+        let hoverableContent = document.getElementsByClassName("hoverableContent");
+
+        for (let i = 0; i < hoverableContent.length; i++) {
+          hoverableContent[i].addEventListener("mousemove", function(d) {
+            let currentClass = this.className.split(" ")[1];
+            let currentZip = document.getElementsByClassName(currentClass);
+            let currentCircle = currentZip[1];
+            currentCircle.setAttribute("fill", "red")
+            tooltip
+            .style("opacity", 1)
+            .style("left", (currentCircle.getBoundingClientRect().x - 200) + "px")
+            .style("top", (currentCircle.getBoundingClientRect().y - 100) + "px")
+            .html(
+              `<div class="tooltip__hospital">Tooltip info</div>`
+            );
+
+          });
+          hoverableContent[i].addEventListener("mouseout", function() {
+            let currentClass = this.className.split(" ")[1];
+            let currentZip = document.getElementsByClassName(currentClass);
+            let currentCircle = currentZip[1];
+            currentCircle.setAttribute("fill", "#000")
+            tooltip.style("opacity", 0);
+          });
+        }
     });
+
   }
 
 
