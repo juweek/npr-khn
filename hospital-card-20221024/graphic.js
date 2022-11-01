@@ -44,6 +44,12 @@ METHOD: set the size of the canvas
     bottom: 0,
   };
 
+  let policies = {
+    "No mask mandate": "No mask mandate",
+    "Mask mandate": "Mask mandate",
+    "Mask mandate, but not enforced": "Mask mandate, but not enforced"
+  }
+
   //create a row of three HTML buttons
   let states = {
     arizona: "AZ",
@@ -113,6 +119,10 @@ METHOD: fetch the data and draw the chart
   function update(svg, us, radius) {
     let path = d3.geoPath();
     let originalData = {}
+    let dropdown = d3
+        .select("#svganchor")
+        .append("select")
+        .attr("name", "name-list");
 
     d3.csv('./hospitalScores.csv').then(function(data) {
 		data.forEach(function(d) {
@@ -199,6 +209,8 @@ METHOD: fetch the data and draw the chart
         for (let i = 0; i < hoverableContent.length; i++) {
           hoverableContent[i].addEventListener("mousemove", function(d) {
             let currentClass = this.className.split(" ")[1];
+            d.target.parentElement.parentElement.style.opacity = ".7";
+            d.target.parentElement.parentElement.style.backgroundColor = "";
             let currentZip = document.getElementsByClassName(currentClass);
             let currentCircle = currentZip[1];
             currentCircle.setAttribute("fill", "red")
@@ -211,12 +223,14 @@ METHOD: fetch the data and draw the chart
             );
 
           });
-          hoverableContent[i].addEventListener("mouseout", function() {
+          hoverableContent[i].addEventListener("mouseout", function(d) {
             let currentClass = this.className.split(" ")[1];
             let currentZip = document.getElementsByClassName(currentClass);
             let currentCircle = currentZip[1];
             currentCircle.setAttribute("fill", "#000")
             tooltip.style("opacity", 0);
+            d.target.parentElement.parentElement.style.opacity = "1";
+            d.target.parentElement.parentElement.style.backgroundColor = "white";
           });
         }
     });
