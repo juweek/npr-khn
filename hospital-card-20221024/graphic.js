@@ -10,15 +10,9 @@ if (document.querySelector("body").classList.contains("npr")) {
 if (document.querySelector("body").classList.contains("khn")) {
   mode = "khn";
 }
-if (document.querySelector("body").classList.contains("khnSpanish")) {
-  mode = "khnSpanish";
-}
 
 switch (mode) {
   case "khn":
-    require("../_base/webfonts_khn.js");
-    break;
-  case "khnSpanish":
     require("../_base/webfonts_khn.js");
     break;
   case "npr":
@@ -50,7 +44,12 @@ METHOD: set the size of the canvas
     "Mask mandate, but not enforced": "Mask mandate, but not enforced"
   }
 
-  //create a row of three HTML buttons
+  //create a dropdown menu that allows the user to select a state that will then redraw the d3 map
+  let dropdown = d3
+    .select("#svganchor")
+    .append("select")
+    .attr("name", "name-list");
+
   let states = {
     arizona: "AZ",
     alabama: "AL",
@@ -110,6 +109,16 @@ METHOD: set the size of the canvas
     "us virgin islands": "VI",
     "us minor outlying islands": "UM",
   };
+  
+      //populate the dropdown with a list of state names
+      let options = dropdown
+      .selectAll("option")
+      .data(Object.keys(states))
+      .enter()
+      .append("option")
+      .text(function (d) {
+        return d;
+      });
 
   /*
 ------------------------------
@@ -119,10 +128,6 @@ METHOD: fetch the data and draw the chart
   function update(svg, us, radius) {
     let path = d3.geoPath();
     let originalData = {}
-    let dropdown = d3
-        .select("#svganchor")
-        .append("select")
-        .attr("name", "name-list");
 
     d3.csv('./hospitalScores.csv').then(function(data) {
 		data.forEach(function(d) {
@@ -181,7 +186,8 @@ METHOD: fetch the data and draw the chart
         .selectAll(".state")
         .on("mousemove", function (d) {
           let currentEntry = originalData[d.srcElement.__data__.id]
-          console.log(currentEntry)
+          let currentElement = d.srcElement
+          currentElement.classList.add("hovered")
           tooltip
             .style("opacity", 1)
             .style("left", (d.pageX - 150) + "px")
@@ -190,8 +196,10 @@ METHOD: fetch the data and draw the chart
               `<div class="tooltip__hospital">${currentEntry.hospitalName} Hospital </div><div class="tooltip__value">${d.srcElement.__data__.value}</div><div class="tooltip__name">${d.srcElement.__data__.properties.name}, ${currentEntry.state}</div>`
             );
         })
-        .on("mouseout", function (_) {
+        .on("mouseout", function (d) {
           tooltip.style("opacity", 0);
+          let currentElement = d.srcElement
+          currentElement.classList.remove("hovered")
         });
 
         let fixedSideColumn = document.getElementById("fixedSideColumn");
