@@ -24,6 +24,7 @@ switch (mode) {
 }
 
 pym.then((child) => {
+
   /*
 ------------------------------
 METHOD: set the size of the canvas
@@ -38,18 +39,11 @@ METHOD: set the size of the canvas
     bottom: 0,
   };
 
-  let policies = {
-    "No mask mandate": "No mask mandate",
-    "Mask mandate": "Mask mandate",
-    "Mask mandate, but not enforced": "Mask mandate, but not enforced"
-  }
-
-  //create a dropdown menu that allows the user to select a state that will then redraw the d3 map
-  let dropdown = d3
-    .select("#svganchor")
-    .append("select")
-    .attr("name", "name-list");
-
+    /*
+------------------------------
+METHOD: object to hold the state abbreviations
+------------------------------
+*/
   let states = {
     arizona: "AZ",
     alabama: "AL",
@@ -110,6 +104,18 @@ METHOD: set the size of the canvas
     "us minor outlying islands": "UM",
   };
   
+    /*
+------------------------------
+SECTION: create the dropdown and populate it with state names
+------------------------------
+*/
+    //create a dropdown menu that allows the user to select a state that will then redraw the d3 map
+    let dropdown = d3
+    .select("#svganchor")
+    .append("select")
+    .attr("name", "name-list");
+
+
       //populate the dropdown with a list of state names
       let options = dropdown
       .selectAll("option")
@@ -119,6 +125,24 @@ METHOD: set the size of the canvas
       .text(function (d) {
         return d;
       });
+
+         /*
+------------------------------
+METHOD: add an event listener to the dropdown that retrieves the state abbreviation and checks it ahainst the d3 circle elements
+------------------------------
+*/
+dropdown.on("change",function(){
+  let selectedState = d3.select(this).property("value");
+  let stateAbbr = states[selectedState];  
+  let circles = d3.selectAll("circle");
+  circles.each(function(d){
+    if(d.properties.state == stateAbbr){
+      console.log("found a match")
+      d3.select(this).style("fill", "red");
+    }      
+})
+})
+
 
   /*
 ------------------------------
@@ -154,10 +178,22 @@ METHOD: fetch the data and draw the chart
 		let format = d3.format(",.7f");
 		// radius = d3.scaleSqrt([0, d3.quantile([...data.values()].sort(d3.ascending), 0.985)], [0, 10])
 
+    /*
+------------------------------
+SECTIOM: draw the map with the circles; attach the appropriate data to each circle
+------------------------------
+*/ 
+
 		svg.select("g")
 			.selectAll("circle")
 			.data(topojson.feature(us, us.objects.counties).features
-			.map(d => (d.value = data.get(d.id), d))
+			.map(d => {
+        d.value = data.get(d.id), d;
+        console.log(d.value)
+        return d;
+      }).filter(d => {
+        return d.value != null;
+      }) //filter the results of the data to exclude counties with null or undefined values
 			.sort((a, b) => b.value - a.value))
 		.join("circle")
 			.transition()
@@ -166,7 +202,19 @@ METHOD: fetch the data and draw the chart
 			.attr("transform", d => `translate(${path.centroid(d)})`)
       .attr('class', function (d) { return "hoverableContent " + d.id})
       .attr("fill", "#000")
+      .attr("data-valid", function (d) { return d.value})
       .attr("data-fips", function (d) { return d.id})
+      .attr("data-state", function (d) { 
+        let id = d.id
+        if (originalData[id]) {
+          console.log('================')
+          console.log(id)
+          return originalData[id].state
+        }
+        else {
+          return 'none'
+        }
+      })
 			.attr("r", d => radius(d.value));
 
 		svg.select("g")
@@ -174,7 +222,11 @@ METHOD: fetch the data and draw the chart
 			.append("title")
 			.text(d => `${d.properties.name}${format(d.value)}`);
 
-      // Create tooltip div and make it invisible
+/*
+------------------------------
+SECTION: add a tooltip
+------------------------------
+*/ 
       let tooltip = d3
         .select("#svganchor")
         .append("div")
@@ -202,7 +254,23 @@ METHOD: fetch the data and draw the chart
           currentElement.classList.remove("hovered")
         });
 
-        let fixedSideColumn = document.getElementById("fixedSideColumn");
+/*
+------------------------------
+SECTIOM: build out and populate the side column
+------------------------------
+*/ 
+      let fixedSideColumn = document.getElementById("fixedSideColumn");
+
+        svg.select("g")
+			 .selectAll("circle")
+       .attr("data-state", function (d) {
+        let currentEntry = originalData[d.id]
+        if (currentEntry) {
+          return currentEntry.state
+        }
+        else
+          return 'none'
+      })
 
         for (const entry in originalData) {
           let currentEntry = originalData[entry]
@@ -214,6 +282,11 @@ METHOD: fetch the data and draw the chart
 
         let hoverableContent = document.getElementsByClassName("hoverableContent");
 
+        /*
+------------------------------
+SECTION: hover over the section and highlight the circle/show the tooltip box
+------------------------------
+*/ 
         for (let i = 0; i < hoverableContent.length; i++) {
           hoverableContent[i].addEventListener("mousemove", function(d) {
             let currentClass = this.className.split(" ")[1];
@@ -244,7 +317,6 @@ METHOD: fetch the data and draw the chart
     });
 
   }
-
 
   /*
 ------------------------------
