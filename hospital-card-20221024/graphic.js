@@ -128,21 +128,27 @@ SECTION: create the dropdown and populate it with state names
 
          /*
 ------------------------------
-METHOD: add an event listener to the dropdown that retrieves the state abbreviation and checks it ahainst the d3 circle elements
+METHOD: add an event listener to the dropdown that retrieves the state abbreviation and checks it ahainst the d3 circle data attributes
 ------------------------------
 */
 dropdown.on("change",function(){
+  let circles = document.getElementsByTagName("circle");
+
+  for (let i = 0; i < circles.length; i++) {
+      circles[i].style.opacity = "1";
+    }
   let selectedState = d3.select(this).property("value");
   let stateAbbr = states[selectedState];  
-  let circles = d3.selectAll("circle");
-  circles.each(function(d){
-    if(d.properties.state == stateAbbr){
-      console.log("found a match")
-      d3.select(this).style("fill", "red");
-    }      
+  for (let i = 0; i < circles.length; i++) {
+    let currentState = circles[i].getAttribute("data-state")
+    console.log(currentState)
+    if (currentState != stateAbbr) {
+      circles[i].style.opacity = "0.2";
+    } else {
+      circles[i].style.opacity = "1";
+    }
+  }
 })
-})
-
 
   /*
 ------------------------------
@@ -180,7 +186,7 @@ METHOD: fetch the data and draw the chart
 
     /*
 ------------------------------
-SECTIOM: draw the map with the circles; attach the appropriate data to each circle
+SECTION: draw the map with the circles; attach the appropriate data to each circle
 ------------------------------
 */ 
 
@@ -189,7 +195,6 @@ SECTIOM: draw the map with the circles; attach the appropriate data to each circ
 			.data(topojson.feature(us, us.objects.counties).features
 			.map(d => {
         d.value = data.get(d.id), d;
-        console.log(d.value)
         return d;
       }).filter(d => {
         return d.value != null;
@@ -207,8 +212,6 @@ SECTIOM: draw the map with the circles; attach the appropriate data to each circ
       .attr("data-state", function (d) { 
         let id = d.id
         if (originalData[id]) {
-          console.log('================')
-          console.log(id)
           return originalData[id].state
         }
         else {
