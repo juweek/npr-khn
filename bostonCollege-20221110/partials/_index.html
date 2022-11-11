@@ -1,0 +1,64 @@
+<% if (COPY.labels["headline_" + mode]) { %>
+    <h1><%= t.smarty(COPY.labels["headline_" + mode]) %></h1>
+    <% } %>
+    
+    <% if (COPY.labels["subhed_" + mode]) { %>
+    <h2><%= t.smarty(COPY.labels["subhed_" + mode]) %></h2>
+    <% } %>
+    
+    
+    <section id="keyContainer">
+      <div class="key_block">
+        <div id="bottom" class="key_break" style="background-color: #EBE2AA;"></div>
+        <h3 class="">
+          <% if (mode == "khnSpanish") { %>
+            <%= COPY.labels.key_bin1_spanish %>
+          <% } else { %>
+            <%= COPY.labels.key_bin1_english %>
+          <% } %>
+        </h3>
+      </div>
+      <div class="key_block">
+        <div id="middle" class="key_break" style="background-color: #E18D39;"></div>
+        <h3 class="">
+          <% if (mode == "khnSpanish") { %>
+            <%= COPY.labels.key_bin2_spanish %>
+          <% } else { %>
+            <%= COPY.labels.key_bin2_english %>
+          <% } %>
+        </h3>
+      </div>
+      <div class="key_block">
+        <div id="top" class="key_break" style="background-color: #D64833;"></div>
+        <h3 class="">
+          <% if (mode == "khnSpanish") { %>
+            <%= COPY.labels.key_bin3_spanish %>
+          <% } else { %>
+            <%= COPY.labels.key_bin3_english %>
+          <% } %>
+        </h3>
+      </div>
+    </section>
+    <div id="svganchor" class="graphic" role="img" class="graph centered">
+    </div>
+    
+    <div class="footer">
+      <% if (COPY.labels["source_" + mode]) { %>
+        <p>
+          <% if (mode == "khnSpanish") { %>Fuente:<% } else { %>Source:<% } %>
+          <%= t.smarty(COPY.labels["source_" + mode]) %>
+        </p>
+      <% } %>
+      <% if (COPY.labels["credit_" + mode]) { %>
+        <p>
+          <% if (mode == "khnSpanish") { %>Crédito:<% } else { %>Credit:<% } %>
+          <%= t.smarty(COPY.labels["credit_" + mode]) %>
+        </p>
+      <% } %>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
+    <script src="https://unpkg.com/d3-tip@0.9.1/dist/index.js"></script>
+    <script src="./graphic.js"></script>
+    

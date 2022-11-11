@@ -96,7 +96,7 @@ METHOD: object to hold the state abbreviations
     "west virginia": "WV",
     wisconsin: "WI",
     wyoming: "WY",
-    "american samoa": "AS",
+    "american samoa": "AS", 
     guam: "GU",
     "northern mariana islands": "MP",
     "puerto rico": "PR",
