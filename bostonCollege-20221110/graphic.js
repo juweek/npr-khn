@@ -35,7 +35,7 @@ pym.then((child) => {
 METHOD: set the size of the canvas
 ------------------------------
 */
-  const width = 1300; // Chart width
+  const width = 900; // Chart width
   const height = 800; // Chart height
   const margin = {
     top: 0,
@@ -43,11 +43,6 @@ METHOD: set the size of the canvas
     right: 0,
     bottom: 0,
   };
-
-  const svg = d3
-  .select("#svganchor")
-  .append("svg")
-  .attr("viewBox", [-10, 0, 975, 610]);
 
   //create a row of three HTML buttons
   let states = {
@@ -116,10 +111,9 @@ METHOD: fetch the data and draw the chart
 ------------------------------
 */
   function update(svg, data) {
+    console.log('this is going')
          // List of groups (here I have one group per column)
       var allGroup = ["valueA", "valueB", "valueC"]
-
-      console.log(data)
     
       // Reformat the data: we need an array of arrays of {x, y} tuples
       var dataReady = allGroup.map( function(grpName) { // .map allows to do something for each element of the list
@@ -196,7 +190,7 @@ METHOD: fetch the data and draw the chart
             .attr("x", 12) // shift the text a bit more right
             .text(function(d) { return d.name; })
             .style("fill", function(d){ return myColor(d.name) })
-            .style("font-size", 15);
+            .style("font-size", 25);
     }
 
      /*
@@ -211,7 +205,7 @@ METHOD: load in the map
       const svg = d3
         .select("#svganchor")
         .append("svg")
-        .attr("viewBox", [-10, 0, 975, 610]);
+        .attr("viewBox", [-50,50,1100,1000]);
 
       update(svg, us);
       child.sendHeight();
