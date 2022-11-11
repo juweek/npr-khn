@@ -44,66 +44,53 @@ METHOD: set the size of the canvas
     bottom: 0,
   };
 
-  //create a row of three HTML buttons
-  let states = {
-    arizona: "AZ",
-    alabama: "AL",
-    alaska: "AK",
-    arkansas: "AR",
-    california: "CA",
-    colorado: "CO",
-    connecticut: "CT",
-    "district of columbia": "DC",
-    delaware: "DE",
-    florida: "FL",
-    georgia: "GA",
-    hawaii: "HI",
-    idaho: "ID",
-    illinois: "IL",
-    indiana: "IN",
-    iowa: "IA",
-    kansas: "KS",
-    kentucky: "KY",
-    louisiana: "LA",
-    maine: "ME",
-    maryland: "MD",
-    massachusetts: "MA",
-    michigan: "MI",
-    minnesota: "MN",
-    mississippi: "MS",
-    missouri: "MO",
-    montana: "MT",
-    nebraska: "NE",
-    nevada: "NV",
-    "new hampshire": "NH",
-    "new jersey": "NJ",
-    "new mexico": "NM",
-    "new york": "NY",
-    "north carolina": "NC",
-    "north dakota": "ND",
-    ohio: "OH",
-    oklahoma: "OK",
-    oregon: "OR",
-    pennsylvania: "PA",
-    "rhode island": "RI",
-    "south carolina": "SC",
-    "south dakota": "SD",
-    tennessee: "TN",
-    texas: "TX",
-    utah: "UT",
-    vermont: "VT",
-    virginia: "VA",
-    washington: "WA",
-    "west virginia": "WV",
-    wisconsin: "WI",
-    wyoming: "WY",
-    "american samoa": "AS",
-    guam: "GU",
-    "northern mariana islands": "MP",
-    "puerto rico": "PR",
-    "us virgin islands": "VI",
-    "us minor outlying islands": "UM",
+  const svg = d3
+        .select("#svganchor")
+        .append("svg")
+        .attr("viewBox", [-50,50,1100,1000]);
+
+  //create a dictionary of countries that we can use later in a dropdown selector to change the d3 graph
+  let countries = {
+    "Belgium": "belgium",
+    "China": "china",
+    "India": "india",
+    "Kenya": "kenya"
   };
+
+    /*
+------------------------------
+METHOD: create a dropdown selector that calls the update method. This dropdown will redraw the d3 graph whenever a new country is selected
+------------------------------
+*/
+  let dropdown = d3.select("#dropdown");
+  dropdown
+    .selectAll("option")
+    .data(Object.keys(countries))
+    .enter()
+    .append("option")
+    .attr("value", function (d) {
+      return d;
+    })
+    .text(function (d) {
+      return d;
+    });
+
+  dropdown.on("change", function () {
+    let selectedCountry = d3.select(this).property("value");
+    console.log(countries[selectedCountry]);
+    console.log('./' + countries[selectedCountry] + ".csv")
+    d3.csv('./' + countries[selectedCountry] + ".csv").then(function (us) {
+      let path = d3.geoPath();
+      update(svg, us);
+      child.sendHeight();
+      window.addEventListener("resize", () => child.sendHeight());
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+  });
+
+  //attach dropdown to a div in the html file
 
   /*
 ------------------------------
@@ -111,9 +98,11 @@ METHOD: fetch the data and draw the chart
 ------------------------------
 */
   function update(svg, data) {
-    console.log('this is going')
+
+    d3.selectAll("svg > *").remove();
          // List of groups (here I have one group per column)
-      var allGroup = ["Boys", "Girls"]
+      var allGroup = ["Boys", "Girls", "Average"]
+      var averageGroup = ["Average"]
     
       // Reformat the data: we need an array of arrays of {x, y} tuples
       var dataReady = allGroup.map( function(grpName) { // .map allows to do something for each element of the list
@@ -134,7 +123,7 @@ METHOD: fetch the data and draw the chart
     
       // Add X axis --> it is a date format
       var x = d3.scaleLinear()
-        .domain([2001, 2021])
+        .domain([1998, 2024])
         .range([ 0, width ]);
       svg.append("g")
         .attr("transform", "translate(0," + height + ")")
@@ -142,7 +131,7 @@ METHOD: fetch the data and draw the chart
     
       // Add Y axis
       var y = d3.scaleLinear()
-        .domain( [500,660])
+        .domain( [500,630])
         .range([ height, 0 ]);
       svg.append("g")
         .call(d3.axisLeft(y));
@@ -198,14 +187,9 @@ METHOD: fetch the data and draw the chart
 METHOD: load in the map
 ------------------------------
 */
-  d3.csv("./medicalState.csv")
+  d3.csv("./belgium.csv")
     .then(function (us) {
       let path = d3.geoPath();
-
-      const svg = d3
-        .select("#svganchor")
-        .append("svg")
-        .attr("viewBox", [-50,50,1100,1000]);
 
       update(svg, us);
       child.sendHeight();
