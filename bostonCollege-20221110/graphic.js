@@ -49,6 +49,9 @@ METHOD: set the size of the canvas
         .append("svg")
         .attr("viewBox", [-50,50,1100,1000]);
 
+let allGroup = ["Average"]
+let currentCountry = 'belgium'
+
   //create a dictionary of countries that we can use later in a dropdown selector to change the d3 graph
   let countries = {
     "Belgium": "belgium",
@@ -56,6 +59,28 @@ METHOD: set the size of the canvas
     "India": "india",
     "Kenya": "kenya"
   };
+
+/*
+------------------------------
+METHOD: create an event listener to attach to #checkbox that detects when it is checked. when it is checked, we will switch out the entries that make up the "AllGroup array"
+------------------------------
+*/
+  d3.select("#checkbox").on("change", function() {
+    if (this.checked) {
+      allGroup = ["Boys", "Girls"]
+    } else {
+      allGroup = ["Average"]
+    }
+    d3.csv('./' + currentCountry + ".csv").then(function (us) {
+      update(svg, us);
+      child.sendHeight();
+      window.addEventListener("resize", () => child.sendHeight());
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+  });
+
 
     /*
 ------------------------------
@@ -77,10 +102,9 @@ METHOD: create a dropdown selector that calls the update method. This dropdown w
 
   dropdown.on("change", function () {
     let selectedCountry = d3.select(this).property("value");
-    console.log(countries[selectedCountry]);
-    console.log('./' + countries[selectedCountry] + ".csv")
-    d3.csv('./' + countries[selectedCountry] + ".csv").then(function (us) {
-      let path = d3.geoPath();
+    currentCountry = countries[selectedCountry]
+    console.log("./" + currentCountry + ".csv")
+    d3.csv("./" + currentCountry + ".csv").then(function (us) {
       update(svg, us);
       child.sendHeight();
       window.addEventListener("resize", () => child.sendHeight());
@@ -98,14 +122,12 @@ METHOD: fetch the data and draw the chart
 ------------------------------
 */
   function update(svg, data) {
-
-    d3.selectAll("svg > *").remove();
-         // List of groups (here I have one group per column)
-      var allGroup = ["Boys", "Girls", "Average"]
-      var averageGroup = ["Average"]
+    d3.select("#svganchor svg").selectAll("*").remove();
+    console.log(data)
     
       // Reformat the data: we need an array of arrays of {x, y} tuples
       var dataReady = allGroup.map( function(grpName) { // .map allows to do something for each element of the list
+        console.log(grpName)
         return {
           name: grpName,
           values: data.map(function(d) {
@@ -114,7 +136,7 @@ METHOD: fetch the data and draw the chart
         };
       });
       // I strongly advise to have a look to dataReady with
-      // console.log(dataReady)
+      console.log(dataReady)
     
       // A color scale: one color for each group
       var myColor = d3.scaleOrdinal()
@@ -135,6 +157,8 @@ METHOD: fetch the data and draw the chart
         .range([ height, 0 ]);
       svg.append("g")
         .call(d3.axisLeft(y));
+
+        console.log(dataReady)
     
       // Add the lines
       var line = d3.line()
@@ -144,7 +168,10 @@ METHOD: fetch the data and draw the chart
         .data(dataReady)
         .enter()
         .append("path")
-          .attr("d", function(d){ return line(d.values) } )
+          .attr("d", function(d){ 
+            console.log(line(d.values))
+            return line(d.values) 
+          } )
           .attr("stroke", function(d){ return myColor(d.name) })
           .style("stroke-width", 4)
           .style("fill", "none")
