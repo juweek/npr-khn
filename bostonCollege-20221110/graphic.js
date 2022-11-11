@@ -113,7 +113,7 @@ METHOD: fetch the data and draw the chart
   function update(svg, data) {
     console.log('this is going')
          // List of groups (here I have one group per column)
-      var allGroup = ["valueA", "valueB", "valueC"]
+      var allGroup = ["Boys", "Girls"]
     
       // Reformat the data: we need an array of arrays of {x, y} tuples
       var dataReady = allGroup.map( function(grpName) { // .map allows to do something for each element of the list
@@ -134,7 +134,7 @@ METHOD: fetch the data and draw the chart
     
       // Add X axis --> it is a date format
       var x = d3.scaleLinear()
-        .domain([0,10])
+        .domain([2001, 2021])
         .range([ 0, width ]);
       svg.append("g")
         .attr("transform", "translate(0," + height + ")")
@@ -142,7 +142,7 @@ METHOD: fetch the data and draw the chart
     
       // Add Y axis
       var y = d3.scaleLinear()
-        .domain( [0,20])
+        .domain( [500,660])
         .range([ height, 0 ]);
       svg.append("g")
         .call(d3.axisLeft(y));
