@@ -44,6 +44,11 @@ METHOD: set the size of the canvas
     bottom: 0,
   };
 
+  const svg = d3
+  .select("#svganchor")
+  .append("svg")
+  .attr("viewBox", [-10, 0, 975, 610]);
+
   //create a row of three HTML buttons
   let states = {
     arizona: "AZ",
@@ -110,167 +115,96 @@ METHOD: set the size of the canvas
 METHOD: fetch the data and draw the chart
 ------------------------------
 */
-  function update(svg, us, radius) {
-    d3.csv("./medicalState.csv").then(function (data) {
-      data.forEach(function (d) {
-        // extract only c_fips and per_capita (or total)
-        d.avg_medical_debt = d.avg_medical_debt + ":" + d.pc_collections;
-        delete d["county"];
-        delete d["state"];
-        delete d["total"];
-        delete d["per_capita"];
-        delete d["pc_collections"];
-        delete d["state_name"];
-        delete d["per_capita"];
+  function update(svg, data) {
+         // List of groups (here I have one group per column)
+      var allGroup = ["valueA", "valueB", "valueC"]
+
+      console.log(data)
+    
+      // Reformat the data: we need an array of arrays of {x, y} tuples
+      var dataReady = allGroup.map( function(grpName) { // .map allows to do something for each element of the list
+        return {
+          name: grpName,
+          values: data.map(function(d) {
+            return {time: d.time, value: +d[grpName]};
+          })
+        };
       });
-
-      // transform data to Map of c_fips => per_capita
-      data = data.map((x) => Object.values(x));
-      data = new Map(data);
-
-      console.log(data);
-
-      let path = d3.geoPath();
-
-      let format = d3.format(",.7f");
-      // radius = d3.scaleSqrt([0, d3.quantile([...data.values()].sort(d3.ascending), 0.985)], [0, 10])
-
+      // I strongly advise to have a look to dataReady with
+      // console.log(dataReady)
+    
+      // A color scale: one color for each group
+      var myColor = d3.scaleOrdinal()
+        .domain(allGroup)
+        .range(d3.schemeSet2);
+    
+      // Add X axis --> it is a date format
+      var x = d3.scaleLinear()
+        .domain([0,10])
+        .range([ 0, width ]);
+      svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+    
+      // Add Y axis
+      var y = d3.scaleLinear()
+        .domain( [0,20])
+        .range([ height, 0 ]);
+      svg.append("g")
+        .call(d3.axisLeft(y));
+    
+      // Add the lines
+      var line = d3.line()
+        .x(function(d) { return x(+d.time) })
+        .y(function(d) { return y(+d.value) })
+      svg.selectAll("myLines")
+        .data(dataReady)
+        .enter()
+        .append("path")
+          .attr("d", function(d){ return line(d.values) } )
+          .attr("stroke", function(d){ return myColor(d.name) })
+          .style("stroke-width", 4)
+          .style("fill", "none")
+    
+      // Add the points
       svg
-        .select("g")
-        .selectAll("circle")
-        .data(
-          topojson
-            .feature(us, us.objects.states)
-            .features.map((d) => ((d.value = data.get(d.id)), d))
-            .sort((a, b) => b.value - a.value)
-        )
-        .join("circle")
-        .attr("transform", (d) => `translate(${path.centroid(d)})`)
-        .attr("r", function (d) {
-          let medicalDebt = d.value.split(":");
-          return radius(medicalDebt[0]);
-        })
-        .attr("fill", (d) => {
-          let medicalDebt = d.value.split(":");
-          if (parseInt(medicalDebt[0]) > 1000) {
-            return "#D64833";
-          } else if (parseInt(medicalDebt[0]) > 700) {
-            return "#E18D39";
-          } else {
-            return "#EBE2AA";
-          }
-        })
-        .attr("fill", function (d) {
-          let medicalDebt = d.value.split(":");
-          if (mode == "npr") {
-            if (parseInt(medicalDebt[0]) > 1000) {
-              return "#D64833";
-            } else if (parseInt(medicalDebt[0]) > 700) {
-              return "#E18D39";
-            } else {
-              return "#EBE2AA";
-            }
-          } else if (mode == "khn" || mode == "khnSpanish") {
-            if (parseInt(medicalDebt[0]) > 1000) {
-              return "#B47C82";
-            } else if (parseInt(medicalDebt[0]) > 700) {
-              return "#E87E71";
-            } else {
-              return "#FEECE5";
-            }
-          }
-        })
-        .attr("data-coordinates", (d) => `${path.centroid(d)}`);
-      //.attr("r", 5);
-
+        // First we need to enter in a group
+        .selectAll("myDots")
+        .data(dataReady)
+        .enter()
+          .append('g')
+          .style("fill", function(d){ return myColor(d.name) })
+        // Second we need to enter in the 'values' part of this group
+        .selectAll("myPoints")
+        .data(function(d){ return d.values })
+        .enter()
+        .append("circle")
+          .attr("cx", function(d) { return x(d.time) } )
+          .attr("cy", function(d) { return y(d.value) } )
+          .attr("r", 5)
+          .attr("stroke", "white")
+    
+      // Add a legend at the end of each line
       svg
-        .select("g")
-        .selectAll("circle")
+        .selectAll("myLabels")
+        .data(dataReady)
+        .enter()
+          .append('g')
+          .append("text")
+            .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; }) // keep only the last value of each time series
+            .attr("transform", function(d) { return "translate(" + x(d.value.time) + "," + y(d.value.value) + ")"; }) // Put the text at the position of the last point
+            .attr("x", 12) // shift the text a bit more right
+            .text(function(d) { return d.name; })
+            .style("fill", function(d){ return myColor(d.name) })
+            .style("font-size", 15);
+    }
 
-      // Create tooltip div and make it invisible
-      let tooltip = d3
-        .select("#svganchor")
-        .append("div")
-        .attr("class", "tooltip")
-        .style("opacity", 0);
-
-      svg
-        .selectAll(".state")
-        .on("mousemove", function (d) {
-          let medicalDebt = d.target.__data__.value;
-          let newmedicalDebt = medicalDebt.split(":");
-          let medicalDebtAmt = newmedicalDebt[0];
-          let percentCollectionsAmt = parseFloat(newmedicalDebt[1]) * 100;
-          tooltip
-            .html('<b>' +
-              d.target.__data__.properties.name +
-                "</b>: $" +
-                parseInt(medicalDebtAmt) +
-                "<br><b>Share of people with medical debt in collections</b>" +
-                ": " + percentCollectionsAmt.toFixed(1) + "%" )
-            .style("left", function () {
-              // Get calculated tooltip coordinates and size
-              let boundingBox = document.querySelector("body")
-              var tooltip_rect = boundingBox.getBoundingClientRect();
-              if (d.pageX + 170 > tooltip_rect.width) {
-                return d.pageX - 170 + "px";
-              } else {
-                return d.pageX + "px";
-              }
-              })
-            .style("top", function () {
-              // Get calculated tooltip coordinates and size
-              let boundingBox = document.querySelector("body")
-              var tooltip_rect = boundingBox.getBoundingClientRect();
-              if((d.pageY + 60) > tooltip_rect.height){
-                return d.pageY + "px";
-              }
-              else {
-                return (d.pageY - 200) + "px";
-              }
-            })
-            .style("opacity", 0.9);
-        })
-        .on("mouseout", function (_) {
-          tooltip.style("opacity", 0);
-        });
-
-      svg
-        .select("g")
-        .selectAll("text")
-        .data(
-          topojson
-            .feature(us, us.objects.states)
-            .features.map((d) => ((d.value = data.get(d.id)), d))
-            .sort((a, b) => b.value - a.value)
-        )
-        .join("text")
-        .attr("class", "textArea")
-        .attr("fill", "#000")
-        .attr("stroke", "none")
-        .attr("transform", (d) => `translate(${path.centroid(d)})`)
-        .attr("data-coordinates", (d) => `${path.centroid(d)}`)
-        .text(function (d) {
-          let a = d.properties.name
-            .trim()
-            .replace(/[^\w ]/g, "")
-            .toLowerCase(); //Trim, remove all non-word characters with the exception of spaces, and convert to lowercase
-          if (states[a] !== null) {
-            return states[a];
-          } else {
-            return d.properties.name;
-          }
-        });
-    });
-  }
-  /*
+     /*
 ------------------------------
 METHOD: load in the map
 ------------------------------
 */
-  d3.json(
-    "https://raw.githubusercontent.com/xuanyoulim/fcc-internet-complaints-map/master/counties-albers-10m.json"
-  )
+  d3.csv("./medicalState.csv")
     .then(function (us) {
       let path = d3.geoPath();
 
@@ -279,61 +213,12 @@ METHOD: load in the map
         .append("svg")
         .attr("viewBox", [-10, 0, 975, 610]);
 
-      // outline us map
-      svg
-        .append("path")
-        .datum(topojson.feature(us, us.objects.nation))
-        .attr("fill", "#ddd")
-        .attr("d", path);
-
-      // outline state border
-      svg
-        .append("path")
-        .datum(topojson.mesh(us, us.objects.states, (a, b) => a !== b))
-        .attr("fill", "none")
-        .attr("stroke", "white")
-        .attr("stroke-linejoin", "round")
-        .attr("d", path);
-
-      // for circle
-      svg
-        .append("g")
-        .attr("class", "state")
-        .attr("fill-opacity", 0.6)
-        .attr("stroke", "#fff")
-        .attr("stroke-width", 1);
-
-      let radius = d3.scaleSqrt([450, 1100], [12, 45]);
-
-      const legend = svg
-        .append("g")
-        .attr("fill", "#777")
-        .attr("transform", "translate(925,608)")
-        .attr("text-anchor", "middle")
-        .style("font", "10px sans-serif")
-        .selectAll("g")
-        .data([0.001, 0.005, 0.01])
-        .join("g");
-
-      legend
-        .append("circle")
-        .attr("fill", "none")
-        .attr("stroke", "#ccc")
-        .attr("cy", (d) => -radius(d))
-        .attr("r", radius);
-
-      legend
-        .append("text")
-        .attr("y", (d) => -2 * radius(d))
-        .attr("dy", "1.3em")
-        .text(d3.format(".4"));
-
-      update(svg, us, radius);
+      update(svg, us);
       child.sendHeight();
 
       window.addEventListener("resize", () => child.sendHeight());
     })
     .catch(function (error) {
       console.log(error);
-    });
+    })
 });

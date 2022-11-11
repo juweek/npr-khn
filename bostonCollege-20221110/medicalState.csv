@@ -1,52 +1,11 @@
-fips,county,state,total,per_capita,avg_medical_debt,pc_collections,state_name
-02,Anchorage,AK,4,1.34E-05,1363,.141,Alaska
-01,Autauga,AL,1,1.82E-05,986,.187,Alabama
-05,Benton,AR,4,1.59E-05,641,.194,Arkansas
-04,Cochise,AZ,2,1.58E-05,919,.153,Arizona
-06,Alameda,CA,35,2.14E-05,740,.083,California
-08,Adams,CO,11,2.24E-05,753,.121,Colorado
-09,Fairfield,CT,8,8.47E-06,532,.102,Connecticut
-10,District of Columbia,DE,17,2.52E-05,744,.175,Delaware
-12,Baldwin,FL,1,4.93E-06,1006,.168,Florida
-13,Cobb,GA,59,7.98E-05,965,.191,Georgia
-15,Hawaii,HI,1,5.10E-06,432,.063,Hawaii
-19,Black Hawk,IA,1,7.48E-06,582,.102,Iowa
-16,Ada,ID,15,3.47E-05,935,.118,Idaho
-17,Champaign,IL,5,2.39E-05,649,.146,Illinois
-18,Cook,IN,1,1.91E-07,797,.174,Indiana
-20,Butler,KS,1,1.51E-05,841,.173,Kansas
-21,Boone,KY,1,7.80E-06,520,.181,Kentucky
-22,Lafayette,LA,2,8.36E-06,824,.213,Louisiana
-25,Berkshire,MA,2,1.56E-05,405,.043,Massachusetts
-24,Baltimore,MD,11,1.33E-05,522,.116,Maryland
-23,Androscoggin,ME,1,9.33E-06,857,.167,Maine
-26,Allegan,MI,2,1.75E-05,458,.136,Michigan
-27,Anoka,MN,2,5.81E-06,425,.024,Minnesota
-29,Adair,MO,3,0.0001183291918,855,.179,Missouri
-28,Alcorn,MS,2,5.37E-05,839,.185,Mississippi
-30,Yellowstone,MT,1,6.39E-06,764,.119,Montana
-37,Alamance,NC,2,1.27E-05,757,.209,North Carolina
-38,Cass,ND,3,1.76E-05,579,.052,North Dakota
-31,Box Butte,NE,1,8.83E-05,785,.071,Nebraska
-33,Hillsborough,NH,2,4.89E-06,498,.07,New Hampshire
-34,Atlantic,NJ,3,1.11E-05,500,.122,New Jersey
-35,Santa Fe,NM,5,3.38E-05,742,.174,New Mexico
-32,Washoe,NV,6,1.36E-05,867,.177,Nevada
-36,Albany,NY,5,1.63E-05,464,.059,New York
-39,Washington,OH,1,1.64E-05,657,.162,Ohio
-40,Caddo,OK,1,3.40E-05,974,.237,Oklahoma
-41,Washington,OR,22,3.84E-05,618,.055,Oregon
-42,Adams,PA,3,2.95E-05,550,.105,Pennsylvania
-44,Kent,RI,1,6.11E-06,522,.055,Rhode Island
-45,Aiken,SC,6,3.62E-05,980,.244,South Carolina
-46,Custer,SD,1,0.0001184272856,683,.034,South Dakota
-47,Anderson,TN,5,6.63E-05,970,.193,Tennessee
-48,Lincoln,TX,1,2.13E-05,990,.211,Texas
-49,Davis,UT,1,2.99E-06,1011,.129,Utah
-51,Virginia Beach City,VA,3,6.66E-06,753,.16,Virginia
-11,District of Columbia,DC,1,1.48E-06,790,.1648413,District of Columbia
-50,Addison,VT,1,2.71E-05,510,.051,Vermont
-53,Asotin,WA,1,4.52E-05,606,.053,Washington
-55,Brown,WI,4,1.55E-05,922,.115,Wisconsin
-54,Honolulu,WV,1,1.01E-06,628,.258,West Virginia
-56,Campbell,WY,1,2.03E-05,1611,.173,Wyoming
+time,valueA,valueB,valueC
+1,2,5,13
+2,3,4,14
+3,1,4,16
+4,7,4,12
+5,8,8,7
+6,8,13,9
+7,5,15,3
+8,4,17,2
+9,9,18,1
+10,11,13,1
