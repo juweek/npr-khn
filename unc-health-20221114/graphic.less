@@ -1,0 +1,36 @@
+@import "./lib/base";
+@import "../_base/khn-npr.less";
+
+body.npr {
+  --chart-value-size: 12px;
+}
+
+.lines {
+  fill: none;
+  stroke-width: 3px;
+  stroke: var(--bar-color, #666);
+}
+
+.value text {
+  font-size: var(--chart-value-size, 13px);
+  font-weight: bold;
+  fill: var(--chart-value-color, #666);
+}
+
+@media screen and (max-width: 500px) {
+  .value text {
+    font-size: 11px;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .key {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .key.one-line {
+    display: none;
+  }
+}
