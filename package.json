@@ -12,8 +12,8 @@
     "d3-array": "^3.1.6",
     "d3-axis": "^1.0.12",
     "d3-scale": "^2.2.2",
-    "d3-selection": "^1.4.2",
-    "d3-shape": "^3.1.0",
+    "d3-selection": "^1.4.0",
+    "d3-shape": "^1.2.2",
     "d3-svg": "^0.2.2"
   },
   "description": ""
