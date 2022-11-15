@@ -123,11 +123,9 @@ METHOD: fetch the data and draw the chart
 */
   function update(svg, data) {
     d3.select("#svganchor svg").selectAll("*").remove();
-    console.log(data)
-    
+
       // Reformat the data: we need an array of arrays of {x, y} tuples
       var dataReady = allGroup.map( function(grpName) { // .map allows to do something for each element of the list
-        console.log(grpName)
         return {
           name: grpName,
           values: data.map(function(d) {
@@ -169,7 +167,6 @@ METHOD: fetch the data and draw the chart
         .enter()
         .append("path")
           .attr("d", function(d){ 
-            console.log(line(d.values))
             return line(d.values) 
           } )
           .attr("stroke", function(d){ return myColor(d.name) })
@@ -191,8 +188,9 @@ METHOD: fetch the data and draw the chart
         .append("circle")
           .attr("cx", function(d) { return x(d.time) } )
           .attr("cy", function(d) { return y(d.value) } )
-          .attr("r", 5)
+          .attr("r", 12)
           .attr("stroke", "white")
+          .attr("data-value", function(d) { return d.value } )
     
       // Add a legend at the end of each line
       svg
@@ -207,7 +205,61 @@ METHOD: fetch the data and draw the chart
             .text(function(d) { return d.name; })
             .style("fill", function(d){ return myColor(d.name) })
             .style("font-size", 25);
+
+      /*
+------------------------------
+Section: add a tooltip for each circle in the graph
+------------------------------
+*/
+    var tooltip = d3.select("#svganchor")
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("background-color", "white")
+    .style("border", "solid")
+    .style("border-width", "2px")
+    .style("border-radius", "5px")
+    .style("padding", "5px")
+
+  // Three function that change the tooltip when user hover / move / leave a cell
+  var mouseover = function(d) {
+    tooltip.style("opacity", 1)
+    d3.select(this).style("fill", "red")
+    console.log(d3.select(this).attr("data-value"))
+    console.log(d3.select(this).attr("data-orginalFill"))
+  }
+  var mousemove = function(d) {
+    //show the score in a two decimal format
+    let currentScore = d3.select(this).attr("data-value")
+    let roundedScore = Math.round(currentScore * 100) / 100
+    tooltip
+      .html("The average score for <br>this cell is: <b>" + roundedScore + "</b>")
+      .style("left", ((d.pageX - 40) + "px"))
+      .style("top", ((d.pageY - 40) + "px"))
+  }
+
+  var mouseleave = function(d) {
+    tooltip
+      .style("opacity", 0)
+      d3.select(this).style("fill", null)
+  }
+
+  //attach the event listeners to the circles
+  svg.selectAll("circle")
+    .on("mouseover", mouseover)
+    .on("mousemove", mousemove)
+    .on("mouseleave", mouseleave)
+
+  // Add X axis --> it is a date format
+  var x = d3.scaleLinear()
+    .domain([1998, 2024])
+    .range([ 0, width ]);
+  svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x));
+      
     }
+      
 
      /*
 ------------------------------
