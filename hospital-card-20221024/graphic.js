@@ -169,8 +169,9 @@ dropdown.on("change",function(){
     }
 
   if (this.value == "all") {
+    let hospitals = document.getElementsByClassName("sideColumnHospital");
     for (let i = 0; i < hospitals.length; i++) {
-        hospitals[i].display = none;
+        hospitals[i].style.display = "block";
       }
     return;
   }
@@ -214,7 +215,6 @@ dropdownPolicy.on("change",function(){
   let policyAbbr = policies[selectedPolicy];
   for (let i = 0; i < circles.length; i++) {
     let currentPolicy = circles[i].getAttribute("data-"+ policyAbbr)
-    console.log(currentPolicy)
     if (currentPolicy == "Yes") {
       circles[i].style.fill = "blue";
     } else if(currentPolicy == "No") {
@@ -489,7 +489,11 @@ svg
   let modalElement = document.getElementsByClassName("modal")[0]
   modalElement.classList.add("clicked")
   modalContent.html(
-    `<div class="modal__hospital">${currentEntry.hospitalName} Hospital </div><div class="modal__value">${d.srcElement.__data__.value}</div><div class="modal__name">${d.srcElement.__data__.properties.name}, ${currentEntry.state}</div>`
+    `<div class="modal__hospital">${currentEntry.hospitalName} Hospital </div>
+    <div class="modal__value">${d.srcElement.__data__.value}</div>
+    <div class="modal__name">${d.srcElement.__data__.properties.name}, ${currentEntry.state}</div>
+    <div class="modal__beds">${currentEntry.HOSPITAL_TYPE} hospital</div>
+    <div class="modal__beds">${currentEntry.Beds} beds</div>`
   )})
 
 for (let i = 0; i < hoverableContent.length; i++) {
@@ -502,17 +506,23 @@ for (let i = 0; i < hoverableContent.length; i++) {
 
         /*
 ------------------------------
-SECTION: hover over the section and highlight the circle/show the tooltip box
+SECTION: hover over the section and find the corresponding circle with the same data-fips attribute. then, call the hover event handler on the circle
 ------------------------------
 */ 
         for (let i = 0; i < hoverableContent.length; i++) {
           hoverableContent[i].addEventListener("mousemove", function(d) {
             d.target.parentElement.parentElement.style.opacity = ".7";
+            let currentHospital = document.getElementsByClassName("sideColumnHospital");
+            let currentFIPs = currentHospital[0].getAttribute("data-fips");
+            let currentCircle = document.querySelector(`[data-fips="${currentFIPs}"]`);
+            currentCircle.dispatchEvent(new MouseEvent("mousemove"));
+            console.log(currentCircle)
           });
           hoverableContent[i].addEventListener("mouseout", function(d) {
             d.target.parentElement.parentElement.style.opacity = "1";
           });
         }
+
     });
   }
 
