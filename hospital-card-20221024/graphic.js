@@ -259,7 +259,7 @@ SECTION: add a tooltip
 
 /*
 ------------------------------
-SECTIOM: build out and populate the side column
+SECTION: build out and populate the side column
 ------------------------------
 */ 
       let fixedSideColumn = document.getElementById("fixedSideColumn");
@@ -284,6 +284,53 @@ SECTIOM: build out and populate the side column
         }
 
         let hoverableContent = document.getElementsByClassName("hoverableContent");
+
+/*
+------------------------------
+SECTION: create a modal that pops up when a d3 circle is clicked on. The modal should have the hospital name, the county name, the state name, and the total number of opioid prescriptions. 
+------------------------------
+*/ 
+let modal = d3
+.select("#fixedSideColumn")
+.append("div")
+.attr("class", "modal")
+.append("div")
+.attr("class", "close")
+
+let modalContent = d3
+.select(".modal")
+.append("div")
+.attr("class", "modalContent")
+
+//attach a close event handler to the close button
+let closeButton = d3
+.select(".modal")
+.on("click", function (d) {
+  console.log('yerrrr')
+  let modalElement = document.getElementsByClassName("modal")[0]
+  modalElement.classList.remove("clicked")
+  })
+
+//creeate close button and append it as a child to the modal element
+
+svg
+.selectAll("circle")
+.on("click", function (d) {
+  let currentEntry = originalData[d.srcElement.__data__.id]
+  let currentElement = d.srcElement
+  let modalElement = document.getElementsByClassName("modal")[0]
+  modalElement.classList.add("clicked")
+  modalContent.html(
+    `<div class="modal__hospital">${currentEntry.hospitalName} Hospital </div><div class="modal__value">${d.srcElement.__data__.value}</div><div class="modal__name">${d.srcElement.__data__.properties.name}, ${currentEntry.state}</div>`
+  )})
+
+for (let i = 0; i < hoverableContent.length; i++) {
+  hoverableContent[i].addEventListener("click", function (e) {
+    let currentEntry = originalData[e.target.classList[1]]
+    modal
+      .style("opacity", 1)
+  })}
+
 
         /*
 ------------------------------

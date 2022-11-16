@@ -254,3 +254,51 @@ div.tooltip {
   cursor: none;
   width: 180px;
 }
+
+//a fixed modal that presents black text on a white background. There is a close button in the upper right corner. anf the fixed modal is in the middle of the screen, both horizontally and vertically.
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  width: 50%;
+  height: 40%;
+  overflow: scroll;
+  background-color: white;
+  border: 1px solid #333;
+  margin: 0 auto;
+
+  //create a close button in the upper right corner
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    margin-right: 10px;
+    margin-top: 10px;
+    width: 20px;
+    height: 20px;
+    background-color: #c70000;
+    border-radius: 50%;
+    &:hover,
+    &:focus {
+      background-color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  }
+}
+
+.modal.clicked {
+  display: block;
+  opacity: 1;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
