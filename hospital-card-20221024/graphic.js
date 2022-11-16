@@ -45,6 +45,7 @@ METHOD: object to hold the state abbreviations
 ------------------------------
 */
   let states = {
+    all: "All",
     arizona: "AZ",
     alabama: "AL",
     alaska: "AK",
@@ -140,7 +141,7 @@ SECTION: create the dropdown and populate it with state names
 */
     //create a dropdown menu that allows the user to select a state that will then redraw the d3 map
     let dropdown = d3
-    .select("#svganchor")
+    .select("#fixedSideColumn")
     .append("select")
     .attr("name", "name-list");
 
@@ -157,7 +158,7 @@ SECTION: create the dropdown and populate it with state names
 
          /*
 ------------------------------
-METHOD: add an event listener to the dropdown that retrieves the state abbreviation and checks it ahainst the d3 circle data attributes
+METHOD: add an event listener to the dropdown that retrieves the state abbreviation and checks it ahainst the d3 circle data attributes and the list of hospitals in the side column
 ------------------------------
 */
 dropdown.on("change",function(){
@@ -166,14 +167,34 @@ dropdown.on("change",function(){
   for (let i = 0; i < circles.length; i++) {
       circles[i].style.opacity = "1";
     }
-  let selectedState = d3.select(this).property("value");
-  let stateAbbr = states[selectedState];  
-  for (let i = 0; i < circles.length; i++) {
-    let currentState = circles[i].getAttribute("data-state")
-    if (currentState != stateAbbr) {
-      circles[i].style.opacity = "0.1";
-    } else {
-      circles[i].style.opacity = "1";
+
+  if (this.value == "all") {
+    for (let i = 0; i < hospitals.length; i++) {
+        hospitals[i].display = none;
+      }
+    return;
+  }
+
+  else {
+    let selectedState = d3.select(this).property("value");
+    let stateAbbr = states[selectedState];  
+    for (let i = 0; i < circles.length; i++) {
+      let currentState = circles[i].getAttribute("data-state")
+      if (currentState != stateAbbr) {
+        circles[i].style.opacity = "0.1";
+      } else {
+        circles[i].style.opacity = "1";
+      }
+    }
+    let hospitals = document.getElementsByClassName("sideColumnHospital");
+    for (let i = 0; i < hospitals.length; i++) {
+      let currentState = hospitals[i].getAttribute("data-state")
+      if (currentState != stateAbbr) {
+        hospitals[i].style.display = "none";
+      } else {
+        console.log('yes')
+        hospitals[i].style.display = "block";
+      }
     }
   }
 })
@@ -203,6 +224,11 @@ dropdownPolicy.on("change",function(){
       circles[i].style.fill = "purple";
     }
   }
+
+  let listOfSideColumnItems = document.getElementsByClassName("sideColumnHospital");
+  for (let i = 0; i < listOfSideColumnItems.length; i++) {
+    console.log(listOfSideColumnItems[i])
+  }
 })
 
 
@@ -225,6 +251,7 @@ METHOD: fetch the data and draw the chart
         total: d.total,
         per_capita: d.per_capita,
         hospitalName: d.county,
+        county: d.county,
         state: d.state,
         HOSPITAL_TYPE: d.HOSPITAL_TYPE,
         Beds: d.Beds,
@@ -417,7 +444,12 @@ SECTION: build out and populate the side column
           let currentEntry = originalData[entry]
           let newDiv = document.createElement("div");
           newDiv.className = "sideColumnHospital";
-          newDiv.innerHTML = `<div class="hoverableContent ${currentEntry.fips}"><div>${currentEntry.hospitalName} Hospital </div><div>${currentEntry.total}</div><div>${currentEntry.state}</div></div>`
+          newDiv.setAttribute("data-fips", currentEntry.c_fips)
+          newDiv.setAttribute("data-county", currentEntry.county)
+          newDiv.setAttribute("data-state", currentEntry.state)
+          newDiv.setAttribute("data-hospitalType", currentEntry.HOSPITAL_TYPE)
+          newDiv.setAttribute("data-beds", currentEntry.Beds)
+          newDiv.innerHTML = `<div class="hoverableContent ${currentEntry.fips}"><div><b>${currentEntry.hospitalName} Hospital</b> </div><div>${currentEntry.Beds} beds</div><div>${currentEntry.county}, ${currentEntry.state}</div></div>`
           fixedSideColumn.appendChild(newDiv);
         }
 
@@ -475,33 +507,13 @@ SECTION: hover over the section and highlight the circle/show the tooltip box
 */ 
         for (let i = 0; i < hoverableContent.length; i++) {
           hoverableContent[i].addEventListener("mousemove", function(d) {
-            let currentClass = this.className.split(" ")[1];
             d.target.parentElement.parentElement.style.opacity = ".7";
-            d.target.parentElement.parentElement.style.backgroundColor = "";
-            let currentZip = document.getElementsByClassName(currentClass);
-            let currentCircle = currentZip[1];
-            currentCircle.setAttribute("fill", "red")
-            tooltip
-            .style("opacity", 1)
-            .style("left", (currentCircle.getBoundingClientRect().x - 200) + "px")
-            .style("top", (currentCircle.getBoundingClientRect().y - 100) + "px")
-            .html(
-              `<div class="tooltip__hospital">Tooltip info</div>`
-            );
-
           });
           hoverableContent[i].addEventListener("mouseout", function(d) {
-            let currentClass = this.className.split(" ")[1];
-            let currentZip = document.getElementsByClassName(currentClass);
-            let currentCircle = currentZip[1];
-            currentCircle.setAttribute("fill", "#000")
-            tooltip.style("opacity", 0);
             d.target.parentElement.parentElement.style.opacity = "1";
-            d.target.parentElement.parentElement.style.backgroundColor = "white";
           });
         }
     });
-
   }
 
   /*
