@@ -103,8 +103,37 @@ METHOD: object to hold the state abbreviations
     "us virgin islands": "VI",
     "us minor outlying islands": "UM",
   };
+
+     /*
+------------------------------
+METHOD: object to hold the state abbreviations
+------------------------------
+*/
+let policies = {
+  "Financial Assistance Policy available online?": "FAP",
+  "Collections policies available online?": "COLLECTIONS",
+  "Patients can be reported to credit bureaus?": "REPORTED",
+  "Patients' debts can be sold?": "DEBT",
+  "Patients can be sued or subject to wage garnishment or property liens?": "SUED",
+  "colPatients with debt can be denied non-emergency care?orado": "DENIED"
+}
+
+/*
+------------------------------
+SECTION: create the dropdown and populate it with list of policies
+------------------------------
+*/
+  let dropdownPolicy = d3.select("#svganchor").append("select");
+  let dropdownOptions = dropdownPolicy
+    .selectAll("option")
+    .data(Object.keys(policies))
+    .enter()
+    .append("option")
+    .attr("value", (d) => d)
+    .text((d) => d);
+
   
-    /*
+/*
 ------------------------------
 SECTION: create the dropdown and populate it with state names
 ------------------------------
@@ -141,14 +170,41 @@ dropdown.on("change",function(){
   let stateAbbr = states[selectedState];  
   for (let i = 0; i < circles.length; i++) {
     let currentState = circles[i].getAttribute("data-state")
-    console.log(currentState)
     if (currentState != stateAbbr) {
-      circles[i].style.opacity = "0.2";
+      circles[i].style.opacity = "0.1";
     } else {
       circles[i].style.opacity = "1";
     }
   }
 })
+
+        /*
+------------------------------
+METHOD: add an event listener to the policy dropdown that retrieves the policy abbreviation and checks it against the d3 circle data attributes
+------------------------------
+*/
+dropdownPolicy.on("change",function(){
+  let circles = document.getElementsByTagName("circle");
+
+  for (let i = 0; i < circles.length; i++) {
+      circles[i].style.fill = "#333";
+    }
+  let selectedPolicy = d3.select(this).property("value");
+  let policyAbbr = policies[selectedPolicy];
+  for (let i = 0; i < circles.length; i++) {
+    let currentPolicy = circles[i].getAttribute("data-"+ policyAbbr)
+    console.log(currentPolicy)
+    if (currentPolicy == "Yes") {
+      circles[i].style.fill = "blue";
+    } else if(currentPolicy == "No") {
+      circles[i].style.fill = "red";
+    }
+    else {
+      circles[i].style.fill = "purple";
+    }
+  }
+})
+
 
   /*
 ------------------------------
