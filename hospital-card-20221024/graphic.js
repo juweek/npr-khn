@@ -169,7 +169,18 @@ METHOD: fetch the data and draw the chart
         total: d.total,
         per_capita: d.per_capita,
         hospitalName: d.county,
-        state: d.state
+        state: d.state,
+        HOSPITAL_TYPE: d.HOSPITAL_TYPE,
+        Beds: d.Beds,
+        FAP: d.FAP,
+        FAP_LINK: d.FAP_LINK,
+        COLLECTIONS: d.COLLECTIONS,
+        COLLECTIONS_LINK: d.COLLECTIONS_LINK,
+        REPORTED: d.REPORTED,
+        DEBT: d.DEBT,
+        SUED: d.SUED,
+        DENIED: d.DENIED,
+        
       }
       delete d['county'];
 			delete d['state'];
@@ -207,12 +218,83 @@ SECTION: draw the map with the circles; attach the appropriate data to each circ
 			.attr("transform", d => `translate(${path.centroid(d)})`)
       .attr('class', function (d) { return "hoverableContent " + d.id})
       .attr("fill", "#000")
-      .attr("data-valid", function (d) { return d.value})
       .attr("data-fips", function (d) { return d.id})
       .attr("data-state", function (d) { 
         let id = d.id
         if (originalData[id]) {
           return originalData[id].state
+        }
+        else {
+          return 'none'
+        }
+      })
+      .attr("data-hospitalType", function (d) { 
+        let id = d.id
+        if (originalData[id]) {
+          return originalData[id].HOSPITAL_TYPE
+        }
+        else {
+          return 'none'
+        }
+      })
+      .attr("data-beds", function (d) { 
+        let id = d.id
+        if (originalData[id]) {
+          return originalData[id].Beds
+        }
+        else {
+          return 'none'
+        }
+      })
+      .attr("data-FAP", function (d) { 
+        let id = d.id
+        if (originalData[id]) {
+          return originalData[id].FAP
+        }
+        else {
+          return 'none'
+        }
+      })
+      .attr("data-COLLECTIONS", function (d) { 
+        let id = d.id
+        if (originalData[id]) {
+          return originalData[id].COLLECTIONS
+        }
+        else {
+          return 'none'
+        }
+      })
+      .attr("data-REPORTED", function (d) { 
+        let id = d.id
+        if (originalData[id]) {
+          return originalData[id].REPORTED
+        }
+        else {
+          return 'none'
+        }
+      })
+      .attr("data-DEBT", function (d) { 
+        let id = d.id
+        if (originalData[id]) {
+          return originalData[id].DEBT
+        }
+        else {
+          return 'none'
+        }
+      })
+      .attr("data-SUED", function (d) { 
+        let id = d.id
+        if (originalData[id]) {
+          return originalData[id].SUED
+        }
+        else {
+          return 'none'
+        }
+      })
+      .attr("data-DENIED", function (d) { 
+        let id = d.id
+        if (originalData[id]) {
+          return originalData[id].DENIED
         }
         else {
           return 'none'
@@ -306,13 +388,11 @@ let modalContent = d3
 let closeButton = d3
 .select(".modal")
 .on("click", function (d) {
-  console.log('yerrrr')
   let modalElement = document.getElementsByClassName("modal")[0]
   modalElement.classList.remove("clicked")
   })
 
 //creeate close button and append it as a child to the modal element
-
 svg
 .selectAll("circle")
 .on("click", function (d) {
