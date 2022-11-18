@@ -125,6 +125,7 @@ SECTION: create the dropdown and populate it with list of policies
 ------------------------------
 */
   let dropdownPolicy = d3.select("#svganchor").append("select");
+  let key = d3.select("#svganchor").append("div").attr("id", "key");
   let dropdownOptions = dropdownPolicy
     .selectAll("option")
     .data(Object.keys(policies))
@@ -199,6 +200,8 @@ dropdown.on("change",function(){
     }
   }
 })
+
+//create a key that changes the color of the circles based on the policy currently selected in the dropdown
 
         /*
 ------------------------------

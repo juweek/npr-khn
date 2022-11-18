@@ -181,17 +181,15 @@ margin-bottom: 4px;
 }
 
 #fixedSideColumn {
-display: flex;
-flex-direction: column;
-justify-content: space-around;
-margin-top: 10px;
-margin-bottom: 10px;
-background-color: #c70000;
-//max-width: 350px;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
 }
 
 @media screen and (min-width: 729px) {
 #fixedSideColumn {
+  display: flex;
+flex-direction: column;
   width: 25%;
   margin: 0 auto;
   position: relative;
@@ -304,3 +302,21 @@ div.tooltip {
   width: 80%;
 }
 
+#svganchor {
+  padding-left: 20px;
+  max-width: 80%;
+
+  select {
+    max-width: 100%;
+    padding: 5px;
+    margin: 10px 0;
+  }
+}
+@media screen and (max-width: 729px) {
+  #svganchor {
+    padding-left: 10px;
+    max-width: 80%;
+    padding-right: 10px;
+  }}
+
+  
