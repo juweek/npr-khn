@@ -125,7 +125,7 @@ SECTION: create the dropdown and populate it with list of policies
 ------------------------------
 */
   let dropdownPolicy = d3.select("#svganchor").append("select");
-  let key = d3.select("#svganchor").append("div").attr("id", "key");
+  let key = d3.select("#svganchor").append("div").attr("id", "keyContainer");
   let dropdownOptions = dropdownPolicy
     .selectAll("option")
     .data(Object.keys(policies))
@@ -250,6 +250,12 @@ dropdownPolicy.on("change",function(){
     }
   }
 
+  let keyTitle = "<h3>Was the information available online?</h3>"
+  let keyHTML = "<div id='key'><span style='background-color:blue'> </span><p>Yes</p> <span style='background-color:red'> </span><p>No</p> <span style='background-color:purple'> </span><p>Unknown</p> </div>";
+  key.html(keyTitle + keyHTML);
+
+  child.sendHeight();
+  
   let listOfSideColumnItems = document.getElementsByClassName("sideColumnHospital");
   for (let i = 0; i < listOfSideColumnItems.length; i++) {
     console.log(listOfSideColumnItems[i])

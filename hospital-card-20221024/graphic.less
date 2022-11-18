@@ -203,6 +203,7 @@ margin-bottom: 4px;
 }
 
 
+
 @media screen and (min-width: 729px) {
 #fixedSideColumn {
   display: flex;
@@ -227,6 +228,20 @@ margin-bottom: 4px;
     z-index: 100;
   }
 }}
+
+@media screen and (max-width: 729px) {
+  #fixedSideColumn {
+    z-index: 2000;
+    pointer-events: none;
+   .sideColumnMobile {
+    pointer-events: none;
+  }
+   select, button {
+    pointer-events: all;
+   }
+}
+}
+
 
 .sideColumnHospital {
   display: flex;
@@ -316,6 +331,10 @@ div.tooltip {
   left: 20%;
   top: 20%;
 
+  @media screen and (max-width: 729px) {
+    z-index: 1000;
+  }
+
   //create a close button in the upper right corner
   .close {
     color: #aaa;
@@ -365,6 +384,38 @@ div.tooltip {
     padding-left: 10px;
     max-width: 80%;
     padding-right: 10px;
+    z-index: 1000;
+
+    select {
+      z-index: 2000;
+    }
   }}
 
+  #keyContainer {
+    position: relative;
+    h3 {
+      margin-bottom: 0;
+    }
+  }
+
+  #key {
+    display: flex;
+
+    .key_block {
+      width: 100%;
+      margin-right: 10px;
+    }
+
+    span {
+      width: 14px;
+      height: 14px;
+      border-radius: 100px;
+      margin-top: 14px;
+      margin-right: 4px;
+    }
+
+    p {
+      margin-right: 20px;
+    }
+  }
   
