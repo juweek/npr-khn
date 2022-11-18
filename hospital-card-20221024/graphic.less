@@ -182,14 +182,31 @@ margin-bottom: 4px;
 
 #fixedSideColumn {
   position: absolute;
-  bottom: 0px;
+  top: 0px;
   right: 0px;
+  width: 100%;
+  z-index: 1;
+
+  select {
+    position: fixed;
+    bottom: 0px;
+    right: 0;
+    margin-right: 10px;
+  }
+
+  button {
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    margin-left: 10px;
+  }
 }
+
 
 @media screen and (min-width: 729px) {
 #fixedSideColumn {
   display: flex;
-flex-direction: column;
+  flex-direction: column;
   width: 25%;
   margin: 0 auto;
   position: relative;
@@ -202,6 +219,13 @@ flex-direction: column;
   max-height: 500px; 
   overflow: scroll;
   justify-content: flex-start;
+
+  select, button {
+    position: relative;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    z-index: 100;
+  }
 }}
 
 .sideColumnHospital {
@@ -213,12 +237,36 @@ flex-direction: column;
   padding-bottom: 10px;
   background-color: white;
   border: 8px solid #fdb0b0;
+
+  &.visible {
+    display: block;
+    opacity: 1;
+  }
 }
 
 @media screen and (max-width: 729px) {
   .sideColumnHospital {
-    display: none;
+    opacity: 0;
+    pointer-events: none;
   }}
+
+@media screen and (max-width: 729px) {
+  .sidecolumnMobile {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #333;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: white;
+    border: 8px solid #fdb0b0;
+    
+    .sideColumnHospital {
+      display: block;
+      opacity: 1;
+    }
+  }
+}
 
 body.npr {
   max-width: 900px;

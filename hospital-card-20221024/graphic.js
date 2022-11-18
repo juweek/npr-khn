@@ -45,7 +45,7 @@ METHOD: object to hold the state abbreviations
 ------------------------------
 */
   let states = {
-    all: "All",
+    "Filter by state": "All",
     arizona: "AZ",
     alabama: "AL",
     alaska: "AK",
@@ -169,7 +169,7 @@ dropdown.on("change",function(){
       circles[i].style.opacity = "1";
     }
 
-  if (this.value == "all") {
+  if (this.value == "Filter by state") {
     let hospitals = document.getElementsByClassName("sideColumnHospital");
     for (let i = 0; i < hospitals.length; i++) {
         hospitals[i].style.display = "block";
@@ -188,18 +188,40 @@ dropdown.on("change",function(){
         circles[i].style.opacity = "1";
       }
     }
+    //hide the hospitals that are not in the selected state
     let hospitals = document.getElementsByClassName("sideColumnHospital");
     for (let i = 0; i < hospitals.length; i++) {
       let currentState = hospitals[i].getAttribute("data-state")
       if (currentState != stateAbbr) {
         hospitals[i].style.display = "none";
       } else {
-        console.log('yes')
         hospitals[i].style.display = "block";
       }
     }
   }
 })
+
+
+         /*
+------------------------------
+METHOD: create a click event listener for the showResultsButton that will change the display preoprty of the side column to block when clicked on mobile devices
+------------------------------
+*/
+let showResultsButton = document.getElementById("showResultsButton");
+showResultsButton.addEventListener("click", function() {
+  let sideColumn = document.getElementById("fixedSideColumn");
+  sideColumn.style.display = "block";
+  sideColumn.classList.add("sideColumnMobile");
+  let listofSideColumnHospital = document.getElementsByClassName("sideColumnHospital");
+  for (let i = 0; i < listofSideColumnHospital.length; i++) {
+    let currentHospital = listofSideColumnHospital[i];
+    let currentClassList = currentHospital.classList;
+    currentClassList.toggle("visible");
+  }
+
+})
+
+
 
 //create a key that changes the color of the circles based on the policy currently selected in the dropdown
 
