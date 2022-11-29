@@ -3,10 +3,10 @@ var ANALYTICS = require("./lib/analytics");
 require("./lib/webfonts");
 var { isMobile } = require("./lib/breakpoints");
 var { policies, states } = require("./partials/object");
-var { eventHandlers, eventListeners, dropdown, policyDropdown } = require("./partials/eventHandlers");
+var { eventHandlers, dropdown, policyDropdown } = require("./partials/eventHandlers");
+var { clickHandlers } = require("./partials/buttonHandlers");
+
 const { zip } = require("d3-array");
-
-
 
 var mode = null;
 if (document.querySelector("body").classList.contains("npr")) {
@@ -38,42 +38,24 @@ pym.then((child) => {
   const width = 1300; // Chart width
   const height = 800; // Chart height
 
-  console.log(dropdown)
-  console.log(policyDropdown)
-
   let currentDropdown = document.getElementById("stateDropdownSelector");
   let currentPolicyDropdown = document.getElementById("policyDropdownSelector");
+  let showResultsButton = document.getElementById("showResultsButton");
 
   currentDropdown.addEventListener("change", function (){
-    console.log('hahahahahahah');
     eventHandlers.dropdownChange();
     child.sendHeight();
   })
 
   currentPolicyDropdown.addEventListener("change", function (){
-    console.log('hahahahahahah');
     eventHandlers.policydropdownChange();
     child.sendHeight();
   })
 
-  /*
-  ------------------------------
-  METHOD: create a click event listener for the showResultsButton that will change the display preoprty of the side column to block when clicked on mobile devices
-  ------------------------------
-  */
-  let showResultsButton = document.getElementById("showResultsButton");
   showResultsButton.addEventListener("click", function () {
-    let sideColumn = document.getElementById("fixedSideColumn");
-    sideColumn.style.display = "block";
-    sideColumn.classList.add("sideColumnMobile");
-    let listofSideColumnHospital = document.getElementsByClassName("sideColumnHospital");
-    for (let i = 0; i < listofSideColumnHospital.length; i++) {
-      let currentHospital = listofSideColumnHospital[i];
-      let currentClassList = currentHospital.classList;
-      currentClassList.toggle("visible");
-    }
-
-  })
+    clickHandlers.buttonClicked();
+    child.sendHeight();
+  });
 
   /*
   ------------------------------

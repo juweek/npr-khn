@@ -1,4 +1,3 @@
-//var { policies, states } = ("./partials/eventHandlers");
 import { policies, states } from './object';
 
 /*
