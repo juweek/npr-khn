@@ -199,6 +199,7 @@ margin-bottom: 4px;
     bottom: 0px;
     left: 0;
     margin-left: 10px;
+    border: 1px solid rgb(108, 108, 108);
   }
 }
 
@@ -220,6 +221,7 @@ margin-bottom: 4px;
   max-height: 500px; 
   overflow: scroll;
   justify-content: flex-start;
+  padding-top: 60px;
 
   select, button {
     position: relative;
@@ -227,7 +229,30 @@ margin-bottom: 4px;
     margin-bottom: 20px;
     z-index: 100;
   }
-}}
+}
+
+  #fixedSideColumnTop {
+    select {
+      width: 70%;
+      margin: 0 auto;
+      margin-bottom: 20px;
+      margin-left: 20px;
+    }
+  }
+}
+#fixedSideColumnTop {
+  background-color: #ebebeb;
+}
+@media screen and (min-width: 729px) {
+#fixedSideColumnTop {
+  max-width: 20%;
+  position: fixed;
+  top: 0;
+  padding-top: 20px;
+}
+}
+
+
 
 @media screen and (max-width: 729px) {
   #fixedSideColumn {
