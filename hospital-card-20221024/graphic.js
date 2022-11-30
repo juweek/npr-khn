@@ -3,9 +3,9 @@ var ANALYTICS = require("./lib/analytics");
 require("./lib/webfonts");
 var { isMobile } = require("./lib/breakpoints");
 var { policies, states } = require("./partials/object");
-var { eventHandlers, dropdown, policyDropdown } = require("./partials/eventHandlers");
+var { eventHandlers, dropdown, policyDropdown } = require("./partials/dropdownHandlers");
 var { clickHandlers } = require("./partials/buttonHandlers");
-var { tooltipHandlers, tooltip } = require("./partials/tooltips");
+var { tooltipHandlers, tooltip } = require("./partials/tooltipHandlers");
 
 const { zip } = require("d3-array");
 
@@ -58,7 +58,7 @@ pym.then((child) => {
     clickHandlers.buttonClicked();
     child.sendHeight();
   });
-  
+
   /*
   ------------------------------
   METHOD: fetch the data and draw the chart
@@ -218,20 +218,20 @@ pym.then((child) => {
         .text(d => `${d.properties.name}${format(d.value)}`);
 
 
-          /*
-      ------------------------------
-      SECTION: attach hover event handlers to the circles
-      ------------------------------
-      */
+      /*
+  ------------------------------
+  SECTION: attach hover event handlers to the circles
+  ------------------------------
+  */
       svg
         .selectAll(".state")
         .on("mousemove", function (d) {
-          tooltipHandlers.mouseEnter(d, originalData)
+          tooltipHandlers.mouseEnter(d.pageX, d.pageY, d.srcElement, originalData)
         })
-        .on("mouseout",  function (d) {
-          tooltipHandlers.mouseOut(d)
+        .on("mouseout", function (d) {
+          tooltipHandlers.mouseOut(d.srcElement)
         })
-        
+
       /*
       ------------------------------
       SECTION: build out and populate the side column
@@ -255,7 +255,7 @@ pym.then((child) => {
         let currentEntry = originalData[entry]
         let newDiv = document.createElement("div");
         newDiv.className = "sideColumnHospital";
-        newDiv.setAttribute("data-fips", currentEntry.c_fips)
+        newDiv.setAttribute("data-fips", currentEntry.fips)
         newDiv.setAttribute("data-county", currentEntry.county)
         newDiv.setAttribute("data-state", currentEntry.state)
         newDiv.setAttribute("data-hospitalType", currentEntry.HOSPITAL_TYPE)
@@ -308,28 +308,29 @@ pym.then((child) => {
           )
         })
 
-      for (let i = 0; i < hoverableContent.length; i++) {
-        hoverableContent[i].addEventListener("click", function (e) {
-          let currentEntry = originalData[e.target.classList[1]]
-          modal
-            .style("opacity", 1)
-        })
-      }
-
-
       /*
 ------------------------------
 SECTION: hover over the section and find the corresponding circle with the same data-fips attribute. then, call the hover event handler on the circle
 ------------------------------
 */
-      for (let i = 0; i < hoverableContent.length; i++) {
-        hoverableContent[i].addEventListener("mousemove", function (d) {
-          console.log('yerr')
-          console.log(d.target.parentElement)
+      let hoverableContent1 = document.getElementsByClassName("sideColumnHospital");
+
+      for (let i = 0; i < hoverableContent1.length; i++) {
+        hoverableContent1[i].addEventListener("mousemove", function (d) {
+          let currentFips = d.target.getAttribute("data-fips")
+          let currentCircle = document.querySelector(`circle[data-fips="${currentFips}"]`)
+          if (currentCircle) {
+            let rect = currentCircle.getBoundingClientRect();
+            tooltipHandlers.mouseEnter(rect.x, rect.y, currentCircle, originalData)
+          }
 
         });
-        hoverableContent[i].addEventListener("mouseout", function (d) {
-          d.target.parentElement.parentElement.style.opacity = "1";
+        hoverableContent1[i].addEventListener("mouseout", function (d) {
+          let currentFips = d.target.getAttribute("data-fips")
+          let currentCircle = document.querySelector(`circle[data-fips="${currentFips}"]`)
+          if (currentCircle) {
+            tooltipHandlers.mouseOut(currentCircle)
+          }
         });
       }
     });

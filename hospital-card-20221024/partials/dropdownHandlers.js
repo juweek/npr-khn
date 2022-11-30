@@ -2,11 +2,9 @@ import { policies, states } from './object';
 
 /*
 ------------------------------
-Export the event handlers, the event listeners, and the dropdown elements for the dropdown interactions that will be used in the ../graphic.js file
+METHOD: iterate through all of the circles and change their opacity based on the dropdown selection. do the same for the side column
 ------------------------------
 */
-
-// Export the event handlers
 export const eventHandlers = {
     // When the user clicks on the dropdown button, toggle between hiding and showing the dropdown content
     dropdownChange: function () {
@@ -47,6 +45,11 @@ export const eventHandlers = {
             }
         }
     },
+/*
+------------------------------
+METHOD: iterate through all of the circles and change their color based on the policy selected. to do this, you will change the html of the key and the color of the circles
+------------------------------
+*/
     policydropdownChange: function () {
         let key = d3.select("#svganchor").append("div").attr("id", "keyContainer");
         let circles = document.getElementsByTagName("circle");
@@ -74,18 +77,9 @@ export const eventHandlers = {
     }
 };
 
-export const eventListeners = {
-    dropdownChange: function () {
-        d3.select("#dropdown").on("change", eventHandlers.dropdownChange);
-    },
-    policydropdownChange: function () {
-        d3.select("#policydropdown").on("change", eventHandlers.policydropdownChange);
-    }
-};
-
 /*
 ------------------------------
-SECTION: create the dropdown and populate it with state names
+SECTION: create the STATE dropdown and populate it with state names
 ------------------------------
 */
 export const dropdown = d3
@@ -102,7 +96,7 @@ export const dropdown = d3
 
 /*
 ------------------------------
-SECTION: create the dropdown and populate it with the list of policies
+SECTION: create the POLICY dropdown and populate it with the list of policies
 ------------------------------
 */
 
