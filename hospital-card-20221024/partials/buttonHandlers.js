@@ -1,5 +1,3 @@
-import { policies, states } from './object';
-
 /*
 ------------------------------
 Export the click event handlers, the click event listeners, and the element that makes the button clickable
@@ -15,9 +13,9 @@ export const clickHandlers = {
         sideColumn.classList.add("sideColumnMobile");
         let listofSideColumnHospital = document.getElementsByClassName("sideColumnHospital");
         for (let i = 0; i < listofSideColumnHospital.length; i++) {
-          let currentHospital = listofSideColumnHospital[i];
-          let currentClassList = currentHospital.classList;
-          currentClassList.toggle("visible");
+            let currentHospital = listofSideColumnHospital[i];
+            let currentClassList = currentHospital.classList;
+            currentClassList.toggle("visible");
         }
     }
 };

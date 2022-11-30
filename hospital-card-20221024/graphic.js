@@ -5,6 +5,7 @@ var { isMobile } = require("./lib/breakpoints");
 var { policies, states } = require("./partials/object");
 var { eventHandlers, dropdown, policyDropdown } = require("./partials/eventHandlers");
 var { clickHandlers } = require("./partials/buttonHandlers");
+var { tooltipHandlers, tooltip } = require("./partials/tooltips");
 
 const { zip } = require("d3-array");
 
@@ -42,12 +43,13 @@ pym.then((child) => {
   let currentPolicyDropdown = document.getElementById("policyDropdownSelector");
   let showResultsButton = document.getElementById("showResultsButton");
 
-  currentDropdown.addEventListener("change", function (){
+
+  currentDropdown.addEventListener("change", function () {
     eventHandlers.dropdownChange();
     child.sendHeight();
   })
 
-  currentPolicyDropdown.addEventListener("change", function (){
+  currentPolicyDropdown.addEventListener("change", function () {
     eventHandlers.policydropdownChange();
     child.sendHeight();
   })
@@ -56,7 +58,7 @@ pym.then((child) => {
     clickHandlers.buttonClicked();
     child.sendHeight();
   });
-
+  
   /*
   ------------------------------
   METHOD: fetch the data and draw the chart
@@ -215,38 +217,21 @@ pym.then((child) => {
         .append("title")
         .text(d => `${d.properties.name}${format(d.value)}`);
 
-      /*
+
+          /*
       ------------------------------
-      SECTION: add a tooltip
+      SECTION: attach hover event handlers to the circles
       ------------------------------
       */
-      let tooltip = d3
-        .select("#svganchor")
-        .append("div")
-        .attr("class", "tooltip")
-        .style("opacity", 0);
-
-      // move tooltip
       svg
         .selectAll(".state")
         .on("mousemove", function (d) {
-          let currentEntry = originalData[d.srcElement.__data__.id]
-          let currentElement = d.srcElement
-          currentElement.classList.add("hovered")
-          tooltip
-            .style("opacity", 1)
-            .style("left", (d.pageX - 150) + "px")
-            .style("top", (d.pageY - 100) + "px")
-            .html(
-              `<div class="tooltip__hospital">${currentEntry.hospitalName} Hospital </div><div class="tooltip__value">${d.srcElement.__data__.value}</div><div class="tooltip__name">${d.srcElement.__data__.properties.name}, ${currentEntry.state}</div>`
-            );
+          tooltipHandlers.mouseEnter(d, originalData)
         })
-        .on("mouseout", function (d) {
-          tooltip.style("opacity", 0);
-          let currentElement = d.srcElement
-          currentElement.classList.remove("hovered")
-        });
-
+        .on("mouseout",  function (d) {
+          tooltipHandlers.mouseOut(d)
+        })
+        
       /*
       ------------------------------
       SECTION: build out and populate the side column
