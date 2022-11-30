@@ -6,6 +6,8 @@ var { policies, states } = require("./partials/object");
 var { eventHandlers, dropdown, policyDropdown } = require("./partials/dropdownHandlers");
 var { clickHandlers } = require("./partials/buttonHandlers");
 var { tooltipHandlers, tooltip } = require("./partials/tooltipHandlers");
+var { modalFunctions } = require("./partials/modal");
+
 
 const { zip } = require("d3-array");
 
@@ -263,49 +265,17 @@ pym.then((child) => {
         newDiv.innerHTML = `<div class="hoverableContent ${currentEntry.fips}"><div><b>${currentEntry.hospitalName} Hospital</b> </div><div>${currentEntry.Beds} beds</div><div>${currentEntry.county}, ${currentEntry.state}</div></div>`
         fixedSideColumn.appendChild(newDiv);
       }
-
-      let hoverableContent = document.getElementsByClassName("hoverableContent");
-
       /*
       ------------------------------
       SECTION: create a modal that pops up when a d3 circle is clicked on. The modal should have the hospital name, the county name, the state name, and the total number of opioid prescriptions. 
       ------------------------------
       */
-      let modal = d3
-        .select("#fixedSideColumn")
-        .append("div")
-        .attr("class", "modal")
-        .append("div")
-        .attr("class", "close")
 
-      let modalContent = d3
-        .select(".modal")
-        .append("div")
-        .attr("class", "modalContent")
-
-      //attach a close event handler to the close button
-      let closeButton = d3
-        .select(".modal")
-        .on("click", function (d) {
-          let modalElement = document.getElementsByClassName("modal")[0]
-          modalElement.classList.remove("clicked")
-        })
-
-      //creeate close button and append it as a child to the modal element
+      //create close button and append it as a child to the modal element
       svg
         .selectAll("circle")
         .on("click", function (d) {
-          let currentEntry = originalData[d.srcElement.__data__.id]
-          let currentElement = d.srcElement
-          let modalElement = document.getElementsByClassName("modal")[0]
-          modalElement.classList.add("clicked")
-          modalContent.html(
-            `<div class="modal__hospital">${currentEntry.hospitalName} Hospital </div>
-    <div class="modal__value">${d.srcElement.__data__.value}</div>
-    <div class="modal__name">${d.srcElement.__data__.properties.name}, ${currentEntry.state}</div>
-    <div class="modal__beds">${currentEntry.HOSPITAL_TYPE} hospital</div>
-    <div class="modal__beds">${currentEntry.Beds} beds</div>`
-          )
+          modalFunctions.clickCircle(d.srcElement, originalData)
         })
 
       /*

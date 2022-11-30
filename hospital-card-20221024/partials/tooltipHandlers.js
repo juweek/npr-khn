@@ -1,5 +1,3 @@
-import { policies, states } from './object';
-
 /*
 ------------------------------
 Export the tooltip functions, handlers, and data
