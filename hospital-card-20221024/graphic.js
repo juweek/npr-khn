@@ -44,6 +44,8 @@ pym.then((child) => {
   let currentDropdown = document.getElementById("stateDropdownSelector");
   let currentPolicyDropdown = document.getElementById("policyDropdownSelector");
   let showResultsButton = document.getElementById("showResultsButton");
+  let countedNames = {};
+  let listOfCountedNames = [];
 
 
   currentDropdown.addEventListener("change", function () {
@@ -53,6 +55,8 @@ pym.then((child) => {
 
   currentPolicyDropdown.addEventListener("change", function (d) {
     eventHandlers.policydropdownChange(d);
+    eventHandlers.changeTheKey(listOfCountedNames, d)
+    //console.log(listOfCountedNames)
     child.sendHeight();
   })
 
@@ -92,7 +96,6 @@ pym.then((child) => {
           DEBT: d.DEBT,
           SUED: d.SUED,
           DENIED: d.DENIED,
-
         }
         delete d['county'];
         delete d['state'];
@@ -107,7 +110,7 @@ pym.then((child) => {
       let format = d3.format(",.7f");
       // radius = d3.scaleSqrt([0, d3.quantile([...data.values()].sort(d3.ascending), 0.985)], [0, 10])
 
-      /*
+  /*
   ------------------------------
   SECTION: draw the map with the circles; attach the appropriate data to each circle
   ------------------------------
@@ -237,10 +240,9 @@ pym.then((child) => {
         .append("title")
         .text(d => `${d.properties.name}${format(d.value)}`);
 
-
       //for every array in List of Arrays, filter the items to display the count of unique items
       listOfArrays.forEach(function (array) {
-        const countedNames = array.reduce((allAnswers, answer) => {
+        countedNames = array.reduce((allAnswers, answer) => {
           const currCount = allAnswers[answer] ?? 0;
           return {
             ...allAnswers,
@@ -248,7 +250,7 @@ pym.then((child) => {
           };
         }, {})
         console.log(countedNames)
-        console.log(typeof countedNames)
+        listOfCountedNames.push(countedNames)
       })
       /*
   ------------------------------
@@ -270,7 +272,7 @@ pym.then((child) => {
       ------------------------------
       */
       let fixedSideColumn = document.getElementById("fixedSideColumn");
-      let fixedSideColumnTop = document.getElementById('fixedSideColumnTop')
+      //let fixedSideColumnTop = document.getElementById('fixedSideColumnTop')
 
       svg.select("g")
         .selectAll("circle")

@@ -45,11 +45,11 @@ export const eventHandlers = {
             }
         }
     },
-/*
-------------------------------
-METHOD: iterate through all of the circles and change their color based on the policy selected. to do this, you will change the html of the key and the color of the circles
-------------------------------
-*/
+    /*
+    ------------------------------
+    METHOD: iterate through all of the circles and change their color based on the policy selected. to do this, you will change the html of the key and the color of the circles
+    ------------------------------
+    */
     policydropdownChange: function (d) {
         //remove the old key
         //let key = d3.select("#svganchor").append("div").attr("id", "keyContainer");
@@ -77,6 +77,22 @@ METHOD: iterate through all of the circles and change their color based on the p
         let keyTitle = "<h3>Was the information available online?</h3>"
         let keyHTML = "<div id='key'><span style='background-color:blue'> </span><p>Yes</p> <span style='background-color:red'> </span><p>No</p> <span style='background-color:purple'> </span><p>Unknown</p> </div>";
         key.html(keyTitle + keyHTML);
+    },
+    changeTheKey: function (countedTotals, d) {
+        let currentQuestion = d.target.value
+        let policyAbbr = policies[currentQuestion]
+        let keyTitle = "<h3>" + currentQuestion + "</h3>"
+        var filteredTotals
+        //iterate through all of the totals and determine if they have the policy abbreviation in the object
+        for (let i = 0; i < countedTotals.length; i++) {
+            if (countedTotals[i].hasOwnProperty(policyAbbr)) {
+                filteredTotals = countedTotals[i]
+                let keyHTML = "<div id='key'><span style='background-color:blue'> </span><p>Yes</p> <span style='background-color:red'> </span><p>No</p> <span style='background-color:purple'> </span><p>Unknown</p> </div>";
+                let keyBarGraph = "<div id='keyBarGraph' style='height: 60px;'>" + (filteredTotals.Yes) + "<div id='yesBar' style='width:" + (filteredTotals.Yes) + "%; background-color:blue;'></div>" + (filteredTotals.Yes) + "<div id='noBar' style='width:" + (filteredTotals.No) + "%; background-color:red;'></div>" + (filteredTotals.Unknown) + "<div id='unknownBar' style='width:" + (filteredTotals.Unknown) + "%; background-color:purple;'></div></div>"
+                key.html(keyTitle + keyHTML + keyBarGraph);
+            }
+        }
+        console.log(filteredTotals)
     }
 };
 
