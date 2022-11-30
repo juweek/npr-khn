@@ -275,6 +275,7 @@ pym.then((child) => {
       svg
         .selectAll("circle")
         .on("click", function (d) {
+          console.log(d.srcElement)
           modalFunctions.clickCircle(d.srcElement, originalData)
         })
 
@@ -293,15 +294,21 @@ SECTION: hover over the section and find the corresponding circle with the same 
             let rect = currentCircle.getBoundingClientRect();
             tooltipHandlers.mouseEnter(rect.x, rect.y, currentCircle, originalData)
           }
-
-        });
+        })
         hoverableContent1[i].addEventListener("mouseout", function (d) {
           let currentFips = d.target.getAttribute("data-fips")
           let currentCircle = document.querySelector(`circle[data-fips="${currentFips}"]`)
           if (currentCircle) {
             tooltipHandlers.mouseOut(currentCircle)
           }
-        });
+        })
+        hoverableContent1[i].addEventListener("click", function (d) {
+          let currentFips = d.target.getAttribute("data-fips")
+          let currentCircle = document.querySelector(`circle[data-fips="${currentFips}"]`)
+          if (currentCircle) {
+            modalFunctions.clickCircle(currentCircle, originalData)
+          }
+        })
       }
     });
   }
