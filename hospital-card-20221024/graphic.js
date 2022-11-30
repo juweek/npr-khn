@@ -51,8 +51,8 @@ pym.then((child) => {
     child.sendHeight();
   })
 
-  currentPolicyDropdown.addEventListener("change", function () {
-    eventHandlers.policydropdownChange();
+  currentPolicyDropdown.addEventListener("change", function (d) {
+    eventHandlers.policydropdownChange(d);
     child.sendHeight();
   })
 
@@ -239,9 +239,6 @@ pym.then((child) => {
 
 
       //for every array in List of Arrays, filter the items to display the count of unique items
-      console.log('=============')
-      const names = ["Alice", "Bob", "Tiff", "Bruce", "Alice"];
-
       listOfArrays.forEach(function (array) {
         const countedNames = array.reduce((allAnswers, answer) => {
           const currCount = allAnswers[answer] ?? 0;
@@ -251,6 +248,7 @@ pym.then((child) => {
           };
         }, {})
         console.log(countedNames)
+        console.log(typeof countedNames)
       })
       /*
   ------------------------------

@@ -50,15 +50,18 @@ export const eventHandlers = {
 METHOD: iterate through all of the circles and change their color based on the policy selected. to do this, you will change the html of the key and the color of the circles
 ------------------------------
 */
-    policydropdownChange: function () {
-        let key = d3.select("#svganchor").append("div").attr("id", "keyContainer");
+    policydropdownChange: function (d) {
+        //remove the old key
+        //let key = d3.select("#svganchor").append("div").attr("id", "keyContainer");
         let circles = document.getElementsByTagName("circle");
 
         for (let i = 0; i < circles.length; i++) {
             circles[i].style.fill = "#333";
         }
-        let selectedPolicy = d3.select(this).property("value");
-        let policyAbbr = policies[selectedPolicy];
+
+        let currentQuestion = d.target.value
+        let policyAbbr = policies[currentQuestion]
+
         for (let i = 0; i < circles.length; i++) {
             let currentPolicy = circles[i].getAttribute("data-" + policyAbbr)
             if (currentPolicy == "Yes") {
@@ -110,3 +113,6 @@ export const policyDropdown = d3
     .append("option")
     .attr("value", (d) => d)
     .text((d) => d);
+
+
+export const key = d3.select("#svganchor").append("div").attr("id", "keyContainer");
