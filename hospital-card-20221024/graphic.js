@@ -112,6 +112,16 @@ pym.then((child) => {
   SECTION: draw the map with the circles; attach the appropriate data to each circle
   ------------------------------
   */
+      let dataState = ["state"],
+        dataHospitalType = ["HOSPITAL_TYPE"],
+        dataFap = ["FAP"],
+        dataCollections = ["COLLECTIONS"],
+        dataReported = ["REPORTED"],
+        dataDebt = ["DEBT"],
+        dataSued = ["SUED"],
+        dataDenied = ["DENIED"];
+
+      let listOfArrays = [dataState, dataHospitalType, dataFap, dataCollections, dataReported, dataDebt, dataSued, dataDenied];
 
       svg.select("g")
         .selectAll("circle")
@@ -134,6 +144,7 @@ pym.then((child) => {
         .attr("data-state", function (d) {
           let id = d.id
           if (originalData[id]) {
+            dataState.push(originalData[id].state)
             return originalData[id].state
           }
           else {
@@ -143,6 +154,7 @@ pym.then((child) => {
         .attr("data-hospitalType", function (d) {
           let id = d.id
           if (originalData[id]) {
+            dataHospitalType.push(originalData[id].HOSPITAL_TYPE);
             return originalData[id].HOSPITAL_TYPE
           }
           else {
@@ -161,6 +173,7 @@ pym.then((child) => {
         .attr("data-FAP", function (d) {
           let id = d.id
           if (originalData[id]) {
+            dataFap.push(originalData[id].FAP);
             return originalData[id].FAP
           }
           else {
@@ -170,6 +183,7 @@ pym.then((child) => {
         .attr("data-COLLECTIONS", function (d) {
           let id = d.id
           if (originalData[id]) {
+            dataCollections.push(originalData[id].COLLECTIONS);
             return originalData[id].COLLECTIONS
           }
           else {
@@ -179,6 +193,7 @@ pym.then((child) => {
         .attr("data-REPORTED", function (d) {
           let id = d.id
           if (originalData[id]) {
+            dataReported.push(originalData[id].REPORTED);
             return originalData[id].REPORTED
           }
           else {
@@ -188,6 +203,7 @@ pym.then((child) => {
         .attr("data-DEBT", function (d) {
           let id = d.id
           if (originalData[id]) {
+            dataDebt.push(originalData[id].DEBT);
             return originalData[id].DEBT
           }
           else {
@@ -197,6 +213,7 @@ pym.then((child) => {
         .attr("data-SUED", function (d) {
           let id = d.id
           if (originalData[id]) {
+            dataSued.push(originalData[id].SUED);
             return originalData[id].SUED
           }
           else {
@@ -206,6 +223,7 @@ pym.then((child) => {
         .attr("data-DENIED", function (d) {
           let id = d.id
           if (originalData[id]) {
+            dataDenied.push(originalData[id].DENIED);
             return originalData[id].DENIED
           }
           else {
@@ -220,6 +238,20 @@ pym.then((child) => {
         .text(d => `${d.properties.name}${format(d.value)}`);
 
 
+      //for every array in List of Arrays, filter the items to display the count of unique items
+      console.log('=============')
+      const names = ["Alice", "Bob", "Tiff", "Bruce", "Alice"];
+
+      listOfArrays.forEach(function (array) {
+        const countedNames = array.reduce((allAnswers, answer) => {
+          const currCount = allAnswers[answer] ?? 0;
+          return {
+            ...allAnswers,
+            [answer]: currCount + 1,
+          };
+        }, {})
+        console.log(countedNames)
+      })
       /*
   ------------------------------
   SECTION: attach hover event handlers to the circles
@@ -275,13 +307,12 @@ pym.then((child) => {
       svg
         .selectAll("circle")
         .on("click", function (d) {
-          console.log(d.srcElement)
           modalFunctions.clickCircle(d.srcElement, originalData)
         })
 
       /*
 ------------------------------
-SECTION: hover over the section and find the corresponding circle with the same data-fips attribute. then, call the hover event handler on the circle
+SECTION: hover over each of the sections in the side column. Attach hover and click events to each of the elements that bring up the modal
 ------------------------------
 */
       let hoverableContent1 = document.getElementsByClassName("sideColumnHospital");
