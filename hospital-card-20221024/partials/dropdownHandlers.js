@@ -96,13 +96,18 @@ export const eventHandlers = {
                     }
                 }
                 //calculate the percentage of yes, no, and unknown
-                let keyHTML = "<div id='key'><span style='background-color:blue'> </span><p>Yes</p> <span style='background-color:red'> </span><p>No</p>";
-                let lastkeyHTML = ((filteredTotals.Unclear) || (filteredTotals.Unknown)) ? "<span style='background-color:purple'> </span><p>Unknown</p> </div>" : '</div>';
+                let keyHTML = "<div id='key'><div class='key_block'><span style='background-color:blue'> </span><p>Yes</p> </div><div class='key_block'><span style='background-color:red'> </span><p>No</p></div>";
+                 //////////////////////////
+                let lastkeyHTML = ((filteredTotals.Unclear) || (filteredTotals.Unknown)) ? "<div class='key_block'><span style='background-color:purple'> </span><p>Unknown</p> </div>" : '</div>';
+                 //////////////////////////
                 keyHTML = keyHTML + lastkeyHTML
-                let keyBarGraph = "<div id='keyBarGraph' style='height: 100%;'>" + (filteredTotals.Yes) + "<div id='yesBar' style='width:" + ((filteredTotals.Yes) / (total / 100)) + "%; background-color:blue;'></div>" + (filteredTotals.No) + "<div id='noBar' style='width:" + ((filteredTotals.No) / (total / 100)) + "%; background-color:red;'></div>"
-                let lastKey = (filteredTotals.Unclear) ? (filteredTotals.Unclear) + "<div id='unknownBar' style='width:" + (filteredTotals.Unclear) + "%; background-color:purple;'></div></div>" : '</div>';
+                //////////////////////////
+                let keyBarGraph = "<div id='keyBarGraph' style='height: 100%;'><div id='yesBar' style='width:" + ((filteredTotals.Yes) / (total / 100)) + "%; background-color:blue;'></div><div id='noBar' style='width:" + ((filteredTotals.No) / (total / 100)) + "%; background-color:red;'></div>"
+                 //////////////////////////
+                let lastKey = (filteredTotals.Unclear) ? (filteredTotals.Unclear) + "<div id='unknownBar' style='width:" + (filteredTotals.Unclear) + "%; background-color:purple;'> </div></div>" : '</div>';
+                 //////////////////////////
                 keyBarGraph = keyBarGraph + lastKey
-                key.html(keyTitle + keyHTML + keyBarGraph);
+                key.html(keyTitle + keyBarGraph + keyHTML);
             }
         }
     }

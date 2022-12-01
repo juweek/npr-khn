@@ -242,7 +242,6 @@ h2 {
   }
   //give the fixed side column a gradient background that goes from transparent at the top to white at the bottom
   background: linear-gradient(rgba(255, 255, 255, 0.637), #fff);
-
   
   select {
     margin-bottom: 20px;
@@ -269,9 +268,13 @@ h2 {
   }
 }
 
-#keyBarGraph>div {
-  height: 10px;
-  margin-bottom: 6px;
+#keyBarGraph {
+  display: flex;
+  flex-direction: row;
+  div {
+    min-height: 20px;
+    margin-bottom: 6px;
+}
 }
 
 .sideColumnHospital {
@@ -362,7 +365,7 @@ div.tooltip {
   background-color: white;
   border: 1px solid #333;
   margin: 0 auto;
-  left: 25%;
+  left: 15%;
   top: 20%;
 
   @media screen and (max-width: 729px) {
@@ -450,21 +453,25 @@ div.tooltip {
 
 #key {
   display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 
   .key_block {
-    width: 100%;
     margin-right: 10px;
+    display: flex;
+    flex-direction: row;
+
   }
 
   span {
     width: 14px;
     height: 14px;
-    border-radius: 100px;
-    margin-top: 14px;
     margin-right: 4px;
   }
 
   p {
+    margin: 0;
     margin-right: 20px;
   }
+
 }

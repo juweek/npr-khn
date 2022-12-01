@@ -13,7 +13,7 @@ export const modalFunctions = {
     },
     clickCircle: function (currentElement, originalData) {
         let modal = d3
-            .select("#fixedSideColumn")
+            .select("#fixedSideColumnTop")
             .append("div")
             .attr("class", "modal")
             .append("div")
