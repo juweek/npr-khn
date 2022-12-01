@@ -8,7 +8,6 @@ var { clickHandlers } = require("./partials/buttonHandlers");
 var { tooltipHandlers, tooltip } = require("./partials/tooltipHandlers");
 var { modalFunctions } = require("./partials/modal");
 
-
 const { zip } = require("d3-array");
 
 var mode = null;
@@ -32,7 +31,6 @@ switch (mode) {
 }
 
 pym.then((child) => {
-
   /*
   ------------------------------
   METHOD: set the size of the canvas
@@ -46,7 +44,6 @@ pym.then((child) => {
   let showResultsButton = document.getElementById("showResultsButton");
   let countedNames = {};
   let listOfCountedNames = [];
-
 
   currentDropdown.addEventListener("change", function () {
     eventHandlers.dropdownChange();
@@ -109,11 +106,11 @@ pym.then((child) => {
       let format = d3.format(",.7f");
       // radius = d3.scaleSqrt([0, d3.quantile([...data.values()].sort(d3.ascending), 0.985)], [0, 10])
 
-  /*
-  ------------------------------
-  SECTION: draw the map with the circles; attach the appropriate data to each circle
-  ------------------------------
-  */
+      /*
+      ------------------------------
+      SECTION: draw the map with the circles; attach the appropriate data to each circle
+      ------------------------------
+      */
       let dataState = ["state"],
         dataHospitalType = ["HOSPITAL_TYPE"],
         dataFap = ["FAP"],

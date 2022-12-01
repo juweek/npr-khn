@@ -275,7 +275,6 @@ margin-bottom: 4px;
   margin-bottom: 6px;
 }
 
-
 .sideColumnHospital {
   display: flex;
   flex-direction: column;
@@ -354,18 +353,22 @@ div.tooltip {
   display: none;
   position: fixed;
   z-index: 1;
-  padding-top: 40px;
-  width: 50%;
-  height: 30%;
+  width: 70%;
+  padding: 20px 10px;
+  height: 60%;
   overflow: scroll;
   background-color: white;
   border: 1px solid #333;
   margin: 0 auto;
-  left: 20%;
+  left: 25%;
   top: 20%;
 
   @media screen and (max-width: 729px) {
     z-index: 1000;
+    width: 90%;
+    height: 90%;
+    left: 5%;
+    top: 5%;
   }
 
   //create a close button in the upper right corner
@@ -392,6 +395,7 @@ div.tooltip {
 .modal.clicked {
   display: block;
   opacity: 1;
+  padding-top: 10px;
 }
 
 .modal-content {
@@ -400,6 +404,17 @@ div.tooltip {
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
+}
+
+.modalTitle {
+  font-weight: bold;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+.modal__text {
+  font-size: 12px;
+  margin-bottom: 3px;
 }
 
 #svganchor {

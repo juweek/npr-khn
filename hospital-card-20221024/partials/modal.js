@@ -34,11 +34,22 @@ export const modalFunctions = {
         let modalElement = document.getElementsByClassName("modal")[0]
         modalElement.classList.add("clicked")
         modalContent.html(
-            `<div class="modal__hospital">${currentEntry.hospitalName} Hospital </div>
-    <div class="modal__value">${currentElement.__data__.value}</div>
-    <div class="modal__name">${currentElement.__data__.properties.name}, ${currentEntry.state}</div>
-    <div class="modal__beds">${currentEntry.HOSPITAL_TYPE} hospital</div>
-    <div class="modal__beds">${currentEntry.Beds} beds</div>`
+            `<h3 class="modalTitle">${currentEntry.hospitalName} Hospital</h3>
+            <div class="modal__text">${currentElement.__data__.value}</div>
+            <div class="modal__text">Location: ${currentElement.__data__.properties.name}, ${currentEntry.state}</div>
+            <div class="modal__text">${currentEntry.HOSPITAL_TYPE} hospital</div>
+            <div class="modal__text">${currentEntry.Beds} beds</div>
+            <h3 class="modalTitle">Financial assistance:</h3>
+            <div class="modal__text">Income qualifying for free care: ${currentEntry.FAP}</div>
+            <div class="modal__text">Income qualifying for discounted care: ${currentEntry.FAP}</div>
+            <div class="modal__text">Provides aid to patients with very large bills? ${currentEntry.FAP}</div>
+            <div class="modal__text">Financial Assistance Policy available online? <a href="${currentEntry.FAP_LINK}">${currentEntry.FAP}</a></div>
+            <h3 class="modalTitle">Billing and collections:</h3>
+            <div class="modal__text">Reports patients to credit rating agencies? ${currentEntry.REPORTED}</div>
+            <div class="modal__text">Sues patients, garnishes wages or places liens? ${currentEntry.SUED}</div>
+            <div class="modal__text">Restricts non-emergency care to patients with debt? ${currentEntry.DENIED}</div>
+            <div class="modal__text">Sells patients debts? ${currentEntry.DEBT}</div>
+            <div class="modal__text">Billing and Collections policy available online? <a href="${currentEntry.COLLECTIONS_LINK}">${currentEntry.COLLECTIONS}</a></div>`
         )
     },
 };

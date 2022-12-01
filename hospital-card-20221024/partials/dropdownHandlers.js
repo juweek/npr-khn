@@ -96,7 +96,7 @@ export const eventHandlers = {
                 }
                 //calculate the percentage of yes, no, and unknown
                 let keyHTML = "<div id='key'><span style='background-color:blue'> </span><p>Yes</p> <span style='background-color:red'> </span><p>No</p> <span style='background-color:purple'> </span><p>Unknown</p> </div>";
-                let keyBarGraph = "<div id='keyBarGraph' style='height: 100%;'>" + (filteredTotals.Yes) + "<div id='yesBar' style='width:" + ((filteredTotals.Yes)/(total/100)) + "%; background-color:blue;'></div>" + (filteredTotals.No) + "<div id='noBar' style='width:" + ((filteredTotals.No)/(total/100)) + "%; background-color:red;'></div>"
+                let keyBarGraph = "<div id='keyBarGraph' style='height: 100%;'>" + (filteredTotals.Yes) + "<div id='yesBar' style='width:" + ((filteredTotals.Yes) / (total / 100)) + "%; background-color:blue;'></div>" + (filteredTotals.No) + "<div id='noBar' style='width:" + ((filteredTotals.No) / (total / 100)) + "%; background-color:red;'></div>"
                 let lastKey = (filteredTotals.Unclear) ? (filteredTotals.Unclear) + "<div id='unknownBar' style='width:" + (filteredTotals.Unclear) + "%; background-color:purple;'></div></div>" : '</div>';
                 keyBarGraph = keyBarGraph + lastKey
                 key.html(keyTitle + keyHTML + keyBarGraph);
