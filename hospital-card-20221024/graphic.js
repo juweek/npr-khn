@@ -39,20 +39,20 @@ pym.then((child) => {
   const width = 1300; // Chart width
   const height = 800; // Chart height
 
-  let currentDropdown = document.getElementById("stateDropdownSelector");
+  let currentStateDropdown = document.getElementById("stateDropdownSelector");
   let currentPolicyDropdown = document.getElementById("policyDropdownSelector");
   let showResultsButton = document.getElementById("showResultsButton");
   let countedNames = {};
   let listOfCountedNames = [];
 
-  currentDropdown.addEventListener("change", function (d) {
+  currentStateDropdown.addEventListener("change", function (d) {
     eventHandlers.stateDropdownChange(states[d.target.value]);
     child.sendHeight();
   })
 
   currentPolicyDropdown.addEventListener("change", function (d) {
-    eventHandlers.policydropdownChange(d);
-    eventHandlers.changeTheKey(listOfCountedNames, d)
+    eventHandlers.policydropdownChange(listOfCountedNames, d);
+    //eventHandlers.changeTheKey(listOfCountedNames, d)
     child.sendHeight();
   })
 
@@ -383,7 +383,7 @@ METHOD: load in the map
         .attr("stroke", "#fff")
         .attr("stroke-width", 1);
 
-      let radius = d3.scaleSqrt([0, 10], [10, 10]);
+      let radius = d3.scaleSqrt([0, 10], [8, 8]);
 
       const legend = svg
         .append("g")
