@@ -45,8 +45,8 @@ pym.then((child) => {
   let countedNames = {};
   let listOfCountedNames = [];
 
-  currentDropdown.addEventListener("change", function () {
-    eventHandlers.dropdownChange();
+  currentDropdown.addEventListener("change", function (d) {
+    eventHandlers.stateDropdownChange(states[d.target.value]);
     child.sendHeight();
   })
 

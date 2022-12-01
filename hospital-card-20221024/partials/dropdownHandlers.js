@@ -7,14 +7,15 @@ METHOD: iterate through all of the circles and change their opacity based on the
 */
 export const eventHandlers = {
     // When the user clicks on the dropdown button, toggle between hiding and showing the dropdown content
-    dropdownChange: function () {
+    stateDropdownChange: function (currentState) {
         let circles = document.getElementsByTagName("circle");
 
+        // Loop through all dropdown items, and reset the opacity to 1
         for (let i = 0; i < circles.length; i++) {
             circles[i].style.opacity = "1";
         }
 
-        if (this.value == "Filter by state") {
+        if (currentState == "Filter by state") {
             let hospitals = document.getElementsByClassName("sideColumnHospital");
             for (let i = 0; i < hospitals.length; i++) {
                 hospitals[i].style.display = "block";
@@ -23,11 +24,10 @@ export const eventHandlers = {
         }
 
         else {
-            let selectedState = d3.select(this).property("value");
-            let stateAbbr = states[selectedState];
+            //search the states object and find the key that matches the current state using the abbreviation
             for (let i = 0; i < circles.length; i++) {
-                let currentState = circles[i].getAttribute("data-state")
-                if (currentState != stateAbbr) {
+                let d = circles[i].getAttribute("data-state")
+                if (d != currentState) {
                     circles[i].style.opacity = "0.1";
                 } else {
                     circles[i].style.opacity = "1";
@@ -36,8 +36,8 @@ export const eventHandlers = {
             //hide the hospitals that are not in the selected state
             let hospitals = document.getElementsByClassName("sideColumnHospital");
             for (let i = 0; i < hospitals.length; i++) {
-                let currentState = hospitals[i].getAttribute("data-state")
-                if (currentState != stateAbbr) {
+                let d = hospitals[i].getAttribute("data-state")
+                if (d != currentState) {
                     hospitals[i].style.display = "none";
                 } else {
                     hospitals[i].style.display = "block";
@@ -64,7 +64,6 @@ export const eventHandlers = {
 
         for (let i = 0; i < circles.length; i++) {
             let currentPolicy = circles[i].getAttribute("data-" + policyAbbr)
-            console.log(circles[i].attributes)
             if (currentPolicy == "Yes") {
                 circles[i].style.fill = "blue";
             } else if (currentPolicy == "No") {
