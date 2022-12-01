@@ -87,8 +87,18 @@ export const eventHandlers = {
         for (let i = 0; i < countedTotals.length; i++) {
             if (countedTotals[i].hasOwnProperty(policyAbbr)) {
                 filteredTotals = countedTotals[i]
+                //calculate the sum of the totals
+                let total = 0;
+                for (let key in filteredTotals) {
+                    if (key != policyAbbr) {
+                        total += filteredTotals[key];
+                    }
+                }
+                //calculate the percentage of yes, no, and unknown
                 let keyHTML = "<div id='key'><span style='background-color:blue'> </span><p>Yes</p> <span style='background-color:red'> </span><p>No</p> <span style='background-color:purple'> </span><p>Unknown</p> </div>";
-                let keyBarGraph = "<div id='keyBarGraph' style='height: 60px;'>" + (filteredTotals.Yes) + "<div id='yesBar' style='width:" + (filteredTotals.Yes) + "%; background-color:blue;'></div>" + (filteredTotals.Yes) + "<div id='noBar' style='width:" + (filteredTotals.No) + "%; background-color:red;'></div>" + (filteredTotals.Unknown) + "<div id='unknownBar' style='width:" + (filteredTotals.Unknown) + "%; background-color:purple;'></div></div>"
+                let keyBarGraph = "<div id='keyBarGraph' style='height: 100%;'>" + (filteredTotals.Yes) + "<div id='yesBar' style='width:" + ((filteredTotals.Yes)/(total/100)) + "%; background-color:blue;'></div>" + (filteredTotals.No) + "<div id='noBar' style='width:" + ((filteredTotals.No)/(total/100)) + "%; background-color:red;'></div>"
+                let lastKey = (filteredTotals.Unclear) ? (filteredTotals.Unclear) + "<div id='unknownBar' style='width:" + (filteredTotals.Unclear) + "%; background-color:purple;'></div></div>" : '</div>';
+                keyBarGraph = keyBarGraph + lastKey
                 key.html(keyTitle + keyHTML + keyBarGraph);
             }
         }

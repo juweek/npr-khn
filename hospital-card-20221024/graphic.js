@@ -56,7 +56,6 @@ pym.then((child) => {
   currentPolicyDropdown.addEventListener("change", function (d) {
     eventHandlers.policydropdownChange(d);
     eventHandlers.changeTheKey(listOfCountedNames, d)
-    //console.log(listOfCountedNames)
     child.sendHeight();
   })
 
