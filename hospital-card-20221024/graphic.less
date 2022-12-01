@@ -7,7 +7,7 @@ text.in {
 
 body.npr {
   rect {
-    fill: @red4  !important;
+    fill: @red4 !important;
   }
 }
 
@@ -23,11 +23,11 @@ section {
   position: relative;
 }
 
-.active{
+.active {
   background-color: #555252;
 }
 
-#treeMapContainer > div {
+#treeMapContainer>div {
   opacity: 0;
   position: absolute;
   top: 0;
@@ -36,10 +36,10 @@ section {
 }
 
 #treeMapContainer img {
-    width: 100%;
+  width: 100%;
 }
 
-#treeMapContainer > div.active {
+#treeMapContainer>div.active {
   opacity: 1;
   background-color: transparent;
 }
@@ -64,7 +64,7 @@ section {
 }
 
 button {
-  display:block;
+  display: block;
   font-family: 'Knockout 31 4r';
   font-weight: normal;
   text-transform: uppercase;
@@ -72,29 +72,30 @@ button {
   -webkit-font-smoothing: antialiased;
   -webkit-appearance: none;
   -moz-appearance: none;
-   text-decoration: none;
-   background: #F5F5F5;
+  text-decoration: none;
+  background: #F5F5F5;
   border: 1px solid #eee;
   color: #555555;
   font-size: 13px;
   line-height: 25px;
   padding: 0 15px;
 }
+
 button:first-of-type {
   border-radius: 10px 0px 0px 10px;
 }
 
-  button:last-of-type {
+button:last-of-type {
   border-radius: 0px 6px 6px 0px;
 }
 
 input[type="button"] {
   border: none;
-  outline:none;
+  outline: none;
   background: none;
-  }
+}
 
-  #treeMapContainer {
+#treeMapContainer {
   height: 360px;
 }
 
@@ -102,7 +103,8 @@ button.active {
   color: white;
 }
 
-h1, h2 {
+h1,
+h2 {
   text-align: left;
 }
 
@@ -114,7 +116,9 @@ h1, h2 {
 }
 
 @media screen and (min-width: 729px) {
-  h1, h2 {
+
+  h1,
+  h2 {
     text-align: center;
   }
 
@@ -126,34 +130,34 @@ h1, h2 {
     width: 50%;
     margin: 0 auto;
     margin-bottom: 20px;
-}
+  }
 }
 
 @media screen and (min-width: 1080px) {
-#treeMapContainer {
-  height: 800px;
-}
+  #treeMapContainer {
+    height: 800px;
+  }
 }
 
 @media screen and (min-width: 1200px) {
-#treeMapContainer {
-  height: 920px;
-}
+  #treeMapContainer {
+    height: 920px;
+  }
 }
 
 .key_block {
-display: flex;
-flex-direction: column;
-width: 33%;
-margin-right: .5%;
-text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  margin-right: .5%;
+  text-align: center;
 }
 
 .key_break {
-height: 16px;
-width: 100%;
-margin: 0 auto;
-margin-bottom: 4px;
+  height: 16px;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 4px;
 }
 
 .hospitalCardContainer {
@@ -175,9 +179,18 @@ margin-bottom: 4px;
   .hospitalCardContainer {
     flex-direction: row;
   }
+
   .graphic {
     min-width: 75%;
   }
+}
+
+#fixedSideColumnTop {
+  position: fixed;
+  bottom: 0px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 #fixedSideColumn {
@@ -186,91 +199,77 @@ margin-bottom: 4px;
   right: 0px;
   width: 100%;
   z-index: 1;
+  display: none;
 
   select {
-    position: fixed;
-    bottom: 0px;
     right: 0;
     margin-right: 10px;
   }
 
   button {
-    position: fixed;
-    bottom: 0px;
     left: 0;
     margin-left: 10px;
     border: 1px solid rgb(108, 108, 108);
   }
+
+  &.visible {
+    display: block;
+  }
 }
 
-
-
 @media screen and (min-width: 729px) {
-#fixedSideColumn {
-  display: flex;
-  flex-direction: column;
-  width: 25%;
-  margin: 0 auto;
-  position: relative;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  background-color: #c70000;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  max-height: 500px; 
-  overflow: scroll;
-  justify-content: flex-start;
-  padding-top: 60px;
-
-  select, button {
-    position: relative;
+  #fixedSideColumn {
     margin: 0 auto;
-    margin-bottom: 20px;
+    position: relative;
     z-index: 100;
+    max-height: 90vh;
+    overflow: scroll;
+    justify-content: flex-start;
+    padding-top: 60px;
   }
 }
 
-  #fixedSideColumnTop {
-    select {
-      width: 70%;
-      margin: 0 auto;
-      margin-bottom: 20px;
-      margin-left: 20px;
-    }
-  }
-}
 #fixedSideColumnTop {
-  background-color: #ebebeb;
-}
-@media screen and (min-width: 729px) {
-#fixedSideColumnTop {
-  max-width: 20%;
   position: fixed;
-  top: 0;
-  padding-top: 20px;
-}
+  bottom: 0px;
+  z-index: 2001;
+
+  //give the fixed side column a little more room on the bottom and the top
+  @media screen and (min-width: 729px) {
+    margin-top: 40px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+  }
+  //give the fixed side column a gradient background that goes from transparent at the top to white at the bottom
+  background: linear-gradient(rgba(255, 255, 255, 0.637), #fff);
+
+  
+  select {
+    margin-bottom: 20px;
+    margin-left: 20px;
+  }
 }
 
 .sideColumnHospital div {
   pointer-events: none;
 }
 
-
-
 @media screen and (max-width: 729px) {
   #fixedSideColumn {
-    z-index: 2000;
-   .sideColumnMobile {
-    pointer-events: none;
+    z-index:2000;
+
+    .sideColumnMobile {
+      pointer-events: none;
+    }
+
+    select,
+    button {
+      pointer-events: all;
+    }
   }
-   select, button {
-    pointer-events: all;
-   }
-}
 }
 
-#keyBarGraph > div {
+#keyBarGraph>div {
   height: 10px;
   margin-bottom: 6px;
 }
@@ -295,7 +294,8 @@ margin-bottom: 4px;
   .sideColumnHospital {
     opacity: 0;
     display: none;
-  }}
+  }
+}
 
 @media screen and (max-width: 729px) {
   .sidecolumnMobile {
@@ -307,7 +307,7 @@ margin-bottom: 4px;
     padding-bottom: 10px;
     background-color: white;
     border: 8px solid #fdb0b0;
-    
+
     .sideColumnHospital {
       display: block;
       opacity: 1;
@@ -320,9 +320,11 @@ body.npr {
   margin-left: auto;
   margin-right: auto;
 
-  h1, h2 {
+  h1,
+  h2 {
     .mmedia-constrained-centered();
   }
+
   .footnotes,
   .footer {
     .mmedia-constrained();
@@ -341,7 +343,7 @@ div.tooltip {
   padding: 6px;
   font-size: 12px;
   background: white;
-  border: 1px solid rgb(96,125,139);
+  border: 1px solid rgb(96, 125, 139);
   border-radius: 2px;
   pointer-events: none;
   cursor: none;
@@ -383,6 +385,7 @@ div.tooltip {
     height: 20px;
     background-color: #c70000;
     border-radius: 50%;
+
     &:hover,
     &:focus {
       background-color: black;
@@ -427,43 +430,41 @@ div.tooltip {
     margin: 10px 0;
   }
 }
+
 @media screen and (max-width: 729px) {
   #svganchor {
     padding-left: 10px;
     max-width: 80%;
     padding-right: 10px;
     z-index: 1000;
+  }
+}
 
-    select {
-      z-index: 2000;
-    }
-  }}
+#keyContainer {
+  position: relative;
 
-  #keyContainer {
-    position: relative;
-    h3 {
-      margin-bottom: 0;
-    }
+  h3 {
+    margin-bottom: 0;
+  }
+}
+
+#key {
+  display: flex;
+
+  .key_block {
+    width: 100%;
+    margin-right: 10px;
   }
 
-  #key {
-    display: flex;
-
-    .key_block {
-      width: 100%;
-      margin-right: 10px;
-    }
-
-    span {
-      width: 14px;
-      height: 14px;
-      border-radius: 100px;
-      margin-top: 14px;
-      margin-right: 4px;
-    }
-
-    p {
-      margin-right: 20px;
-    }
+  span {
+    width: 14px;
+    height: 14px;
+    border-radius: 100px;
+    margin-top: 14px;
+    margin-right: 4px;
   }
-  
+
+  p {
+    margin-right: 20px;
+  }
+}

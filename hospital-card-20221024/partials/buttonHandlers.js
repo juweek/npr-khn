@@ -9,7 +9,9 @@ export const clickHandlers = {
     // When the user clicks on the dropdown button, toggle between hiding and showing the dropdown content
     buttonClicked: function () {
         let sideColumn = document.getElementById("fixedSideColumn");
-        sideColumn.style.display = "block";
+        
+        //toggle the class 'visible' on the side column 
+        sideColumn.classList.toggle("visible");
         sideColumn.classList.add("sideColumnMobile");
         let listofSideColumnHospital = document.getElementsByClassName("sideColumnHospital");
         for (let i = 0; i < listofSideColumnHospital.length; i++) {
