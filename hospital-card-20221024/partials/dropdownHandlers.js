@@ -64,6 +64,7 @@ export const eventHandlers = {
 
         for (let i = 0; i < circles.length; i++) {
             let currentPolicy = circles[i].getAttribute("data-" + policyAbbr)
+            console.log(circles[i].attributes)
             if (currentPolicy == "Yes") {
                 circles[i].style.fill = "blue";
             } else if (currentPolicy == "No") {
@@ -95,14 +96,15 @@ export const eventHandlers = {
                     }
                 }
                 //calculate the percentage of yes, no, and unknown
-                let keyHTML = "<div id='key'><span style='background-color:blue'> </span><p>Yes</p> <span style='background-color:red'> </span><p>No</p> <span style='background-color:purple'> </span><p>Unknown</p> </div>";
+                let keyHTML = "<div id='key'><span style='background-color:blue'> </span><p>Yes</p> <span style='background-color:red'> </span><p>No</p>";
+                let lastkeyHTML = ((filteredTotals.Unclear) || (filteredTotals.Unknown)) ? "<span style='background-color:purple'> </span><p>Unknown</p> </div>" : '</div>';
+                keyHTML = keyHTML + lastkeyHTML
                 let keyBarGraph = "<div id='keyBarGraph' style='height: 100%;'>" + (filteredTotals.Yes) + "<div id='yesBar' style='width:" + ((filteredTotals.Yes) / (total / 100)) + "%; background-color:blue;'></div>" + (filteredTotals.No) + "<div id='noBar' style='width:" + ((filteredTotals.No) / (total / 100)) + "%; background-color:red;'></div>"
                 let lastKey = (filteredTotals.Unclear) ? (filteredTotals.Unclear) + "<div id='unknownBar' style='width:" + (filteredTotals.Unclear) + "%; background-color:purple;'></div></div>" : '</div>';
                 keyBarGraph = keyBarGraph + lastKey
                 key.html(keyTitle + keyHTML + keyBarGraph);
             }
         }
-        console.log(filteredTotals)
     }
 };
 

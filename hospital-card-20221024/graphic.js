@@ -51,6 +51,7 @@ pym.then((child) => {
   })
 
   currentPolicyDropdown.addEventListener("change", function (d) {
+    console.log('yerrrrr')
     eventHandlers.policydropdownChange(d);
     eventHandlers.changeTheKey(listOfCountedNames, d)
     child.sendHeight();
@@ -245,7 +246,6 @@ pym.then((child) => {
             [answer]: currCount + 1,
           };
         }, {})
-        console.log(countedNames)
         listOfCountedNames.push(countedNames)
       })
       /*
@@ -305,7 +305,6 @@ pym.then((child) => {
         .on("click", function (d) {
           modalFunctions.clickCircle(d.srcElement, originalData)
         })
-
       /*
 ------------------------------
 SECTION: hover over each of the sections in the side column. Attach hover and click events to each of the elements that bring up the modal
@@ -337,6 +336,11 @@ SECTION: hover over each of the sections in the side column. Attach hover and cl
           }
         })
       }
+
+      //dispatch the policy selected event so the default map option is loaded
+      let policyDropdown = document.getElementById("policyDropdownSelector")
+      let event = new Event('change');
+      policyDropdown.dispatchEvent(event);
     });
   }
 
