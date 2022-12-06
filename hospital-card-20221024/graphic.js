@@ -46,26 +46,56 @@ pym.then((child) => {
   let listOfCountedNames = [];
 
   let dataState = ["state"],
-        dataHospitalType = ["HOSPITAL_TYPE"],
-        dataFap = ["FAP"],
-        dataCollections = ["COLLECTIONS"],
-        dataReported = ["REPORTED"],
-        dataDebt = ["DEBT"],
-        dataSued = ["SUED"],
-        dataDenied = ["DENIED"];
+    dataHospitalType = ["HOSPITAL_TYPE"],
+    dataFap = ["FAP"],
+    dataCollections = ["COLLECTIONS"],
+    dataReported = ["REPORTED"],
+    dataDebt = ["DEBT"],
+    dataSued = ["SUED"],
+    dataDenied = ["DENIED"];
 
-      let listOfArrays = [dataState, dataHospitalType, dataFap, dataCollections, dataReported, dataDebt, dataSued, dataDenied];
+  let listOfArrays = [dataState, dataHospitalType, dataFap, dataCollections, dataReported, dataDebt, dataSued, dataDenied];
+
+  //create a list of buttons with the button text corresponding to the policies (FAP, COLLECTIONS, REPORTED, DEBT, SUED, DENIED)
+  let listOfButtons = document.querySelectorAll(".button");
+  let listOfButtonNames = [];
+  listOfButtons.forEach((button) => {
+    listOfButtonNames.push(button.innerText);
+  });
+
+  //iterate over listOfArrays (except for State and Hospital Type) and add a button for each policy
+  let tempArray = listOfArrays.slice(2);
+  tempArray.forEach((array) => {
+    let button = document.createElement("button");
+    button.classList.add("button");
+    button.id = array[0];
+    button.innerText = array[0];
+    button.addEventListener("click", function (d) {
+      console.log('yerr')
+      //search the policies object for the policy key that matches the button abbreviation text
+      let policyKey = Object.keys(policies).find((key) => policies[key] === button.innerText);
+      //call the policyDropdown function to update the dropdown text and trgigger the dropdown event handler
+      eventHandlers.policydropdownChange(listOfCountedNames, policyKey);
+      child.sendHeight();
+    }
+    );
+    document.getElementById("buttonContainer").appendChild(button);
+  });
 
   currentStateDropdown.addEventListener("change", function (d) {
     eventHandlers.stateDropdownChange(states[d.target.value], listOfArrays, d);
     child.sendHeight();
   })
 
+  /*
   currentPolicyDropdown.addEventListener("change", function (d) {
-    eventHandlers.policydropdownChange(listOfCountedNames, d);
+    let currentQuestion = d.target.value
+    console.log(currentQuestion)
+    eventHandlers.policydropdownChange(listOfCountedNames, currentQuestion);
     //eventHandlers.changeTheKey(listOfCountedNames, d)
     child.sendHeight();
   })
+  */
 
   showResultsButton.addEventListener("click", function () {
     clickHandlers.buttonClicked();
@@ -108,7 +138,7 @@ pym.then((child) => {
         delete d['state'];
         delete d['total'];
         //transform the fips code so all the counties are 5 digits; prepend the ones that are 4 digits with a 0
-        if(d.c_fips.length > 4) {
+        if (d.c_fips.length > 4) {
           d.c_fips = d.c_fips;
         } else {
           d.c_fips = '0' + d.c_fips;
@@ -356,10 +386,12 @@ SECTION: hover over each of the sections in the side column. Attach hover and cl
         })
       }
 
+      /*
       //dispatch the policy selected event so the default map option is loaded
       let policyDropdown = document.getElementById("policyDropdownSelector")
       let event = new Event('change');
       policyDropdown.dispatchEvent(event);
+      */
     });
   }
 
@@ -428,9 +460,12 @@ METHOD: load in the map
         .attr("dy", "1.3em")
       //  .text(d3.format(".4"));
 
-      //fire off the map function, and then fire the dropdown change handler so the default map is loaded under one of the policies in the dropdown
-
       update(svg, us, radius);
+      //fire the click event for the FAP button, click, then click again after 3 seconds
+      let fapButton = document.getElementById("FAP")
+      setTimeout(function () {
+        fapButton.click()
+      }, 100)
 
       //call the policy dropdown change handler so the circles are changed to the default policy on page load
       child.sendHeight();

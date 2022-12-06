@@ -107,7 +107,7 @@ export const eventHandlers = {
             circles[i].style.fill = "#333";
         }
 
-        let currentQuestion = d.target.value
+        let currentQuestion = d
         let policyAbbr = policies[currentQuestion]
 
         for (let i = 0; i < circles.length; i++) {
@@ -130,7 +130,7 @@ export const eventHandlers = {
         key.html(keyTitle + keyHTML);
 
         //call the change the key function by using the policy abbreviation
-        this.changeTheKey(listOfCountedNames, d.target.value);
+        this.changeTheKey(listOfCountedNames, d);
 
         //call the state dropdown change function to set the map to the current state
     },
@@ -293,7 +293,7 @@ export const dropdown = d3
 ------------------------------
 SECTION: create the POLICY dropdown and populate it with the list of policies
 ------------------------------
-*/
+
 
 export const policyDropdown = d3
     .select("#svganchor")
@@ -306,5 +306,7 @@ export const policyDropdown = d3
     .attr("value", (d) => d)
     .text((d) => d);
 
+    
+ */
 
 export const key = d3.select("#svganchor").append("div").attr("id", "keyContainer");
