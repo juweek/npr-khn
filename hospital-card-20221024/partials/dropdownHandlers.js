@@ -116,8 +116,6 @@ export const eventHandlers = {
 
             let currentColorArray = colors[policyAbbr]
 
-            console.log(currentColorArray)
-
             if (currentPolicy === "Yes") {
                 circles[i].style.fill = currentColorArray[0];
             } else if (key === "No") {

@@ -107,11 +107,27 @@ pym.then((child) => {
         delete d['county'];
         delete d['state'];
         delete d['total'];
+        //transform the fips code so all the counties are 5 digits; prepend the ones that are 4 digits with a 0
+        if(d.c_fips.length > 4) {
+          d.c_fips = d.c_fips;
+        } else {
+          d.c_fips = '0' + d.c_fips;
+        }
         originalData[d.c_fips] = currentEntry; // add to the original data
       });
 
+      //transform the data so all the counties with a fips code with 4 digits are prepended with a 0
+      let transformedData = data.map(function (d) {
+        if (d.c_fips.length > 4) {
+          return d;
+        } else {
+          d.c_fips = '0' + d.c_fips;
+          return d;
+        }
+      });
+
       // transform data to Map of c_fips => per_capita
-      data = data.map(x => Object.values(x));
+      data = transformedData.map(x => Object.values(x));
       data = new Map(data);
 
       let format = d3.format(",.7f");
@@ -320,6 +336,9 @@ SECTION: hover over each of the sections in the side column. Attach hover and cl
             let rect = currentCircle.getBoundingClientRect();
             tooltipHandlers.mouseEnter(rect.x, rect.y, currentCircle, originalData)
           }
+          else {
+            console.log("no circle found")
+          }
         })
         hoverableContent1[i].addEventListener("mouseout", function (d) {
           let currentFips = d.target.getAttribute("data-fips")
@@ -412,6 +431,8 @@ METHOD: load in the map
       //fire off the map function, and then fire the dropdown change handler so the default map is loaded under one of the policies in the dropdown
 
       update(svg, us, radius);
+
+      //call the policy dropdown change handler so the circles are changed to the default policy on page load
       child.sendHeight();
 
 

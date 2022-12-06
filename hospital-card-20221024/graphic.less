@@ -183,6 +183,13 @@ h2 {
   margin-bottom: 20px;
 }
 
+
+#htmlKey {
+  text-align: left;
+  margin: 20px;
+  margin-bottom: 0px;
+}
+
 @media screen and (min-width: 729px) {
 
   .methodology {
@@ -195,14 +202,15 @@ h2 {
     flex-direction: row;
   }
 
-  .graphic {
-    min-width: 75%;
+  .graphic{
+    //min-width: 75%;
   }
-}
 
-#htmlKey {
-  margin-bottom: 0px;
-  text-align: left;
+  #htmlKey {
+    width: 75%;
+    margin: 0 auto;
+    margin-bottom: 0px;
+  }
 }
 
 #fixedSideColumnTop {
@@ -217,7 +225,7 @@ h2 {
   position: absolute;
   top: 0px;
   right: 0px;
-  width: 100%;
+  min-width: 25%;
   z-index: 1;
   display: none;
   pointer-events: all;
@@ -243,7 +251,7 @@ h2 {
     margin: 0 auto;
     position: relative;
     z-index: 100;
-    max-height: 90vh;
+    max-height: 600px;
     overflow: scroll;
     justify-content: flex-start;
     padding-top: 60px;
@@ -447,6 +455,7 @@ div.tooltip {
 #svganchor {
   padding-left: 20px;
   max-width: 80%;
+  margin-top: 0px;
 
   select {
     max-width: 100%;
