@@ -202,12 +202,13 @@ h2 {
     flex-direction: row;
   }
 
-  .graphic{
-    //min-width: 75%;
+  h1 {
+    text-align: left;
+    margin-bottom: 0;
   }
 
   #htmlKey {
-    width: 75%;
+    width: 80%;
     margin: 0 auto;
     margin-bottom: 0px;
   }
@@ -222,13 +223,14 @@ h2 {
 }
 
 #fixedSideColumn {
-  position: absolute;
+  position: relative;
   top: 0px;
   right: 0px;
   min-width: 25%;
   z-index: 1;
   display: none;
   pointer-events: all;
+  max-height: 20px;
 
   select {
     right: 0;
@@ -251,10 +253,11 @@ h2 {
     margin: 0 auto;
     position: relative;
     z-index: 100;
-    max-height: 600px;
+    left: -60px;
+    margin-right: -60px;
+    max-height: 330px;
     overflow: scroll;
     justify-content: flex-start;
-    padding-top: 60px;
   }
 }
 
@@ -387,15 +390,16 @@ div.tooltip {
   display: none;
   position: fixed;
   z-index: 1;
-  width: 70%;
+  width: 400px;
   padding: 20px 10px;
-  height: 60%;
+  height: 360px;
   overflow: scroll;
   background-color: white;
   border: 1px solid #333;
   margin: 0 auto;
   left: 15%;
-  top: 20%;
+  top: 45%;
+  padding: 40px 10px;
 
   @media screen and (max-width: 729px) {
     z-index: 1000;
@@ -475,6 +479,8 @@ div.tooltip {
 
 #keyContainer {
   position: relative;
+  width: 100%;
+  margin-bottom: 20px;
 
   h3 {
     margin-bottom: 10px;

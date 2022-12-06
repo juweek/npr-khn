@@ -58,10 +58,7 @@ pym.then((child) => {
 
   //create a list of buttons with the button text corresponding to the policies (FAP, COLLECTIONS, REPORTED, DEBT, SUED, DENIED)
   let listOfButtons = document.querySelectorAll(".button");
-  let listOfButtonNames = [];
-  listOfButtons.forEach((button) => {
-    listOfButtonNames.push(button.innerText);
-  });
+  let listOfButtonNames = []
 
   //iterate over listOfArrays (except for State and Hospital Type) and add a button for each policy
   let tempArray = listOfArrays.slice(2);
@@ -71,15 +68,16 @@ pym.then((child) => {
     button.id = array[0];
     button.innerText = array[0];
     button.addEventListener("click", function (d) {
-      console.log('yerr')
-      //search the policies object for the policy key that matches the button abbreviation text
       let policyKey = Object.keys(policies).find((key) => policies[key] === button.innerText);
-      //call the policyDropdown function to update the dropdown text and trgigger the dropdown event handler
       eventHandlers.policydropdownChange(listOfCountedNames, policyKey);
       child.sendHeight();
     }
     );
     document.getElementById("buttonContainer").appendChild(button);
+  });
+
+  listOfButtons.forEach((button) => {
+    listOfButtonNames.push(button.innerText);
   });
 
   currentStateDropdown.addEventListener("change", function (d) {

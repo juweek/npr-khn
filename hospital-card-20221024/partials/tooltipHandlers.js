@@ -15,7 +15,7 @@ export const tooltipHandlers = {
         tooltip
             .style("opacity", 1)
             .style("left", (xLocation - 250) + "px")
-            .style("top", (yLocation - 400) + "px")
+            .style("top", (yLocation - 500) + "px")
             .html(
                 `<div class="tooltip__hospital">${currentEntry.hospitalName} Hospital </div><div class="tooltip__value">${currentElement.__data__.value}</div><div class="tooltip__name">${currentElement.__data__.properties.name}, ${currentEntry.state}</div>`
             );

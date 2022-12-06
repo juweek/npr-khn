@@ -308,5 +308,5 @@ export const policyDropdown = d3
 
     
  */
-
-export const key = d3.select("#svganchor").append("div").attr("id", "keyContainer");
+//insert the keyContainer to the end of the button container
+export const key = d3.select("#keyHTMLContainer").append("div").attr("id", "keyContainer");
