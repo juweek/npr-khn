@@ -168,6 +168,14 @@ h2 {
   margin: 0 auto;
 }
 
+.methodology {
+  font-size: 12px;
+  margin: 0;
+  margin-left: 10px;
+  margin-bottom: 60px;
+  max-width: 100%;
+}
+
 .graphic {
   min-width: 100%;
   margin: 0 auto;
@@ -176,6 +184,13 @@ h2 {
 }
 
 @media screen and (min-width: 729px) {
+
+  .methodology {
+    max-width: 75%;
+    margin: 0 auto;
+    margin-bottom: 60px;
+  }
+
   .hospitalCardContainer {
     flex-direction: row;
   }
@@ -478,4 +493,40 @@ div.tooltip {
     margin-right: 20px;
   }
 
+}
+
+#keyTextWrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+#keyBarGraph2 {
+  height: 100%;
+  width: 100px;
+}
+
+#keyWrapper {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  justify-content: flex-start;
+}
+
+//give only the first child div wrapper a with of 48%
+#keyWrapper > div:first-child {
+  width: 48%;
+}
+
+@media screen and (max-width: 729px) {
+  #keyWrapper > div:first-child {
+    width: 70%;
+  }
+}
+
+//give second child div wrapper a dotted left border
+#keyWrapper > div:nth-child(2) {
+  border-left: 1px dotted #333;
+  padding-left: 10px;
 }

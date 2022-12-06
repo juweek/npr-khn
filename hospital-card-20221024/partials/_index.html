@@ -21,6 +21,12 @@
         </div>
     </section>
     </div>
+    <div class="methodology">
+      <u>Methodology:</u>
+      <% if (COPY.labels["methodology"]) { %>
+        <div><%= t.smarty(COPY.labels["methodology"]) %></div>
+        <% } %>
+    </div>
     
     <div class="footer">
       <% if (COPY.labels["source_" + mode]) { %>

@@ -45,8 +45,19 @@ pym.then((child) => {
   let countedNames = {};
   let listOfCountedNames = [];
 
+  let dataState = ["state"],
+        dataHospitalType = ["HOSPITAL_TYPE"],
+        dataFap = ["FAP"],
+        dataCollections = ["COLLECTIONS"],
+        dataReported = ["REPORTED"],
+        dataDebt = ["DEBT"],
+        dataSued = ["SUED"],
+        dataDenied = ["DENIED"];
+
+      let listOfArrays = [dataState, dataHospitalType, dataFap, dataCollections, dataReported, dataDebt, dataSued, dataDenied];
+
   currentStateDropdown.addEventListener("change", function (d) {
-    eventHandlers.stateDropdownChange(states[d.target.value]);
+    eventHandlers.stateDropdownChange(states[d.target.value], listOfArrays, d);
     child.sendHeight();
   })
 
@@ -111,16 +122,6 @@ pym.then((child) => {
       SECTION: draw the map with the circles; attach the appropriate data to each circle
       ------------------------------
       */
-      let dataState = ["state"],
-        dataHospitalType = ["HOSPITAL_TYPE"],
-        dataFap = ["FAP"],
-        dataCollections = ["COLLECTIONS"],
-        dataReported = ["REPORTED"],
-        dataDebt = ["DEBT"],
-        dataSued = ["SUED"],
-        dataDenied = ["DENIED"];
-
-      let listOfArrays = [dataState, dataHospitalType, dataFap, dataCollections, dataReported, dataDebt, dataSued, dataDenied];
 
       svg.select("g")
         .selectAll("circle")
@@ -408,8 +409,11 @@ METHOD: load in the map
         .attr("dy", "1.3em")
       //  .text(d3.format(".4"));
 
+      //fire off the map function, and then fire the dropdown change handler so the default map is loaded under one of the policies in the dropdown
+
       update(svg, us, radius);
       child.sendHeight();
+
 
       window.addEventListener("resize", () => child.sendHeight());
     })
