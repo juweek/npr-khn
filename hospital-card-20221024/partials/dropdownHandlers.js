@@ -1,4 +1,4 @@
-import { policies, states, colors} from './object';
+import { policies, states, colors, descriptions} from './object';
 
 /*
 ------------------------------
@@ -138,6 +138,8 @@ export const eventHandlers = {
         let currentQuestion = d
         let policyAbbr = policies[currentQuestion]
         let keyTitle = "<h3>" + currentQuestion + "</h3>"
+        let keyDescription = "<p class='keyDescription'>" + descriptions[policyAbbr] + "</p>"
+        console.log(keyDescription)
         var filteredTotals
 
 
@@ -264,7 +266,7 @@ export const eventHandlers = {
                 //keyDiv.insertBefore(barGraphDiv, keyDiv.firstChild);
 
                 // Append the key div element to the key container div element
-                key.html(keyTitle);
+                key.html(keyTitle + keyDescription);
                 key.node().appendChild(keyDiv);
             }
         }
