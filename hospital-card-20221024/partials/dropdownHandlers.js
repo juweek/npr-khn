@@ -1,4 +1,4 @@
-import { policies, states } from './object';
+import { policies, states, colors} from './object';
 
 /*
 ------------------------------
@@ -112,13 +112,18 @@ export const eventHandlers = {
 
         for (let i = 0; i < circles.length; i++) {
             let currentPolicy = circles[i].getAttribute("data-" + policyAbbr)
-            if (currentPolicy == "Yes") {
-                circles[i].style.fill = "#B47C82";
-            } else if (currentPolicy == "No") {
-                circles[i].style.fill = "red";
-            }
-            else {
-                circles[i].style.fill = "#FEECE5";
+            //set the color based on the policyAbbr
+
+            let currentColorArray = colors[policyAbbr]
+
+            console.log(currentColorArray)
+
+            if (currentPolicy === "Yes") {
+                circles[i].style.fill = currentColorArray[0];
+            } else if (key === "No") {
+                circles[i].style.fill = currentColorArray[1];
+            } else {
+                circles[i].style.fill = currentColorArray[2];
             }
         }
 
@@ -136,6 +141,7 @@ export const eventHandlers = {
         let policyAbbr = policies[currentQuestion]
         let keyTitle = "<h3>" + currentQuestion + "</h3>"
         var filteredTotals
+
 
         //iterate through all of the totals and determine if they have the policy abbreviation in the object
         for (let i = 0; i < countedTotals.length; i++) {
@@ -191,13 +197,15 @@ export const eventHandlers = {
                         barDiv.id = key + "Bar";
                         barDiv.style.width = (filteredTotals[key] / (total / 100)) + "%";
 
-                        // Set the background color based on the current property
+                        // use the current policy to access the corresponding color array from the colors object
+                        let currentColorArray = colors[policyAbbr]
+
                         if (key === "Yes") {
-                            barDiv.style.backgroundColor = "blue";
+                            barDiv.style.backgroundColor = currentColorArray[0];
                         } else if (key === "No") {
-                            barDiv.style.backgroundColor = "red";
+                            barDiv.style.backgroundColor = currentColorArray[1];
                         } else {
-                            barDiv.style.backgroundColor = "purple";
+                            barDiv.style.backgroundColor = currentColorArray[2];
                         }
 
                         // Append the bar div to the bar graph div
@@ -221,7 +229,7 @@ export const eventHandlers = {
                         span.appendChild(square);
                         // Create a new p element for the current property
                         let p = document.createElement("p");
-                        p.innerText = `${key}: ${filteredTotals[key]} (${Math.round((filteredTotals[key] / total) * 100)}%)`;
+                        p.innerText = `${key}: ${filteredTotals[key]} hospitals`;
                         span.appendChild(p);
 
                         // Append the span element to the key text wrapper
@@ -236,13 +244,13 @@ export const eventHandlers = {
 
                         // Set the background color based on the current property
                         if (key === "Yes") {
-                            barDiv2.style.backgroundColor = "blue";
+                            barDiv2.style.backgroundColor = currentColorArray[0];
                         }
                         else if (key === "No") {
-                            barDiv2.style.backgroundColor = "red";
+                            barDiv2.style.backgroundColor = currentColorArray[1];
                         }
                         else {
-                            barDiv2.style.backgroundColor = "purple";
+                            barDiv2.style.backgroundColor = currentColorArray[2];
                         }
 
                         // Append the bar div to the bar graph div
@@ -252,11 +260,10 @@ export const eventHandlers = {
                     keyWrapper.appendChild(keyTextWrapper);
                     keyWrapper.appendChild(barGraphDiv2);
                     keyDiv.appendChild(keyWrapper);
-                    console.log(keyDiv)
                 }
 
                 // Append the bar graph div to become the first element of key div element
-                keyDiv.insertBefore(barGraphDiv, keyDiv.firstChild);
+                //keyDiv.insertBefore(barGraphDiv, keyDiv.firstChild);
 
                 // Append the key div element to the key container div element
                 key.html(keyTitle);
