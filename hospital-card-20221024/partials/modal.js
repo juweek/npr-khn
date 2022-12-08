@@ -34,11 +34,11 @@ export const modalFunctions = {
         let modalElement = document.getElementsByClassName("modal")[0]
         modalElement.classList.add("clicked")
         modalContent.html(
-            `<h3 class="modalTitle">${currentEntry.hospitalName} Hospital</h3>
-            <div class="modal__text">${currentElement.__data__.value}</div>
-            <div class="modal__text">Location: ${currentElement.__data__.properties.name}, ${currentEntry.state}</div>
-            <div class="modal__text">${currentEntry.HOSPITAL_TYPE} hospital</div>
-            <div class="modal__text">${currentEntry.Beds} beds</div>
+            `<h3 class="modalTitle">${currentEntry['NAME']}</h3>
+            <div class="modal__text">${currentEntry['SYSTEM']}</div>
+            <div class="modal__text">Location: ${currentEntry['CITY']}, ${currentEntry.state}</div>
+            <div class="modal__text">${currentEntry['HOSPITAL_TYPE']}</div>
+            <div class="modal__text">${currentEntry['BEDS']} beds</div>
             <h3 class="modalTitle">Financial assistance:</h3>
             <div class="modal__text">Income qualifying for free care: ${currentEntry.FAP}</div>
             <div class="modal__text">Income qualifying for discounted care: ${currentEntry.FAP}</div>

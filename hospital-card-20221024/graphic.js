@@ -156,10 +156,13 @@ pym.then((child) => {
       });
 
       newData.forEach(function (d) {
+        console.log(d)
         // extract only c_fips and per_capita (or total)
         let currentEntry = {
           fips: d['FIPS'],
           CITY: d['City'],
+          NAME: d['Name'],
+          SYSTEM: d['System'],
           county: d['County'],
           state: d['State'],
           AID: d['Aid for patients with large bills?'],
@@ -191,19 +194,35 @@ pym.then((child) => {
         listOfNewData.push(currentEntry);
       });
 
-      console.log(originalData)
-      console.log(filteredData)
-      console.log(data)
-      console.log(listOfNewData)
-
-
       // transform data to Map of c_fips => per_capita
       data = data.map(x => Object.values(x));
       data = new Map(data);
 
+      let whatever = listOfNewData
+      let fipsData = {};
+      whatever.forEach(obj => {
+        let key = obj['fips'];
+        if (key.toString().length > 4) {
+          key = key;
+        } else {
+          key = '0' + key;
+        }
+        fipsData[key] = obj;
+      });
+      //convert whatever to the same format as originalData, with fips serving as the key
+
       // transforn the listOfNewData to a Map of d[fips] => zip code. make the key the fips code, and a string
       listOfNewData = listOfNewData.map(x => Object.values(x));
       listOfNewData = new Map(listOfNewData);
+
+      function getDataAttribute(id, fipsData, attribute) {
+        if (fipsData[id]) {
+          return fipsData[id][attribute];
+        }
+        else {
+          return 'none';
+        }
+      }
 
       let format = d3.format(",.7f");
       // radius = d3.scaleSqrt([0, d3.quantile([...data.values()].sort(d3.ascending), 0.985)], [0, 10])
@@ -213,36 +232,19 @@ pym.then((child) => {
       SECTION: draw the map with the circles; attach the appropriate data to each circle
       ------------------------------
       */
-
-      let countyData = topojson.feature(us, us.objects.counties).features;
-
-      let arrayFromData = Array.from(listOfNewData).map(([key, value]) => ({key, value}));
-      let newCounties = []
-
-      //create a map object of listOfNewData
-      let mapOfNewData = new Map(listOfNewData)
-
       //for each county in countyData, print out the id and the name of the county
-      countyData.forEach(function (d) {
-        //create an array of all the keys from arrayFromData
-        let array = (listOfNewData.keys())
-        console.log(typeof(array))
-        console.log(d.id)
-        console.log(array)
-        if (listOfNewData.has(d.id)) {
-          console.log('this is in the array')
-          console.log(d.id)
-        }
-      })
-      console.log(newCounties)
+      console.log(fipsData)
 
       svg.select("g")
         .selectAll("circle")
         .data(topojson.feature(us, us.objects.counties).features
           .map(d => {
             d.value = data.get(d.id), d;
-            d.value = d.properties.name, d;
+            //d.value = d.properties.name, d;
             return d;
+          })
+          .filter(d => {
+            return listOfNewData.has(parseInt(d.id))
           }))
         .join("circle")
         .transition()
@@ -253,94 +255,54 @@ pym.then((child) => {
         .attr("fill", "#000")
         .attr("data-fips", function (d) { return d.id })
         .attr("data-state", function (d) {
-          let id = d.id
-          if (originalData[id]) {
-            dataState.push(originalData[id].state)
-            return originalData[id].state
-          }
-          else {
-            return 'none'
-          }
+          return getDataAttribute(d.id, fipsData, 'state')
         })
         .attr("data-hospitalType", function (d) {
-          let id = d.id
-          if (originalData[id]) {
-            dataHospitalType.push(originalData[id].HOSPITAL_TYPE);
-            return originalData[id].HOSPITAL_TYPE
-          }
-          else {
-            return 'none'
-          }
+          return getDataAttribute(d.id, fipsData, 'HOSPITAL_TYPE')
         })
         .attr("data-beds", function (d) {
-          let id = d.id
-          if (originalData[id]) {
-            return originalData[id].Beds
-          }
-          else {
-            return 'none'
-          }
+          return getDataAttribute(d.id, fipsData, 'BEDS')
         })
         .attr("data-FAP", function (d) {
-          let id = d.id
-          if (originalData[id]) {
-            dataFap.push(originalData[id].FAP);
-            return originalData[id].FAP
-          }
-          else {
-            return 'none'
-          }
+          return getDataAttribute(d.id, fipsData, 'FAP')
         })
         .attr("data-COLLECTIONS", function (d) {
-          let id = d.id
-          if (originalData[id]) {
-            dataCollections.push(originalData[id].COLLECTIONS);
-            return originalData[id].COLLECTIONS
-          }
-          else {
-            return 'none'
-          }
+          return getDataAttribute(d.id, fipsData, 'COLLECTIONS')
         })
         .attr("data-REPORTED", function (d) {
-          let id = d.id
-          if (originalData[id]) {
-            dataReported.push(originalData[id].REPORTED);
-            return originalData[id].REPORTED
-          }
-          else {
-            return 'none'
-          }
+          return getDataAttribute(d.id, fipsData, 'REPORTED')
         })
         .attr("data-DEBT", function (d) {
-          let id = d.id
-          if (originalData[id]) {
-            dataDebt.push(originalData[id].DEBT);
-            return originalData[id].DEBT
-          }
-          else {
-            return 'none'
-          }
+          return getDataAttribute(d.id, fipsData, 'DEBT')
         })
         .attr("data-SUED", function (d) {
-          let id = d.id
-          if (originalData[id]) {
-            dataSued.push(originalData[id].SUED);
-            return originalData[id].SUED
-          }
-          else {
-            return 'none'
-          }
+          return getDataAttribute(d.id, fipsData, 'SUED')
         })
         .attr("data-DENIED", function (d) {
-          let id = d.id
-          if (originalData[id]) {
-            dataDenied.push(originalData[id].DENIED);
-            return originalData[id].DENIED
-          }
-          else {
-            return 'none'
-          }
+          return getDataAttribute(d.id, fipsData, 'DENIED')
         })
+        .attr("data-SCORECARD", function (d) {
+          return getDataAttribute(d.id, fipsData, 'SCORECARD')
+        })
+        .attr("data-FINASSIST", function (d) {
+          return getDataAttribute(d.id, fipsData, 'FIN_ASSIST')
+        })
+        .attr("data-ASSETS", function (d) {
+          return getDataAttribute(d.id, fipsData, 'ASSETS')
+        })
+        .attr("data-LIENS", function (d) {
+          return getDataAttribute(d.id, fipsData, 'LIENS')
+        })
+        .attr("data-AID", function (d) {
+          return getDataAttribute(d.id, fipsData, 'AID')
+        })
+        .attr("data-NAME", function (d) {
+          return getDataAttribute(d.id, fipsData, 'NAME')
+        })
+        .attr("data-SYSTEM", function (d) {
+          return getDataAttribute(d.id, fipsData, 'SYSTEM')
+        })
+        
         .attr("r", d => radius(''));
 
       svg.select("g")
@@ -367,7 +329,7 @@ pym.then((child) => {
       svg
         .selectAll(".state")
         .on("mousemove", function (d) {
-          tooltipHandlers.mouseEnter(d.pageX, d.pageY, d.srcElement, originalData)
+          tooltipHandlers.mouseEnter(d.pageX, d.pageY, d.srcElement, filteredData)
         })
         .on("mouseout", function (d) {
           tooltipHandlers.mouseOut(d.srcElement)
@@ -384,7 +346,7 @@ pym.then((child) => {
       svg.select("g")
         .selectAll("circle")
         .attr("data-state", function (d) {
-          let currentEntry = originalData[d.id]
+          let currentEntry = filteredData[d.id]
           if (currentEntry) {
             return currentEntry.state
           }
@@ -392,8 +354,8 @@ pym.then((child) => {
             return 'none'
         })
 
-      for (const entry in originalData) {
-        let currentEntry = originalData[entry]
+      for (const entry in filteredData) {
+        let currentEntry = filteredData[entry]
         let newDiv = document.createElement("div");
         newDiv.className = "sideColumnHospital";
         newDiv.setAttribute("data-fips", currentEntry.fips)
@@ -414,7 +376,7 @@ pym.then((child) => {
       svg
         .selectAll("circle")
         .on("click", function (d) {
-          modalFunctions.clickCircle(d.srcElement, originalData)
+          modalFunctions.clickCircle(d.srcElement, filteredData)
         })
       /*
 ------------------------------
@@ -429,10 +391,7 @@ SECTION: hover over each of the sections in the side column. Attach hover and cl
           let currentCircle = document.querySelector(`circle[data-fips="${currentFips}"]`)
           if (currentCircle) {
             let rect = currentCircle.getBoundingClientRect();
-            tooltipHandlers.mouseEnter(rect.x, rect.y, currentCircle, originalData)
-          }
-          else {
-            console.log("no circle found")
+            tooltipHandlers.mouseEnter(rect.x, rect.y, currentCircle, filteredData)
           }
         })
         hoverableContent1[i].addEventListener("mouseout", function (d) {
@@ -446,7 +405,7 @@ SECTION: hover over each of the sections in the side column. Attach hover and cl
           let currentFips = d.target.getAttribute("data-fips")
           let currentCircle = document.querySelector(`circle[data-fips="${currentFips}"]`)
           if (currentCircle) {
-            modalFunctions.clickCircle(currentCircle, originalData)
+            modalFunctions.clickCircle(currentCircle, filteredData)
           }
         })
       }

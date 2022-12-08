@@ -1,4 +1,4 @@
-import { policies, states, colors, descriptions} from './object';
+import { policies, states, colors, descriptions } from './object';
 
 /*
 ------------------------------
@@ -10,11 +10,12 @@ export const eventHandlers = {
     stateDropdownChange: function (currentState, listOfArrays, d) {
         let circles = document.getElementsByTagName("circle");
 
-        // Loop through all dropdown items, and reset the opacity to 1
+        // Loop through all circles, and reset the opacity to 1
         for (let i = 0; i < circles.length; i++) {
             circles[i].style.opacity = "1";
         }
 
+        //if the current state is all, then show all of the hospitals
         if (currentState == "All") {
             let hospitals = document.getElementsByClassName("sideColumnHospital");
             for (let i = 0; i < hospitals.length; i++) {
@@ -23,8 +24,8 @@ export const eventHandlers = {
             return;
         }
 
+        //for everything else, search the states object and find the key that matches the current state using the abbreviation
         else {
-            //search the states object and find the key that matches the current state using the abbreviation
             for (let i = 0; i < circles.length; i++) {
                 let d = circles[i].getAttribute("data-state")
                 if (d != currentState) {
@@ -99,27 +100,26 @@ export const eventHandlers = {
     ------------------------------
     */
     policydropdownChange: function (listOfCountedNames, d) {
-        //remove the old key
-        //let key = d3.select("#svganchor").append("div").attr("id", "keyContainer");
         let circles = document.getElementsByTagName("circle");
-        console.log(circles.length)
-
-        for (let i = 0; i < circles.length; i++) {
-            circles[i].style.fill = "#333";
-        }
-
         let currentQuestion = d
         let policyAbbr = policies[currentQuestion]
+        let currentTotals = ""
 
         for (let i = 0; i < circles.length; i++) {
-            console.log(policyAbbr)
+
             let currentPolicy = circles[i].getAttribute("data-" + policyAbbr)
             //set the color based on the policyAbbr
 
             let currentColorArray = colors[policyAbbr]
 
+            //have currentTotals be an object with the key being the policy and the value being the number of times it appears
+            currentTotals = listOfCountedNames[policyAbbr]
+
+            //everytime an answer is found, add it to currentTotals
             if (currentPolicy === "Yes") {
+                
                 circles[i].style.fill = currentColorArray[0];
+
             } else if (key === "No") {
                 circles[i].style.fill = currentColorArray[1];
             } else {
@@ -127,8 +127,8 @@ export const eventHandlers = {
             }
         }
 
-        let keyTitle = "<h3>Was the information available online?</h3>"
-        let keyHTML = "<div id='key'><span style='background-color:blue'> </span><p>Yes</p> <span style='background-color:red'> </span><p>No</p></div>";
+        let keyTitle = ""
+        let keyHTML = "";
         key.html(keyTitle + keyHTML);
 
         //call the change the key function by using the policy abbreviation
@@ -137,6 +137,7 @@ export const eventHandlers = {
         //call the state dropdown change function to set the map to the current state
     },
     changeTheKey: function (countedTotals, d) {
+        console.log(countedTotals)
         let currentQuestion = d
         let policyAbbr = policies[currentQuestion]
         let keyTitle = "<h3>" + currentQuestion + "</h3>"
@@ -186,10 +187,12 @@ export const eventHandlers = {
                 barGraphDiv.style.height = "100%";
 
                 let barGraphDiv2 = document.createElement("div");
-                        barGraphDiv2.id = "keyBarGraph2";
+                barGraphDiv2.id = "keyBarGraph2";
 
                 // Iterate over the properties in the filteredTotals object
                 for (let key in filteredTotals) {
+                    console.log(key)
+                    console.log(policyAbbr)
                     //check to make sure the key isn't the policy abbreviation (i.e. FAP)
                     if (key != policyAbbr) {
 
@@ -257,7 +260,7 @@ export const eventHandlers = {
                         // Append the bar div to the bar graph div
                         barGraphDiv2.appendChild(barDiv2);
                     }
-                    
+
                     keyWrapper.appendChild(keyTextWrapper);
                     keyWrapper.appendChild(barGraphDiv2);
                     keyDiv.appendChild(keyWrapper);
