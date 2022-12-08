@@ -39,7 +39,7 @@ pym.then((child) => {
   */
   const width = 1300; // Chart width
   const height = 800; // Chart height
-  
+
 
   let currentStateDropdown = document.getElementById("stateDropdownSelector");
   let currentPolicyDropdown = document.getElementById("policyDropdownSelector");
@@ -110,6 +110,7 @@ pym.then((child) => {
   function update(svg, us, radius) {
     let path = d3.geoPath();
     let originalData = {}
+    let filteredData = {}
 
     d3.csv('./hospitalScores.csv').then(function (data) {
       //describe the differences between the data and the window data
@@ -117,8 +118,6 @@ pym.then((child) => {
       let newData = window.data;
       //convert newData to a json object
       newData = JSON.parse(newData);
-      console.log(newData)
-      console.log(data)
       let listOfNewData = [];
 
       data.forEach(function (d) {
@@ -159,15 +158,17 @@ pym.then((child) => {
       newData.forEach(function (d) {
         // extract only c_fips and per_capita (or total)
         let currentEntry = {
+          fips: d['FIPS'],
           CITY: d['City'],
+          county: d['County'],
           state: d['State'],
           AID: d['Aid for patients with large bills?'],
-          HOSPITAL_TYPE: d.HOSPITAL_TYPE,
+          HOSPITAL_TYPE: d['Hospital type'],
           BEDS: d['Beds'],
           REPORTED: d['Can patients be reported to credit bureaus?'],
           ASSETS: d['Assets considered?'],
           FAP: d['Financial Assistance Policy available online?'],
-          FAP_LINK: d.FAP_LINK,
+          FAP_LINK: d['FAP link'],
           FIN_ASSIST: d['Info on financial assistance available with "financial assistance" search?'],
           LIENS: d['Places liens or garnishes wages?'],
           COLLECTIONS: d['Collections policies available online?'],
@@ -178,27 +179,31 @@ pym.then((child) => {
           SCORECARD: d['Scorecard notes'],
           DENIED: d['Can patients with debt be denied nonemergency care?'],
         }
+        //print out the length of the fips code after it is converted to a string
+        let FIPSlength = d['FIPS'].toString()
+
+        if (FIPSlength.length > 4) {
+          d['FIPS'] = d['FIPS'];
+        } else {
+          d['FIPS'] = '0' + d['FIPS'];
+        }
+        filteredData[d['FIPS']] = currentEntry; // add to the original data
         listOfNewData.push(currentEntry);
       });
 
-      console.log(newData)
-      console.log(data)
       console.log(originalData)
+      console.log(filteredData)
+      console.log(data)
       console.log(listOfNewData)
 
-      //transform the data so all the counties with a fips code with 4 digits are prepended with a 0
-      let transformedData = data.map(function (d) {
-        if (d.c_fips.length > 4) {
-          return d;
-        } else {
-          d.c_fips = '0' + d.c_fips;
-          return d;
-        }
-      });
 
       // transform data to Map of c_fips => per_capita
-      data = transformedData.map(x => Object.values(x));
+      data = data.map(x => Object.values(x));
       data = new Map(data);
+
+      // transforn the listOfNewData to a Map of d[fips] => zip code. make the key the fips code, and a string
+      listOfNewData = listOfNewData.map(x => Object.values(x));
+      listOfNewData = new Map(listOfNewData);
 
       let format = d3.format(",.7f");
       // radius = d3.scaleSqrt([0, d3.quantile([...data.values()].sort(d3.ascending), 0.985)], [0, 10])
@@ -209,16 +214,36 @@ pym.then((child) => {
       ------------------------------
       */
 
+      let countyData = topojson.feature(us, us.objects.counties).features;
+
+      let arrayFromData = Array.from(listOfNewData).map(([key, value]) => ({key, value}));
+      let newCounties = []
+
+      //create a map object of listOfNewData
+      let mapOfNewData = new Map(listOfNewData)
+
+      //for each county in countyData, print out the id and the name of the county
+      countyData.forEach(function (d) {
+        //create an array of all the keys from arrayFromData
+        let array = (listOfNewData.keys())
+        console.log(typeof(array))
+        console.log(d.id)
+        console.log(array)
+        if (listOfNewData.has(d.id)) {
+          console.log('this is in the array')
+          console.log(d.id)
+        }
+      })
+      console.log(newCounties)
+
       svg.select("g")
         .selectAll("circle")
         .data(topojson.feature(us, us.objects.counties).features
           .map(d => {
             d.value = data.get(d.id), d;
+            d.value = d.properties.name, d;
             return d;
-          }).filter(d => {
-            return d.value != null;
-          }) //filter the results of the data to exclude counties with null or undefined values
-          .sort((a, b) => b.value - a.value))
+          }))
         .join("circle")
         .transition()
         .duration(1000)
@@ -316,7 +341,7 @@ pym.then((child) => {
             return 'none'
           }
         })
-        .attr("r", d => radius(d.value));
+        .attr("r", d => radius(''));
 
       svg.select("g")
         .selectAll("circle")

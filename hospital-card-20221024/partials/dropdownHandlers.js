@@ -102,6 +102,7 @@ export const eventHandlers = {
         //remove the old key
         //let key = d3.select("#svganchor").append("div").attr("id", "keyContainer");
         let circles = document.getElementsByTagName("circle");
+        console.log(circles.length)
 
         for (let i = 0; i < circles.length; i++) {
             circles[i].style.fill = "#333";
@@ -111,6 +112,7 @@ export const eventHandlers = {
         let policyAbbr = policies[currentQuestion]
 
         for (let i = 0; i < circles.length; i++) {
+            console.log(policyAbbr)
             let currentPolicy = circles[i].getAttribute("data-" + policyAbbr)
             //set the color based on the policyAbbr
 
