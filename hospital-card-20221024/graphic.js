@@ -31,6 +31,7 @@ switch (mode) {
 }
 
 pym.then((child) => {
+  //from window, get all of the data that you are reading from the spreadsheet
   /*
   ------------------------------
   METHOD: set the size of the canvas
@@ -38,6 +39,7 @@ pym.then((child) => {
   */
   const width = 1300; // Chart width
   const height = 800; // Chart height
+  
 
   let currentStateDropdown = document.getElementById("stateDropdownSelector");
   let currentPolicyDropdown = document.getElementById("policyDropdownSelector");
@@ -110,6 +112,15 @@ pym.then((child) => {
     let originalData = {}
 
     d3.csv('./hospitalScores.csv').then(function (data) {
+      //describe the differences between the data and the window data
+      //console.log(data)
+      let newData = window.data;
+      //convert newData to a json object
+      newData = JSON.parse(newData);
+      console.log(newData)
+      console.log(data)
+      let listOfNewData = [];
+
       data.forEach(function (d) {
         // extract only c_fips and per_capita (or total)
         d.total = +d.total;
@@ -124,6 +135,7 @@ pym.then((child) => {
           HOSPITAL_TYPE: d.HOSPITAL_TYPE,
           Beds: d.Beds,
           FAP: d.FAP,
+          FAP2: d['FAP'],
           FAP_LINK: d.FAP_LINK,
           COLLECTIONS: d.COLLECTIONS,
           COLLECTIONS_LINK: d.COLLECTIONS_LINK,
@@ -143,6 +155,36 @@ pym.then((child) => {
         }
         originalData[d.c_fips] = currentEntry; // add to the original data
       });
+
+      newData.forEach(function (d) {
+        // extract only c_fips and per_capita (or total)
+        let currentEntry = {
+          CITY: d['City'],
+          state: d['State'],
+          AID: d['Aid for patients with large bills?'],
+          HOSPITAL_TYPE: d.HOSPITAL_TYPE,
+          BEDS: d['Beds'],
+          REPORTED: d['Can patients be reported to credit bureaus?'],
+          ASSETS: d['Assets considered?'],
+          FAP: d['Financial Assistance Policy available online?'],
+          FAP_LINK: d.FAP_LINK,
+          FIN_ASSIST: d['Info on financial assistance available with "financial assistance" search?'],
+          LIENS: d['Places liens or garnishes wages?'],
+          COLLECTIONS: d['Collections policies available online?'],
+          COLLECTIONS_LINK: d['Collections link'],
+          REPORTED: d['Can patients be reported to credit bureaus?'],
+          DEBT: d["Can patients' debts be sold?"],
+          SUED: d['Can patients be sued or subject to wage garnishment or property liens?'],
+          SCORECARD: d['Scorecard notes'],
+          DENIED: d['Can patients with debt be denied nonemergency care?'],
+        }
+        listOfNewData.push(currentEntry);
+      });
+
+      console.log(newData)
+      console.log(data)
+      console.log(originalData)
+      console.log(listOfNewData)
 
       //transform the data so all the counties with a fips code with 4 digits are prepended with a 0
       let transformedData = data.map(function (d) {

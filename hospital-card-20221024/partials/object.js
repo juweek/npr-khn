@@ -2,10 +2,16 @@ module.exports = {
   policies: {
     "Financial Assistance Policy available online?": "FAP",
     "Collections policies available online?": "COLLECTIONS",
-    "Patients can be reported to credit bureaus?": "REPORTED",
-    "Patients' debts can be sold?": "DEBT",
-    "Patients can be sued or subject to wage garnishment or property liens?": "SUED",
-    "colPatients with debt can be denied non-emergency care?orado": "DENIED"
+    "Can patients be reported to credit bureaus?": "REPORTED",
+    "Can patients' debts be sold?": "DEBT",
+    "Can patients be sued or subject to wage garnishment or property liens?": "SUED",
+    "Can patients with debt be denied nonemergency care?": "DENIED",
+    "Info on financial assistance available with 'financial assistance' search?" : "FINASSIST",
+    "Medicaid expansion?": "MEDICAID",
+    "Places liens or garnishes wages?": "LIENS",
+    "Qualifying income for discounted care?": "DISCOUNTED",
+    "Scorecard notes": "SCORECARD",
+
   },
 
   //come up with an array of arrays that hold colors that you want to use for the key, one group of colors for each policy

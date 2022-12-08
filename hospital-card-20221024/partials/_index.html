@@ -7,12 +7,7 @@
     <% } %>
     
     <div id="htmlKey">
-      <h1> WILL YOUR HOSPITAL HELP YOU WITH YOUR BILL? WILL IT SUE YOU?</h1>
     <div >
-     <p>Most U.S. hospitals today offer financial assistance to some patients. At the same time, many aggressively pursue patients who don’t pay their bills, sometimes suing patients, garnishing their wages or denying care.</p>
-     <p>But there is huge variation in what hospitals do. And despite federal laws meant to make practices more transparent, many hospitals make it very difficult for patients to find out if they qualify for aid and what will happen if they can’t pay their bills.</p>
-     <p>Over the last year, KHN surveyed a diverse group of more than 500 U.S. hospitals to better understand these variations and to see which hospitals are transparent about their policies and which are not.</p>
-     <p>You can use the map to find hospitals that we surveyed, learn about their policies and practices, and find out how open they are about what they do.</p>
     <div id="buttonContainer"></div>
       </div>
       <div id="keyHTMLContainer"></div>
@@ -51,5 +46,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
     <script src="https://unpkg.com/topojson-client@3"></script>
     <script src="https://unpkg.com/d3-tip@0.9.1/dist/index.js"></script>
+    <script type="text/javascript">
+      var DATA = JSON.stringify(<%= JSON.stringify(COPY.Clean_Data) %>);
+      var data = window.DATA;
+    </script>
     <script src="./graphic.js"></script>
     

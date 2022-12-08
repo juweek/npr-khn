@@ -139,7 +139,6 @@ export const eventHandlers = {
         let policyAbbr = policies[currentQuestion]
         let keyTitle = "<h3>" + currentQuestion + "</h3>"
         let keyDescription = "<p class='keyDescription'>" + descriptions[policyAbbr] + "</p>"
-        console.log(keyDescription)
         var filteredTotals
 
 
