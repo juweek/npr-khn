@@ -1,11 +1,11 @@
 module.exports = {
   policies: {
-    "Financial Assistance Policy available online?": "FAP",
-    "Collections policies available online?": "COLLECTIONS",
-    "Can patients be reported to credit bureaus?": "REPORTED",
-    "Can patients' debts be sold?": "DEBT",
-    "Can patients be sued or subject to wage garnishment or property liens?": "SUED",
-    "Can patients with debt be denied nonemergency care?": "DENIED",
+    "Which hospitals post a Finacial Assistance Policy online, outlining which patients qualify for help with their bills and how they can get aid?": "FAP",
+    "Which hospitals post their collection policies online, explaining what tactics they use to collect bills and what can happen to patients who don't pay?": "COLLECTIONS",
+    "Which hospitals will report patients who don't pay their bills to credit reporting agencies?": "REPORTED",
+    "Which hospitals will sell patients' debts to third-party buyers, who can then pursue patients to collect?": "DEBT",
+    "Which hospitals will sue patients or take other legal actions to collect bills, such as garnishing wages or placing liens on patients' property?": "SUED",
+    "Which hospitals will deny non-emergency medical care to patients with past-due bills?": "DENIED",
     "Info on financial assistance available with 'financial assistance' search?" : "FINASSIST",
     "Medicaid expansion?": "MEDICAID",
     "Places liens or garnishes wages?": "LIENS",

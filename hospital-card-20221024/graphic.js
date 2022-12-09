@@ -70,6 +70,17 @@ pym.then((child) => {
     button.id = array[0];
     button.innerText = array[0];
     button.addEventListener("click", function (d) {
+
+      //go through all of the button elements and toggle the class 'active' on the button
+      let listofButtons = document.getElementsByClassName("button");
+      //remove the class 'active' from all of the buttons
+      for (let i = 0; i < listofButtons.length; i++) {
+        let currentButton = listofButtons[i];
+        let currentClassList = currentButton.classList;
+        currentClassList.remove("active");
+      }
+      //add the class 'active' to the button that was clicked
+      button.classList.add("active");
       let policyKey = Object.keys(policies).find((key) => policies[key] === button.innerText);
       eventHandlers.policydropdownChange(listOfCountedNames, policyKey);
       child.sendHeight();
@@ -300,7 +311,7 @@ pym.then((child) => {
         .attr("data-SYSTEM", function (d) {
           return getDataAttribute(d.id, fipsData, 'SYSTEM')
         })
-        
+
         .attr("r", d => radius(''));
 
       svg.select("g")

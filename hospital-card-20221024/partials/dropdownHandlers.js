@@ -137,7 +137,7 @@ export const eventHandlers = {
                 // increment the value of the currentPolicy property
                 currentPolicyAnswers['No']++;
                 circles[i].style.fill = currentColorArray[1];
-            } else if((currentPolicy != null) || (currentPolicy != undefined) || (currentPolicy != "")) {
+            } else if ((currentPolicy != null) || (currentPolicy != undefined) || (currentPolicy != "")) {
                 //remove all the * and spaces from the currentPolicy
                 currentPolicy = currentPolicy.replace(/\*/g, '')
                 currentPolicy = currentPolicy.replace(/\s/g, '')
@@ -168,8 +168,19 @@ export const eventHandlers = {
     changeTheKey: function (countedTotals, d, countOfAnswers) {
         let currentQuestion = d
         let policyAbbr = policies[currentQuestion]
-        let keyTitle = "<h3>" + currentQuestion + "</h3>"
-        let keyDescription = "<p class='keyDescription'>" + descriptions[policyAbbr] + "</p>"
+        let buttonText = window.BUTTONS;
+        let currentContext = ''
+        buttonText = JSON.parse(buttonText);
+        //go through the buttonText object and find the current question
+        for (let i = 0; i < buttonText.length; i++) {
+            //if the Question property matches the current question, set the currentContext to the Context property
+            if (buttonText[i].Question == currentQuestion) {
+                currentContext = buttonText[i]
+            }
+        }
+
+        let keyTitle = "<h3>" + currentContext['Policy'] + "</h3>"
+        let keyDescription = "<p class='keyDescription'>" + currentContext['Question'] + "</p>"
         var filteredTotals
 
         //iterate through all of the totals and determine if they have the policy abbreviation in the object

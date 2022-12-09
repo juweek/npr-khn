@@ -8,6 +8,7 @@
     
     <div id="htmlKey">
     <div >
+      <p><%= t.smarty(COPY.labels["Explainer"]) %></p>
     <div id="buttonContainer"></div>
       </div>
       <div id="keyHTMLContainer"></div>
@@ -25,6 +26,7 @@
       <u>Methodology:</u>
       <% if (COPY.labels["methodology"]) { %>
         <div><%= t.smarty(COPY.labels["methodology"]) %></div>
+        <div><%= t.smarty(COPY.labels["methodology2"]) %></div>
         <% } %>
     </div>
     
@@ -49,6 +51,8 @@
     <script type="text/javascript">
       var DATA = JSON.stringify(<%= JSON.stringify(COPY.Clean_Data) %>);
       var data = window.DATA;
+      var BUTTONS = JSON.stringify(<%= JSON.stringify(COPY.Buttons) %>);
+      var buttons = window.BUTTONS;
     </script>
     <script src="./graphic.js"></script>
     
