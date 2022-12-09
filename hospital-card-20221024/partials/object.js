@@ -11,7 +11,6 @@ module.exports = {
     "Places liens or garnishes wages?": "LIENS",
     "Qualifying income for discounted care?": "DISCOUNTED",
     "Scorecard notes": "SCORECARD",
-
   },
 
   //come up with an array of arrays that hold colors that you want to use for the key, one group of colors for each policy

@@ -69,6 +69,16 @@ pym.then((child) => {
     button.classList.add("button");
     button.id = array[0];
     button.innerText = array[0];
+    let buttonTextOption = window.BUTTONS
+    buttonTextOption = JSON.parse(buttonTextOption);
+    console.log(array[0])
+    console.log(buttonTextOption)
+    //search buttonTextOption for the entry that has an abbreviation property same to the array[0]
+    let currentButtonText = buttonTextOption.find((entry) => entry['Abbreviation'] === array[0]);
+    console.log(currentButtonText)
+    if(currentButtonText != undefined){
+      button.innerText = currentButtonText['Policy']
+    }
     button.addEventListener("click", function (d) {
 
       //go through all of the button elements and toggle the class 'active' on the button
@@ -81,7 +91,7 @@ pym.then((child) => {
       }
       //add the class 'active' to the button that was clicked
       button.classList.add("active");
-      let policyKey = Object.keys(policies).find((key) => policies[key] === button.innerText);
+      let policyKey = Object.keys(policies).find((key) => policies[key] === button.id);
       eventHandlers.policydropdownChange(listOfCountedNames, policyKey);
       child.sendHeight();
     }

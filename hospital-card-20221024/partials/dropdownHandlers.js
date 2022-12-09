@@ -190,11 +190,6 @@ export const eventHandlers = {
 
                 let currentArray = [Object.keys(filteredTotals)]
                 //swap the places of the 'no' and 'some but not all' values in the array for collections
-                if (currentArray[0][0] == "COLLECTIONS") {
-                    let temp = currentArray[0][2]
-                    currentArray[0][2] = currentArray[0][3]
-                    currentArray[0][3] = temp
-                }
 
                 //calculate the sum of all the total answers in countOfAnswers, no matter what the value ie
                 let total = 0;
@@ -263,7 +258,16 @@ export const eventHandlers = {
                         span.appendChild(square);
                         // Create a new p element for the current property
                         let p = document.createElement("p");
-                        p.innerText = `${key}: ${countOfAnswers[key]} hospitals`;
+                        if(key == "Yes" || key == "No"){
+                            p.innerText = `${currentContext[key]} (${countOfAnswers[key]})`;
+                        }
+                        else if(currentContext['Abbreviation'] == "COLLECTIONS"){
+                            let newKey = "Some, but not all"
+                            p.innerText = `${newKey} (${countOfAnswers[key]})`;
+                        }else {
+                            p.innerText = `${key} (${countOfAnswers[key]})`;
+                        }
+                    
                         span.appendChild(p);
 
                         // Append the span element to the key text wrapper
