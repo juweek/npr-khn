@@ -156,7 +156,6 @@ pym.then((child) => {
       });
 
       newData.forEach(function (d) {
-        console.log(d)
         // extract only c_fips and per_capita (or total)
         let currentEntry = {
           fips: d['FIPS'],
@@ -233,7 +232,6 @@ pym.then((child) => {
       ------------------------------
       */
       //for each county in countyData, print out the id and the name of the county
-      console.log(fipsData)
 
       svg.select("g")
         .selectAll("circle")

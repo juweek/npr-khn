@@ -11,15 +11,14 @@ export const tooltipHandlers = {
         let currentEntry = originalData[currentElement.__data__.id]
         //let currentElement = d.srcElement
         currentElement.classList.add("hovered")
-        if(currentEntry) {
-            console.log(currentEntry)
-        tooltip
-            .style("opacity", 1)
-            .style("left", (xLocation - 250) + "px")
-            .style("top", (yLocation - 300) + "px")
-            .html(
-                `<div class="tooltip__hospital">${currentEntry['NAME']} Hospital </div><div class="tooltip__value">${currentEntry['SYSTEM']}</div><div class="tooltip__name">${currentEntry['CITY']}, ${currentEntry.state}</div>`
-            );
+        if (currentEntry) {
+            tooltip
+                .style("opacity", 1)
+                .style("left", (xLocation - 250) + "px")
+                .style("top", (yLocation - 300) + "px")
+                .html(
+                    `<div class="tooltip__hospital">${currentEntry['NAME']} Hospital </div><div class="tooltip__value">${currentEntry['SYSTEM']}</div><div class="tooltip__name">${currentEntry['CITY']}, ${currentEntry.state}</div>`
+                );
         }
     },
     mouseOut: function (currentElement) {

@@ -99,11 +99,12 @@ export const eventHandlers = {
     METHOD: iterate through all of the circles and change their color based on the policy selected. to do this, you will change the html of the key and the color of the circles
     ------------------------------
     */
-    policydropdownChange: function (listOfCountedNames, d) {
+    policydropdownChange: function (listOfPolicies, d) {
         let circles = document.getElementsByTagName("circle");
         let currentQuestion = d
         let policyAbbr = policies[currentQuestion]
         let currentTotals = ""
+        let currentPolicyAnswers = {};
 
         for (let i = 0; i < circles.length; i++) {
 
@@ -113,16 +114,39 @@ export const eventHandlers = {
             let currentColorArray = colors[policyAbbr]
 
             //have currentTotals be an object with the key being the policy and the value being the number of times it appears
-            currentTotals = listOfCountedNames[policyAbbr]
+            currentTotals = listOfPolicies[policyAbbr]
 
-            //everytime an answer is found, add it to currentTotals
-            if (currentPolicy === "Yes") {
-                
+            //skip if currentPolicy is null
+            if (currentPolicy == null) {
+                continue;
+            }
+            //add the answers for each question as a value to listOfPolicies[policyAbbr]
+            if (currentPolicy.includes("Yes")) {
+                if (!currentPolicyAnswers.hasOwnProperty('Yes')) {
+                    // if currentPolicy is not already a property of currentPolicyAnswers, set its value to 0
+                    currentPolicyAnswers['Yes'] = 0;
+                }
+                // increment the value of the currentPolicy property
+                currentPolicyAnswers['Yes']++;
                 circles[i].style.fill = currentColorArray[0];
-
-            } else if (key === "No") {
+            } else if (currentPolicy.includes("No")) {
+                if (!currentPolicyAnswers.hasOwnProperty('No')) {
+                    // if currentPolicy is not already a property of currentPolicyAnswers, set its value to 0
+                    currentPolicyAnswers['No'] = 0;
+                }
+                // increment the value of the currentPolicy property
+                currentPolicyAnswers['No']++;
                 circles[i].style.fill = currentColorArray[1];
-            } else {
+            } else if((currentPolicy != null) || (currentPolicy != undefined) || (currentPolicy != "")) {
+                //remove all the * and spaces from the currentPolicy
+                currentPolicy = currentPolicy.replace(/\*/g, '')
+                currentPolicy = currentPolicy.replace(/\s/g, '')
+                if (!currentPolicyAnswers.hasOwnProperty(currentPolicy)) {
+                    // if currentPolicy is not already a property of currentPolicyAnswers, set its value to 0
+                    currentPolicyAnswers[currentPolicy] = 0;
+                }
+                // increment the value of the currentPolicy property
+                currentPolicyAnswers[currentPolicy]++;
                 circles[i].style.fill = currentColorArray[2];
             }
         }
@@ -132,33 +156,26 @@ export const eventHandlers = {
         key.html(keyTitle + keyHTML);
 
         //call the change the key function by using the policy abbreviation
-        this.changeTheKey(listOfCountedNames, d);
-
-        //call the state dropdown change function to set the map to the current state
+        this.changeTheKey(listOfPolicies, d, currentPolicyAnswers);
     },
-    changeTheKey: function (countedTotals, d) {
-        console.log(countedTotals)
+    /*
+    ==============================
+    METHOD: change the key based on the policy selected
+    1. Take the policy abbreviation and use it to get the description from the descriptions object
+    2. Iterate through the counted totals and find the current policy abbreviation is in the object. when you do, find the percentages of the answers and create the html for the key
+    ==============================
+    */
+    changeTheKey: function (countedTotals, d, countOfAnswers) {
         let currentQuestion = d
         let policyAbbr = policies[currentQuestion]
         let keyTitle = "<h3>" + currentQuestion + "</h3>"
         let keyDescription = "<p class='keyDescription'>" + descriptions[policyAbbr] + "</p>"
         var filteredTotals
 
-
         //iterate through all of the totals and determine if they have the policy abbreviation in the object
         for (let i = 0; i < countedTotals.length; i++) {
             if (countedTotals[i].hasOwnProperty(policyAbbr)) {
                 filteredTotals = countedTotals[i]
-                //calculate the sum of the totals
-                let total = 0;
-                for (let key in filteredTotals) {
-                    if (key != policyAbbr) {
-                        total += filteredTotals[key];
-                    }
-                }
-                //access the last key in the object
-                let lastKeyNumber = Object.keys(filteredTotals).length - 1
-                //calculate the percentage of yes, no, and unknown
 
                 let currentArray = [Object.keys(filteredTotals)]
                 //swap the places of the 'no' and 'some but not all' values in the array for collections
@@ -167,8 +184,12 @@ export const eventHandlers = {
                     currentArray[0][2] = currentArray[0][3]
                     currentArray[0][3] = temp
                 }
-                //print out the count of the unkwnown vallues
 
+                //calculate the sum of all the total answers in countOfAnswers, no matter what the value ie
+                let total = 0;
+                for (let key in countOfAnswers) {
+                    total += countOfAnswers[key];
+                }
                 // Create a new div element for the key
                 let keyDiv = document.createElement("div");
                 keyDiv.id = "key";
@@ -190,16 +211,14 @@ export const eventHandlers = {
                 barGraphDiv2.id = "keyBarGraph2";
 
                 // Iterate over the properties in the filteredTotals object
-                for (let key in filteredTotals) {
-                    console.log(key)
-                    console.log(policyAbbr)
+                for (let key in countOfAnswers) {
                     //check to make sure the key isn't the policy abbreviation (i.e. FAP)
                     if (key != policyAbbr) {
 
                         // Create a new div element for the current property
                         let barDiv = document.createElement("div");
                         barDiv.id = key + "Bar";
-                        barDiv.style.width = (filteredTotals[key] / (total / 100)) + "%";
+                        barDiv.style.width = (countOfAnswers[key] / (total / 100)) + "%";
 
                         // use the current policy to access the corresponding color array from the colors object
                         let currentColorArray = colors[policyAbbr]
@@ -233,7 +252,7 @@ export const eventHandlers = {
                         span.appendChild(square);
                         // Create a new p element for the current property
                         let p = document.createElement("p");
-                        p.innerText = `${key}: ${filteredTotals[key]} hospitals`;
+                        p.innerText = `${key}: ${countOfAnswers[key]} hospitals`;
                         span.appendChild(p);
 
                         // Append the span element to the key text wrapper
@@ -243,7 +262,7 @@ export const eventHandlers = {
                         let barDiv2 = document.createElement("div");
                         barDiv2.id = key + "Bar2";
                         barDiv2.style.height = '20px';
-                        barDiv2.style.width = (filteredTotals[key] / (total / 100)) + "%";
+                        barDiv2.style.width = (countOfAnswers[key] / (total / 100)) + "%";
                         barDiv2.style.marginBottom = "3px";
 
                         // Set the background color based on the current property
