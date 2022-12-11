@@ -1,3 +1,5 @@
+import { policies } from './object';
+
 /*
 ------------------------------
 Export the modal and the close button
@@ -33,6 +35,25 @@ export const modalFunctions = {
         let currentEntry = originalData[currentElement.__data__.id]
         let modalElement = document.getElementsByClassName("modal")[0]
         modalElement.classList.add("clicked")
+
+        let locationInfo = ['CITY', 'STATE', 'SYSTEM', 'COUNTY', 'HOSPITAL_TYPE', 'BEDS']
+        let financialAssistanceInfo = ['FAP', 'DEBT', 'DENIED']
+        let billingAndCollectionsInfo = ['REPORTED', 'SUED', 'DEBT', 'COLLECTIONS']
+
+        //create an array of that will be used to populate the modal, in the format of question: answer
+        for (let currentAbbreviation in currentEntry) {
+            console.log(currentAbbreviation)
+            //find the key for the entry in the policies object that has the same value as the abbreviation
+            for (let policy in policies) {
+                if (policies[policy] === currentAbbreviation) {
+                    let policyLookup = policies[policy]
+                    console.log(currentEntry[policyLookup])
+                    //find the key in currentEntry that matches the abbreviation (policy[policy])
+                }
+            }
+            console.log('//////////')
+        }    
+
         modalContent.html(
             `<h3 class="modalTitle">${currentEntry['NAME']}</h3>
             <div class="modal__text">${currentEntry['SYSTEM']}</div>

@@ -22,6 +22,14 @@ module.exports = {
     "SUED": ['#4C0688', '#DCDCDC', '#BCABCD'],
     "DENIED": ['#880366', '#DCDCDC', '#D19ABD'],
   },
+  listOfArrays: [["state"], 
+    ["HOSPITAL_TYPE"],
+    ["FAP"], 
+    ["COLLECTIONS"], 
+    ["REPORTED"], 
+    ["DEBT"], 
+    ["SUED"], 
+    ["DENIED"]],
   descriptions: {
     "DEBT": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "FAP": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -30,6 +38,7 @@ module.exports = {
     "SUED": "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem",
     "DENIED": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos.",
   },
+  
   states: {
     "Filter by state": "All",
     arizona: "AZ",

@@ -2,13 +2,11 @@ var pym = require("./lib/pym");
 var ANALYTICS = require("./lib/analytics");
 require("./lib/webfonts");
 var { isMobile } = require("./lib/breakpoints");
-var { policies, states } = require("./partials/object");
+var { policies, states, listOfArrays } = require("./partials/object");
 var { eventHandlers, dropdown, policyDropdown } = require("./partials/dropdownHandlers");
 var { clickHandlers } = require("./partials/buttonHandlers");
 var { tooltipHandlers, tooltip } = require("./partials/tooltipHandlers");
 var { modalFunctions } = require("./partials/modal");
-
-const { zip } = require("d3-array");
 
 var mode = null;
 if (document.querySelector("body").classList.contains("npr")) {
@@ -31,59 +29,63 @@ switch (mode) {
 }
 
 pym.then((child) => {
-  //from window, get all of the data that you are reading from the spreadsheet
   /*
   ------------------------------
-  METHOD: set the size of the canvas
+  VARIABLES: set the size of the canvas, 
   ------------------------------
   */
   const width = 1300; // Chart width
   const height = 800; // Chart height
 
-
+  /*
+  ------------------------------
+  VARIABLES: fetch all of the interactive elements
+  ------------------------------
+  */
   let currentStateDropdown = document.getElementById("stateDropdownSelector");
   let currentPolicyDropdown = document.getElementById("policyDropdownSelector");
   let showResultsButton = document.getElementById("showResultsButton");
-  let countedNames = {};
-  let listOfCountedNames = [];
-
-  let dataState = ["state"],
-    dataHospitalType = ["HOSPITAL_TYPE"],
-    dataFap = ["FAP"],
-    dataCollections = ["COLLECTIONS"],
-    dataReported = ["REPORTED"],
-    dataDebt = ["DEBT"],
-    dataSued = ["SUED"],
-    dataDenied = ["DENIED"];
-
-  let listOfArrays = [dataState, dataHospitalType, dataFap, dataCollections, dataReported, dataDebt, dataSued, dataDenied];
 
   //create a list of buttons with the button text corresponding to the policies (FAP, COLLECTIONS, REPORTED, DEBT, SUED, DENIED)
   let listOfButtons = document.querySelectorAll(".button");
   let listOfButtonNames = []
+  let countedNames = {};
+  let listOfCountedNames = [];
+  let buttonTextOption = window.BUTTONS
+  buttonTextOption = JSON.parse(buttonTextOption);
 
-  //iterate over listOfArrays (except for State and Hospital Type) and add a button for each policy
+
+  /*
+  ------------------------------
+  VARIABLES: iterate over listOfArrays (except for State and Hospital Type) and add a button for each policy
+  ------------------------------
+  */
+  //
   let tempArray = listOfArrays.slice(2);
   tempArray.forEach((array) => {
     let button = document.createElement("button");
     button.classList.add("button");
     button.id = array[0];
     button.innerText = array[0];
-    let buttonTextOption = window.BUTTONS
-    buttonTextOption = JSON.parse(buttonTextOption);
-    console.log(array[0])
-    console.log(buttonTextOption)
-    //search buttonTextOption for the entry that has an abbreviation property same to the array[0]
+
+    //for each button, find the corresponding policy in the BUTTONS object and set the button text to that
     let currentButtonText = buttonTextOption.find((entry) => entry['Abbreviation'] === array[0]);
-    console.log(currentButtonText)
-    if(currentButtonText != undefined){
+    if (currentButtonText != undefined) {
       button.innerText = currentButtonText['Policy']
     }
-    button.addEventListener("click", function (d) {
 
-      //go through all of the button elements and toggle the class 'active' on the button
+    /*
+    ------------------------------
+    FUNCTION: add an event listener to each button
+    1. first, remove the class 'active' from all of the buttons
+    2. then, add the class 'active' to the button that was clicked
+    3. find the policy that corresponds to the button that was clicked. then, call the policydropdownChange function
+    4. then, append the button to the buttonContainer
+    ------------------------------
+    */
+    button.addEventListener("click", function (d) {
       let listofButtons = document.getElementsByClassName("button");
-      //remove the class 'active' from all of the buttons
+
       for (let i = 0; i < listofButtons.length; i++) {
         let currentButton = listofButtons[i];
         let currentClassList = currentButton.classList;
@@ -91,6 +93,8 @@ pym.then((child) => {
       }
       //add the class 'active' to the button that was clicked
       button.classList.add("active");
+
+      //find the policy that corresponds to the button that was clicked. then, call the policydropdownChange function
       let policyKey = Object.keys(policies).find((key) => policies[key] === button.id);
       eventHandlers.policydropdownChange(listOfCountedNames, policyKey);
       child.sendHeight();
@@ -99,24 +103,15 @@ pym.then((child) => {
     document.getElementById("buttonContainer").appendChild(button);
   });
 
-  listOfButtons.forEach((button) => {
-    listOfButtonNames.push(button.innerText);
-  });
-
+  /*
+ ------------------------------
+ FUNCTION: attach the event listeners to the state dropdown. also, attach the event listener to the show results button
+ ------------------------------
+ */
   currentStateDropdown.addEventListener("change", function (d) {
     eventHandlers.stateDropdownChange(states[d.target.value], listOfArrays, d);
     child.sendHeight();
   })
-
-  /*
-  currentPolicyDropdown.addEventListener("change", function (d) {
-    let currentQuestion = d.target.value
-    console.log(currentQuestion)
-    eventHandlers.policydropdownChange(listOfCountedNames, currentQuestion);
-    //eventHandlers.changeTheKey(listOfCountedNames, d)
-    child.sendHeight();
-  })
-  */
 
   showResultsButton.addEventListener("click", function () {
     clickHandlers.buttonClicked();
@@ -125,58 +120,23 @@ pym.then((child) => {
 
   /*
   ------------------------------
-  METHOD: fetch the data and draw the chart
+  METHOD: create the update method.
+  1. create a few variables 
+  2. get the data from the window object. for each entry in the data, create a new object where you format the data to fit your needs. put it in countyToFIPSCode
+  3. create
   ------------------------------
   */
   function update(svg, us, radius) {
     let path = d3.geoPath();
-    let originalData = {}
-    let filteredData = {}
+    let dataForModal = {}
 
     d3.csv('./hospitalScores.csv').then(function (data) {
-      //describe the differences between the data and the window data
-      //console.log(data)
-      let newData = window.data;
+      data = window.data;
       //convert newData to a json object
-      newData = JSON.parse(newData);
-      let listOfNewData = [];
+      data = JSON.parse(data);
+      let countyToFIPSCode = [];
 
       data.forEach(function (d) {
-        // extract only c_fips and per_capita (or total)
-        d.total = +d.total;
-        d.per_capita = +d.per_capita
-        let currentEntry = {
-          fips: (d.c_fips.length > 4) ? d.c_fips : '0' + d.c_fips,
-          total: d.total,
-          per_capita: d.per_capita,
-          hospitalName: d.county,
-          county: d.county,
-          state: d.state,
-          HOSPITAL_TYPE: d.HOSPITAL_TYPE,
-          Beds: d.Beds,
-          FAP: d.FAP,
-          FAP2: d['FAP'],
-          FAP_LINK: d.FAP_LINK,
-          COLLECTIONS: d.COLLECTIONS,
-          COLLECTIONS_LINK: d.COLLECTIONS_LINK,
-          REPORTED: d.REPORTED,
-          DEBT: d.DEBT,
-          SUED: d.SUED,
-          DENIED: d.DENIED,
-        }
-        delete d['county'];
-        delete d['state'];
-        delete d['total'];
-        //transform the fips code so all the counties are 5 digits; prepend the ones that are 4 digits with a 0
-        if (d.c_fips.length > 4) {
-          d.c_fips = d.c_fips;
-        } else {
-          d.c_fips = '0' + d.c_fips;
-        }
-        originalData[d.c_fips] = currentEntry; // add to the original data
-      });
-
-      newData.forEach(function (d) {
         // extract only c_fips and per_capita (or total)
         let currentEntry = {
           fips: d['FIPS'],
@@ -202,23 +162,17 @@ pym.then((child) => {
           SCORECARD: d['Scorecard notes'],
           DENIED: d['Can patients with debt be denied nonemergency care?'],
         }
-        //print out the length of the fips code after it is converted to a string
-        let FIPSlength = d['FIPS'].toString()
-
-        if (FIPSlength.length > 4) {
-          d['FIPS'] = d['FIPS'];
-        } else {
-          d['FIPS'] = '0' + d['FIPS'];
-        }
-        filteredData[d['FIPS']] = currentEntry; // add to the original data
-        listOfNewData.push(currentEntry);
+        //create all the data in countyToFIPSCode
+        dataForModal[d['FIPS']] = currentEntry; // add to the original data
+        countyToFIPSCode.push(currentEntry);
       });
 
-      // transform data to Map of c_fips => per_capita
+      // transform data so its a map of FIPS code => data
       data = data.map(x => Object.values(x));
       data = new Map(data);
 
-      let whatever = listOfNewData
+      //create a new object where the key is the fips code. use that new object to get the data for each state
+      let whatever = countyToFIPSCode
       let fipsData = {};
       whatever.forEach(obj => {
         let key = obj['fips'];
@@ -229,12 +183,12 @@ pym.then((child) => {
         }
         fipsData[key] = obj;
       });
-      //convert whatever to the same format as originalData, with fips serving as the key
 
-      // transforn the listOfNewData to a Map of d[fips] => zip code. make the key the fips code, and a string
-      listOfNewData = listOfNewData.map(x => Object.values(x));
-      listOfNewData = new Map(listOfNewData);
+      //transform the countyToFIPSCode to a Map of d[fips] => data. make the key the fips code, and a string
+      countyToFIPSCode = countyToFIPSCode.map(x => Object.values(x));
+      countyToFIPSCode = new Map(countyToFIPSCode);
 
+      //create a function where you can get a specific attribute from the spreadsheet to the circle
       function getDataAttribute(id, fipsData, attribute) {
         if (fipsData[id]) {
           return fipsData[id][attribute];
@@ -244,16 +198,15 @@ pym.then((child) => {
         }
       }
 
-      let format = d3.format(",.7f");
-      // radius = d3.scaleSqrt([0, d3.quantile([...data.values()].sort(d3.ascending), 0.985)], [0, 10])
-
       /*
       ------------------------------
       SECTION: draw the map with the circles; attach the appropriate data to each circle
+      1. select the g element
+      2. select all the circles
+      3. for each circle, get the data from the data object. if the data object has the fips code, then get the data. otherwise, return null
+      4. join the data to the circles via attributes
       ------------------------------
       */
-      //for each county in countyData, print out the id and the name of the county
-
       svg.select("g")
         .selectAll("circle")
         .data(topojson.feature(us, us.objects.counties).features
@@ -263,7 +216,7 @@ pym.then((child) => {
             return d;
           })
           .filter(d => {
-            return listOfNewData.has(parseInt(d.id))
+            return countyToFIPSCode.has(parseInt(d.id))
           }))
         .join("circle")
         .transition()
@@ -321,15 +274,9 @@ pym.then((child) => {
         .attr("data-SYSTEM", function (d) {
           return getDataAttribute(d.id, fipsData, 'SYSTEM')
         })
-
         .attr("r", d => radius(''));
 
-      svg.select("g")
-        .selectAll("circle")
-        .append("title")
-        .text(d => `${d.properties.name}${format(d.value)}`);
-
-      //for every array in List of Arrays, filter the items to display the count of unique items
+      //for every array in List of Arrays, filter the items to display the count of unique items. use this count to determine the radius of the circle
       listOfArrays.forEach(function (array) {
         countedNames = array.reduce((allAnswers, answer) => {
           const currCount = allAnswers[answer] ?? 0;
@@ -340,15 +287,16 @@ pym.then((child) => {
         }, {})
         listOfCountedNames.push(countedNames)
       })
+
       /*
-  ------------------------------
-  SECTION: attach hover event handlers to the circles
-  ------------------------------
-  */
+      ------------------------------
+      METHOD: attach hover event handlers to the circles to call the tooltip
+      ------------------------------
+      */
       svg
         .selectAll(".state")
         .on("mousemove", function (d) {
-          tooltipHandlers.mouseEnter(d.pageX, d.pageY, d.srcElement, filteredData)
+          tooltipHandlers.mouseEnter(d.pageX, d.pageY, d.srcElement, dataForModal)
         })
         .on("mouseout", function (d) {
           tooltipHandlers.mouseOut(d.srcElement)
@@ -356,7 +304,7 @@ pym.then((child) => {
 
       /*
       ------------------------------
-      SECTION: build out and populate the side column
+      METHOD: build out and populate the side column
       ------------------------------
       */
       let fixedSideColumn = document.getElementById("fixedSideColumn");
@@ -365,7 +313,7 @@ pym.then((child) => {
       svg.select("g")
         .selectAll("circle")
         .attr("data-state", function (d) {
-          let currentEntry = filteredData[d.id]
+          let currentEntry = dataForModal[d.id]
           if (currentEntry) {
             return currentEntry.state
           }
@@ -373,31 +321,27 @@ pym.then((child) => {
             return 'none'
         })
 
-      for (const entry in filteredData) {
-        let currentEntry = filteredData[entry]
-        let newDiv = document.createElement("div");
-        newDiv.className = "sideColumnHospital";
-        newDiv.setAttribute("data-fips", currentEntry.fips)
-        newDiv.setAttribute("data-county", currentEntry.county)
-        newDiv.setAttribute("data-state", currentEntry.state)
-        newDiv.setAttribute("data-hospitalType", currentEntry.HOSPITAL_TYPE)
-        newDiv.setAttribute("data-beds", currentEntry.Beds)
-        newDiv.innerHTML = `<div class="hoverableContent ${currentEntry.fips}"><div><b>${currentEntry.hospitalName} Hospital</b> </div><div>${currentEntry.Beds} beds</div><div>${currentEntry.county}, ${currentEntry.state}</div></div>`
-        fixedSideColumn.appendChild(newDiv);
+      for (const entry in dataForModal) {
+        let currentEntry = dataForModal[entry]
+        let sideColumnDiv = document.createElement("div");
+        sideColumnDiv.className = "sideColumnHospital";
+        sideColumnDiv.setAttribute("data-fips", currentEntry.fips)
+        sideColumnDiv.setAttribute("data-county", currentEntry.county)
+        sideColumnDiv.setAttribute("data-state", currentEntry.state)
+        sideColumnDiv.setAttribute("data-hospitalType", currentEntry.HOSPITAL_TYPE)
+        sideColumnDiv.setAttribute("data-beds", currentEntry.Beds)
+        sideColumnDiv.innerHTML = `<div class="hoverableContent ${currentEntry.fips}"><div><b>${currentEntry.hospitalName} Hospital</b> </div><div>${currentEntry.Beds} beds</div><div>${currentEntry.county}, ${currentEntry.state}</div></div>`
+        fixedSideColumn.appendChild(sideColumnDiv);
       }
-      /*
-      ------------------------------
-      SECTION: create a modal that pops up when a d3 circle is clicked on. The modal should have the hospital name, the county name, the state name, and the total number of opioid prescriptions. 
-      ------------------------------
-      */
 
       //create close button and append it as a child to the modal element
       svg
         .selectAll("circle")
         .on("click", function (d) {
-          modalFunctions.clickCircle(d.srcElement, filteredData)
+          modalFunctions.clickCircle(d.srcElement, dataForModal)
         })
-      /*
+
+/*
 ------------------------------
 SECTION: hover over each of the sections in the side column. Attach hover and click events to each of the elements that bring up the modal
 ------------------------------
@@ -410,7 +354,7 @@ SECTION: hover over each of the sections in the side column. Attach hover and cl
           let currentCircle = document.querySelector(`circle[data-fips="${currentFips}"]`)
           if (currentCircle) {
             let rect = currentCircle.getBoundingClientRect();
-            tooltipHandlers.mouseEnter(rect.x, rect.y, currentCircle, filteredData)
+            tooltipHandlers.mouseEnter(rect.x, rect.y, currentCircle, dataForModal)
           }
         })
         hoverableContent1[i].addEventListener("mouseout", function (d) {
@@ -424,17 +368,10 @@ SECTION: hover over each of the sections in the side column. Attach hover and cl
           let currentFips = d.target.getAttribute("data-fips")
           let currentCircle = document.querySelector(`circle[data-fips="${currentFips}"]`)
           if (currentCircle) {
-            modalFunctions.clickCircle(currentCircle, filteredData)
+            modalFunctions.clickCircle(currentCircle, dataForModal)
           }
         })
       }
-
-      /*
-      //dispatch the policy selected event so the default map option is loaded
-      let policyDropdown = document.getElementById("policyDropdownSelector")
-      let event = new Event('change');
-      policyDropdown.dispatchEvent(event);
-      */
     });
   }
 
