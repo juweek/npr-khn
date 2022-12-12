@@ -35,24 +35,66 @@ export const modalFunctions = {
         let currentEntry = originalData[currentElement.__data__.id]
         let modalElement = document.getElementsByClassName("modal")[0]
         modalElement.classList.add("clicked")
+        console.log(currentEntry)
 
-        let locationInfo = ['CITY', 'STATE', 'SYSTEM', 'COUNTY', 'HOSPITAL_TYPE', 'BEDS']
-        let financialAssistanceInfo = ['FAP', 'DEBT', 'DENIED']
-        let billingAndCollectionsInfo = ['REPORTED', 'SUED', 'DEBT', 'COLLECTIONS']
+        let locationInfo = "CITY, NAME, SYSTEM, COUNTY, HOSPITAL_TYPE, BEDS"
+        let financialAssistanceInfo = "FAP, DEBT, DENIED"
+        let billingAndCollectionsInfo = "REPORTED, SUED, DEBT, COLLECTIONS, DENIED"
+        let funitureInfo = "SCORECARD"
+        let locationCopy = {}
+        let financialCopy = {}
+        let billingCopy = {}
+        let furnitureCopy = {}
 
         //create an array of that will be used to populate the modal, in the format of question: answer
         for (let currentAbbreviation in currentEntry) {
-            console.log(currentAbbreviation)
             //find the key for the entry in the policies object that has the same value as the abbreviation
             for (let policy in policies) {
+
                 if (policies[policy] === currentAbbreviation) {
                     let policyLookup = policies[policy]
-                    console.log(currentEntry[policyLookup])
-                    //find the key in currentEntry that matches the abbreviation (policy[policy])
+                    //create a key value pair 
+                    let policyObject = {
+                        [policy]: currentEntry[policyLookup]
+                    }
+
+                    //check to see if locationInfo includes the current abbreviation 
+                    //check to see if the current abbreviation is in the string
+                    //console.log(allowed_fields.includes(currentAbbreviation))
+
+                    if (locationInfo.includes(currentAbbreviation)) {
+                        console.log('yessss')
+                        locationCopy[currentAbbreviation] = policyObject
+                    }
+                    else if (financialAssistanceInfo.includes(currentAbbreviation)) {
+                        financialCopy[currentAbbreviation] = policyObject
+                    }
+                    else if (billingAndCollectionsInfo.includes(currentAbbreviation)) {
+                        billingCopy[currentAbbreviation] = policyObject
+                    }
+                    else if (funitureInfo.includes(currentAbbreviation)) {
+                        furnitureCopy[currentAbbreviation] = policyObject
+                    }
+                    else {
+                        console.log('no match')
+                        console.log(currentAbbreviation)
+                        console.log(policyObject)
+                        console.log('////////////////////')
+                    }
                 }
+
             }
-            console.log('//////////')
-        }    
+        }
+
+        console.log('////////////////////')
+        console.log(locationCopy)
+        console.log('--------------')
+        console.log(financialCopy)
+        console.log('--------------')
+        console.log(billingCopy)
+        console.log('--------------')
+        console.log(furnitureCopy)
+        console.log('////////////////////')
 
         modalContent.html(
             `<h3 class="modalTitle">${currentEntry['NAME']}</h3>
