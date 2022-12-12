@@ -22,9 +22,9 @@ aria-label="<%- COPY.labels.screenreader %>"
 <% }); %>
 </table>
 
-<% if (COPY.labels.footnote) { %>
+<% if (COPY.labels["footnote_" + mode]) { %>
 <div class="footnotes">
-    <p><strong>Note:</strong> <%= COPY.labels.footnote %></p>
+    <p><% if (mode == "npr") { %><strong>Note:</strong> <% } %><%= COPY.labels["footnote_" + mode] %></p>
 </div>
 <% } %>
 

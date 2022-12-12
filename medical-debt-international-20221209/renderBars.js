@@ -149,7 +149,13 @@ var renderBarChart = function(config) {
     .data(config.data)
     .enter()
     .append("text")
-    .text(d => d[valueColumn].toFixed(0) + unitSuffix)
+    .text(function(d) {
+      if (d[valueColumn] == 0) {
+        return "n/a";
+      } else {
+        return d[valueColumn].toFixed(0) + unitSuffix;
+      }
+    })
     .attr("x", d => xScale(d[valueColumn]))
     .attr("y", (d, i) => i * (barHeight + barGap))
     .attr("dx", function(d) {

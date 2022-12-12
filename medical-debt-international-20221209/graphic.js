@@ -121,7 +121,6 @@ var formatData = function() {
 
   charts = DATA.map(o => o['chart']); // equivalent of underscore _.pluck
   charts = Array.from(new Set(charts)); // dedupe / _.uniq
-  console.log(charts);
 };
 
 //Initially load the graphic
