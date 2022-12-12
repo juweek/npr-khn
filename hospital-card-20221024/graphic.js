@@ -229,6 +229,9 @@ pym.then((child) => {
         .attr("data-state", function (d) {
           return getDataAttribute(d.id, fipsData, 'state')
         })
+        .attr("data-CITY", function (d) {
+          return getDataAttribute(d.id, fipsData, 'CITY')
+        })
         .attr("data-hospitalType", function (d) {
           return getDataAttribute(d.id, fipsData, 'HOSPITAL_TYPE')
         })

@@ -11,6 +11,12 @@ module.exports = {
     "Places liens or garnishes wages?": "LIENS",
     "Qualifying income for discounted care?": "DISCOUNTED",
     "Scorecard notes": "SCORECARD",
+    "CITY": "CITY",
+    "fips": "fips",
+    "HOSPITAL_TYPE": "HOSPITAL_TYPE",
+    "STATE": "state",
+    "SYSTEM": "SYSTEM",
+    "NAME": "NAME",
   },
 
   //come up with an array of arrays that hold colors that you want to use for the key, one group of colors for each policy
