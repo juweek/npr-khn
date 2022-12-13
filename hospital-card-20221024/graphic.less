@@ -453,11 +453,15 @@ div.tooltip {
   font-weight: bold;
   margin-top: 12px;
   margin-bottom: 4px;
+  text-align: left;
 }
 
 .modal__text {
   font-size: 12px;
   margin-bottom: 3px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 #svganchor {
@@ -574,4 +578,67 @@ div.tooltip {
   font-size: 13px;
   margin-top: 0px;
   font-style: italic;
+}
+
+#radarChart
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.levels path
+{
+    fill: none;
+    stroke: #000;
+}
+
+.grid-lines path
+{
+    stroke: coral;
+}
+
+.tick-lines path
+{
+    stroke: rgb(228, 16, 16);
+    stroke-width: 2px;
+}
+
+.shape path
+{
+    stroke: cyan;
+    fill: rgba(238, 93, 238, 0.466);
+}
+
+#radarChart circle
+{
+    cursor: pointer;
+}
+
+.introContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.introImage {
+ margin-top: 20px;
+}
+
+.modalContentGroup {
+  border-top: 1px solid #333;
+  padding-bottom: 20px;
+}
+
+.introText {
+  max-width: 49%;
+
+  > h2:first-child {
+    font-size: 18px;
+    line-height: 24px;
+  }
 }

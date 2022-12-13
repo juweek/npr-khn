@@ -135,7 +135,6 @@ pym.then((child) => {
       //convert newData to a json object
       data = JSON.parse(data);
       let countyToFIPSCode = [];
-      console.log(data)
 
       data.forEach(function (d) {
         // extract only c_fips and per_capita (or total)
