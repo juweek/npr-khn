@@ -135,6 +135,7 @@ pym.then((child) => {
       //convert newData to a json object
       data = JSON.parse(data);
       let countyToFIPSCode = [];
+      console.log(data)
 
       data.forEach(function (d) {
         // extract only c_fips and per_capita (or total)
@@ -158,6 +159,8 @@ pym.then((child) => {
           COLLECTIONS_LINK: d['Collections link'],
           REPORTED: d['Can patients be reported to credit bureaus?'],
           DEBT: d["Can patients' debts be sold?"],
+          DISCOUNT: d["Qualifying income for discounted care"],
+          FREE: d["Qualifying income for free care"],
           SUED: d['Can patients be sued or subject to wage garnishment or property liens?'],
           SCORECARD: d['Scorecard notes'],
           DENIED: d['Can patients with debt be denied nonemergency care?'],
@@ -277,7 +280,12 @@ pym.then((child) => {
         .attr("data-SYSTEM", function (d) {
           return getDataAttribute(d.id, fipsData, 'SYSTEM')
         })
+        .attr("data-DISCOUNT", function (d) {
+          return getDataAttribute(d.id, fipsData, 'DISCOUNT')
+        })
         .attr("r", d => radius(''));
+
+        //write a sql query that will read in the data where teh year column in 2020
 
       //for every array in List of Arrays, filter the items to display the count of unique items. use this count to determine the radius of the circle
       listOfArrays.forEach(function (array) {

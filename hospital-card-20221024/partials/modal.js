@@ -42,8 +42,11 @@ export const modalFunctions = {
             <div class="modal__text">${currentElement.getAttribute("data-hospitalType")}</div>
             <div class="modal__text">${currentElement.getAttribute("data-beds")} beds</div>
             <h3 class="modalTitle">Financial assistance:</h3>
-            <div class="modal__text">Income qualifying for free care: ${currentElement.getAttribute("data-FINASSIST")}</div>
-            <div class="modal__text">Income qualifying for discounted care: ${currentElement.getAttribute("data-DISCOUNTED")}</div>
+            <div class="modal__text">Income qualifying for free care: ${
+                currentElement.getAttribute("data-FINASSIST")
+            }</div>
+            <div class="modal__text">Income qualifying for discounted care: ${currentElement.getAttribute("data-DISCOUNT")}</div>
+            <div class="modal__text">Income qualifying for free care: ${currentElement.getAttribute("data-FREE")}</div>
             <div class="modal__text">Provides aid to patients with very large bills? ${currentElement.getAttribute("data-AID")}</div>
             <div class="modal__text">Financial Assistance Policy available online? <a href="${currentElement.getAttribute("data-FAP-LINK")}">${currentElement.getAttribute("data-FAP")}</a></div>
             <h3 class="modalTitle">Billing and collections:</h3>
