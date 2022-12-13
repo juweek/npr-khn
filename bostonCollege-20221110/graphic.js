@@ -103,7 +103,6 @@ METHOD: create a dropdown selector that calls the update method. This dropdown w
   dropdown.on("change", function () {
     let selectedCountry = d3.select(this).property("value");
     currentCountry = countries[selectedCountry]
-    console.log("./" + currentCountry + ".csv")
     d3.csv("./" + currentCountry + ".csv").then(function (us) {
       update(svg, us);
       child.sendHeight();
@@ -122,6 +121,7 @@ METHOD: fetch the data and draw the chart
 ------------------------------
 */
   function update(svg, data) {
+    console.log(allGroup)
     d3.select("#svganchor svg").selectAll("*").remove();
 
       // Reformat the data: we need an array of arrays of {x, y} tuples
@@ -133,8 +133,7 @@ METHOD: fetch the data and draw the chart
           })
         };
       });
-      // I strongly advise to have a look to dataReady with
-      console.log(dataReady)
+      // I strongly advise to have a look to dataReady wit
     
       // A color scale: one color for each group
       var myColor = d3.scaleOrdinal()
@@ -156,7 +155,6 @@ METHOD: fetch the data and draw the chart
       svg.append("g")
         .call(d3.axisLeft(y));
 
-        console.log(dataReady)
     
       // Add the lines
       var line = d3.line()
@@ -225,8 +223,6 @@ Section: add a tooltip for each circle in the graph
   var mouseover = function(d) {
     tooltip.style("opacity", 1)
     d3.select(this).style("fill", "red")
-    console.log(d3.select(this).attr("data-value"))
-    console.log(d3.select(this).attr("data-orginalFill"))
   }
   var mousemove = function(d) {
     //show the score in a two decimal format
