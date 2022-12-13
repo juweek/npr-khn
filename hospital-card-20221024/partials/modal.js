@@ -44,6 +44,10 @@ export const modalFunctions = {
         let modalElement = document.getElementsByClassName("modal")[0]
         modalElement.classList.add("clicked")
 
+        //choose a random color between red, blue or purple in one line
+        let randomColor = ["red", "blue", "purple"][Math.floor(Math.random() * 3)]
+
+
         modalContent.html(
             `
             <div class="introContainer">
@@ -57,25 +61,40 @@ export const modalFunctions = {
                 <div id="radarChart"></div>
             </div>
             </div>
+            <div class="modalContentGroup">
+            <h3 class="modalTitle">Key</h3>
+            <div class="modal__text keyBlock">
+            <div class="keyBlockSub">
+            <div class="keyBlock keyBlockYes" style="background-color: red;"></div><div>Policy is spelled out in a written, publicly available policy</div>
+            </div>
+            <div class="keyBlockSub">
+            <div class="keyBlock keyBlockNo" style="background-color: blue;"></div><div>Policy is not available in written policy but was reported to KHN by a hospital official or posted in an online summary</div>
+            </div>
+            <div class="keyBlockSub">
+            <div class="keyBlock keyBlockUnsure" style="background-color: purple;"></div><div>No available policy or the practice was not spelled out in the policy</div>
+            </div>
+            </div>
+            </div>
             <div class="modalContentGroup financialAssistance">
             <h3 class="modalTitle">Financial assistance:</h3>
-            <div class="modal__text"><span>Income qualifying for free care:</span> <span>${currentElement.getAttribute("data-FINASSIST")}</span></div>
-            <div class="modal__text"><span>Income qualifying for discounted care:</span> <span>${currentElement.getAttribute("data-DISCOUNT")}</span></div>
-            <div class="modal__text"><span>Income qualifying for free care:</span> <span>${currentElement.getAttribute("data-FREE")}</span></div>
-            <div class="modal__text"><span>Provides aid to patients with very large bills?</span> <span>${currentElement.getAttribute("data-AID")}</span></div>
-            <div class="modal__text"><span>Financial Assistance Policy available online?</span> <span><a href="${currentElement.getAttribute("data-FAP-LINK")}">${currentElement.getAttribute("data-FAP")}</a></span></div>
+            <div class="modal__text"><span>Income qualifying for free care:</span> <span style="border-bottom: 2px solid ${["red", "blue", "purple"][Math.floor(Math.random() * 3)]};">${currentElement.getAttribute("data-FINASSIST")}</span></div>
+            <div class="modal__text"><span>Income qualifying for discounted care:</span> <span style="border-bottom: 2px solid ${["red", "blue", "purple"][Math.floor(Math.random() * 3)]};">${currentElement.getAttribute("data-DISCOUNT")}</span></div>
+            <div class="modal__text"><span>Income qualifying for free care:</span> <span style="border-bottom: 2px solid ${["red", "blue", "purple"][Math.floor(Math.random() * 3)]};">${currentElement.getAttribute("data-FREE")}</span></div>
+            <div class="modal__text"><span>Provides aid to patients with very large bills?</span> <span style="border-bottom: 2px solid ${["red", "blue", "purple"][Math.floor(Math.random() * 3)]};">${currentElement.getAttribute("data-AID")}</span></div>
+            <div class="modal__text"><span>Financial Assistance Policy available online?</span> <span style="border-bottom: 2px solid ${["red", "blue", "purple"][Math.floor(Math.random() * 3)]};"><a href="${currentElement.getAttribute("data-FAP-LINK")}">${currentElement.getAttribute("data-FAP")}</a></span></div>
             </div>
             <div class="modalContentGroup billingCollections">
             <h3 class="modalTitle">Billing and collections:</h3>
-            <div class="modal__text"><span>Allows reporting patients to credit rating agencies?</span><span>${currentElement.getAttribute("data-REPORTED")}</span></div>
-            <div class="modal__text"><span>Sues patients, garnishes wages or places liens?</span> <span>${currentElement.getAttribute("data-SUED")}</span></div>
-            <div class="modal__text"><span>Restricts non-emergency care to patients with debt?</span> <span>${currentElement.getAttribute("data-DENIED")}</span></div>
+            <div class="modal__text"><span>Allows reporting patients to credit rating agencies?</span><span style="border-bottom: 2px solid ${["red", "blue", "purple"][Math.floor(Math.random() * 3)]};">${currentElement.getAttribute("data-REPORTED")}</span></div>
+            <div class="modal__text"><span>Sues patients, garnishes wages or places liens?</span> <span style="border-bottom: 2px solid ${["red", "blue", "purple"][Math.floor(Math.random() * 3)]};">${currentElement.getAttribute("data-SUED")}</span></div>
+            <div class="modal__text"><span>Restricts non-emergency care to patients with debt?</span> <span style="border-bottom: 2px solid ${["red", "blue", "purple"][Math.floor(Math.random() * 3)]};">${currentElement.getAttribute("data-DENIED")}</span></div>
             <div class="modal__text"><span>Sells patients debts?</span> <span>${currentElement.getAttribute("data-DEBT")}</span></div>
             <div class="modal__text"><span>Billing and Collections policy available online?</span> <a href="${currentEntry.COLLECTIONS_LINK}">${currentElement.getAttribute("data-COLLECTIONS")}</a></span></div>
             </div>
             <div class="modalContentGroup">
             <h3 class="modalTitle">Scorecard notes:</h3>
             <div class="modal__text">${currentElement.getAttribute("data-SCORECARD")}</div>
+            <div class="modal__text">Note on data: Hospital policies and practices change. And over time hospitals close, change names and merge with other institutions. If KHN learns that an entry is no longer accurate, it will update information that it verifies.</div>
             </div>`
         )
         this.createRadarChart(currentElement, originalData)
@@ -86,12 +105,12 @@ export const modalFunctions = {
     ------------------------------
     */
     createRadarChart: function (currentElement, originalData) {
-        const NUM_OF_SIDES = 5;
+        const NUM_OF_SIDES = 7;
         let NUM_OF_LEVEL = 3,
             size = 140,
-            offset = Math.PI,
+            offset = Math.PI - 1,
             polyangle = (Math.PI * 2) / NUM_OF_SIDES,
-            r = 0.8 * size,
+            r = 0.7 * size,
             r_0 = r / 2,
             center =
             {
@@ -103,13 +122,18 @@ export const modalFunctions = {
             const data = [];
             const min = 25;
             const max = 100;
+            let policiesList = ['F.A', 'L', 'R.C', 'D.S', 'C.R.', 'B.B', 'D.C.']
+            //iterate over each point, find a value, and divide it so the answer is either 1, 2, or 3
             for (let i = 0; i < length; i++) {
                 data.push(
                     {
-                        name: "Label",
+                        name: policiesList[i],
                         value: Math.round(min + ((max - min) * Math.random()))
                     }
                 );
+                //print out the index you just pushed into the array
+                console.log(data[i])
+
             }
             return data;
         };
@@ -199,10 +223,10 @@ export const modalFunctions = {
 
         const drawText = (text, point, isAxis, group) => {
             if (isAxis) {
-                const xSpacing = text.toString().includes(".") ? 30 : 22;
+                const xSpacing = text.toString().includes(".") ? 5 : 12;
                 group.append("text")
                     .attr("x", point.x - xSpacing)
-                    .attr("y", point.y + 5)
+                    .attr("y", point.y - 5)
                     .html(text)
                     .style("text-anchor", "middle")
                     .attr("fill", "darkgrey")
@@ -216,7 +240,7 @@ export const modalFunctions = {
                     .html(text)
                     .style("text-anchor", "middle")
                     .attr("fill", "darkgrey")
-                    .style("font-size", "12px")
+                    .style("font-size", "13px")
                     .style("font-family", "sans-serif");
             }
         };

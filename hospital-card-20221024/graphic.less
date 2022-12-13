@@ -462,6 +462,20 @@ div.tooltip {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  border-bottom: 1px dashed #ddd;
+  padding-bottom: 4px;
+  justify-content: space-between;
+
+  //give the last span in the modal__text a little more room on the right
+  span:first-child {
+    margin-right: 20px;
+    text-align: left;
+  }
+
+  span:last-child {
+    margin-left: 100px;
+    text-align: right;
+  }
 }
 
 #svganchor {
@@ -517,7 +531,7 @@ div.tooltip {
 
   p {
     margin: 0;
-    margin-right: 20px;
+    margin-right: 0px;
   }
 
 }
@@ -543,7 +557,7 @@ div.tooltip {
 
 //give only the first child div wrapper a with of 48%
 #keyWrapper > div:first-child {
-  width: 48%;
+  width: 45%;
 }
 
 @media screen and (max-width: 729px) {
@@ -551,14 +565,14 @@ div.tooltip {
     width: 70%;
   }
   #keyBarGraph2 {
-    width: 100px;
+    width: 120px;
   }
 }
 
 //give second child div wrapper a dotted left border
 #keyWrapper > div:nth-child(2) {
   border-left: 1px dotted #333;
-  padding-left: 10px;
+  padding-left: 3px;
 }
 
 #buttonContainer {
@@ -641,4 +655,21 @@ div.tooltip {
     font-size: 18px;
     line-height: 24px;
   }
+}
+
+.keyBlock{
+  flex-direction: column;
+  display: flex;
+}
+
+.keyBlockSub{
+  display: flex;
+}
+
+.keyBlockYes, .keyBlockNo, .keyBlockUnsure {
+ width: 16px;
+ height: 16px;
+ min-width: 16px;
+ min-height: 16px;
+ margin-right: 4px;
 }

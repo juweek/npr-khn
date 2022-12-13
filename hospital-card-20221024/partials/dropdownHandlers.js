@@ -259,13 +259,13 @@ export const eventHandlers = {
                         // Create a new p element for the current property
                         let p = document.createElement("p");
                         if(key == "Yes" || key == "No"){
-                            p.innerText = `${currentContext[key]} (${countOfAnswers[key]})`;
+                            p.innerText = `${currentContext[key]}`;
                         }
                         else if(currentContext['Abbreviation'] == "COLLECTIONS"){
                             let newKey = "Some, but not all"
-                            p.innerText = `${newKey} (${countOfAnswers[key]})`;
+                            p.innerText = `${newKey}`;
                         }else {
-                            p.innerText = `${key} (${countOfAnswers[key]})`;
+                            p.innerText = `${key}`;
                         }
                     
                         span.appendChild(p);
@@ -290,8 +290,16 @@ export const eventHandlers = {
                         else {
                             barDiv2.style.backgroundColor = currentColorArray[2];
                         }
+                        //create a text span with the count of the current answer and append it to the bar div
+                        let textSpan = document.createElement("span");
+                        textSpan.innerText = countOfAnswers[key];
+                        textSpan.style.color = "white";
+                        textSpan.style.fontSize = "12px";
+                        textSpan.style.fontWeight = "bold";
+                        textSpan.style.marginLeft = "3px";
+                        barDiv2.appendChild(textSpan);
 
-                        // Append the bar div to the bar graph div
+                        // Add the bar div to right before the barDiv2
                         barGraphDiv2.appendChild(barDiv2);
                     }
 

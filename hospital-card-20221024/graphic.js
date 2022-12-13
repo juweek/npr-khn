@@ -137,6 +137,7 @@ pym.then((child) => {
       let countyToFIPSCode = [];
 
       data.forEach(function (d) {
+        if(d['FIPS'] != undefined) {
         // extract only c_fips and per_capita (or total)
         let currentEntry = {
           fips: d['FIPS'],
@@ -167,6 +168,7 @@ pym.then((child) => {
         //create all the data in countyToFIPSCode
         dataForModal[d['FIPS']] = currentEntry; // add to the original data
         countyToFIPSCode.push(currentEntry);
+        }
       });
 
       // transform data so its a map of FIPS code => data
