@@ -394,23 +394,23 @@ div.tooltip {
   display: none;
   position: fixed;
   z-index: 1;
-  width: 450px;
+  width: 90vw;
   padding: 20px 10px;
-  height: 400px;
+  height: auto;
   overflow: scroll;
   background-color: white;
   border: 1px solid #333;
   margin: 0 auto;
-  left: 15%;
-  top: 25%;
+  left: 5vw;
+  top: 10%;
   padding: 40px 10px;
 
   @media screen and (max-width: 729px) {
     z-index: 1000;
-    width: 90%;
-    height: 90%;
-    left: 5%;
-    top: 5%;
+    width: 100%;
+    height: auto;
+    left: 0%;
+    top: 10vh;
   }
 
   //create a close button in the upper right corner
@@ -439,6 +439,7 @@ div.tooltip {
   display: block;
   opacity: 1;
   padding-top: 10px;
+  background-color: rgb(249, 243, 235);
 }
 
 .modal-content {
@@ -470,10 +471,11 @@ div.tooltip {
   span:first-child {
     margin-right: 20px;
     text-align: left;
+    min-width: 60px;
   }
 
   span:last-child {
-    margin-left: 100px;
+    margin-left: 60px;
     text-align: right;
   }
 }
@@ -594,6 +596,12 @@ div.tooltip {
   font-style: italic;
 }
 
+@media screen and (min-width: 728px) {
+  .keyDescription {
+    height: 40px;
+  }
+}
+
 #radarChart
 {
     display: flex;
@@ -648,6 +656,19 @@ div.tooltip {
   padding-bottom: 20px;
 }
 
+.modalContentGroupWrap {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  @media screen and (min-width: 728px) {
+    .modalContentGroup {
+      width: 48%;
+    }
+  }
+}
+
 .introText {
   max-width: 49%;
 
@@ -672,4 +693,14 @@ div.tooltip {
  min-width: 16px;
  min-height: 16px;
  margin-right: 4px;
+}
+
+#keyHTMLContainer {
+  height: 200px;
+}
+
+@media screen and (min-width: 728px) {
+  #keyHTMLContainer {
+    height: 160px;
+  }
 }

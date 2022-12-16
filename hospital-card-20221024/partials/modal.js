@@ -65,16 +65,11 @@ export const modalFunctions = {
             <h3 class="modalTitle">Key</h3>
             <div class="modal__text keyBlock">
             <div class="keyBlockSub">
-            <div class="keyBlock keyBlockYes" style="background-color: red;"></div><div>Policy is spelled out in a written, publicly available policy</div>
-            </div>
-            <div class="keyBlockSub">
-            <div class="keyBlock keyBlockNo" style="background-color: blue;"></div><div>Policy is not available in written policy but was reported to KHN by a hospital official or posted in an online summary</div>
-            </div>
-            <div class="keyBlockSub">
-            <div class="keyBlock keyBlockUnsure" style="background-color: purple;"></div><div>No available policy or the practice was not spelled out in the policy</div>
+            <div class="keyBlock keyBlockUnsure" style="background-color: red;"></div><div>No available policy or the practice was not spelled out in the policy</div>
             </div>
             </div>
             </div>
+            <div class="modalContentGroupWrap">
             <div class="modalContentGroup financialAssistance">
             <h3 class="modalTitle">Financial assistance:</h3>
             <div class="modal__text"><span>Income qualifying for free care:</span> <span style="border-bottom: 2px solid ${["red", "blue", "purple"][Math.floor(Math.random() * 3)]};">${currentElement.getAttribute("data-FINASSIST")}</span></div>
@@ -90,6 +85,7 @@ export const modalFunctions = {
             <div class="modal__text"><span>Restricts non-emergency care to patients with debt?</span> <span style="border-bottom: 2px solid ${["red", "blue", "purple"][Math.floor(Math.random() * 3)]};">${currentElement.getAttribute("data-DENIED")}</span></div>
             <div class="modal__text"><span>Sells patients debts?</span> <span>${currentElement.getAttribute("data-DEBT")}</span></div>
             <div class="modal__text"><span>Billing and Collections policy available online?</span> <a href="${currentEntry.COLLECTIONS_LINK}">${currentElement.getAttribute("data-COLLECTIONS")}</a></span></div>
+            </div>
             </div>
             <div class="modalContentGroup">
             <h3 class="modalTitle">Scorecard notes:</h3>

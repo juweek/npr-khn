@@ -224,7 +224,7 @@ pym.then((child) => {
           }))
         .join("circle")
         .transition()
-        .duration(1000)
+        .duration(500)
         .ease(d3.easeLinear)
         .attr("transform", d => `translate(${path.centroid(d)})`)
         .attr('class', function (d) { return "hoverableContent " + d.id })

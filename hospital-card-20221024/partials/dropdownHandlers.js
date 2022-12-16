@@ -112,6 +112,7 @@ export const eventHandlers = {
             //set the color based on the policyAbbr
 
             let currentColorArray = colors[policyAbbr]
+            let fillColor = ""; // initialize the fill color to an empty string
 
             //have currentTotals be an object with the key being the policy and the value being the number of times it appears
             currentTotals = listOfPolicies[policyAbbr]
@@ -128,7 +129,8 @@ export const eventHandlers = {
                 }
                 // increment the value of the currentPolicy property
                 currentPolicyAnswers['Yes']++;
-                circles[i].style.fill = currentColorArray[0];
+                //circles[i].style.fill = currentColorArray[0];
+                fillColor = currentColorArray[0];
             } else if (currentPolicy.includes("No")) {
                 if (!currentPolicyAnswers.hasOwnProperty('No')) {
                     // if currentPolicy is not already a property of currentPolicyAnswers, set its value to 0
@@ -136,7 +138,7 @@ export const eventHandlers = {
                 }
                 // increment the value of the currentPolicy property
                 currentPolicyAnswers['No']++;
-                circles[i].style.fill = currentColorArray[1];
+                fillColor = currentColorArray[1];
             } else if ((currentPolicy != null) || (currentPolicy != undefined) || (currentPolicy != "")) {
                 //remove all the * and spaces from the currentPolicy
                 currentPolicy = currentPolicy.replace(/\*/g, '')
@@ -147,8 +149,20 @@ export const eventHandlers = {
                 }
                 // increment the value of the currentPolicy property
                 currentPolicyAnswers[currentPolicy]++;
-                circles[i].style.fill = currentColorArray[2];
+                fillColor = currentColorArray[2];
             }
+
+            //get the xposition of currentCX
+            let currentCX = circles[i].getAttribute("cx")
+
+            d3.select(circles[i])
+            /*
+            .transition()
+            .delay(i* 1.4)
+            .ease(d3.easeLinear)
+            */
+            .attr("r", 8)
+            .style("fill", fillColor);
         }
 
         let keyTitle = ""
@@ -196,6 +210,21 @@ export const eventHandlers = {
                 for (let key in countOfAnswers) {
                     total += countOfAnswers[key];
                 }
+                //reorder countOfAnswers to that 'yes' is first, 'no' is second, and everything else is third. if policyAbbr is collections, put 'some but not all' in the second position
+                let reorderedCountOfAnswers = {}
+                if (policyAbbr == "COLLECTIONS") {
+                    reorderedCountOfAnswers['Yes'] = countOfAnswers['Yes']
+                    reorderedCountOfAnswers['Some,butnotall'] = countOfAnswers['Some,butnotall']
+                    reorderedCountOfAnswers['No'] = countOfAnswers['No']
+                } else {
+                    reorderedCountOfAnswers['Yes'] = countOfAnswers['Yes']
+                    reorderedCountOfAnswers['No'] = countOfAnswers['No']
+                }
+                for (let key in countOfAnswers) {
+                    reorderedCountOfAnswers[key] = countOfAnswers[key]
+                }
+                countOfAnswers = reorderedCountOfAnswers
+
                 // Create a new div element for the key
                 let keyDiv = document.createElement("div");
                 keyDiv.id = "key";
@@ -258,16 +287,19 @@ export const eventHandlers = {
                         span.appendChild(square);
                         // Create a new p element for the current property
                         let p = document.createElement("p");
-                        if(key == "Yes" || key == "No"){
+                        if (key == "Yes" || key == "No") {
                             p.innerText = `${currentContext[key]}`;
+                            span.setAttribute("data-selection", key)
                         }
-                        else if(currentContext['Abbreviation'] == "COLLECTIONS"){
+                        else if (currentContext['Abbreviation'] == "COLLECTIONS") {
                             let newKey = "Some, but not all"
                             p.innerText = `${newKey}`;
-                        }else {
+                            span.setAttribute("data-selection", 'Other')
+                        } else {
                             p.innerText = `${key}`;
+                            span.setAttribute("data-selection", 'Other')
                         }
-                    
+
                         span.appendChild(p);
 
                         // Append the span element to the key text wrapper
@@ -283,12 +315,15 @@ export const eventHandlers = {
                         // Set the background color based on the current property
                         if (key === "Yes") {
                             barDiv2.style.backgroundColor = currentColorArray[0];
+                            barDiv2.setAttribute("data-selection", "Yes")
                         }
                         else if (key === "No") {
                             barDiv2.style.backgroundColor = currentColorArray[1];
+                            barDiv2.setAttribute("data-selection", "No")
                         }
                         else {
                             barDiv2.style.backgroundColor = currentColorArray[2];
+                            barDiv2.setAttribute("data-selection", "Other")
                         }
                         //create a text span with the count of the current answer and append it to the bar div
                         let textSpan = document.createElement("span");
@@ -303,6 +338,11 @@ export const eventHandlers = {
                         barGraphDiv2.appendChild(barDiv2);
                     }
 
+                    //reorder the children of keyBarGraph2 so that the bar with the data-selection attribute of "Yes" is the first child
+                    let yesBar = barGraphDiv2.querySelector("[data-selection='Yes']");
+                    let noBar = barGraphDiv2.querySelector("[data-selection='No']");
+                    let otherBar = barGraphDiv2.querySelector("[data-selection='Other']");
+                   
                     keyWrapper.appendChild(keyTextWrapper);
                     keyWrapper.appendChild(barGraphDiv2);
                     keyDiv.appendChild(keyWrapper);
