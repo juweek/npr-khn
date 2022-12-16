@@ -3,7 +3,7 @@ var ANALYTICS = require("./lib/analytics");
 require("./lib/webfonts");
 var { isMobile } = require("./lib/breakpoints");
 var { policies, states, listOfArrays } = require("./partials/object");
-var { eventHandlers, dropdown, policyDropdown } = require("./partials/dropdownHandlers");
+var { eventHandlers, dropdown, policyDropdown, stateDropdown } = require("./partials/dropdownHandlers");
 var { clickHandlers } = require("./partials/buttonHandlers");
 var { tooltipHandlers, tooltip } = require("./partials/tooltipHandlers");
 var { modalFunctions } = require("./partials/modal");
@@ -335,14 +335,22 @@ pym.then((child) => {
 
       for (const entry in dataForModal) {
         let currentEntry = dataForModal[entry]
+        console.log(currentEntry)
         let sideColumnDiv = document.createElement("div");
         sideColumnDiv.className = "sideColumnHospital";
-        sideColumnDiv.setAttribute("data-fips", currentEntry.fips)
-        sideColumnDiv.setAttribute("data-county", currentEntry.county)
+        sideColumnDiv.setAttribute("data-fips", function() {
+          //check if fips has 5 digits, if not, add a 0 to the front
+          if (currentEntry.fips.length < 5) {
+            return "0" + currentEntry.fips
+          }
+          else
+            return currentEntry.fips
+        })
+        sideColumnDiv.setAttribute("data-city", currentEntry.county)
         sideColumnDiv.setAttribute("data-state", currentEntry.state)
         sideColumnDiv.setAttribute("data-hospitalType", currentEntry.HOSPITAL_TYPE)
         sideColumnDiv.setAttribute("data-beds", currentEntry.Beds)
-        sideColumnDiv.innerHTML = `<div class="hoverableContent ${currentEntry.fips}"><div><b>${currentEntry.hospitalName} Hospital</b> </div><div>${currentEntry.Beds} beds</div><div>${currentEntry.county}, ${currentEntry.state}</div></div>`
+        sideColumnDiv.innerHTML = `<div class="hoverableContent ${currentEntry.fips}"><div><b>${currentEntry.NAME}</b> </div><div>${currentEntry.CITY}, ${currentEntry.state}</div><div>${currentEntry.SYSTEM}</div><div>${currentEntry.BEDS} beds</div></div>`
         fixedSideColumn.appendChild(sideColumnDiv);
       }
 
@@ -453,10 +461,10 @@ METHOD: load in the map
       //  .text(d3.format(".4"));
 
       update(svg, us, radius);
-      //fire the click event for the FAP button, click, then click again after 3 seconds
-      let fapButton = document.getElementById("FAP")
+      //fire the click event for the DENIED button, click, then click again after 3 seconds
+      let deniedButton = document.getElementById("DENIED")
       setTimeout(function () {
-        fapButton.click()
+        deniedButton.click()
       }, 100)
 
       //call the policy dropdown change handler so the circles are changed to the default policy on page load

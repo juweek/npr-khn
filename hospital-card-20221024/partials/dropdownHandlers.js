@@ -156,13 +156,13 @@ export const eventHandlers = {
             let currentCX = circles[i].getAttribute("cx")
 
             d3.select(circles[i])
-            /*
-            .transition()
-            .delay(i* 1.4)
-            .ease(d3.easeLinear)
-            */
-            .attr("r", 8)
-            .style("fill", fillColor);
+                /*
+                .transition()
+                .delay(i* 1.4)
+                .ease(d3.easeLinear)
+                */
+                .attr("r", 8)
+                .style("fill", fillColor);
         }
 
         let keyTitle = ""
@@ -210,18 +210,27 @@ export const eventHandlers = {
                 for (let key in countOfAnswers) {
                     total += countOfAnswers[key];
                 }
-                //reorder countOfAnswers to that 'yes' is first, 'no' is second, and everything else is third. if policyAbbr is collections, put 'some but not all' in the second position
+                //reorder countOfAnswers to that 'yes' is first, 'no' is last, and everything else is in between.
                 let reorderedCountOfAnswers = {}
                 if (policyAbbr == "COLLECTIONS") {
                     reorderedCountOfAnswers['Yes'] = countOfAnswers['Yes']
                     reorderedCountOfAnswers['Some,butnotall'] = countOfAnswers['Some,butnotall']
                     reorderedCountOfAnswers['No'] = countOfAnswers['No']
                 } else {
-                    reorderedCountOfAnswers['Yes'] = countOfAnswers['Yes']
-                    reorderedCountOfAnswers['No'] = countOfAnswers['No']
-                }
-                for (let key in countOfAnswers) {
-                    reorderedCountOfAnswers[key] = countOfAnswers[key]
+                    // Add 'Yes' to the beginning of the reordered object
+                    if ('Yes' in countOfAnswers) {
+                        reorderedCountOfAnswers['Yes'] = countOfAnswers['Yes'];
+                    }
+                    // Add all answers except for 'Yes' and 'No' to the reordered object
+                    for (let key in countOfAnswers) {
+                        if (key !== 'Yes' && key !== 'No') {
+                            reorderedCountOfAnswers[key] = countOfAnswers[key];
+                        }
+                    }
+                    // Add 'No' to the end of the reordered object
+                    if ('No' in countOfAnswers) {
+                        reorderedCountOfAnswers['No'] = countOfAnswers['No'];
+                    }
                 }
                 countOfAnswers = reorderedCountOfAnswers
 
@@ -342,7 +351,7 @@ export const eventHandlers = {
                     let yesBar = barGraphDiv2.querySelector("[data-selection='Yes']");
                     let noBar = barGraphDiv2.querySelector("[data-selection='No']");
                     let otherBar = barGraphDiv2.querySelector("[data-selection='Other']");
-                   
+
                     keyWrapper.appendChild(keyTextWrapper);
                     keyWrapper.appendChild(barGraphDiv2);
                     keyDiv.appendChild(keyWrapper);
@@ -360,29 +369,11 @@ export const eventHandlers = {
     }
 };
 
-/*
-------------------------------
-SECTION: create the STATE dropdown and populate it with state names
-------------------------------
-*/
-export const dropdown = d3
-    .select("#fixedSideColumnTop")
-    .append("select")
-    .attr("id", "stateDropdownSelector")
-    .attr("name", "name-list").selectAll("option")
-    .data(Object.keys(states))
-    .enter()
-    .append("option")
-    .text(function (d) {
-        return d;
-    });
 
 /*
 ------------------------------
 SECTION: create the POLICY dropdown and populate it with the list of policies
 ------------------------------
-
-
 export const policyDropdown = d3
     .select("#svganchor")
     .append("select")
@@ -393,8 +384,23 @@ export const policyDropdown = d3
     .append("option")
     .attr("value", (d) => d)
     .text((d) => d);
-
-    
  */
+
+/*
+------------------------------
+SECTION: create the STATE dropdown and populate it with state names
+------------------------------
+*/
+export const stateDropdown = d3
+    .select("#fixedSideColumnTop")
+    .append("select")
+    .attr("id", "stateDropdownSelector")
+    .attr("name", "name-list").selectAll("option")
+    .data(Object.keys(states))
+    .enter()
+    .append("option")
+    .text(function (d) {
+        return d;
+    });
 //insert the keyContainer to the end of the button container
 export const key = d3.select("#keyHTMLContainer").append("div").attr("id", "keyContainer");

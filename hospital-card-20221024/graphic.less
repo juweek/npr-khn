@@ -162,7 +162,7 @@ h2 {
 
 .hospitalCardContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   justify-content: space-between;
   width: 100%;
   margin: 0 auto;
@@ -198,10 +198,6 @@ h2 {
     margin-bottom: 60px;
   }
 
-  .hospitalCardContainer {
-    flex-direction: row;
-  }
-
   h1 {
     text-align: left;
     margin-bottom: 0;
@@ -215,26 +211,29 @@ h2 {
 }
 
 #fixedSideColumnTop {
-  position: fixed;
-  bottom: 0px;
   display: flex;
   justify-content: center;
-  width: 100%;
-
-  select {
-    display: none;
-  }
+  position: relative;
 }
 
 #fixedSideColumn {
   position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   top: 0px;
   right: 0px;
   min-width: 25%;
+  width: 100%;
   z-index: 1;
-  display: none;
   pointer-events: all;
   max-height: 20px;
+  border-top: 1px solid rgb(108, 108, 108);
+  border-bottom: 1px solid rgb(108, 108, 108);
+  min-height: 100px;
+  max-height: 200px;
+  overflow: scroll;
+  padding: 5px;
 
   select {
     right: 0;
@@ -257,24 +256,18 @@ h2 {
     margin: 0 auto;
     position: relative;
     z-index: 100;
-    left: -60px;
-    margin-right: -60px;
     max-height: 330px;
-    overflow: scroll;
-    justify-content: flex-start;
   }
 }
 
 #fixedSideColumnTop {
-  position: fixed;
   bottom: 0px;
   z-index: 2001;
 
   //give the fixed side column a little more room on the bottom and the top
   @media screen and (min-width: 729px) {
-    margin-top: 40px;
-    padding-bottom: 20px;
-    padding-top: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
   }
   //give the fixed side column a gradient background that goes from transparent at the top to white at the bottom
   background: linear-gradient(rgba(255, 255, 255, 0.637), #fff);
@@ -321,18 +314,19 @@ h2 {
   padding-top: 10px;
   padding-bottom: 10px;
   background-color: white;
-  border: 8px solid #fdb0b0;
+  border: 1px solid #b0b0b0;
+  border-radius: 3px;
+  box-shadow: 3px 3px 3px #b0b0b0;
+  margin-bottom: 5px;
+  width: 100%;
 
   &.visible {
     display: block;
     opacity: 1;
   }
-}
 
-@media screen and (max-width: 729px) {
-  .sideColumnHospital {
-    opacity: 0;
-    display: none;
+  @media screen and (min-width: 729px) {
+    width: 49%;
   }
 }
 
