@@ -1,0 +1,34 @@
+@import "./lib/base";
+@import "../_base/khn-npr.less";
+
+.chart + .chart {
+  @media @screen-mobile {
+    margin-top: 15px;
+  }
+}
+
+.bars rect {
+  &.united-states { fill: var(--bar-highlight-color, #333); }
+}
+
+.graphic {
+  @media @screen-mobile-above {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}
+
+h3 {
+  text-transform: none;
+  font-size: 14px;
+  letter-spacing: normal;
+
+  .npr & {
+    .gotham();
+    color: #333;
+    font-size: 13px;
+    // font-weight: bold;
+    line-height: 1.4;
+  }
+}
