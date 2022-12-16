@@ -8,9 +8,13 @@ Export the tooltip functions, handlers, and data
 export const tooltipHandlers = {
     // When the user enters the tooltip
     mouseEnter: function (xLocation, yLocation, currentElement, originalData) {
+        //in original data, for all the keys that have four digits, add a zero to the front
+        //for all the keys that have three digits, add two zeros to the front
         let currentEntry = originalData[currentElement.__data__.id]
+        console.log(originalData)
         //let currentElement = d.srcElement
         currentElement.classList.add("hovered")
+        console.log(currentEntry)
         if (currentEntry) {
             tooltip
                 .style("opacity", 1)

@@ -10,10 +10,10 @@ export const clickHandlers = {
     buttonClicked: function () {
         let sideColumn = document.getElementById("fixedSideColumn");
 
-        
-        //toggle the class 'visible' on the side column 
-        sideColumn.classList.toggle("visible");
-        sideColumn.classList.add("sideColumnMobile");
+        //toggle the display property of the side column
+        let currentClassList = sideColumn.classList;
+        currentClassList.toggle("hidden");
+
         let listofSideColumnHospital = document.getElementsByClassName("sideColumnHospital");
         for (let i = 0; i < listofSideColumnHospital.length; i++) {
             let currentHospital = listofSideColumnHospital[i];

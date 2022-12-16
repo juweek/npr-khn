@@ -110,6 +110,9 @@ pym.then((child) => {
  */
   currentStateDropdown.addEventListener("change", function (d) {
     eventHandlers.stateDropdownChange(states[d.target.value], listOfArrays, d);
+    //transform listOfCountedNames so it only includes the hospitals in the current state
+    //call policyDropdownChange to update the policy dropdown with just the hospitals in the current state
+
     child.sendHeight();
   })
 
@@ -166,7 +169,12 @@ pym.then((child) => {
           DENIED: d['Can patients with debt be denied nonemergency care?'],
         }
         //create all the data in countyToFIPSCode
-        dataForModal[d['FIPS']] = currentEntry; // add to the original data
+        //set d[FIPS] to a variable. if it has 4 digits, add a 0 to the front. if it has 5 digits, leave it alone
+        let fipsCode = d['FIPS'];
+        if (fipsCode.toString().length < 5) {
+          fipsCode = '0' + fipsCode;
+        } 
+        dataForModal[fipsCode] = currentEntry; // add to the original data
         countyToFIPSCode.push(currentEntry);
         }
       });
@@ -227,7 +235,14 @@ pym.then((child) => {
         .duration(500)
         .ease(d3.easeLinear)
         .attr("transform", d => `translate(${path.centroid(d)})`)
-        .attr('class', function (d) { return "hoverableContent " + d.id })
+        .attr('class', function (d) { 
+          //check to see if d.id's length is 4 or 5. if it's 4, add a 0 to the front of it. otherwise, just return d.id
+          if (d.id.toString().length < 5) {
+            return "hoverableContent " + d.id;
+          } else {
+            return "hoverableContent " + d.id;
+          }
+        })
         .attr("fill", "#000")
         .attr("data-fips", function (d) { return d.id })
         .attr("data-state", function (d) {
@@ -335,17 +350,9 @@ pym.then((child) => {
 
       for (const entry in dataForModal) {
         let currentEntry = dataForModal[entry]
-        console.log(currentEntry)
         let sideColumnDiv = document.createElement("div");
         sideColumnDiv.className = "sideColumnHospital";
-        sideColumnDiv.setAttribute("data-fips", function() {
-          //check if fips has 5 digits, if not, add a 0 to the front
-          if (currentEntry.fips.length < 5) {
-            return "0" + currentEntry.fips
-          }
-          else
-            return currentEntry.fips
-        })
+        sideColumnDiv.setAttribute("data-fips", currentEntry.fips)
         sideColumnDiv.setAttribute("data-city", currentEntry.county)
         sideColumnDiv.setAttribute("data-state", currentEntry.state)
         sideColumnDiv.setAttribute("data-hospitalType", currentEntry.HOSPITAL_TYPE)
@@ -370,15 +377,26 @@ SECTION: hover over each of the sections in the side column. Attach hover and cl
 
       for (let i = 0; i < hoverableContent1.length; i++) {
         hoverableContent1[i].addEventListener("mousemove", function (d) {
+          //get the current fips code
           let currentFips = d.target.getAttribute("data-fips")
+          //if fips has four digits, add a 0 to the front
+          if (currentFips.length == 4) {
+            currentFips = "0" + currentFips
+          }
+          //get the current circle
           let currentCircle = document.querySelector(`circle[data-fips="${currentFips}"]`)
           if (currentCircle) {
-            let rect = currentCircle.getBoundingClientRect();
-            tooltipHandlers.mouseEnter(rect.x, rect.y, currentCircle, dataForModal)
+            //get position of the circle
+            let circlePosition = currentCircle.getBoundingClientRect()
+            //get the x position of the circle
+            tooltipHandlers.mouseEnter(circlePosition.x, circlePosition.y - 100, currentCircle, dataForModal)
           }
         })
         hoverableContent1[i].addEventListener("mouseout", function (d) {
           let currentFips = d.target.getAttribute("data-fips")
+          if (currentFips.length == 4) {
+            currentFips = "0" + currentFips
+          }
           let currentCircle = document.querySelector(`circle[data-fips="${currentFips}"]`)
           if (currentCircle) {
             tooltipHandlers.mouseOut(currentCircle)
@@ -386,6 +404,9 @@ SECTION: hover over each of the sections in the side column. Attach hover and cl
         })
         hoverableContent1[i].addEventListener("click", function (d) {
           let currentFips = d.target.getAttribute("data-fips")
+          if (currentFips.length == 4) {
+            currentFips = "0" + currentFips
+          }
           let currentCircle = document.querySelector(`circle[data-fips="${currentFips}"]`)
           if (currentCircle) {
             modalFunctions.clickCircle(currentCircle, dataForModal)
