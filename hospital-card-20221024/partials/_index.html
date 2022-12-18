@@ -8,7 +8,8 @@
     
     <div id="htmlKey">
     <div >
-      <p><%= t.smarty(COPY.labels["Explainer"]) %></p>
+      <h1>Find out how these U.S. hospitals treat patients who can't pay</h1>
+      <p style="margin-top: 0px"><%= t.smarty(COPY.labels["Explainer"]) %></p>
     <div id="buttonContainer"></div>
       </div>
       <div id="keyHTMLContainer"></div>
@@ -50,7 +51,7 @@
     <script src="https://unpkg.com/d3-tip@0.9.1/dist/index.js"></script>
     <script src="./partials/radar-chart.js"></script>
     <script type="text/javascript">
-      var DATA = JSON.stringify(<%= JSON.stringify(COPY.Clean_Data) %>);
+      var DATA = JSON.stringify(<%= JSON.stringify(COPY.cityData) %>);
       var data = window.DATA;
       var BUTTONS = JSON.stringify(<%= JSON.stringify(COPY.Buttons) %>);
       var buttons = window.BUTTONS;

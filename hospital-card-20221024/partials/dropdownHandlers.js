@@ -156,7 +156,7 @@ export const eventHandlers = {
             let currentCX = circles[i].getAttribute("cx")
 
             d3.select(circles[i])
-                /*
+                /*==
                 .transition()
                 .delay(i* 1.4)
                 .ease(d3.easeLinear)
@@ -165,9 +165,8 @@ export const eventHandlers = {
                 .style("fill", fillColor);
         }
 
-        let keyTitle = ""
         let keyHTML = "";
-        key.html(keyTitle + keyHTML);
+        key.html(keyHTML);
 
         //call the change the key function by using the policy abbreviation
         this.changeTheKey(listOfPolicies, d, currentPolicyAnswers);
@@ -193,7 +192,6 @@ export const eventHandlers = {
             }
         }
 
-        let keyTitle = "<h3>" + currentContext['Policy'] + "</h3>"
         let keyDescription = "<p class='keyDescription'>" + currentContext['Question'] + "</p>"
         var filteredTotals
 
@@ -361,7 +359,7 @@ export const eventHandlers = {
                 //keyDiv.insertBefore(barGraphDiv, keyDiv.firstChild);
 
                 // Append the key div element to the key container div element
-                key.html(keyTitle + keyDescription);
+                key.html(keyDescription);
                 key.node().appendChild(keyDiv);
             }
         }

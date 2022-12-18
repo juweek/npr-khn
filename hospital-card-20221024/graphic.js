@@ -137,6 +137,7 @@ pym.then((child) => {
       data = window.data;
       //convert newData to a json object
       data = JSON.parse(data);
+      console.log(data)
       let countyToFIPSCode = [];
 
       data.forEach(function (d) {
@@ -158,7 +159,7 @@ pym.then((child) => {
           FAP_LINK: d['FAP link'],
           FIN_ASSIST: d['Info on financial assistance available with "financial assistance" search?'],
           LIENS: d['Places liens or garnishes wages?'],
-          COLLECTIONS: d['Collections policies available online?'],
+          COLLECTIONS: d['Collection policies available online?'],
           COLLECTIONS_LINK: d['Collections link'],
           REPORTED: d['Can patients be reported to credit bureaus?'],
           DEBT: d["Can patients' debts be sold?"],
@@ -176,6 +177,9 @@ pym.then((child) => {
         } 
         dataForModal[fipsCode] = currentEntry; // add to the original data
         countyToFIPSCode.push(currentEntry);
+        }
+        else {
+          console.log(d)
         }
       });
 
@@ -348,8 +352,19 @@ pym.then((child) => {
             return 'none'
         })
 
-      for (const entry in dataForModal) {
-        let currentEntry = dataForModal[entry]
+        const sortedData = Object.values(dataForModal).sort(function(a, b) {
+          if (a['state'] < b['state']) {
+            return -1;
+          }
+          if (a['state'] > b['state']) {
+            return 1;
+          }
+          return 0;
+        });
+        //sort dataForModal by taking the state property and sorting it alphabetically
+
+      for (const entry in sortedData) {
+        let currentEntry = sortedData[entry]
         let sideColumnDiv = document.createElement("div");
         sideColumnDiv.className = "sideColumnHospital";
         sideColumnDiv.setAttribute("data-fips", currentEntry.fips)
@@ -482,16 +497,19 @@ METHOD: load in the map
       //  .text(d3.format(".4"));
 
       update(svg, us, radius);
-      //fire the click event for the DENIED button, click, then click again after 3 seconds
+      //fire the click event for the DENIED button, click, then click again after 3 seconds after the page loads
       let deniedButton = document.getElementById("DENIED")
-      setTimeout(function () {
-        deniedButton.click()
-      }, 100)
+      //after the page loads, click the denied button
+      deniedButton.click();
+      window.addEventListener("load", function () {
+        setTimeout(function () {
+          deniedButton.click();
+        }, 300);
+      });
+      
 
       //call the policy dropdown change handler so the circles are changed to the default policy on page load
       child.sendHeight();
-
-
       window.addEventListener("resize", () => child.sendHeight());
     })
     .catch(function (error) {

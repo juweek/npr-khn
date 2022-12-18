@@ -171,6 +171,7 @@ h2 {
 .methodology {
   font-size: 12px;
   margin: 0;
+  margin-top: 20px;
   margin-left: 10px;
   margin-bottom: 20px;
   max-width: 100%;
@@ -232,7 +233,7 @@ h2 {
   border-top: 1px solid rgb(108, 108, 108);
   border-bottom: 1px solid rgb(108, 108, 108);
   min-height: 100px;
-  max-height: 200px;
+  max-height: 300px;
   overflow: scroll;
   padding: 5px;
 
@@ -264,6 +265,7 @@ h2 {
 #fixedSideColumnTop {
   bottom: 0px;
   z-index: 2001;
+  margin-bottom: 20px;
 
   //give the fixed side column a little more room on the bottom and the top
   @media screen and (min-width: 729px) {
@@ -390,7 +392,6 @@ div.tooltip {
   position: fixed;
   z-index: 1;
   width: 90vw;
-  padding: 20px 10px;
   height: auto;
   overflow: scroll;
   background-color: white;
@@ -398,7 +399,7 @@ div.tooltip {
   margin: 0 auto;
   left: 5vw;
   top: 10%;
-  padding: 40px 10px;
+  padding: 20px 10px;
 
   @media screen and (max-width: 729px) {
     z-index: 1000;
@@ -416,10 +417,12 @@ div.tooltip {
     font-weight: bold;
     margin-right: 10px;
     margin-top: 10px;
-    width: 20px;
-    height: 20px;
-    background-color: #c70000;
+    width: 24px;
+    height: 24px;
+    background-color: #fff;
     border-radius: 50%;
+    border: 1px solid rgb(192, 192, 192);
+    position: relative;
 
     &:hover,
     &:focus {
@@ -428,6 +431,22 @@ div.tooltip {
       cursor: pointer;
     }
   }
+}
+
+.close::before,
+.close::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 4px;
+  top: 50%;
+  left: 50%;
+  background-color: rgb(215, 30, 30);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.modal .close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 .modal.clicked {
@@ -572,13 +591,21 @@ div.tooltip {
   padding-left: 3px;
 }
 
+button {
+  &:hover {
+    cursor: pointer;
+    background-color: #555252;
+    color: white;
+  }
+}
+
 #buttonContainer {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;
   margin: 0 auto;
-  padding-top: 20px;
+
   button {
     margin-bottom: 10px;
     margin-right: 10px;
@@ -644,6 +671,10 @@ div.tooltip {
 
 .introImage {
  margin-top: 20px;
+}
+
+.modalContent {
+  margin-top: 40px;
 }
 
 .modalContentGroup {

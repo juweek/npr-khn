@@ -53,20 +53,13 @@ export const modalFunctions = {
             <div class="introContainer">
             <div class="introText">
             <h2 class="modalTitle">${currentElement.getAttribute("data-NAME")}</h2>
-            <div class="modal__text">${currentElement.getAttribute("data-CITY"), currentElement.getAttribute("data-state")}</div>
+            <div class="modal__text">${currentElement.getAttribute("data-CITY")}, ${currentElement.getAttribute("data-state")}</div>
+            <div class="modal__text">${currentElement.getAttribute("data-SYSTEM")}</div>
             <div class="modal__text">${currentElement.getAttribute("data-hospitalType")}</div>
             <div class="modal__text">${currentElement.getAttribute("data-beds")} beds</div>
             </div>
             <div class="introImage">
                 <div id="radarChart"></div>
-            </div>
-            </div>
-            <div class="modalContentGroup">
-            <h3 class="modalTitle">Key</h3>
-            <div class="modal__text keyBlock">
-            <div class="keyBlockSub">
-            <div class="keyBlock keyBlockUnsure" style="background-color: red;"></div><div>No available policy or the practice was not spelled out in the policy</div>
-            </div>
             </div>
             </div>
             <div class="modalContentGroupWrap">
@@ -91,9 +84,12 @@ export const modalFunctions = {
             <h3 class="modalTitle">Scorecard notes:</h3>
             <div class="modal__text">${currentElement.getAttribute("data-SCORECARD")}</div>
             <div class="modal__text">Note on data: Hospital policies and practices change. And over time hospitals close, change names and merge with other institutions. If KHN learns that an entry is no longer accurate, it will update information that it verifies.</div>
+            <div class="keyBlockSub">
+            <div class="keyBlock keyBlockUnsure" style="background-color: red; border-radius: 20px;"></div><div class="modal__text">No available policy or the practice was not spelled out in the policy</div>
+            </div>
             </div>`
         )
-        this.createRadarChart(currentElement, originalData)
+        //this.createRadarChart(currentElement, originalData)
     },
     /*
     ------------------------------
@@ -128,7 +124,6 @@ export const modalFunctions = {
                     }
                 );
                 //print out the index you just pushed into the array
-                console.log(data[i])
 
             }
             return data;

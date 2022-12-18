@@ -11,17 +11,15 @@ export const tooltipHandlers = {
         //in original data, for all the keys that have four digits, add a zero to the front
         //for all the keys that have three digits, add two zeros to the front
         let currentEntry = originalData[currentElement.__data__.id]
-        console.log(originalData)
         //let currentElement = d.srcElement
         currentElement.classList.add("hovered")
-        console.log(currentEntry)
         if (currentEntry) {
             tooltip
                 .style("opacity", 1)
                 .style("left", (xLocation - 250) + "px")
                 .style("top", (yLocation - 300) + "px")
                 .html(
-                    `<div class="tooltip__hospital">${currentEntry['NAME']} Hospital </div><div class="tooltip__value">${currentEntry['SYSTEM']}</div><div class="tooltip__name">${currentEntry['CITY']}, ${currentEntry.state}</div>`
+                    `<div class="tooltip__hospital"><b>${currentEntry['NAME']}</b></div><div class="tooltip__name">${currentEntry['CITY']}, ${currentEntry.state}</div>`
                 );
         }
     },
