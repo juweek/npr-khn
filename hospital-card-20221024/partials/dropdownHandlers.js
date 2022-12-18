@@ -88,7 +88,7 @@ export const eventHandlers = {
                 }, {})
                 newListOfCountedNames.push(countedNames)
             })
-            //get the current value of the policy dropdown
+            //THIS IS THE CODE THAT CHANGES THE KEY BASED ON THE STATE FILTER. EASY TO REIMPLEMENT IF WE WANT
             let policyDropdown = document.getElementById("policyDropdownSelector");
             let policyDropdownValue = policyDropdown[policyDropdown.selectedIndex].value;
             this.changeTheKey(newListOfCountedNames, policyDropdownValue);

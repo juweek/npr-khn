@@ -132,54 +132,64 @@ pym.then((child) => {
   function update(svg, us, radius) {
     let path = d3.geoPath();
     let dataForModal = {}
+    let dataForModalCMS = {}
 
     d3.csv('./hospitalScores.csv').then(function (data) {
       data = window.data;
       //convert newData to a json object
       data = JSON.parse(data);
+      console.log('spreadsheet data')
       console.log(data)
       let countyToFIPSCode = [];
 
       data.forEach(function (d) {
-        if(d['FIPS'] != undefined) {
-        // extract only c_fips and per_capita (or total)
-        let currentEntry = {
-          fips: d['FIPS'],
-          CITY: d['City'],
-          NAME: d['Name'],
-          SYSTEM: d['System'],
-          county: d['County'],
-          state: d['State'],
-          AID: d['Aid for patients with large bills?'],
-          HOSPITAL_TYPE: d['Hospital type'],
-          BEDS: d['Beds'],
-          REPORTED: d['Can patients be reported to credit bureaus?'],
-          ASSETS: d['Assets considered?'],
-          FAP: d['Financial Assistance Policy available online?'],
-          FAP_LINK: d['FAP link'],
-          FIN_ASSIST: d['Info on financial assistance available with "financial assistance" search?'],
-          LIENS: d['Places liens or garnishes wages?'],
-          COLLECTIONS: d['Collection policies available online?'],
-          COLLECTIONS_LINK: d['Collections link'],
-          REPORTED: d['Can patients be reported to credit bureaus?'],
-          DEBT: d["Can patients' debts be sold?"],
-          DISCOUNT: d["Qualifying income for discounted care"],
-          FREE: d["Qualifying income for free care"],
-          SUED: d['Can patients be sued or subject to wage garnishment or property liens?'],
-          SCORECARD: d['Scorecard notes'],
-          DENIED: d['Can patients with debt be denied nonemergency care?'],
-        }
-        //create all the data in countyToFIPSCode
-        //set d[FIPS] to a variable. if it has 4 digits, add a 0 to the front. if it has 5 digits, leave it alone
-        let fipsCode = d['FIPS'];
-        if (fipsCode.toString().length < 5) {
-          fipsCode = '0' + fipsCode;
-        } 
-        dataForModal[fipsCode] = currentEntry; // add to the original data
-        countyToFIPSCode.push(currentEntry);
-        }
-        else {
-          console.log(d)
+        if (d['FIPS'] != undefined) {
+          // extract only c_fips and per_capita (or total)
+          let currentEntry = {
+            fips: d['FIPS'],
+            cmsID: d['CMS Facility ID'],
+            CITY: d['City'],
+            NAME: d['Name'],
+            SYSTEM: d['System'],
+            county: d['County'],
+            state: d['State'],
+            AID: d['Aid for patients with large bills?'],
+            HOSPITAL_TYPE: d['Hospital type'],
+            BEDS: d['Beds'],
+            REPORTED: d['Can patients be reported to credit bureaus?'],
+            ASSETS: d['Assets considered?'],
+            FAP: d['Financial Assistance Policy available online?'],
+            FAP_LINK: d['FAP link'],
+            FIN_ASSIST: d['Info on financial assistance available with "financial assistance" search?'],
+            LIENS: d['Places liens or garnishes wages?'],
+            COLLECTIONS: d['Collection policies available online?'],
+            COLLECTIONS_LINK: d['Collections link'],
+            REPORTED: d['Can patients be reported to credit bureaus?'],
+            DEBT: d["Can patients' debts be sold?"],
+            DISCOUNT: d["Qualifying income for discounted care"],
+            FREE: d["Qualifying income for free care"],
+            SUED: d['Can patients be sued or subject to wage garnishment or property liens?'],
+            SCORECARD: d['Scorecard notes'],
+            DENIED: d['Can patients with debt be denied nonemergency care?'],
+          }
+          //create all the data in countyToFIPSCode
+          //set d[FIPS] to a variable. if it has 4 digits, add a 0 to the front. if it has 5 digits, leave it alone
+          let fipsCode = d['FIPS'];
+          let cmsID = d['CMS Facility ID'];
+          if (fipsCode.toString().length < 5) {
+            fipsCode = '0' + fipsCode;
+          }
+          dataForModal[fipsCode] = currentEntry; // add to the original data
+          dataForModalCMS[cmsID] = currentEntry; // add to the original data
+          console.log('current entry, aka the data for the modal')
+          console.log(currentEntry)
+          countyToFIPSCode.push(currentEntry);
+          console.log('countyToFIPSCode, aka the data for the map')
+          console.log(countyToFIPSCode)
+
+          if (countyToFIPSCode.find(d => d['fips'] === fipsCode) === undefined) {
+            countyToFIPSCode.push(currentEntry);
+          }
         }
       });
 
@@ -199,6 +209,9 @@ pym.then((child) => {
         }
         fipsData[key] = obj;
       });
+
+      console.log('fipsData')
+      console.log(fipsData)
 
       //transform the countyToFIPSCode to a Map of d[fips] => data. make the key the fips code, and a string
       countyToFIPSCode = countyToFIPSCode.map(x => Object.values(x));
@@ -223,6 +236,11 @@ pym.then((child) => {
       4. join the data to the circles via attributes
       ------------------------------
       */
+
+      //print out the length of the data object
+      console.log(dataForModal)
+      console.log(Object.keys(dataForModal).length)
+
       svg.select("g")
         .selectAll("circle")
         .data(topojson.feature(us, us.objects.counties).features
@@ -232,6 +250,9 @@ pym.then((child) => {
             return d;
           })
           .filter(d => {
+            //access all the values in countyToFIPSCode
+            //console.log(countyToFIPSCode.values())
+            //check all the values in countyToFIPSCode to see if the fips code is in there. if it is, return true. otherwise, return false
             return countyToFIPSCode.has(parseInt(d.id))
           }))
         .join("circle")
@@ -239,7 +260,7 @@ pym.then((child) => {
         .duration(500)
         .ease(d3.easeLinear)
         .attr("transform", d => `translate(${path.centroid(d)})`)
-        .attr('class', function (d) { 
+        .attr('class', function (d) {
           //check to see if d.id's length is 4 or 5. if it's 4, add a 0 to the front of it. otherwise, just return d.id
           if (d.id.toString().length < 5) {
             return "hoverableContent " + d.id;
@@ -251,6 +272,9 @@ pym.then((child) => {
         .attr("data-fips", function (d) { return d.id })
         .attr("data-state", function (d) {
           return getDataAttribute(d.id, fipsData, 'state')
+        })
+        .attr("data-cmsID", function (d) {
+          return getDataAttribute(d.id, fipsData, 'cmsID')
         })
         .attr("data-CITY", function (d) {
           return getDataAttribute(d.id, fipsData, 'CITY')
@@ -305,7 +329,7 @@ pym.then((child) => {
         })
         .attr("r", d => radius(''));
 
-        //write a sql query that will read in the data where teh year column in 2020
+      //write a sql query that will read in the data where teh year column in 2020
 
       //for every array in List of Arrays, filter the items to display the count of unique items. use this count to determine the radius of the circle
       listOfArrays.forEach(function (array) {
@@ -327,7 +351,8 @@ pym.then((child) => {
       svg
         .selectAll(".state")
         .on("mousemove", function (d) {
-          tooltipHandlers.mouseEnter(d.pageX, d.pageY, d.srcElement, dataForModal)
+          console.log(d.srcElement)
+          tooltipHandlers.mouseEnter(d.pageX, d.pageY, d.srcElement, dataForModal, dataForModalCMS)
         })
         .on("mouseout", function (d) {
           tooltipHandlers.mouseOut(d.srcElement)
@@ -352,16 +377,16 @@ pym.then((child) => {
             return 'none'
         })
 
-        const sortedData = Object.values(dataForModal).sort(function(a, b) {
-          if (a['state'] < b['state']) {
-            return -1;
-          }
-          if (a['state'] > b['state']) {
-            return 1;
-          }
-          return 0;
-        });
-        //sort dataForModal by taking the state property and sorting it alphabetically
+      const sortedData = Object.values(dataForModal).sort(function (a, b) {
+        if (a['state'] < b['state']) {
+          return -1;
+        }
+        if (a['state'] > b['state']) {
+          return 1;
+        }
+        return 0;
+      });
+      //sort dataForModal by taking the state property and sorting it alphabetically
 
       for (const entry in sortedData) {
         let currentEntry = sortedData[entry]
@@ -383,11 +408,11 @@ pym.then((child) => {
           modalFunctions.clickCircle(d.srcElement, dataForModal)
         })
 
-/*
-------------------------------
-SECTION: hover over each of the sections in the side column. Attach hover and click events to each of the elements that bring up the modal
-------------------------------
-*/
+      /*
+      ------------------------------
+      SECTION: hover over each of the sections in the side column. Attach hover and click events to each of the elements that bring up the modal
+      ------------------------------
+      */
       let hoverableContent1 = document.getElementsByClassName("sideColumnHospital");
 
       for (let i = 0; i < hoverableContent1.length; i++) {
@@ -404,7 +429,7 @@ SECTION: hover over each of the sections in the side column. Attach hover and cl
             //get position of the circle
             let circlePosition = currentCircle.getBoundingClientRect()
             //get the x position of the circle
-            tooltipHandlers.mouseEnter(circlePosition.x, circlePosition.y - 100, currentCircle, dataForModal)
+            tooltipHandlers.mouseEnter(circlePosition.x, circlePosition.y - 100, currentCircle, dataForModal, dataForModalCMS)
           }
         })
         hoverableContent1[i].addEventListener("mouseout", function (d) {
@@ -506,11 +531,12 @@ METHOD: load in the map
           deniedButton.click();
         }, 300);
       });
-      
+
 
       //call the policy dropdown change handler so the circles are changed to the default policy on page load
       child.sendHeight();
       window.addEventListener("resize", () => child.sendHeight());
+      deniedButton.click();
     })
     .catch(function (error) {
       console.log(error);
