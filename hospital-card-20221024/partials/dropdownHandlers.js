@@ -360,6 +360,7 @@ export const eventHandlers = {
 
                 // Append the key div element to the key container div element
                 key.html(keyDescription);
+                let keyHTMLContainer = document.getElementById('keyHTMLContainer');
                 key.node().appendChild(keyDiv);
             }
         }
@@ -401,4 +402,6 @@ export const stateDropdown = d3
         return d;
     });
 //insert the keyContainer to the end of the button container
-export const key = d3.select("#keyHTMLContainer").append("div").attr("id", "keyContainer");
+export const key = d3.select("#keyHTMLContainer");
+key.empty();
+key.append("div").attr("id", "keyContainer");

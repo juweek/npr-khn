@@ -243,20 +243,11 @@ pym.then((child) => {
 
       console.log(countyToFIPSCode)
 
-      console.log(width)
-      console.log(height)
-
       // define the projection function
-      const projection = d3.geoMercator()
-        .center([0, 5])
-        .scale(940)
-        .translate([width / .63, height / .88]);
+      const projection = d3.geoAlbersUsa()
+        .scale(1260)
+        .translate([width / 2.65, height / 2.6]);
 
-
-        //transform the data to a Map of d[name] => [longtide, latutude]. make the value an array of longitude and latitude
-        console.log(data)
-        console.log(dataLatLong)
-        
 
       // plot the circles using the projection function to convert the latitude/longitude coordinates to x/y coordinates
       svg.select("g")
@@ -267,11 +258,24 @@ pym.then((child) => {
         .duration(500)
         .attr('class', function (d) {
           //check to see if d.id's length is 4 or 5. if it's 4, add a 0 to the front of it. otherwise, just return d.id
-         return 'hoverable ' + d['CMS Facility ID'];
+          return 'hoverable ' + d['CMS Facility ID'];
         })
         .ease(d3.easeLinear)
-        .attr("transform", d => `translate(${projection([d.Longitude, d.Latitude])})`)  // use the projection function to convert the latitude/longitude coordinates to x/y coordinates
-        .attr("fill", "#000")
+        .attr("transform", function(d) {
+          return `translate(${projection([d.Longitude, d.Latitude])})`;
+        })  // use the projection function to convert the latitude/longitude coordinates to x/y coordinates
+        .attr("fill", function (d) {
+          let currentAnswer = d['Can patients with debt be denied nonemergency care?']
+          console.log(currentAnswer)
+          //check if yes is a substring of the current answer. if it is, return red. if not, return blue
+          if (currentAnswer.toLowerCase().includes('yes')) {
+            return '#b70303';
+          } else if (currentAnswer.toLowerCase().includes('no')) {
+            return '#357378';
+          } else {
+            return '#CFA1A1';
+          }
+        })
         .attr("data-fips", function (d) { return d.id })
         .attr("data-state", function (d) {
           return d['State']
@@ -394,9 +398,10 @@ pym.then((child) => {
         let currentEntry = sortedData[entry]
         let sideColumnDiv = document.createElement("div");
         sideColumnDiv.className = "sideColumnHospital";
-        sideColumnDiv.setAttribute("data-fips", currentEntry.fips)
-        sideColumnDiv.setAttribute("data-city", currentEntry.county)
+        sideColumnDiv.setAttribute("data-fips", currentEntry['fips'])
+        sideColumnDiv.setAttribute("data-city", currentEntry['CITY'])
         sideColumnDiv.setAttribute("data-state", currentEntry.state)
+        sideColumnDiv.setAttribute("data-cmsID", currentEntry['cmsID'])
         sideColumnDiv.setAttribute("data-hospitalType", currentEntry.HOSPITAL_TYPE)
         sideColumnDiv.setAttribute("data-beds", currentEntry.Beds)
         sideColumnDiv.innerHTML = `<div class="hoverableContent ${currentEntry.fips}"><div><b>${currentEntry.NAME}</b> </div><div>${currentEntry.CITY}, ${currentEntry.state}</div><div>${currentEntry.SYSTEM}</div><div>${currentEntry.BEDS} beds</div></div>`
@@ -407,7 +412,6 @@ pym.then((child) => {
       svg
         .selectAll("circle")
         .on("click", function (d) {
-          console.log(dataForModal)
           modalFunctions.clickCircle(d.srcElement, dataForModal, dataForModalCMS)
         })
 
@@ -421,13 +425,15 @@ pym.then((child) => {
       for (let i = 0; i < hoverableContent1.length; i++) {
         hoverableContent1[i].addEventListener("mousemove", function (d) {
           //get the current fips code
+        
           let currentFips = d.target.getAttribute("data-fips")
+          let currentCMS = d.target.getAttribute("data-cmsID")
           //if fips has four digits, add a 0 to the front
           if (currentFips.length == 4) {
             currentFips = "0" + currentFips
           }
           //get the current circle
-          let currentCircle = document.querySelector(`circle[data-fips="${currentFips}"]`)
+          let currentCircle = document.querySelector(`circle[data-cmsID="${currentCMS}"]`)
           if (currentCircle) {
             //get position of the circle
             let circlePosition = currentCircle.getBoundingClientRect()
@@ -437,22 +443,25 @@ pym.then((child) => {
         })
         hoverableContent1[i].addEventListener("mouseout", function (d) {
           let currentFips = d.target.getAttribute("data-fips")
+          let currentCMS = d.target.getAttribute("data-cmsID")
           if (currentFips.length == 4) {
             currentFips = "0" + currentFips
           }
-          let currentCircle = document.querySelector(`circle[data-fips="${currentFips}"]`)
+          let currentCircle = document.querySelector(`circle[data-cmsID="${currentCMS}"]`)
           if (currentCircle) {
             tooltipHandlers.mouseOut(currentCircle)
           }
         })
         hoverableContent1[i].addEventListener("click", function (d) {
           let currentFips = d.target.getAttribute("data-fips")
+          let currentCMS = d.target.getAttribute("data-cmsID")
           if (currentFips.length == 4) {
             currentFips = "0" + currentFips
           }
-          let currentCircle = document.querySelector(`circle[data-fips="${currentFips}"]`)
+          let currentCircle = document.querySelector(`circle[data-cmsID="${currentCMS}"]`)
+          console.log(currentCircle)
           if (currentCircle) {
-            modalFunctions.clickCircle(currentCircle, dataForModal)
+            modalFunctions.clickCircle(currentCircle, dataForModal, dataForModalCMS)
           }
         })
       }
