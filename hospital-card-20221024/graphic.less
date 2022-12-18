@@ -191,6 +191,11 @@ h2 {
   margin-bottom: 0px;
 }
 
+h1 {
+  text-align: left;
+  margin-bottom: 0;
+}
+
 @media screen and (min-width: 729px) {
 
   .methodology {
@@ -198,11 +203,6 @@ h2 {
     margin: 0 auto;
     margin-bottom: 60px;
     margin-top: 20px;
-  }
-
-  h1 {
-    text-align: left;
-    margin-bottom: 0;
   }
 
   #htmlKey {
@@ -327,6 +327,11 @@ h2 {
     display: block;
     opacity: 1;
   }
+
+  &:hover {
+    box-shadow: 1px 1px 1px #b0b0b0;
+    transform: translate(2px, 2px);
+  };
 
   @media screen and (min-width: 729px) {
     width: 49%;
@@ -697,9 +702,10 @@ button {
 
 .introText {
   max-width: 49%;
+  min-width: 40%;
 
   > h2:first-child {
-    font-size: 18px;
+    font-size: 21px;
     line-height: 24px;
   }
 }
@@ -722,11 +728,24 @@ button {
 }
 
 #keyHTMLContainer {
-  height: 200px;
+  height: 170px;
 }
 
 @media screen and (min-width: 728px) {
   #keyHTMLContainer {
     height: 160px;
   }
+}
+
+.quadrant {
+  width: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  
+}
+
+.quadrant__item {
+  width: 30px;
+  height: 30px;
 }

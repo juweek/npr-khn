@@ -56,9 +56,9 @@ export const modalFunctions = {
             <div class="introText">
             <h2 class="modalTitle">${currentElement.getAttribute("data-NAME")}</h2>
             <div class="modal__text">${currentElement.getAttribute("data-CITY")}, ${currentElement.getAttribute("data-state")}</div>
-            <div class="modal__text">${currentElement.getAttribute("data-SYSTEM")}</div>
-            <div class="modal__text">${currentElement.getAttribute("data-hospitalType")}</div>
-            <div class="modal__text">${currentElement.getAttribute("data-beds")} beds</div>
+            ${currentElement.getAttribute("data-SYSTEM") ? `<div class="modal__text"><b>System:</b> ${currentElement.getAttribute("data-SYSTEM")}</div>` : ""}
+            <div class="modal__text"><b>Hospital type: </b> ${currentElement.getAttribute("data-hospitalType")}</div>
+            <div class="modal__text"><b>Beds:</b> ${currentElement.getAttribute("data-beds")}</div>
             </div>
             <div class="introImage">
                 <div id="radarChart"></div>
@@ -67,17 +67,17 @@ export const modalFunctions = {
             <div class="modalContentGroupWrap">
             <div class="modalContentGroup financialAssistance">
             <h3 class="modalTitle">Financial assistance:</h3>
-            <div class="modal__text"><span>Income qualifying for free care:</span> <span style="border-bottom: 2px solid ${["red", "blue", "purple"][Math.floor(Math.random() * 3)]};">${currentElement.getAttribute("data-FINASSIST")}</span></div>
-            <div class="modal__text"><span>Income qualifying for discounted care:</span> <span style="border-bottom: 2px solid ${["red", "blue", "purple"][Math.floor(Math.random() * 3)]};">${currentElement.getAttribute("data-DISCOUNT")}</span></div>
-            <div class="modal__text"><span>Income qualifying for free care:</span> <span style="border-bottom: 2px solid ${["red", "blue", "purple"][Math.floor(Math.random() * 3)]};">${currentElement.getAttribute("data-FREE")}</span></div>
-            <div class="modal__text"><span>Provides aid to patients with very large bills?</span> <span style="border-bottom: 2px solid ${["red", "blue", "purple"][Math.floor(Math.random() * 3)]};">${currentElement.getAttribute("data-AID")}</span></div>
-            <div class="modal__text"><span>Financial Assistance Policy available online?</span> <span style="border-bottom: 2px solid ${["red", "blue", "purple"][Math.floor(Math.random() * 3)]};"><a href="${currentElement.getAttribute("data-FAP-LINK")}">${currentElement.getAttribute("data-FAP")}</a></span></div>
+            <div class="modal__text"><span>Income qualifying for free care:</span> <span>${currentElement.getAttribute("data-FINASSIST")}</span></div>
+            <div class="modal__text"><span>Income qualifying for discounted care:</span> <span>${currentElement.getAttribute("data-DISCOUNT")}</span></div>
+            <div class="modal__text"><span>Income qualifying for free care:</span> <span>${currentElement.getAttribute("data-FREE")}</span></div>
+            <div class="modal__text"><span>Provides aid to patients with very large bills?</span> <span>${currentElement.getAttribute("data-AID")}</span></div>
+            <div class="modal__text"><span>Financial Assistance Policy available online?</span> <span><a href="${currentElement.getAttribute("data-FAP-LINK")}">${currentElement.getAttribute("data-FAP")}</a></span></div>
             </div>
             <div class="modalContentGroup billingCollections">
             <h3 class="modalTitle">Billing and collections:</h3>
-            <div class="modal__text"><span>Allows reporting patients to credit rating agencies?</span><span style="border-bottom: 2px solid ${["red", "blue", "purple"][Math.floor(Math.random() * 3)]};">${currentElement.getAttribute("data-REPORTED")}</span></div>
-            <div class="modal__text"><span>Sues patients, garnishes wages or places liens?</span> <span style="border-bottom: 2px solid ${["red", "blue", "purple"][Math.floor(Math.random() * 3)]};">${currentElement.getAttribute("data-SUED")}</span></div>
-            <div class="modal__text"><span>Restricts non-emergency care to patients with debt?</span> <span style="border-bottom: 2px solid ${["red", "blue", "purple"][Math.floor(Math.random() * 3)]};">${currentElement.getAttribute("data-DENIED")}</span></div>
+            <div class="modal__text"><span>Allows reporting patients to credit rating agencies?</span><span>${currentElement.getAttribute("data-REPORTED")}</span></div>
+            <div class="modal__text"><span>Sues patients, garnishes wages or places liens?</span> <span>${currentElement.getAttribute("data-SUED")}</span></div>
+            <div class="modal__text"><span>Restricts non-emergency care to patients with debt?</span> <span>${currentElement.getAttribute("data-DENIED")}</span></div>
             <div class="modal__text"><span>Sells patients debts?</span> <span>${currentElement.getAttribute("data-DEBT")}</span></div>
             <div class="modal__text"><span>Billing and Collections policy available online?</span> <a href="${cmsEntry.COLLECTIONS_LINK}">${currentElement.getAttribute("data-COLLECTIONS")}</a></span></div>
             </div>
@@ -92,6 +92,7 @@ export const modalFunctions = {
             </div>`
         )
         //this.createRadarChart(currentElement, originalData)
+        this.createQuadrant(currentElement, originalData)
     },
     /*
     ------------------------------
@@ -291,6 +292,46 @@ export const modalFunctions = {
         drawAxis(ticks, NUM_OF_LEVEL);
         drawData(dataset, NUM_OF_SIDES);
         drawLabels(dataset, NUM_OF_SIDES);
+    },
+    createQuadrant: function (currentElement, originalData) {
+        // Define the four metrics
+        const metrics = ["FAP", "DEBT", "DENIED", "SUED"];
+
+        // Create an empty container for the quadrant
+        const quadrant = document.createElement("div");
+        quadrant.classList.add("quadrant");
+
+        // Iterate over the metrics
+        for (const metric of metrics) {
+            // Get the value of the current metric
+            const value = currentElement.getAttribute(`data-${metric}`);
+
+            // Create a div for the current metric
+            const div = document.createElement("div");
+            div.classList.add("quadrant__item");
+            //give the div a class based on the metric
+            div.classList.add(`quadrant__item--${metric}`);
+            // give the div a data attribute based on the metric
+            div.setAttribute("data-metric", metric);
+
+            // Set the background color of the div based on the value of the metric
+            if (value.toLowerCase().includes('yes')) {
+                div.style.backgroundColor = "green";
+            } else if (value.toLowerCase().includes('no')) {
+                div.style.backgroundColor = "red";
+            } else {
+                div.style.backgroundColor = "gray";
+            }
+            // Append the div to the quadrant
+            quadrant.appendChild(div);
+        }
+        console.log(quadrant)
+        //attach quadrant to radarChart
+        const radarChart = document.getElementById("radarChart")
+        console.log(radarChart)
+        radarChart.appendChild(quadrant)
+
+        return quadrant;
     }
 };
 

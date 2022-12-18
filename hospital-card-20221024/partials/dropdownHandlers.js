@@ -29,7 +29,7 @@ export const eventHandlers = {
             for (let i = 0; i < circles.length; i++) {
                 let d = circles[i].getAttribute("data-state")
                 if (d != currentState) {
-                    circles[i].style.opacity = "0.1";
+                    circles[i].style.opacity = "0.05";
                 } else {
                     circles[i].style.opacity = "1";
                 }
@@ -89,9 +89,9 @@ export const eventHandlers = {
                 newListOfCountedNames.push(countedNames)
             })
             //THIS IS THE CODE THAT CHANGES THE KEY BASED ON THE STATE FILTER. EASY TO REIMPLEMENT IF WE WANT
-            let policyDropdown = document.getElementById("policyDropdownSelector");
-            let policyDropdownValue = policyDropdown[policyDropdown.selectedIndex].value;
-            this.changeTheKey(newListOfCountedNames, policyDropdownValue);
+            //let policyDropdown = document.getElementById("policyDropdownSelector");
+            //let policyDropdownValue = policyDropdown[policyDropdown.selectedIndex].value;
+            //this.changeTheKey(newListOfCountedNames, policyDropdownValue);
         }
     },
     /*
