@@ -305,6 +305,9 @@ pym.then((child) => {
         .attr("data-DENIED", function (d) {
           return d['Can patients with debt be denied nonemergency care?']
         })
+        .attr("data-FREE", function (d) {
+          return d['Qualifying income for free care']
+        })
         .attr("data-SCORECARD", function (d) {
           return d['Scorecard notes']
         })
@@ -327,7 +330,7 @@ pym.then((child) => {
           return d['System']
         })
         .attr("data-DISCOUNT", function (d) {
-          return d['System']
+          return d['Qualifying income for discounted care']
         })
         .attr("r", d => radius(''));
 

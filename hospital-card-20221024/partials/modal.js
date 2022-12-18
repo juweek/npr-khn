@@ -55,10 +55,10 @@ export const modalFunctions = {
             <div class="introContainer">
             <div class="introText">
             <h2 class="modalTitle">${currentElement.getAttribute("data-NAME")}</h2>
-            <div class="modal__text">${currentElement.getAttribute("data-CITY")}, ${currentElement.getAttribute("data-state")}</div>
-            ${currentElement.getAttribute("data-SYSTEM") ? `<div class="modal__text"><b>System:</b> ${currentElement.getAttribute("data-SYSTEM")}</div>` : ""}
-            <div class="modal__text"><b>Hospital type: </b> ${currentElement.getAttribute("data-hospitalType")}</div>
-            <div class="modal__text"><b>Beds:</b> ${currentElement.getAttribute("data-beds")}</div>
+            <div class="modal__text"><b>${currentElement.getAttribute("data-CITY")}, ${currentElement.getAttribute("data-state")}</b></div>
+            ${currentElement.getAttribute("data-SYSTEM") ? `<div class="modal__text"><b>System:</b> <span class="cardLocation">${currentElement.getAttribute("data-SYSTEM")}</span></div>` : ""}
+            <div class="modal__text"><b>Hospital type: </b> <span class="cardLocation">${currentElement.getAttribute("data-hospitalType")}</span></div>
+            <div class="modal__text"><b>Beds:</b> <span class="cardLocation">${currentElement.getAttribute("data-beds")}</span></div>
             </div>
             <div class="introImage">
                 <div id="radarChart"></div>
@@ -67,19 +67,18 @@ export const modalFunctions = {
             <div class="modalContentGroupWrap">
             <div class="modalContentGroup financialAssistance">
             <h3 class="modalTitle">Financial assistance:</h3>
-            <div class="modal__text"><span>Income qualifying for free care:</span> <span>${currentElement.getAttribute("data-FINASSIST")}</span></div>
-            <div class="modal__text"><span>Income qualifying for discounted care:</span> <span>${currentElement.getAttribute("data-DISCOUNT")}</span></div>
-            <div class="modal__text"><span>Income qualifying for free care:</span> <span>${currentElement.getAttribute("data-FREE")}</span></div>
-            <div class="modal__text"><span>Provides aid to patients with very large bills?</span> <span>${currentElement.getAttribute("data-AID")}</span></div>
+            <div class="modal__text"><span>Who qualifies for free care?</span> <span>${currentElement.getAttribute("data-FREE")}</span></div>
+            <div class="modal__text"><span>Who qualifies for discounted care?</span> <span>${currentElement.getAttribute("data-DISCOUNT")}</span></div>
+            <div class="modal__text"><span>Provides aid to patients with very large medical bills?</span> <span>${currentElement.getAttribute("data-AID")}</span></div>
             <div class="modal__text"><span>Financial Assistance Policy available online?</span> <span><a href="${currentElement.getAttribute("data-FAP-LINK")}">${currentElement.getAttribute("data-FAP")}</a></span></div>
             </div>
             <div class="modalContentGroup billingCollections">
             <h3 class="modalTitle">Billing and collections:</h3>
             <div class="modal__text"><span>Allows reporting patients to credit rating agencies?</span><span>${currentElement.getAttribute("data-REPORTED")}</span></div>
-            <div class="modal__text"><span>Sues patients, garnishes wages or places liens?</span> <span>${currentElement.getAttribute("data-SUED")}</span></div>
-            <div class="modal__text"><span>Restricts non-emergency care to patients with debt?</span> <span>${currentElement.getAttribute("data-DENIED")}</span></div>
-            <div class="modal__text"><span>Sells patients debts?</span> <span>${currentElement.getAttribute("data-DEBT")}</span></div>
-            <div class="modal__text"><span>Billing and Collections policy available online?</span> <a href="${cmsEntry.COLLECTIONS_LINK}">${currentElement.getAttribute("data-COLLECTIONS")}</a></span></div>
+            <div class="modal__text"><span>Allows lawsuits against patients, liens or wage garnishment?</span> <span>${currentElement.getAttribute("data-SUED")}</span></div>
+            <div class="modal__text"><span>Allows sale of patient debt?</span> <span>${currentElement.getAttribute("data-DEBT")}</span></div>
+            <div class="modal__text"><span>Allows non-emergency care to be restricted for patients with debt?</span> <span>${currentElement.getAttribute("data-DENIED")}</span></div>
+            <div class="modal__text"><span>Billing & Collections Policy available online?</span> <a href="${cmsEntry.COLLECTIONS_LINK}">${currentElement.getAttribute("data-COLLECTIONS")}</a></span></div>
             </div>
             </div>
             <div class="modalContentGroup">
@@ -317,10 +316,15 @@ export const modalFunctions = {
             // Set the background color of the div based on the value of the metric
             if (value.toLowerCase().includes('yes')) {
                 div.style.backgroundColor = "green";
+                //fill in the text of the div
+                div.innerHTML = `${metric}: ${value}`;
             } else if (value.toLowerCase().includes('no')) {
                 div.style.backgroundColor = "red";
+                //fill in the text of the div
+                div.innerHTML = `${metric}: ${value}`;
             } else {
                 div.style.backgroundColor = "gray";
+                div.innerHTML = `${metric}: ${value}`;
             }
             // Append the div to the quadrant
             quadrant.appendChild(div);

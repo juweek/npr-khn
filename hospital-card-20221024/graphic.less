@@ -214,7 +214,7 @@ h1 {
 
 #fixedSideColumnTop {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   position: relative;
 }
 
@@ -267,11 +267,6 @@ h1 {
   z-index: 2001;
   margin-bottom: 20px;
 
-  //give the fixed side column a little more room on the bottom and the top
-  @media screen and (min-width: 729px) {
-    padding-bottom: 10px;
-    padding-top: 10px;
-  }
   //give the fixed side column a gradient background that goes from transparent at the top to white at the bottom
   background: linear-gradient(rgba(255, 255, 255, 0.637), #fff);
   
@@ -635,6 +630,11 @@ button {
     justify-content: center;
     align-items: center;
     position: relative;
+
+    @media screen and (max-width: 728px) {
+      border-left: 1px solid #333;
+      padding-left: 10px;
+}
 }
 
 .levels path
@@ -668,18 +668,25 @@ button {
 .introContainer {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: end;
   margin: 0 auto;
   flex-wrap: wrap;
   justify-content: space-between;
+  width: 100%;
 }
 
 .introImage {
- margin-top: 20px;
+ margin-top: 40px;
+ @media screen and (max-width: 728px) {
+  margin-top: 50px;
+}
 }
 
 .modalContent {
   margin-top: 40px;
+  @media screen and (max-width: 728px) {
+    margin-top: 0px;
+  }
 }
 
 .modalContentGroup {
@@ -702,11 +709,15 @@ button {
 
 .introText {
   max-width: 49%;
-  min-width: 40%;
+  min-width: 49%;
 
   > h2:first-child {
     font-size: 21px;
     line-height: 24px;
+
+    @media screen and (min-width: 728px) {
+      margin-top: 0;
+    }
   }
 }
 
@@ -738,14 +749,32 @@ button {
 }
 
 .quadrant {
-  width: 60px;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  
+  color: white;
+  font-size: 12px;
+  margin-bottom: 5px;
+  text-align: center;
+
+  @media screen and (max-width: 728px) {
+    width: 150px;
+  }
 }
 
 .quadrant__item {
-  width: 30px;
-  height: 30px;
+  width: 75px;
+  height: 60px;
+  padding-top: 12px;
+  border: 1px solid #fff;
+
+  @media screen and (max-width: 728px) {
+    width: 75px;
+  height: 60px;
+  }
+}
+
+.cardLocation {
+  margin-left: 20px !important;
 }
