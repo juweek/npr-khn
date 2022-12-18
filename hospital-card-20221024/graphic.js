@@ -148,6 +148,8 @@ pym.then((child) => {
           let currentEntry = {
             fips: d['FIPS'],
             cmsID: d['CMS Facility ID'],
+            latitude: d['Latitude'],
+            longitude: d['Longitude'],
             CITY: d['City'],
             NAME: d['Name'],
             SYSTEM: d['System'],
@@ -181,17 +183,14 @@ pym.then((child) => {
           }
           dataForModal[fipsCode] = currentEntry; // add to the original data
           dataForModalCMS[cmsID] = currentEntry; // add to the original data
-          console.log('current entry, aka the data for the modal')
-          console.log(currentEntry)
-          countyToFIPSCode.push(currentEntry);
-          console.log('countyToFIPSCode, aka the data for the map')
-          console.log(countyToFIPSCode)
 
           if (countyToFIPSCode.find(d => d['fips'] === fipsCode) === undefined) {
             countyToFIPSCode.push(currentEntry);
           }
         }
       });
+
+      let dataLatLong = data;
 
       // transform data so its a map of FIPS code => data
       data = data.map(x => Object.values(x));
@@ -238,94 +237,98 @@ pym.then((child) => {
       */
 
       //print out the length of the data object
+      console.log('data for te modal')
       console.log(dataForModal)
       console.log(Object.keys(dataForModal).length)
 
+      console.log(countyToFIPSCode)
+
+      console.log(width)
+      console.log(height)
+
+      // define the projection function
+      const projection = d3.geoMercator()
+        .center([0, 5])
+        .scale(940)
+        .translate([width / .63, height / .88]);
+
+
+        //transform the data to a Map of d[name] => [longtide, latutude]. make the value an array of longitude and latitude
+        console.log(data)
+        console.log(dataLatLong)
+        
+
+      // plot the circles using the projection function to convert the latitude/longitude coordinates to x/y coordinates
       svg.select("g")
         .selectAll("circle")
-        .data(topojson.feature(us, us.objects.counties).features
-          .map(d => {
-            d.value = data.get(d.id), d;
-            //d.value = d.properties.name, d;
-            return d;
-          })
-          .filter(d => {
-            //access all the values in countyToFIPSCode
-            //console.log(countyToFIPSCode.values())
-            //check all the values in countyToFIPSCode to see if the fips code is in there. if it is, return true. otherwise, return false
-            return countyToFIPSCode.has(parseInt(d.id))
-          }))
+        .data(dataLatLong)  // use the latitude/longitude data
         .join("circle")
         .transition()
         .duration(500)
-        .ease(d3.easeLinear)
-        .attr("transform", d => `translate(${path.centroid(d)})`)
         .attr('class', function (d) {
           //check to see if d.id's length is 4 or 5. if it's 4, add a 0 to the front of it. otherwise, just return d.id
-          if (d.id.toString().length < 5) {
-            return "hoverableContent " + d.id;
-          } else {
-            return "hoverableContent " + d.id;
-          }
+         return 'hoverable ' + d['CMS Facility ID'];
         })
+        .ease(d3.easeLinear)
+        .attr("transform", d => `translate(${projection([d.Longitude, d.Latitude])})`)  // use the projection function to convert the latitude/longitude coordinates to x/y coordinates
         .attr("fill", "#000")
         .attr("data-fips", function (d) { return d.id })
         .attr("data-state", function (d) {
-          return getDataAttribute(d.id, fipsData, 'state')
+          return d['State']
         })
         .attr("data-cmsID", function (d) {
-          return getDataAttribute(d.id, fipsData, 'cmsID')
+          return d['CMS Facility ID']
         })
         .attr("data-CITY", function (d) {
-          return getDataAttribute(d.id, fipsData, 'CITY')
+          return d['City']
         })
         .attr("data-hospitalType", function (d) {
-          return getDataAttribute(d.id, fipsData, 'HOSPITAL_TYPE')
+          return d['Hospital type']
         })
         .attr("data-beds", function (d) {
-          return getDataAttribute(d.id, fipsData, 'BEDS')
+          return d['Beds']
         })
         .attr("data-FAP", function (d) {
-          return getDataAttribute(d.id, fipsData, 'FAP')
+          return d['Financial Assistance Policy available online?']
         })
         .attr("data-COLLECTIONS", function (d) {
-          return getDataAttribute(d.id, fipsData, 'COLLECTIONS')
+          return d['Collection policies available online?']
         })
         .attr("data-REPORTED", function (d) {
-          return getDataAttribute(d.id, fipsData, 'REPORTED')
+          return d['Can patients be reported to credit bureaus?']
         })
         .attr("data-DEBT", function (d) {
-          return getDataAttribute(d.id, fipsData, 'DEBT')
+          return d["Can patients' debts be sold?"]
         })
         .attr("data-SUED", function (d) {
-          return getDataAttribute(d.id, fipsData, 'SUED')
+          return d['Can patients be sued or subject to wage garnishment or property liens?']
         })
         .attr("data-DENIED", function (d) {
-          return getDataAttribute(d.id, fipsData, 'DENIED')
+          return d['Can patients with debt be denied nonemergency care?']
         })
         .attr("data-SCORECARD", function (d) {
-          return getDataAttribute(d.id, fipsData, 'SCORECARD')
+          return d['Scorecard notes']
         })
         .attr("data-FINASSIST", function (d) {
-          return getDataAttribute(d.id, fipsData, 'FIN_ASSIST')
+          return d['Info on financial assistance available with "financial assistance" search?']
         })
         .attr("data-ASSETS", function (d) {
-          return getDataAttribute(d.id, fipsData, 'ASSETS')
+          return d['Assets considered?']
         })
         .attr("data-LIENS", function (d) {
-          return getDataAttribute(d.id, fipsData, 'LIENS')
+          return d['Places liens or garnishes wages?']
         })
         .attr("data-AID", function (d) {
-          return getDataAttribute(d.id, fipsData, 'AID')
+          return d['Aid for patients with large bills?']
         })
         .attr("data-NAME", function (d) {
-          return getDataAttribute(d.id, fipsData, 'NAME')
+          return d['Name']
         })
         .attr("data-SYSTEM", function (d) {
-          return getDataAttribute(d.id, fipsData, 'SYSTEM')
+          return d['System']
         })
         .attr("data-DISCOUNT", function (d) {
-          return getDataAttribute(d.id, fipsData, 'DISCOUNT')
+          return d['System']
         })
         .attr("r", d => radius(''));
 
@@ -351,7 +354,6 @@ pym.then((child) => {
       svg
         .selectAll(".state")
         .on("mousemove", function (d) {
-          console.log(d.srcElement)
           tooltipHandlers.mouseEnter(d.pageX, d.pageY, d.srcElement, dataForModal, dataForModalCMS)
         })
         .on("mouseout", function (d) {
@@ -405,7 +407,8 @@ pym.then((child) => {
       svg
         .selectAll("circle")
         .on("click", function (d) {
-          modalFunctions.clickCircle(d.srcElement, dataForModal)
+          console.log(dataForModal)
+          modalFunctions.clickCircle(d.srcElement, dataForModal, dataForModalCMS)
         })
 
       /*

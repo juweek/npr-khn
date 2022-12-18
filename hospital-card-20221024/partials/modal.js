@@ -21,7 +21,7 @@ export const modalFunctions = {
     METHOD: show the information in the modal
     ------------------------------
     */
-    clickCircle: function (currentElement, originalData) {
+    clickCircle: function (currentElement, originalData, originalDataCMS) {
         let modal = d3
             .select("#fixedSideColumnTop")
             .append("div")
@@ -41,6 +41,8 @@ export const modalFunctions = {
             .attr("class", "modalContent")
 
         let currentEntry = originalData[currentElement.__data__.id]
+        let currentCMS = currentElement.getAttribute('data-cmsID')
+        let cmsEntry = originalDataCMS[currentCMS]
         let modalElement = document.getElementsByClassName("modal")[0]
         modalElement.classList.add("clicked")
 
@@ -77,7 +79,7 @@ export const modalFunctions = {
             <div class="modal__text"><span>Sues patients, garnishes wages or places liens?</span> <span style="border-bottom: 2px solid ${["red", "blue", "purple"][Math.floor(Math.random() * 3)]};">${currentElement.getAttribute("data-SUED")}</span></div>
             <div class="modal__text"><span>Restricts non-emergency care to patients with debt?</span> <span style="border-bottom: 2px solid ${["red", "blue", "purple"][Math.floor(Math.random() * 3)]};">${currentElement.getAttribute("data-DENIED")}</span></div>
             <div class="modal__text"><span>Sells patients debts?</span> <span>${currentElement.getAttribute("data-DEBT")}</span></div>
-            <div class="modal__text"><span>Billing and Collections policy available online?</span> <a href="${currentEntry.COLLECTIONS_LINK}">${currentElement.getAttribute("data-COLLECTIONS")}</a></span></div>
+            <div class="modal__text"><span>Billing and Collections policy available online?</span> <a href="${cmsEntry.COLLECTIONS_LINK}">${currentElement.getAttribute("data-COLLECTIONS")}</a></span></div>
             </div>
             </div>
             <div class="modalContentGroup">

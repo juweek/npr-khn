@@ -11,13 +11,10 @@ export const tooltipHandlers = {
         //in original data, for all the keys that have four digits, add a zero to the front
         //for all the keys that have three digits, add two zeros to the front
         //get the current element's cmsID from the currentElement.__data__
-        currentElement.__data__.beds
-
-        let currentEntry = originalData[currentElement.__data__.id]
-        //let currentElement = d.srcElement
-        let cmsEntry = originalDataCMS[currentEntry['cmsID']]
+        let currentCMS = currentElement.getAttribute('data-cmsID')
+        let cmsEntry = originalDataCMS[currentCMS]
         currentElement.classList.add("hovered")
-        if (currentEntry) {
+        if (cmsEntry) {
             tooltip
                 .style("opacity", 1)
                 .style("left", (xLocation - 250) + "px")
