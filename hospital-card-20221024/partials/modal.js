@@ -335,7 +335,7 @@ export const modalFunctions = {
                 if (metric === "REPORTED") {
                     div.innerHTML = `<span class="quadrant__item--copy">Reporting patients is allowed¹</span>`;
                 } else if (metric === "DEBT") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Selling debt is allowed²</span>`;
+                    div.innerHTML = `<span class="quadrant__item--copy">Selling patient debt is allowed²</span>`;
                 } else if (metric === "DENIED") {
                     div.innerHTML = `<span class="quadrant__item--copy">Denying care is allowed³</span>`;
                 } else if (metric === "SUED") {
@@ -348,7 +348,7 @@ export const modalFunctions = {
                 if (metric === "REPORTED") {
                     div.innerHTML = `<span class="quadrant__item--copy">Does not report patients¹</span>`;
                 } else if (metric === "DEBT") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Does not sell debt</span>²`;
+                    div.innerHTML = `<span class="quadrant__item--copy">Does not sell patient debt</span>²`;
                 } else if (metric === "DENIED") {
                     div.innerHTML = `<span class="quadrant__item--copy">Does not deny care³</span>`;
                 } else if (metric === "SUED") {
@@ -360,7 +360,7 @@ export const modalFunctions = {
                 if (metric === "REPORTED") {
                     div.innerHTML = `<span class="quadrant__item--copy">Unclear if reporting allowed¹</span>`;
                 } else if (metric === "DEBT") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Unclear if selling allowed²</span>`;
+                    div.innerHTML = `<span class="quadrant__item--copy">Unclear if selling debt allowed²</span>`;
                 } else if (metric === "DENIED") {
                     div.innerHTML = `<span class="quadrant__item--copy">Unclear if denying care allowed³</span>`;
                 } else if (metric === "SUED") {

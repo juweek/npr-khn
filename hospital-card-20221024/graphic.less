@@ -423,6 +423,14 @@ div.tooltip {
     top: 10vh;
   }
 
+  //at the largest desktop size, the modal is 600px wide
+  @media screen and (min-width: 1100px) {
+    width: 750px;
+    height: auto;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+
   //create a close button in the upper right corner
   .close {
     color: #aaa;
