@@ -89,9 +89,15 @@ export const eventHandlers = {
                 newListOfCountedNames.push(countedNames)
             })
             //THIS IS THE CODE THAT CHANGES THE KEY BASED ON THE STATE FILTER. EASY TO REIMPLEMENT IF WE WANT
-            //let policyDropdown = document.getElementById("policyDropdownSelector");
-            //let policyDropdownValue = policyDropdown[policyDropdown.selectedIndex].value;
-            //this.changeTheKey(newListOfCountedNames, policyDropdownValue);
+            //find the currently selected button and get its value
+            console.log('this state is firing')
+            let currentlySelectedButton = document.querySelector("button.active"); 
+            //get the id of the currently selected button
+            let currentlySelectedButtonId = currentlySelectedButton.getAttribute("id");
+            console.log(currentlySelectedButtonId)
+            console.log('//////')
+            console.log(newListOfCountedNames)
+            //this.changeTheKey(newListOfCountedNames, d, currentlySelectedButton);
         }
     },
     /*
@@ -156,11 +162,9 @@ export const eventHandlers = {
             let currentCX = circles[i].getAttribute("cx")
 
             d3.select(circles[i])
-                /*==
                 .transition()
-                .delay(i* 1.4)
+                .delay(.005)
                 .ease(d3.easeLinear)
-                */
                 .attr("r", 8)
                 .style("fill", fillColor);
         }
@@ -179,6 +183,13 @@ export const eventHandlers = {
     ==============================
     */
     changeTheKey: function (countedTotals, d, countOfAnswers) {
+        console.log('this is the count of answers')
+        console.log(countOfAnswers)
+        console.log('this is the question')
+        console.log(d)
+        console.log('this is idk')
+        console.log(countedTotals)
+        console.log('////////////')
         let currentQuestion = d
         let policyAbbr = policies[currentQuestion]
         let buttonText = window.BUTTONS;

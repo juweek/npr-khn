@@ -138,8 +138,6 @@ pym.then((child) => {
       data = window.data;
       //convert newData to a json object
       data = JSON.parse(data);
-      console.log('spreadsheet data')
-      console.log(data)
       let countyToFIPSCode = [];
 
       data.forEach(function (d) {
@@ -209,9 +207,6 @@ pym.then((child) => {
         fipsData[key] = obj;
       });
 
-      console.log('fipsData')
-      console.log(fipsData)
-
       //transform the countyToFIPSCode to a Map of d[fips] => data. make the key the fips code, and a string
       countyToFIPSCode = countyToFIPSCode.map(x => Object.values(x));
       countyToFIPSCode = new Map(countyToFIPSCode);
@@ -238,8 +233,8 @@ pym.then((child) => {
 
       // define the projection function
       const projection = d3.geoAlbersUsa()
-        .scale(1260)
-        .translate([width / 2.65, height / 2.6]);
+        .scale(1280)
+        .translate([width / 2.66, height / 2.6]);
 
       let key = d3.select("#keyHTMLContainer");
       console.log(key)
@@ -251,7 +246,6 @@ pym.then((child) => {
         .data(dataLatLong)  // use the latitude/longitude data
         .join("circle")
         .transition()
-        .duration(500)
         .attr('class', function (d) {
           //check to see if d.id's length is 4 or 5. if it's 4, add a 0 to the front of it. otherwise, just return d.id
           return 'hoverable ' + d['CMS Facility ID'];
@@ -289,6 +283,9 @@ pym.then((child) => {
         })
         .attr("data-FAP", function (d) {
           return d['Financial Assistance Policy available online?']
+        })
+        .attr("data-FAPLINK", function (d) {
+          return d['FAP link']
         })
         .attr("data-COLLECTIONS", function (d) {
           return d['Collection policies available online?']
@@ -360,6 +357,7 @@ pym.then((child) => {
         })
         .on("mouseout", function (d) {
           tooltipHandlers.mouseOut(d.srcElement)
+          //change the fill color of the circle back to its original color
         })
 
       /*

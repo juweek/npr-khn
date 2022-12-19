@@ -11,6 +11,9 @@ export const tooltipHandlers = {
         //in original data, for all the keys that have four digits, add a zero to the front
         //for all the keys that have three digits, add two zeros to the front
         //get the current element's cmsID from the currentElement.__data__
+        //change the currentElement's fill color
+        currentElement.style.stroke = "black";
+        currentElement.style.strokeWidth = "4px";
         let currentCMS = currentElement.getAttribute('data-cmsID')
         let cmsEntry = originalDataCMS[currentCMS]
         currentElement.classList.add("hovered")
@@ -26,6 +29,8 @@ export const tooltipHandlers = {
     },
     mouseOut: function (currentElement) {
         tooltip.style("opacity", 0);
+        currentElement.style.stroke = "white";
+        currentElement.style.strokeWidth = "1.4px";
         currentElement.classList.remove("hovered")
     }
 };
