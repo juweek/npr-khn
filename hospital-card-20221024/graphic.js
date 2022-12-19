@@ -117,6 +117,12 @@ pym.then((child) => {
   })
 
   showResultsButton.addEventListener("click", function () {
+    //change copy of the button depending on whether the results are showing or not
+    if (showResultsButton.innerText == "SHOW RESULTS") {
+      showResultsButton.innerText = "HIDE RESULTS";
+    } else {
+      showResultsButton.innerText = "SHOW RESULTS";
+    }
     clickHandlers.buttonClicked();
     child.sendHeight();
   });
@@ -237,8 +243,7 @@ pym.then((child) => {
         .translate([width / 2.66, height / 2.6]);
 
       let key = d3.select("#keyHTMLContainer");
-      console.log(key)
-      key.html(`<div id="keyContainer"><p class="keyDescription">Which hospitals will deny nonemergency medical care to patients with past-due bills?</p><div id="key"><div id="keyWrapper"><div id="keyTextWrapper"><div data-selection="Yes" style="display: inline-flex;"><div style="width: 20px; height: 20px; background-color: rgb(183, 3, 3); float: left; margin-right: 5px; margin-top: 0px;"></div><p>Yes, will deny medical care</p></div><div data-selection="Other" style="display: inline-flex;"><div style="width: 20px; height: 20px; background-color: rgb(207, 161, 161); float: left; margin-right: 5px; margin-top: 0px;"></div><p>Unclear</p></div><div data-selection="No" style="display: inline-flex;"><div style="width: 20px; height: 20px; background-color: rgb(53, 115, 120); float: left; margin-right: 5px; margin-top: 0px;"></div><p>No, doesn't deny care</p></div></div><div id="keyBarGraph2"><div id="YesBar2" data-selection="Yes" style="height: 20px; width: 17.0455%; margin-bottom: 3px; background-color: rgb(183, 3, 3);"><span style="color: white; font-size: 12px; font-weight: bold; margin-left: 3px;">90</span></div><div id="UnclearBar2" data-selection="Other" style="height: 20px; width: 23.8636%; margin-bottom: 3px; background-color: rgb(207, 161, 161);"><span style="color: white; font-size: 12px; font-weight: bold; margin-left: 3px;">126</span></div><div id="NoBar2" data-selection="No" style="height: 20px; width: 59.0909%; margin-bottom: 3px; background-color: rgb(53, 115, 120);"><span style="color: white; font-size: 12px; font-weight: bold; margin-left: 3px;">312</span></div></div></div></div></div>`)
+      key.html(`<div id="keyContainer"><p class="keyDescription">Which hospitals will deny nonemergency medical care to patients with past-due bills?</p><div id="key"><div id="keyWrapper"><div id="keyTextWrapper"><div data-selection="Yes" style="display: inline-flex;"><div style="width: 20px; height: 20px; background-color: rgb(183, 3, 3); float: left; margin-right: 5px; margin-top: 0px;"></div><p>Yes, will deny medical care</p></div><div data-selection="Other" style="display: inline-flex;"><div style="width: 20px; height: 20px; background-color: #8E7B92; float: left; margin-right: 5px; margin-top: 0px;"></div><p>Unclear</p></div><div data-selection="No" style="display: inline-flex;"><div style="width: 20px; height: 20px; background-color: #631D6F; float: left; margin-right: 5px; margin-top: 0px;"></div><p>No, doesn't deny care</p></div></div><div id="keyBarGraph2"><div id="YesBar2" data-selection="Yes" style="height: 20px; width: 17.0455%; margin-bottom: 3px; background-color: rgb(183, 3, 3);"><span style="color: white; font-size: 12px; font-weight: bold; margin-left: 3px;">90</span></div><div id="UnclearBar2" data-selection="Other" style="height: 20px; width: 23.8636%; margin-bottom: 3px; background-color: #8E7B92;"><span style="color: white; font-size: 12px; font-weight: bold; margin-left: 3px;">126</span></div><div id="NoBar2" data-selection="No" style="height: 20px; width: 59.0909%; margin-bottom: 3px; background-color: #631D6F;"><span style="color: white; font-size: 12px; font-weight: bold; margin-left: 3px;">312</span></div></div></div></div></div>`)
 
       // plot the circles using the projection function to convert the latitude/longitude coordinates to x/y coordinates
       svg.select("g")
@@ -251,7 +256,7 @@ pym.then((child) => {
           return 'hoverable ' + d['CMS Facility ID'];
         })
         .ease(d3.easeLinear)
-        .attr("transform", function(d) {
+        .attr("transform", function (d) {
           return `translate(${projection([d.Longitude, d.Latitude])})`;
         })  // use the projection function to convert the latitude/longitude coordinates to x/y coordinates
         .attr("fill", function (d) {
@@ -260,9 +265,9 @@ pym.then((child) => {
           if (currentAnswer.toLowerCase().includes('yes')) {
             return '#b70303';
           } else if (currentAnswer.toLowerCase().includes('no')) {
-            return '#357378';
+            return '#631D6F';
           } else {
-            return '#CFA1A1';
+            return '#8E7B92';
           }
         })
         .attr("data-fips", function (d) { return d.id })
@@ -386,9 +391,17 @@ pym.then((child) => {
         if (a['state'] > b['state']) {
           return 1;
         }
-        return 0;
+        if (a['state'] == b['state']) {
+          if (a['CITY'] < b['CITY']) {
+            return -1;
+          }
+          if (a['CITY'] > b['CITY']) {
+            return 1;
+          }
+          return 0;
+        }
       });
-      //sort dataForModal by taking the state property and sorting it alphabetically
+
 
       for (const entry in sortedData) {
         let currentEntry = sortedData[entry]
@@ -421,7 +434,7 @@ pym.then((child) => {
       for (let i = 0; i < hoverableContent1.length; i++) {
         hoverableContent1[i].addEventListener("mousemove", function (d) {
           //get the current fips code
-        
+
           let currentFips = d.target.getAttribute("data-fips")
           let currentCMS = d.target.getAttribute("data-cmsID")
           //if fips has four digits, add a 0 to the front

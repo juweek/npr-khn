@@ -100,7 +100,6 @@ export const modalFunctions = {
             <div class="modal__text">${currentElement.getAttribute("data-SCORECARD")}</div>
             <div class="modal__text">Note on data: Hospital policies and practices change. And over time hospitals close, change names and merge with other institutions. If KHN learns that an entry is no longer accurate, it will update information that it verifies.</div>
             <div class="keyBlockSub">
-            <div class="keyBlock keyBlockUnsure" style="background-color: red; border-radius: 20px;"></div><div class="modal__text">No available policy or the practice was not spelled out in the policy</div>
             </div>
             </div>`
         )

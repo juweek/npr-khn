@@ -46,7 +46,6 @@ export const eventHandlers = {
             }
 
             //loop through all the listOfArrays and filter out the ones that don't match the current state
-
             let stateArray = listOfArrays[0]
             let newListOfArrays = []
             let newDataState = ["state"],
@@ -61,7 +60,6 @@ export const eventHandlers = {
                 //loop through each of the other arrays in listOfArrays and filter out the ones that don't match the current state. create an object with the filtered arrays and push it to the newListOfArrays
                 for (let j = 1; j < listOfArrays.length; j++) {
                     if (stateArray[i] == currentState) {
-
                         //create a key value pair, with the key being the state name and the value being the current entry
                         newDataState.push(stateArray[i])
                         dataHospitalType.push(listOfArrays[j][i])
@@ -90,14 +88,13 @@ export const eventHandlers = {
             })
             //THIS IS THE CODE THAT CHANGES THE KEY BASED ON THE STATE FILTER. EASY TO REIMPLEMENT IF WE WANT
             //find the currently selected button and get its value
-            console.log('this state is firing')
             let currentlySelectedButton = document.querySelector("button.active"); 
             //get the id of the currently selected button
             let currentlySelectedButtonId = currentlySelectedButton.getAttribute("id");
-            console.log(currentlySelectedButtonId)
-            console.log('//////')
-            console.log(newListOfCountedNames)
-            //this.changeTheKey(newListOfCountedNames, d, currentlySelectedButton);
+            //get the associated question from the currentlySelectedButtonId
+            //find the key in policies where the value is currentlySelectedButtonId
+            let policyKey = Object.keys(policies).find((key) => policies[key] === currentlySelectedButtonId);
+            this.policydropdownChange(newListOfCountedNames, policyKey);
         }
     },
     /*
@@ -183,13 +180,6 @@ export const eventHandlers = {
     ==============================
     */
     changeTheKey: function (countedTotals, d, countOfAnswers) {
-        console.log('this is the count of answers')
-        console.log(countOfAnswers)
-        console.log('this is the question')
-        console.log(d)
-        console.log('this is idk')
-        console.log(countedTotals)
-        console.log('////////////')
         let currentQuestion = d
         let policyAbbr = policies[currentQuestion]
         let buttonText = window.BUTTONS;
