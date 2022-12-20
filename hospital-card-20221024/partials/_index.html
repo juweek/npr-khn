@@ -8,7 +8,7 @@
     
     <div id="htmlKey">
     <div >
-      <h1>Find out how these U.S. hospitals treat patients who can't pay</h1>
+      <h1><%= t.smarty(COPY.labels["headline"]) %></h1>
       <p style="margin-top: 0px"><%= t.smarty(COPY.labels["Explainer"]) %></p>
     <div id="buttonContainer"></div>
       </div>
@@ -19,7 +19,7 @@
       <section id="fixedSideColumn">
       </section>
       <div id="fixedSideColumnTop">
-        <button id="showResultsButton">HIDE RESULTS</button>
+        <button id="showResultsButton"></button>
       </div>
       <div>
         <h1>Search by state</h1>
@@ -33,6 +33,7 @@
       <u>Methodology:</u>
       <% if (COPY.labels["methodology"]) { %>
         <div><%= t.smarty(COPY.labels["methodology"]) %></div>
+        <u>Note on data:</u>
         <div><%= t.smarty(COPY.labels["methodology2"]) %></div>
         <% } %>
     </div>

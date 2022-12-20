@@ -105,7 +105,7 @@ pym.then((child) => {
 
   /*
  ------------------------------
- FUNCTION: attach the event listeners to the state dropdown. also, attach the event listener to the show results button
+ FUNCTION: attach the event listeners to the state dropdown. 
  ------------------------------
  */
   currentStateDropdown.addEventListener("change", function (d) {
@@ -116,6 +116,11 @@ pym.then((child) => {
     child.sendHeight();
   })
 
+    /*
+ ------------------------------
+ FUNCTION: attach the show and hide results button listener
+ ------------------------------
+ */
   showResultsButton.addEventListener("click", function () {
     //change copy of the button depending on whether the results are showing or not
     if (showResultsButton.innerText == "SHOW RESULTS") {
@@ -413,7 +418,7 @@ pym.then((child) => {
         sideColumnDiv.setAttribute("data-cmsID", currentEntry['cmsID'])
         sideColumnDiv.setAttribute("data-hospitalType", currentEntry.HOSPITAL_TYPE)
         sideColumnDiv.setAttribute("data-beds", currentEntry.Beds)
-        sideColumnDiv.innerHTML = `<div class="hoverableContent ${currentEntry.fips}"><div><b>${currentEntry.NAME}</b> </div><div>${currentEntry.CITY}, ${currentEntry.state}</div><div>${currentEntry.SYSTEM}</div><div>${currentEntry.BEDS} beds</div></div>`
+        sideColumnDiv.innerHTML = `<div class="hoverableContent ${currentEntry.fips}"><div><b>${currentEntry.NAME}</b> </div><div>${currentEntry.CITY}, ${currentEntry.state}</div><div>${currentEntry.SYSTEM}</div></div>`
         fixedSideColumn.appendChild(sideColumnDiv);
       }
 

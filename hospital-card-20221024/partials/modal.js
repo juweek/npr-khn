@@ -22,6 +22,8 @@ export const modalFunctions = {
     ------------------------------
     */
     clickCircle: function (currentElement, originalData, originalDataCMS) {
+        //empty out the modalContent, if it exists
+        d3.select(".modal").remove()
         let modal = d3
             .select("#fixedSideColumnTop")
             .append("div")
@@ -50,17 +52,19 @@ export const modalFunctions = {
         let randomColor = ["red", "blue", "purple"][Math.floor(Math.random() * 3)]
 
 
+        //empty out the modalContent
         modalContent.html(
             `
-            <div class="introContainer">
-            <div class="introText">
             <h2 class="modalTitle">${currentElement.getAttribute("data-NAME")}</h2>
+            <div class="introContainer">
+            <div class="modalContentGroup introText">
+            <h3 class="modalTitle">LOCATION INFORMATION:</h2>
             <div class="modal__text"><b>${currentElement.getAttribute("data-CITY")}, ${currentElement.getAttribute("data-state")}</b></div>
             ${currentElement.getAttribute("data-SYSTEM") ? `<div class="modal__text"><b>System:</b> <span class="cardLocation">${currentElement.getAttribute("data-SYSTEM")}</span></div>` : ""}
             <div class="modal__text"><b>Hospital type: </b> <span class="cardLocation">${currentElement.getAttribute("data-hospitalType")}</span></div>
             <div class="modal__text"><b>Beds:</b> <span class="cardLocation">${currentElement.getAttribute("data-beds")}</span></div>
             </div>
-            <div class="introImage">
+            <div class="modalContentGroup introImage">
                 <div id="radarChart"></div>
             </div>
             </div>
@@ -72,8 +76,8 @@ export const modalFunctions = {
             <div class="modal__text"><span>Provides aid to patients with very large medical bills?</span> <span>${currentElement.getAttribute("data-AID")}</span></div>
             <div class="modal__text"><span>Financial Assistance Policy available online?</span> 
             <span>
-                ${currentElement.getAttribute("data-FAPLINK") !== null && currentElement.getAttribute("data-FAPLINK") !== undefined ?
-                    `<a href="${currentElement.getAttribute("data-FAPLINK")}">${currentElement.getAttribute("data-FAP")}</a>` :
+                ${currentElement.getAttribute("data-FAPLINK") !== null && currentElement.getAttribute("data-FAPLINK") !== undefined && currentElement.getAttribute("data-FAPLINK") !== ""  ?
+                    `<u><a href="${currentElement.getAttribute("data-FAPLINK")}">${currentElement.getAttribute("data-FAP")}</a></u>` :
                     `${currentElement.getAttribute("data-FAP")}`
                  }
             </span>
@@ -81,14 +85,14 @@ export const modalFunctions = {
             </div>
             <div class="modalContentGroup billingCollections">
             <h3 class="modalTitle">Billing and collections:</h3>
-            <div class="modal__text"><span>Allows reporting patients to credit rating agencies?¹</span><span>${currentElement.getAttribute("data-REPORTED")}</span></div>
-            <div class="modal__text"><span>Allows sale of patient debt?²</span> <span>${currentElement.getAttribute("data-DEBT")}</span></div>
-            <div class="modal__text"><span>Allows non-emergency care to be restricted for patients with debt?³</span> <span>${currentElement.getAttribute("data-DENIED")}</span></div>
-            <div class="modal__text"><span>Allows lawsuits against patients, liens or wage garnishment?⁴</span> <span>${currentElement.getAttribute("data-SUED")}</span></div>
+            <div class="modal__text"><span>Allows reporting patients to credit rating agencies?</span><span>${currentElement.getAttribute("data-REPORTED")}</span></div>
+            <div class="modal__text"><span>Allows sale of patient debt?</span> <span>${currentElement.getAttribute("data-DEBT")}</span></div>
+            <div class="modal__text"><span>Allows non-emergency care to be restricted for patients with debt?</span> <span>${currentElement.getAttribute("data-DENIED")}</span></div>
+            <div class="modal__text"><span>Allows lawsuits against patients, liens or wage garnishment?</span> <span>${currentElement.getAttribute("data-SUED")}</span></div>
             <div class="modal__text"><span>Billing & Collections Policy available online?</span> 
             <span>
                 ${cmsEntry.COLLECTIONS_LINK !== null && cmsEntry.COLLECTIONS_LINK !== undefined && cmsEntry.COLLECTIONS_LINK !== "" ?
-                    `<a href="${cmsEntry.COLLECTIONS_LINK}">${currentElement.getAttribute("data-COLLECTIONS")}</a>` :
+                    `<u><a href="${cmsEntry.COLLECTIONS_LINK}">${currentElement.getAttribute("data-COLLECTIONS")}</a></u>` :
                     `${currentElement.getAttribute("data-COLLECTIONS")}`
                  }
             </span>
@@ -333,47 +337,50 @@ export const modalFunctions = {
                 //fill in the text of the div
                 //check the current metric and change the copy based on that
                 if (metric === "REPORTED") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Reporting patients is allowed¹</span>`;
+                    div.innerHTML = `<span class="quadrant__item--copy">Credit reporting allowed</span>`;
                 } else if (metric === "DEBT") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Selling patient debt is allowed²</span>`;
+                    div.innerHTML = `<span class="quadrant__item--copy">Selling patient debt allowed</span>`;
                 } else if (metric === "DENIED") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Denying care is allowed³</span>`;
+                    div.innerHTML = `<span class="quadrant__item--copy">Denying care allowed</span>`;
                 } else if (metric === "SUED") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Suing patients is allowed⁴</span>`;
+                    div.innerHTML = `<span class="quadrant__item--copy">Legal action allowed </span>`;
                 }
             } else if (value.toLowerCase().includes('no')) {
                 div.style.backgroundColor = "#dff5db";
                 div.style.border = "1.5px solid darkgreen";
                 //fill in the text of the div
                 if (metric === "REPORTED") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Does not report patients¹</span>`;
+                    div.innerHTML = `<span class="quadrant__item--copy">Credit reporting not allowed</span>`;
                 } else if (metric === "DEBT") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Does not sell patient debt</span>²`;
+                    div.innerHTML = `<span class="quadrant__item--copy">Selling patient debt allowed</span>`;
                 } else if (metric === "DENIED") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Does not deny care³</span>`;
+                    div.innerHTML = `<span class="quadrant__item--copy">Denying care not allowed</span>`;
                 } else if (metric === "SUED") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Does not allow lawsuits⁴</span>`;
+                    div.innerHTML = `<span class="quadrant__item--copy">Legal action not allowed</span>`;
                 }
             } else {
                 div.style.backgroundColor = "#e1e1e1";
                 div.style.border = "1.5px solid gray";
                 if (metric === "REPORTED") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Unclear if reporting allowed¹</span>`;
+                    div.innerHTML = `<span class="quadrant__item--copy">Unclear if credit reporting allowed</span>`;
                 } else if (metric === "DEBT") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Unclear if selling debt allowed²</span>`;
+                    div.innerHTML = `<span class="quadrant__item--copy">Unclear is selling debt allowed</span>`;
                 } else if (metric === "DENIED") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Unclear if denying care allowed³</span>`;
+                    div.innerHTML = `<span class="quadrant__item--copy">Unclear if denying care allowed</span>`;
                 } else if (metric === "SUED") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Unclear if lawsuits allowed⁴</span>`;
+                    div.innerHTML = `<span class="quadrant__item--copy">Unclear if legal action allowed</span>`;
                 }
             }
+            //append a title before the quadrant
             // Append the div to the quadrant
             quadrant.appendChild(div);
         }
-        console.log(quadrant)
         //attach quadrant to radarChart
         const radarChart = document.getElementById("radarChart")
-        console.log(radarChart)
+        const title = document.createElement("h3");
+        title.classList.add("quadrant__title");
+        title.innerHTML = `<span class="quadrant__title--copy">HOSPITAL COLLECTION POLICIES:</span>`;
+        radarChart.appendChild(title);
         radarChart.appendChild(quadrant)
 
         return quadrant;

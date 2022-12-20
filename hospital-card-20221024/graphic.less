@@ -214,7 +214,7 @@ h1 {
 
 #fixedSideColumnTop {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   justify-content: space-between;
   position: relative;
 }
@@ -235,7 +235,7 @@ h1 {
   border-bottom: 1px solid rgb(108, 108, 108);
   min-height: 100px;
   max-height: 300px;
-  overflow: scroll;
+  overflow-y: scroll;
   padding: 5px;
 
   select {
@@ -267,6 +267,10 @@ h1 {
   #showResultsButton {
     margin-right: 60px;
   }
+}
+
+#showResultsButton {
+  display: none;
 }
 
 #fixedSideColumnTop {
@@ -331,6 +335,7 @@ h1 {
   box-shadow: 3px 3px 3px #b0b0b0;
   margin-bottom: 5px;
   width: 100%;
+  cursor: pointer;
 
   &.visible {
     display: block;
@@ -407,12 +412,12 @@ div.tooltip {
   z-index: 1;
   width: 90vw;
   height: auto;
-  overflow: scroll;
+  overflow: auto;
   background-color: white;
   border: 1px solid #333;
   margin: 0 auto;
   left: 5vw;
-  top: 10%;
+  top: 5%;
   padding: 20px 10px;
 
   @media screen and (max-width: 729px) {
@@ -420,11 +425,11 @@ div.tooltip {
     width: 100%;
     height: auto;
     left: 0%;
-    top: 10vh;
+    top: 0vh;
   }
 
   //at the largest desktop size, the modal is 600px wide
-  @media screen and (min-width: 1100px) {
+  @media screen and (min-width: 1000px) {
     width: 750px;
     height: auto;
     left: 50%;
@@ -441,17 +446,16 @@ div.tooltip {
     margin-top: 10px;
     width: 24px;
     height: 24px;
-    background-color: #fff;
     border-radius: 50%;
-    border: 1px solid rgb(192, 192, 192);
     position: relative;
 
     &:hover,
     &:focus {
-      background-color: black;
+      opacity: .2;
       text-decoration: none;
       cursor: pointer;
     }
+
   }
 }
 
@@ -459,11 +463,11 @@ div.tooltip {
 .close::after {
   content: '';
   position: absolute;
-  width: 20px;
+  width: 26px;
   height: 4px;
   top: 50%;
   left: 50%;
-  background-color: rgb(215, 30, 30);
+  background-color: rgb(31, 31, 31);
   transform: translate(-50%, -50%) rotate(45deg);
 }
 
@@ -491,6 +495,19 @@ div.tooltip {
   margin-top: 12px;
   margin-bottom: 4px;
   text-align: left;
+}
+
+ //select all elements that are both h2 and modalTitles
+ h2.modalTitle {
+  font-size: 21px;
+  line-height: 24px;
+  color: rgb(47, 47, 47);
+  margin-bottom: 10px;
+  margin-top: 20px;
+
+  @media screen and (min-width: 728px) {
+    margin-top: 20px;
+  }
 }
 
 .modal__text {
@@ -631,6 +648,7 @@ button {
   button {
     margin-bottom: 10px;
     margin-right: 10px;
+    border-radius: 100px;
   }
 }
 
@@ -648,15 +666,14 @@ button {
 
 #radarChart
 {
-    display: flex;
-    justify-content: center;
     align-items: center;
     position: relative;
+    padding-top: 10px;
 
     @media screen and (max-width: 728px) {
       border-left: 1px solid #333;
       padding-left: 10px;
-}
+  }
 }
 
 .levels path
@@ -695,13 +712,13 @@ button {
   flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
+  align-items: flex-start;
 }
 
 .introImage {
- margin-top: 40px;
- @media screen and (max-width: 728px) {
-  margin-top: 50px;
-}
+ margin-top: 0px;
+ max-width: 49%;
+ min-width: 49%;
 }
 
 .modalContent {
@@ -714,6 +731,10 @@ button {
 .modalContentGroup {
   border-top: 1px solid #333;
   padding-bottom: 20px;
+
+  @media screen and (max-width: 728px) {
+      width: 100%;
+  }
 }
 
 .modalContentGroupWrap {
@@ -732,15 +753,6 @@ button {
 .introText {
   max-width: 49%;
   min-width: 49%;
-
-  > h2:first-child {
-    font-size: 21px;
-    line-height: 24px;
-
-    @media screen and (min-width: 728px) {
-      margin-top: 0;
-    }
-  }
 }
 
 .keyBlock{
@@ -774,7 +786,7 @@ button {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: flex-start;
   color: black;
   font-size: 12px;
   margin-bottom: 5px;
@@ -787,7 +799,7 @@ button {
 
 .quadrant__item {
   width: 75px;
-  height: 60px;
+  height: 80px;
   padding-top: 4px;
   border: 1px solid #fff;
   border-radius: 2px;
@@ -795,10 +807,14 @@ button {
 
   @media screen and (max-width: 728px) {
     width: 75px;
-  height: 60px;
+    height: 60px;
   }
 }
 
 .cardLocation {
   margin-left: 20px !important;
+}
+
+.quadrant__title {
+  margin-bottom: 10px;
 }
