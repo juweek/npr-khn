@@ -280,7 +280,7 @@ h1 {
 
   //give the fixed side column a gradient background that goes from transparent at the top to white at the bottom
   background: linear-gradient(rgba(255, 255, 255, 0.637), #fff);
-  
+
   select {
     height: 30px;
     background-color: #f5f5f5;
@@ -382,6 +382,23 @@ body.npr {
   h1,
   h2 {
     .mmedia-constrained-centered();
+  }
+
+  h1 {
+    margin-bottom: 8px;
+  }
+  h1 + p {
+    font-weight: normal;
+    color: #777;
+    font-size: 12px;
+    margin: 0 0 22px 0;
+    line-height: 1.6;
+    text-align: center;
+    .mmedia-constrained-centered();
+  }
+
+  #buttonContainer {
+    margin-bottom: 11px;
   }
 
   .footnotes,
@@ -497,7 +514,12 @@ div.tooltip {
 .modalTitle {
   font-weight: bold;
   margin-top: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
+  text-align: left;
+
+  .npr & {
+    font-weight: normal;
+  }
 }
 
  //select all elements that are both h2 and modalTitles
@@ -511,6 +533,11 @@ div.tooltip {
 
   @media screen and (min-width: 728px) {
     margin-top: 20px;
+  }
+
+  .npr & {
+    .gotham();
+    font-weight: bold;
   }
 }
 
@@ -563,11 +590,11 @@ div.tooltip {
   width: 100%;
   margin-bottom: 20px;
 
-  
+
   h3 {
     font-size: 15px;
     margin-bottom: 4px;
-    
+
   }
 }
 
@@ -822,10 +849,6 @@ button {
 
 .quadrant__title {
   margin-bottom: 10px;
-
-  @media screen and (min-width: 728px) {
-    text-align: center;
-  }
 }
 
 body.khn {
