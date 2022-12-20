@@ -375,6 +375,10 @@ body.npr {
   margin-left: auto;
   margin-right: auto;
 
+  h1 {
+    margin-bottom: 10px;
+  }
+
   h1,
   h2 {
     .mmedia-constrained-centered();
@@ -493,8 +497,7 @@ div.tooltip {
 .modalTitle {
   font-weight: bold;
   margin-top: 12px;
-  margin-bottom: 4px;
-  text-align: left;
+  margin-bottom: 8px;
 }
 
  //select all elements that are both h2 and modalTitles
@@ -504,6 +507,7 @@ div.tooltip {
   color: rgb(47, 47, 47);
   margin-bottom: 10px;
   margin-top: 20px;
+  text-align: left;
 
   @media screen and (min-width: 728px) {
     margin-top: 20px;
@@ -717,8 +721,8 @@ button {
 
 .introImage {
  margin-top: 0px;
- max-width: 49%;
- min-width: 49%;
+ max-width: 48%;
+ min-width: 48%;
 }
 
 .modalContent {
@@ -751,8 +755,8 @@ button {
 }
 
 .introText {
-  max-width: 49%;
-  min-width: 49%;
+  max-width: 48%;
+  min-width: 48%;
 }
 
 .keyBlock{
@@ -807,7 +811,8 @@ button {
 
   @media screen and (max-width: 728px) {
     width: 75px;
-    height: 60px;
+    height: 70px;
+    line-height: 15px;
   }
 }
 
@@ -817,4 +822,18 @@ button {
 
 .quadrant__title {
   margin-bottom: 10px;
+
+  @media screen and (min-width: 728px) {
+    text-align: center;
+  }
 }
+
+body.khn {
+  .modalTitle {
+    text-align: left;
+  }
+
+  .quadrant__title {
+    text-align: left;
+  }
+  }

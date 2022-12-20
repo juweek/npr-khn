@@ -181,6 +181,8 @@ pym.then((child) => {
             FREE: d["Qualifying income for free care"],
             SUED: d['Can patients be sued or subject to wage garnishment or property liens?'],
             SCORECARD: d['Scorecard notes'],
+            PUBLIC: d['Public university system?'],
+            USNEWS: d['US News top 20?'],
             DENIED: d['Can patients with debt be denied nonemergency care?'],
           }
           //create all the data in countyToFIPSCode
@@ -339,8 +341,13 @@ pym.then((child) => {
         .attr("data-DISCOUNT", function (d) {
           return d['Qualifying income for discounted care']
         })
+        .attr("data-PUBLIC", function (d) {
+          return d['Public university system?']
+        })
+        .attr("data-USNEWS", function (d) {
+          return d['US News top 20?']
+        })
         .attr("r", d => radius(''));
-
       //write a sql query that will read in the data where teh year column in 2020
 
       //for every array in List of Arrays, filter the items to display the count of unique items. use this count to determine the radius of the circle
