@@ -160,7 +160,7 @@ export const eventHandlers = {
 
             d3.select(circles[i])
                 .transition()
-                .delay(.005)
+                .delay(.003)
                 .ease(d3.easeLinear)
                 .attr("r", 8)
                 .style("fill", fillColor);

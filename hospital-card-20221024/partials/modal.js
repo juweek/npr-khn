@@ -64,6 +64,7 @@ export const modalFunctions = {
             <div class="modal__text"><b>Hospital type: </b> <span class="cardLocation">${currentElement.getAttribute("data-hospitalType")}</span></div>
             <div class="modal__text"><b>Beds:</b> <span class="cardLocation">${currentElement.getAttribute("data-beds")}</span></div>
             ${currentElement.getAttribute("data-PUBLIC") ? `<div class="modal__text"><b>Public university system?</b> <span class="cardLocation">Yes</span></div>` : ""}
+            ${currentElement.getAttribute("data-USNEWS") ? `<div class="modal__text"><b>US News top 20?</b> <span class="cardLocation">Yes</span></div>` : ""}
             </div>
             <div class="modalContentGroup introImage">
                 <div id="radarChart"></div>
@@ -86,10 +87,10 @@ export const modalFunctions = {
             </div>
             <div class="modalContentGroup billingCollections">
             <h3 class="modalTitle">Billing and collections:</h3>
-            <div class="modal__text"><span>Allows reporting patients to credit rating agencies?</span><span>${currentElement.getAttribute("data-REPORTED")}</span></div>
+            <div class="modal__text"><span>Allows reporting of patients to credit rating agencies?</span><span>${currentElement.getAttribute("data-REPORTED")}</span></div>
             <div class="modal__text"><span>Allows sale of patient debt?</span> <span>${currentElement.getAttribute("data-DEBT")}</span></div>
-            <div class="modal__text"><span>Allows non-emergency care to be restricted for patients with debt?</span> <span>${currentElement.getAttribute("data-DENIED")}</span></div>
-            <div class="modal__text"><span>Allows lawsuits against patients, liens or wage garnishment?</span> <span>${currentElement.getAttribute("data-SUED")}</span></div>
+            <div class="modal__text"><span>Allows nonemergency care to be restricted for patients with debt?</span> <span>${currentElement.getAttribute("data-DENIED")}</span></div>
+            <div class="modal__text"><span>Allows lawsuits against patients, liens, or wage garnishment?</span> <span>${currentElement.getAttribute("data-SUED")}</span></div>
             <div class="modal__text"><span>Collection policies available online?</span> 
             <span>
                 ${cmsEntry.COLLECTIONS_LINK !== null && cmsEntry.COLLECTIONS_LINK !== undefined && cmsEntry.COLLECTIONS_LINK !== "" ?
@@ -353,7 +354,7 @@ export const modalFunctions = {
                 if (metric === "REPORTED") {
                     div.innerHTML = `<span class="quadrant__item--copy">Credit reporting not allowed</span>`;
                 } else if (metric === "DEBT") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Selling patient not debt allowed</span>`;
+                    div.innerHTML = `<span class="quadrant__item--copy">Selling patient debt not allowed</span>`;
                 } else if (metric === "DENIED") {
                     div.innerHTML = `<span class="quadrant__item--copy">Denying care not allowed</span>`;
                 } else if (metric === "SUED") {
