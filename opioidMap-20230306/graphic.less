@@ -1,0 +1,868 @@
+@import "./lib/base";
+@import "../_base/khn-npr.less";
+
+text.in {
+  font-weight: bold !important;
+}
+
+body.npr {
+  rect {
+    fill: @red4 !important;
+  }
+}
+
+.hovered {
+  border: 1px solid black;
+  cursor: pointer;
+  fill: #c70000;
+  transition: all .05s ease;
+}
+
+
+section {
+  position: relative;
+}
+
+.active {
+  background-color: #555252;
+}
+
+#treeMapContainer>div {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  margin-top: 20px;
+}
+
+#treeMapContainer img {
+  width: 100%;
+}
+
+#treeMapContainer>div.active {
+  opacity: 1;
+  background-color: transparent;
+}
+
+.centered {
+  display: table;
+  margin: 20px auto;
+}
+
+.graph {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.buttonsContainer {
+  display: flex;
+  width: 75%;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+button {
+  display: block;
+  font-family: 'Knockout 31 4r';
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  -webkit-font-smoothing: antialiased;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-decoration: none;
+  background: #F5F5F5;
+  border: 1px solid #eee;
+  color: #555555;
+  font-size: 13px;
+  line-height: 25px;
+  padding: 0 15px;
+}
+
+button:first-of-type {
+  border-radius: 10px 0px 0px 10px;
+}
+
+button:last-of-type {
+  border-radius: 0px 6px 6px 0px;
+}
+
+input[type="button"] {
+  border: none;
+  outline: none;
+  background: none;
+}
+
+#treeMapContainer {
+  height: 360px;
+}
+
+button.active {
+  color: white;
+}
+
+h1,
+h2 {
+  text-align: left;
+}
+
+@media screen and (min-width: 489px) {
+  #treeMapContainer {
+    height: 480px;
+  }
+
+}
+
+@media screen and (min-width: 729px) {
+
+  h1,
+  h2 {
+    text-align: center;
+  }
+
+  #treeMapContainer {
+    height: 640px;
+  }
+
+  .buttonsContainer {
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 1080px) {
+  #treeMapContainer {
+    height: 800px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  #treeMapContainer {
+    height: 920px;
+  }
+}
+
+.key_block {
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  margin-right: .5%;
+  text-align: center;
+}
+
+.key_break {
+  height: 16px;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 4px;
+}
+
+.hospitalCardContainer {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.methodology {
+  font-size: 12px;
+  margin: 0;
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  max-width: 100%;
+}
+
+.graphic {
+  min-width: 100%;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+
+#htmlKey {
+  text-align: left;
+  margin: 20px;
+  margin-bottom: 0px;
+}
+
+h1 {
+  text-align: left;
+  margin-bottom: 0;
+}
+
+@media screen and (min-width: 729px) {
+
+  .methodology {
+    max-width: 75%;
+    margin: 0 auto;
+    margin-bottom: 60px;
+    margin-top: 20px;
+  }
+
+  #htmlKey {
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 0px;
+  }
+}
+
+#fixedSideColumnTop {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+}
+
+#fixedSideColumn {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  top: 0px;
+  right: 0px;
+  min-width: 25%;
+  width: 100%;
+  z-index: 1;
+  pointer-events: all;
+  max-height: 20px;
+  border-top: 1px solid rgb(108, 108, 108);
+  border-bottom: 1px solid rgb(108, 108, 108);
+  min-height: 100px;
+  max-height: 300px;
+  overflow-y: scroll;
+  padding: 5px;
+
+  select {
+    right: 0;
+    margin-right: 10px;
+  }
+
+  button {
+    left: 0;
+    margin-left: 10px;
+    border: 1px solid rgb(108, 108, 108);
+  }
+
+  &.hidden {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 729px) {
+  #fixedSideColumn {
+    margin: 0 auto;
+    position: relative;
+    z-index: 100;
+    max-height: 330px;
+  }
+}
+
+@media screen and (min-width: 729px) {
+  #showResultsButton {
+    margin-right: 60px;
+  }
+}
+
+#showResultsButton {
+  display: none;
+}
+
+#fixedSideColumnTop {
+  bottom: 0px;
+  z-index: 2001;
+  margin-bottom: 20px;
+
+  //give the fixed side column a gradient background that goes from transparent at the top to white at the bottom
+  background: linear-gradient(rgba(255, 255, 255, 0.637), #fff);
+
+  select {
+    height: 30px;
+    background-color: #f5f5f5;
+    border: 1px solid #d1d1d1;
+    border-radius: 3px;
+
+    &:hover {
+      background-color: #898989;
+      color: white;
+    }
+  }
+}
+
+.sideColumnHospital div {
+  pointer-events: none;
+}
+
+@media screen and (max-width: 729px) {
+  #fixedSideColumn {
+    z-index:2000;
+
+    .sideColumnMobile {
+      pointer-events: none;
+    }
+
+    select,
+    button {
+      pointer-events: all;
+    }
+  }
+}
+
+#keyBarGraph {
+  display: flex;
+  flex-direction: row;
+  div {
+    min-height: 20px;
+    margin-bottom: 6px;
+}
+}
+
+.sideColumnHospital {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #333;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  border: 1px solid #b0b0b0;
+  border-radius: 3px;
+  box-shadow: 3px 3px 3px #b0b0b0;
+  margin-bottom: 5px;
+  width: 100%;
+  cursor: pointer;
+
+  &.visible {
+    display: block;
+    opacity: 1;
+  }
+
+  &:hover {
+    box-shadow: 1px 1px 1px #b0b0b0;
+    transform: translate(2px, 2px);
+  };
+
+  @media screen and (min-width: 729px) {
+    width: 49%;
+  }
+}
+
+@media screen and (max-width: 729px) {
+  .sidecolumnMobile {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #333;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: white;
+    border: 8px solid #fdb0b0;
+
+    .sideColumnHospital {
+      display: block;
+      opacity: 1;
+    }
+  }
+}
+
+body.npr {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+
+  h1 {
+    margin-bottom: 10px;
+  }
+
+  h1,
+  h2 {
+    .mmedia-constrained-centered();
+  }
+
+  h1 {
+    margin-bottom: 8px;
+  }
+  h1 + p {
+    font-weight: normal;
+    color: #777;
+    font-size: 12px;
+    margin: 0 0 22px 0;
+    line-height: 1.6;
+    text-align: center;
+    .mmedia-constrained-centered();
+  }
+
+  #buttonContainer {
+    margin-bottom: 11px;
+  }
+
+  .footnotes,
+  .footer {
+    .mmedia-constrained();
+  }
+}
+
+.textArea {
+  display: none;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: left;
+  color: #333;
+  white-space: normal;
+  padding: 6px;
+  font-size: 12px;
+  background: white;
+  border: 1px solid rgb(96, 125, 139);
+  border-radius: 2px;
+  pointer-events: none;
+  cursor: none;
+  width: 180px;
+}
+
+//a fixed modal that presents black text on a white background. There is a close button in the upper right corner. anf the fixed modal is in the middle of the screen, both horizontally and vertically.
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  width: 90vw;
+  height: auto;
+  overflow: auto;
+  background-color: white;
+  border: 1px solid #333;
+  margin: 0 auto;
+  left: 5vw;
+  top: 5%;
+  padding: 20px 10px;
+
+  @media screen and (max-width: 729px) {
+    z-index: 1000;
+    width: 100%;
+    height: auto;
+    left: 0%;
+    top: 0vh;
+  }
+
+  //at the largest desktop size, the modal is 600px wide
+  @media screen and (min-width: 1000px) {
+    width: 750px;
+    height: auto;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  //create a close button in the upper right corner
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    margin-right: 10px;
+    margin-top: 10px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    position: relative;
+
+    &:hover,
+    &:focus {
+      opacity: .2;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+  }
+}
+
+.close::before,
+.close::after {
+  content: '';
+  position: absolute;
+  width: 26px;
+  height: 4px;
+  top: 50%;
+  left: 50%;
+  background-color: rgb(31, 31, 31);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.modal .close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.modal.clicked {
+  display: block;
+  opacity: 1;
+  padding-top: 10px;
+  background-color: #fefbf4;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.modalTitle {
+  font-weight: bold;
+  margin-top: 12px;
+  margin-bottom: 4px;
+  text-align: left;
+
+  .npr & {
+    font-weight: normal;
+  }
+}
+
+ //select all elements that are both h2 and modalTitles
+ h2.modalTitle {
+  font-size: 21px;
+  line-height: 24px;
+  color: rgb(47, 47, 47);
+  margin-bottom: 10px;
+  margin-top: 20px;
+  text-align: left;
+
+  @media screen and (min-width: 728px) {
+    margin-top: 20px;
+  }
+
+  .npr & {
+    .gotham();
+    font-weight: bold;
+  }
+}
+
+.modal__text {
+  font-size: 12px;
+  margin-bottom: 3px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px dashed #ddd;
+  padding-bottom: 4px;
+  justify-content: space-between;
+
+  //give the last span in the modal__text a little more room on the right
+  span:first-child {
+    margin-right: 20px;
+    text-align: left;
+    min-width: 60px;
+  }
+
+  span:last-child {
+    margin-left: 60px;
+    text-align: right;
+  }
+}
+
+#svganchor {
+  padding-left: 20px;
+  max-width: 80%;
+  margin-top: 0px;
+
+  select {
+    max-width: 100%;
+    padding: 5px;
+    margin: 10px 0;
+  }
+}
+
+@media screen and (max-width: 729px) {
+  #svganchor {
+    padding-left: 10px;
+    max-width: 80%;
+    padding-right: 10px;
+    z-index: 1000;
+  }
+}
+
+#keyContainer {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+
+
+  h3 {
+    font-size: 15px;
+    margin-bottom: 4px;
+
+  }
+}
+
+#key {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  .key_block {
+    margin-right: 10px;
+    display: flex;
+    flex-direction: row;
+  }
+
+  span {
+    width: 14px;
+    height: 14px;
+    margin-right: 4px;
+  }
+
+  p {
+    margin: 0;
+    margin-right: 0px;
+  }
+
+}
+
+#keyTextWrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+#keyBarGraph2 {
+  height: 100%;
+  width: 250px;
+}
+
+#keyWrapper {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  justify-content: flex-start;
+}
+
+//give only the first child div wrapper a with of 48%
+#keyWrapper > div:first-child {
+  width: 45%;
+}
+
+@media screen and (max-width: 729px) {
+  #keyWrapper > div:first-child {
+    width: 70%;
+  }
+  #keyBarGraph2 {
+    width: 120px;
+  }
+}
+
+//give second child div wrapper a dotted left border
+#keyWrapper > div:nth-child(2) {
+  border-left: 1px dotted #333;
+  padding-left: 3px;
+}
+
+button {
+  &:hover {
+    cursor: pointer;
+    background-color: #818080;
+    color: white;
+  }
+}
+
+#buttonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin: 0 auto;
+
+  button {
+    margin-bottom: 10px;
+    margin-right: 10px;
+    border-radius: 100px;
+  }
+}
+
+.keyDescription {
+  font-size: 13px;
+  margin-top: 0px;
+  font-style: italic;
+}
+
+@media screen and (min-width: 728px) {
+  .keyDescription {
+    height: 40px;
+  }
+}
+
+#radarChart
+{
+    align-items: center;
+    position: relative;
+    padding-top: 10px;
+
+    @media screen and (max-width: 728px) {
+      border-left: 1px solid #333;
+      padding-left: 10px;
+  }
+}
+
+.levels path
+{
+    fill: none;
+    stroke: #000;
+}
+
+.grid-lines path
+{
+    stroke: coral;
+}
+
+.tick-lines path
+{
+    stroke: rgb(228, 16, 16);
+    stroke-width: 2px;
+}
+
+.shape path
+{
+    stroke: cyan;
+    fill: rgba(238, 93, 238, 0.466);
+}
+
+#radarChart circle
+{
+    cursor: pointer;
+}
+
+.introContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.introImage {
+ margin-top: 0px;
+ max-width: 48%;
+ min-width: 48%;
+}
+
+.modalContent {
+  margin-top: 40px;
+  @media screen and (max-width: 728px) {
+    margin-top: 0px;
+  }
+}
+
+.modalContentGroup {
+  border-top: 1px solid #333;
+  padding-bottom: 20px;
+
+  @media screen and (max-width: 728px) {
+      width: 100%;
+  }
+}
+
+.modalContentGroupWrap {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  @media screen and (min-width: 728px) {
+    .modalContentGroup {
+      width: 48%;
+    }
+  }
+}
+
+.introText {
+  max-width: 48%;
+  min-width: 48%;
+}
+
+.keyBlock{
+  flex-direction: column;
+  display: flex;
+}
+
+.keyBlockSub{
+  display: flex;
+}
+
+.keyBlockYes, .keyBlockNo, .keyBlockUnsure {
+ width: 16px;
+ height: 16px;
+ min-width: 16px;
+ min-height: 16px;
+ margin-right: 4px;
+}
+
+#keyHTMLContainer {
+  height: auto;
+}
+
+@media screen and (min-width: 728px) {
+  #keyHTMLContainer {
+    height: auto;
+  }
+}
+
+.quadrant {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  color: black;
+  font-size: 12px;
+  margin-bottom: 5px;
+  text-align: left;
+
+  @media screen and (max-width: 728px) {
+    width: 150px;
+  }
+}
+
+.quadrant__item {
+  width: 75px;
+  height: 80px;
+  padding-top: 4px;
+  border: 1px solid #fff;
+  border-radius: 2px;
+  padding-left: 4px;
+
+  @media screen and (max-width: 728px) {
+    width: 75px;
+    height: 70px;
+    line-height: 15px;
+  }
+}
+
+.cardLocation {
+  margin-left: 20px !important;
+}
+
+.quadrant__title {
+  margin-bottom: 10px;
+}
+
+body.khn {
+  .modalTitle {
+    text-align: left;
+  }
+
+  .quadrant__title {
+    text-align: left;
+  }
+  }
+
+  body.npr {
+    .modal.clicked {
+      background-color: #fbfbfb;
+    }
+  }

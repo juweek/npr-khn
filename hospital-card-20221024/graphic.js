@@ -116,11 +116,11 @@ pym.then((child) => {
     child.sendHeight();
   })
 
-    /*
- ------------------------------
- FUNCTION: attach the show and hide results button listener
- ------------------------------
- */
+  /*
+------------------------------
+FUNCTION: attach the show and hide results button listener
+------------------------------
+*/
   showResultsButton.addEventListener("click", function () {
     //change copy of the button depending on whether the results are showing or not
     if (showResultsButton.innerText == "SHOW RESULTS") {
@@ -140,9 +140,7 @@ pym.then((child) => {
   3. create
   ------------------------------
   */
-  let key = d3.select("#keyHTMLContainer");
-  key.html(`<div id="keyContainer"><p class="keyDescription">Which hospitals will deny nonemergency medical care to patients with past-due bills?</p><div id="key"><div id="keyWrapper"><div id="keyTextWrapper"><div data-selection="Yes" style="display: inline-flex;"><div style="width: 20px; height: 20px; background-color: rgb(183, 3, 3); float: left; margin-right: 5px; margin-top: 0px;"></div><p>Yes, will deny medical care</p></div><div data-selection="Other" style="display: inline-flex;"><div style="width: 20px; height: 20px; background-color: #8E7B92; float: left; margin-right: 5px; margin-top: 0px;"></div><p>Unclear</p></div><div data-selection="No" style="display: inline-flex;"><div style="width: 20px; height: 20px; background-color: #631D6F; float: left; margin-right: 5px; margin-top: 0px;"></div><p>No, doesn't deny care</p></div></div><div id="keyBarGraph2"><div id="YesBar2" data-selection="Yes" style="height: 20px; width: 17.0455%; margin-bottom: 3px; background-color: rgb(183, 3, 3);"><span style="color: white; font-size: 12px; font-weight: bold; margin-left: 3px;">90</span></div><div id="UnclearBar2" data-selection="Other" style="height: 20px; width: 23.8636%; margin-bottom: 3px; background-color: #8E7B92;"><span style="color: white; font-size: 12px; font-weight: bold; margin-left: 3px;">126</span></div><div id="NoBar2" data-selection="No" style="height: 20px; width: 59.0909%; margin-bottom: 3px; background-color: #631D6F;"><span style="color: white; font-size: 12px; font-weight: bold; margin-left: 3px;">312</span></div></div></div></div></div>`)
-  
+
   function update(svg, us, radius) {
     let path = d3.geoPath();
     let dataForModal = {}
@@ -253,7 +251,7 @@ pym.then((child) => {
         .translate([width / 2.66, height / 2.6]);
 
       let key = d3.select("#keyHTMLContainer");
-      key.html(`<div id="keyContainer"><p class="keyDescription">Which hospitals will deny nonemergency medical care to patients with past-due bills?</p><div id="key"><div id="keyWrapper"><div id="keyTextWrapper"><div data-selection="Yes" style="display: inline-flex;"><div style="width: 20px; height: 20px; background-color: rgb(183, 3, 3); float: left; margin-right: 5px; margin-top: 0px;"></div><p>Yes, will deny medical care</p></div><div data-selection="Other" style="display: inline-flex;"><div style="width: 20px; height: 20px; background-color: #8E7B92; float: left; margin-right: 5px; margin-top: 0px;"></div><p>Unclear</p></div><div data-selection="No" style="display: inline-flex;"><div style="width: 20px; height: 20px; background-color: #631D6F; float: left; margin-right: 5px; margin-top: 0px;"></div><p>No, doesn't deny care</p></div></div><div id="keyBarGraph2"><div id="YesBar2" data-selection="Yes" style="height: 20px; width: 17.0455%; margin-bottom: 3px; background-color: rgb(183, 3, 3);"><span style="color: white; font-size: 12px; font-weight: bold; margin-left: 3px;">90</span></div><div id="UnclearBar2" data-selection="Other" style="height: 20px; width: 23.8636%; margin-bottom: 3px; background-color: #8E7B92;"><span style="color: white; font-size: 12px; font-weight: bold; margin-left: 3px;">126</span></div><div id="NoBar2" data-selection="No" style="height: 20px; width: 59.0909%; margin-bottom: 3px; background-color: #631D6F;"><span style="color: white; font-size: 12px; font-weight: bold; margin-left: 3px;">312</span></div></div></div></div></div>`)
+      key.html(`<div id="keyContainer"><p class="keyDescription">Which hospitals will deny nonemergency medical care to patients with past-due bills?</p><div id="key"><div id="keyWrapper"><div id="keyTextWrapper"><div data-selection="Yes" style="display: inline-flex;"><div style="width: 20px; height: 20px; background-color: rgb(183, 3, 3); float: left; margin-right: 5px; margin-top: 0px;"></div><p>Yes, will deny medical care</p></div><div data-selection="Other" style="display: inline-flex;"><div style="width: 20px; height: 20px; background-color: #8E7B92; float: left; margin-right: 5px; margin-top: 0px;"></div><p>Unclear</p></div><div data-selection="No" style="display: inline-flex;"><div style="width: 20px; height: 20px; background-color: #631D6F; float: left; margin-right: 5px; margin-top: 0px;"></div><p>No, doesn't deny care</p></div></div><div id="keyBarGraph2"><div id="YesBar2" data-selection="Yes" style="height: 20px; width: 17.0455%; margin-bottom: 3px; background-color: rgb(183, 3, 3);"><span style="color: white; font-size: 12px; font-weight: bold; margin-left: 3px;">90</span></div><div id="UnclearBar2" data-selection="Other" style="height: 20px; width: 23.8636%; margin-bottom: 3px; background-color: #8E7B92;"><span style="color: white; font-size: 12px; font-weight: bold; margin-left: 3px;">125</span></div><div id="NoBar2" data-selection="No" style="height: 20px; width: 59.0909%; margin-bottom: 3px; background-color: #631D6F;"><span style="color: white; font-size: 12px; font-weight: bold; margin-left: 3px;">313</span></div></div></div></div></div>`)
 
       // plot the circles using the projection function to convert the latitude/longitude coordinates to x/y coordinates
       svg.select("g")
@@ -420,7 +418,6 @@ pym.then((child) => {
         }
       });
 
-
       for (const entry in sortedData) {
         let currentEntry = sortedData[entry]
         let sideColumnDiv = document.createElement("div");
@@ -563,11 +560,10 @@ METHOD: load in the map
       //fire the click event for the DENIED button, click, then click again after 3 seconds after the page loads
       let deniedButton = document.getElementById("DENIED")
       //after the page loads, click the denied button
-      deniedButton.click();
       window.addEventListener("load", function () {
         setTimeout(function () {
           deniedButton.click();
-        }, 500);
+        }, 300);
       });
 
 
@@ -580,3 +576,4 @@ METHOD: load in the map
       console.log(error);
     });
 });
+
