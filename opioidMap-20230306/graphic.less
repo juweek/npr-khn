@@ -5,7 +5,7 @@ text.in {
   font-weight: bold !important;
 }
 
-body.npr {
+body.khn {
   rect {
     fill: @red4 !important;
   }
@@ -21,10 +21,6 @@ body.npr {
 
 section {
   position: relative;
-}
-
-.active {
-  background-color: #555252;
 }
 
 #treeMapContainer>div {
@@ -300,7 +296,7 @@ h1 {
 
 @media screen and (max-width: 729px) {
   #fixedSideColumn {
-    z-index:2000;
+    z-index: 2000;
 
     .sideColumnMobile {
       pointer-events: none;
@@ -316,10 +312,11 @@ h1 {
 #keyBarGraph {
   display: flex;
   flex-direction: row;
+
   div {
     min-height: 20px;
     margin-bottom: 6px;
-}
+  }
 }
 
 .sideColumnHospital {
@@ -345,7 +342,9 @@ h1 {
   &:hover {
     box-shadow: 1px 1px 1px #b0b0b0;
     transform: translate(2px, 2px);
-  };
+  }
+
+  ;
 
   @media screen and (min-width: 729px) {
     width: 49%;
@@ -370,7 +369,7 @@ h1 {
   }
 }
 
-body.npr {
+body.khn {
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
@@ -387,7 +386,8 @@ body.npr {
   h1 {
     margin-bottom: 8px;
   }
-  h1 + p {
+
+  h1+p {
     font-weight: normal;
     color: #777;
     font-size: 12px;
@@ -513,17 +513,24 @@ div.tooltip {
 
 .modalTitle {
   font-weight: bold;
-  margin-top: 12px;
-  margin-bottom: 4px;
+  margin-top: 6px;
   text-align: left;
+  margin-bottom: 0px;
 
-  .npr & {
+  .khn & {
     font-weight: normal;
   }
 }
 
- //select all elements that are both h2 and modalTitles
- h2.modalTitle {
+.modalText {
+  margin-top: 4px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  color: var(--subtitle-color, #333)
+}
+
+//select all elements that are both h2 and modalTitles
+h2.modalTitle {
   font-size: 21px;
   line-height: 24px;
   color: rgb(47, 47, 47);
@@ -535,7 +542,7 @@ div.tooltip {
     margin-top: 20px;
   }
 
-  .npr & {
+  .khn & {
     .gotham();
     font-weight: bold;
   }
@@ -631,7 +638,7 @@ div.tooltip {
 
 #keyBarGraph2 {
   height: 100%;
-  width: 250px;
+  width: 140px;
 }
 
 #keyWrapper {
@@ -642,21 +649,22 @@ div.tooltip {
 }
 
 //give only the first child div wrapper a with of 48%
-#keyWrapper > div:first-child {
-  width: 45%;
+#keyWrapper>div:first-child {
+  width: 55%;
 }
 
 @media screen and (max-width: 729px) {
-  #keyWrapper > div:first-child {
+  #keyWrapper>div:first-child {
     width: 70%;
   }
+
   #keyBarGraph2 {
     width: 120px;
   }
 }
 
 //give second child div wrapper a dotted left border
-#keyWrapper > div:nth-child(2) {
+#keyWrapper>div:nth-child(2) {
   border-left: 1px dotted #333;
   padding-left: 3px;
 }
@@ -695,44 +703,33 @@ button {
   }
 }
 
-#radarChart
-{
-    align-items: center;
-    position: relative;
-    padding-top: 10px;
-
-    @media screen and (max-width: 728px) {
-      border-left: 1px solid #333;
-      padding-left: 10px;
-  }
+#radarChart {
+  align-items: center;
+  position: relative;
+  padding-top: 10px;
 }
 
-.levels path
-{
-    fill: none;
-    stroke: #000;
+.levels path {
+  fill: none;
+  stroke: #000;
 }
 
-.grid-lines path
-{
-    stroke: coral;
+.grid-lines path {
+  stroke: coral;
 }
 
-.tick-lines path
-{
-    stroke: rgb(228, 16, 16);
-    stroke-width: 2px;
+.tick-lines path {
+  stroke: rgb(228, 16, 16);
+  stroke-width: 2px;
 }
 
-.shape path
-{
-    stroke: cyan;
-    fill: rgba(238, 93, 238, 0.466);
+.shape path {
+  stroke: cyan;
+  fill: rgba(238, 93, 238, 0.466);
 }
 
-#radarChart circle
-{
-    cursor: pointer;
+#radarChart circle {
+  cursor: pointer;
 }
 
 .introContainer {
@@ -747,13 +744,19 @@ button {
 }
 
 .introImage {
- margin-top: 0px;
- max-width: 48%;
- min-width: 48%;
+  margin-top: 0px;
+  max-width: 52%;
+  min-width: 52%;
+
+  @media screen and (max-width: 728px) {
+    max-width: 100%;
+    min-width: 100%;
+  }
 }
 
 .modalContent {
   margin-top: 40px;
+
   @media screen and (max-width: 728px) {
     margin-top: 0px;
   }
@@ -764,7 +767,7 @@ button {
   padding-bottom: 20px;
 
   @media screen and (max-width: 728px) {
-      width: 100%;
+    width: 100%;
   }
 }
 
@@ -776,31 +779,38 @@ button {
 
   @media screen and (min-width: 728px) {
     .modalContentGroup {
-      width: 48%;
+      width: 43%;
     }
   }
 }
 
 .introText {
-  max-width: 48%;
-  min-width: 48%;
+  max-width: 43%;
+  min-width: 43%;
+
+  @media screen and (max-width: 728px) {
+    max-width: 100%;
+    min-width: 100%;
+  }
 }
 
-.keyBlock{
+.keyBlock {
   flex-direction: column;
   display: flex;
 }
 
-.keyBlockSub{
+.keyBlockSub {
   display: flex;
 }
 
-.keyBlockYes, .keyBlockNo, .keyBlockUnsure {
- width: 16px;
- height: 16px;
- min-width: 16px;
- min-height: 16px;
- margin-right: 4px;
+.keyBlockYes,
+.keyBlockNo,
+.keyBlockUnsure {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  min-height: 16px;
+  margin-right: 4px;
 }
 
 #keyHTMLContainer {
@@ -813,10 +823,40 @@ button {
   }
 }
 
+.settlementButtonsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.settlementDiv {
+  background-color: rgb(221, 221, 221);
+  padding: 5px 8px;
+  border-radius: 100px;
+  border: 1px solid #333;
+  margin-right: 6px;
+  text-align: center;
+  display: flex;
+  margin-bottom: 4px;
+  opacity: 0.5;
+
+  span {
+    margin: 0;
+    text-align: center;
+  }
+
+  &.active {
+    background-color: #c56f6f;
+    color: white;
+    opacity: 1;
+  }
+}
+
 .quadrant {
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
+  display: block;
   justify-content: flex-start;
   color: black;
   font-size: 12px;
@@ -851,18 +891,82 @@ button {
   margin-bottom: 10px;
 }
 
+.quadrant {
+  display: flex;
+  flex-wrap: initial;
+}
+
+.quadrant__bar {
+  min-width: 4px;
+  height: 20px;
+}
+
+#key span {
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 3px;
+  margin-top: 6px;
+  width: 100%;
+  line-height: 20px;
+}
+
+#keyBarGraph2 div span {
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 2px;
+}
+
 body.khn {
   .modalTitle {
-    text-align: left;
+    text-align: center;
   }
 
   .quadrant__title {
     text-align: left;
   }
-  }
+}
 
-  body.npr {
-    .modal.clicked {
-      background-color: #fbfbfb;
-    }
+body.khn {
+  .modal.clicked {
+    background-color: #fbfbfb;
   }
+}
+
+.settlementSpan {
+  margin: 0 !important;
+  text-align: center !important;
+}
+
+.rectangle-container {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 20px;
+}
+
+.rectangle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 100%;
+  background: linear-gradient(to right, black, white);
+}
+
+.label-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 14px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.less-transparent {
+  margin-left: 10px;
+}
+
+.more-transparent {
+  margin-right: 10px;
+}

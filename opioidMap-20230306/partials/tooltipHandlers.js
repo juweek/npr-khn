@@ -19,7 +19,7 @@ export const tooltipHandlers = {
             .style("left", (xLocation - 250) + "px")
             .style("top", (yLocation - 300) + "px")
             .html(
-                `<div class="tooltip__hospital"><b>${currentStateName}</b></div><div class="tooltip__name"><b>Amount owed: $</b>${currentSettlement}</div>`
+                `<div class="tooltip__hospital"><b>${currentStateName}</b></div><div class="tooltip__name"><b>Amount owed: </b>${currentSettlement}</div>`
             );
     },
     mouseOut: function (currentElement) {

@@ -75,14 +75,9 @@ METHOD: fetch the data and draw the chart
 
           //from the csv, get the entry where the state_name matches the current state name
           let stateData = data.find((d) => (d.state_name).toLowerCase() == stateName);
-          let currentDebt = stateData.avg_medical_debt
-          if (currentDebt > 800) {
-            return "#d1505b";
-          } else if (currentDebt > 600) {
-            return "#88595d";
-          } else {
-            return "#a0363f";
-          }
+          let currentDebt = stateData.reported_publicly
+          //have the color of the state change based on the debt. make it a gradient from black to white
+          return d3.interpolateRgb("#000000", "#ffffff")(currentDebt / 100);
         })
         .attr('data-state', (d) => {
           let stateName = d.properties.name.toLowerCase();
@@ -95,7 +90,119 @@ METHOD: fetch the data and draw the chart
           let stateName = d.properties.name.toLowerCase();
           let stateData = data.find((d) => (d.state_name).toLowerCase() == stateName);
           if (stateData != undefined) {
-            return stateData['avg_medical_debt']
+            return stateData['Total']
+          }
+        })
+        .attr('data-Total', (d) => {
+          let stateName = d.properties.name.toLowerCase();
+          let stateData = data.find((d) => (d.state_name).toLowerCase() == stateName);
+          if (stateData != undefined) {
+            return stateData['Total']
+          }
+        })
+        .attr('data-stateShare', (d) => {
+          let stateName = d.properties.name.toLowerCase();
+          let stateData = data.find((d) => (d.state_name).toLowerCase() == stateName);
+          if (stateData != undefined) {
+            return stateData['stateShare']
+          }
+        })
+        .attr('data-fundShare', (d) => {
+          let stateName = d.properties.name.toLowerCase();
+          let stateData = data.find((d) => (d.state_name).toLowerCase() == stateName);
+          if (stateData != undefined) {
+            return stateData['fundShare']
+          }
+        })
+        .attr('data-localShare', (d) => {
+          let stateName = d.properties.name.toLowerCase();
+          let stateData = data.find((d) => (d.state_name).toLowerCase() == stateName);
+          if (stateData != undefined) {
+            return stateData['localShare']
+          }
+        })
+        .attr('data-otherShare', (d) => {
+          let stateName = d.properties.name.toLowerCase();
+          let stateData = data.find((d) => (d.state_name).toLowerCase() == stateName);
+          if (stateData != undefined) {
+            return stateData['otherShare']
+          }
+        })
+        .attr('data-website', (d) => {
+          let stateName = d.properties.name.toLowerCase();
+          let stateData = data.find((d) => (d.state_name).toLowerCase() == stateName);
+          if (stateData != undefined) {
+            return stateData['website']
+          }
+        })
+        .attr('data-websiteLink', (d) => {
+          let stateName = d.properties.name.toLowerCase();
+          let stateData = data.find((d) => (d.state_name).toLowerCase() == stateName);
+          if (stateData != undefined) {
+            return stateData['websiteLink']
+          }
+        })
+        .attr('data-reportedPublicly', (d) => {
+          let stateName = d.properties.name.toLowerCase();
+          let stateData = data.find((d) => (d.state_name).toLowerCase() == stateName);
+          if (stateData != undefined) {
+            return stateData['reported_publicly']
+          }
+        })
+        .attr('data-notReportedPublicly', (d) => {
+          let stateName = d.properties.name.toLowerCase();
+          let stateData = data.find((d) => (d.state_name).toLowerCase() == stateName);
+          if (stateData != undefined) {
+            return stateData['not_reported_publicly']
+          }
+        })
+        .attr('data-distributors', (d) => {
+          let stateName = d.properties.name.toLowerCase();
+          let stateData = data.find((d) => (d.state_name).toLowerCase() == stateName);
+          if (stateData != undefined) {
+            return stateData['Distributors']
+          }
+        })
+        .attr('data-JJ', (d) => {
+          let stateName = d.properties.name.toLowerCase();
+          let stateData = data.find((d) => (d.state_name).toLowerCase() == stateName);
+          if (stateData != undefined) {
+            return stateData['JJ']
+          }
+        })
+        .attr('data-CVS', (d) => {
+          let stateName = d.properties.name.toLowerCase();
+          let stateData = data.find((d) => (d.state_name).toLowerCase() == stateName);
+          if (stateData != undefined) {
+            return stateData['CVS']
+          }
+        })
+        .attr('data-Walgreens', (d) => {
+          let stateName = d.properties.name.toLowerCase();
+          let stateData = data.find((d) => (d.state_name).toLowerCase() == stateName);
+          if (stateData != undefined) {
+            return stateData['Walgreens']
+          }
+        })
+        .attr('data-Walmart', (d) => {
+          let stateName = d.properties.name.toLowerCase();
+          let stateData = data.find((d) => (d.state_name).toLowerCase() == stateName);
+          if (stateData != undefined) {
+            return stateData['Walmart']
+          }
+        })
+        .attr('data-Allergan', (d) => {
+          let stateName = d.properties.name.toLowerCase();
+          let stateData = data.find((d) => (d.state_name).toLowerCase() == stateName);
+          if (stateData != undefined) {
+            return stateData['Allergan']
+          }
+        })
+        .attr('data-Teva', (d) => {
+          let stateName = d.properties.name.toLowerCase();
+          let stateData = data.find((d) => (d.state_name).toLowerCase() == stateName);
+          if (stateData != undefined) {
+            return stateData['Teva']
           }
         })
         .attr("stroke", "#fff")
@@ -111,8 +218,6 @@ METHOD: fetch the data and draw the chart
       svg
       .selectAll(".state")
       .on("click", function (d) {
-        console.log(d)
-        console.log('///////')
           modalFunctions.clickCircle(d.srcElement, data)
       })
 
@@ -139,17 +244,12 @@ METHOD: fetch the data and draw the chart
       */
       let fixedSideColumn = document.getElementById("fixedSideColumn");
       //let fixedSideColumnTop = document.getElementById('fixedSideColumnTop')
-      //print size of dataForModal
       svg.select("g")
         .selectAll(".state")
         .attr("data-state", function (d) {
           //find the 
-          console.log(d)
-          console.log(data)
           if (d.properties.name != undefined) {
             let stateData = data.find((currentData) => currentData.state_name == d.properties.name);
-            console.log(stateData)
-            console.log('///////')
             return stateData['state_name']
           }
           else {
@@ -167,20 +267,22 @@ METHOD: fetch the data and draw the chart
         }
       });
 
-      console.log(sortedData)
-      console.log(data)
-      console.log('============')
-
       for (const entry in sortedData) {
         console.log(entry)
         let currentState = (data[entry])
-        console.log('+++++++++++++')
         let sideColumnDiv = document.createElement("div");
         sideColumnDiv.className = "sideColumnHospital";
         sideColumnDiv.setAttribute("data-state", currentState['state_name'])
-        sideColumnDiv.setAttribute("data-settlement", currentState['avg_medical_debt'])
-        sideColumnDiv.innerHTML = `<div class="hoverableContent ${currentState['state_name']}"><div><b>${currentState['state_name']}</b></div><div><b>Amount owed: </b>${'$' + currentState['avg_medical_debt']}</div></div>`
+        sideColumnDiv.setAttribute("data-settlement", currentState['Total'])
+        sideColumnDiv.innerHTML = `<div class="hoverableContent ${currentState['state_name']}"><div><b>${currentState['state_name']}</b></div><div><b>Amount owed: </b>${currentState['Total']}</div></div>`
         fixedSideColumn.appendChild(sideColumnDiv);
+        //attach a click event handler that finds the corresponding svg element with the same data-state attribute and calls the click event handler
+        sideColumnDiv.addEventListener('click', function (e) {
+          let stateName = e.target.getAttribute('data-state')
+          //let stateSvg = document.querySelector(`[data-state="${stateName}"]`)
+          let stateSvg = document.querySelector('.state[data-state="' + stateName + '"]');
+          modalFunctions.clickCircle(stateSvg, data)
+        })
       }
     });
   }

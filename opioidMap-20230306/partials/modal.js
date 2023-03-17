@@ -49,129 +49,180 @@ export const modalFunctions = {
         modalContent.html(
             `
             <h2 class="modalTitle">${currentElement.getAttribute("data-state")}</h2>
+            <h3 class="modalTitle" style="text-align: center; margin-bottom: 20px;">Total from Settlements: ${currentElement.getAttribute("data-Total")}</h3>
             <div class="introContainer">
             <div class="modalContentGroup introText">
-            <h3 class="modalTitle"> </h3>
-            <div class="modal__text"><b>Amount owed:</b><span class="cardLocation">${'$' + currentElement.getAttribute("data-settlement")}</span></div>
-            ${currentElement.getAttribute("data-SYSTEM") ? `<div class="modal__text"><b>System:</b> <span class="cardLocation">${currentElement.getAttribute("data-SYSTEM")}</span></div>` : ""}
-            <div class="modal__text"><b>Hospital type: </b> <span class="cardLocation">${currentElement.getAttribute("data-hospitalType")}</span></div>
-            ${currentElement.getAttribute("data-PUBLIC") ? `<div class="modal__text"><b>Public university system?</b> <span class="cardLocation">Yes</span></div>` : ""}
-            ${currentElement.getAttribute("data-USNEWS") ? `<div class="modal__text"><b>US News top 20?</b> <span class="cardLocation">Yes</span></div>` : ""}
+            <h3 class="modalTitle">Who controls the money?:</h3><p class="modalText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div class="modal__text"><b>Amount owed:</b><span class="cardLocation">${currentElement.getAttribute("data-Total")}</span></div>
+            ${currentElement.getAttribute("data-stateShare") != 0 ? `<div class="modal__text"><b>% controlled by the State</b> <span class="cardLocation">${currentElement.getAttribute("data-stateShare")}%</span></div>` : ""}
+            ${currentElement.getAttribute("data-fundShare") != 0 ? `<div class="modal__text"><b>% controlled by the Abatement Fund</b> <span class="cardLocation">${currentElement.getAttribute("data-fundShare")}%</span></div>` : ""}
+            ${currentElement.getAttribute("data-localShare") != 0 ? `<div class="modal__text"><b>% controlled by the Local communities</b> <span class="cardLocation">${currentElement.getAttribute("data-localShare")}%</span></div>` : ""}
+            ${currentElement.getAttribute("data-otherShare") != 0 ? `<div class="modal__text"><b>% controlled by the other entities</b> <span class="cardLocation">${currentElement.getAttribute("data-otherShare")}%</span></div>` : ""}
             </div>
             <div class="modalContentGroup introImage">
+            <h3 class="modalTitle">Required reporting:</h3>
+            <p class="modalText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 <div id="radarChart"></div>
             </div>
             </div>
-            <div class="modalContentGroupWrap">
-            <div class="modalContentGroup financialAssistance">
-            <h3 class="modalTitle">Financial assistance:</h3>
-            <div class="modal__text"><span>Who qualifies for free care?</span> <span>${currentElement.getAttribute("data-FREE")}</span></div>
-            <div class="modal__text"><span>Provides aid to patients with very large medical bills?</span> <span>${currentElement.getAttribute("data-AID")}</span></div>
-            <div class="modal__text"><span>Financial Assistance Policy available online?</span> 
-            <span>
-                ${currentElement.getAttribute("data-FAPLINK") !== null && currentElement.getAttribute("data-FAPLINK") !== undefined && currentElement.getAttribute("data-FAPLINK") !== ""  ?
-                    `<u><a href="${currentElement.getAttribute("data-FAPLINK")}">${currentElement.getAttribute("data-FAP")}</a></u>` :
-                    `${currentElement.getAttribute("data-FAP")}`
-                 }
-            </span>
+            <div class="modalContentGroup">
+            <h3 class="modalTitle">Participating in settlements:</h3>
+            <div class="modal__text">
+            <div class="settlementButtonsContainer">
+                ${currentElement.getAttribute("data-distributors") != 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">Distributors</span></div>` : ``}
+                ${currentElement.getAttribute("data-JJ") == 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">J&J</span></span></div>` : `<div class="settlementDiv"><span class="settlementSpan">J&J</span></span></div>`}
+                ${currentElement.getAttribute("data-CVS") == 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">CVS</span></div>` : `<div class="settlementDiv"><span class="settlementSpan">CVS</span></span></div>`}
+                ${currentElement.getAttribute("data-Walgreens") == 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">Walgreens</span></div>` : `<div class="settlementDiv"><span class="settlementSpan">Walgreens</span></span></div>`}
+                ${currentElement.getAttribute("data-Walmart") == 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">Walmart</span></div>` : `<div class="settlementDiv"><span class="settlementSpan">Walmart</span></span></div>`}
+                ${currentElement.getAttribute("data-Allergan") == 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">Allergan</span></div>` : `<div class="settlementDiv"><span class="settlementSpan">Allergan</span></span></div>`}
+                ${currentElement.getAttribute("data-Teva") == 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">Teva</span></div>` : `<div class="settlementDiv"><span class="settlementSpan">Teva</span></span></div>`}
             </div>
-            </div>
-            <div class="modalContentGroup billingCollections">
-            <h3 class="modalTitle">Billing and collections:</h3>
-            <div class="modal__text"><span>Allows reporting of patients to credit rating agencies?</span><span>${currentElement.getAttribute("data-REPORTED")}</span></div>
-            <div class="modal__text"><span>Allows nonemergency care to be restricted for patients with debt?</span> <span>${currentElement.getAttribute("data-DENIED")}</span></div>
-            <div class="modal__text"><span>Allows lawsuits against patients, liens, or wage garnishment?</span> <span>${currentElement.getAttribute("data-SUED")}</span></div>
             </div>
             </div>
             <div class="modalContentGroup">
-            <h3 class="modalTitle">Scorecard notes:</h3>
-            <div class="modal__text">Note on data: Information is from written policies, unless otherwise noted. However, hospital policies and practices change. Over time hospitals close, change names, or merge with other institutions. If KHN learns that an entry is no longer accurate, it will update information that it verifies.</div>
-            <div class="keyBlockSub">
+            <h3 class="modalTitle">More info: </h3>
+            <div class="modal__text">
+            <u><a href="${currentElement.getAttribute("data-websiteLink")}">${currentElement.getAttribute("data-website")}</a></u>
             </div>
             </div>`
         )
         //this.createRadarChart(currentElement, originalData)
-        this.createQuadrant(currentElement, originalData)
+        this.createQuadrant(currentElement)
     },
     /*
     ------------------------------
     METHOD: create the radar chart and append it to the modal
     ------------------------------
     */
-    createQuadrant: function (currentElement, originalData) {
+    createQuadrant: function (currentElement) {
         // Define the four metrics
-        const metrics = ["REPORTED", "DEBT", "DENIED", "SUED"];
+        let reportedPublicly = currentElement.getAttribute("data-reportedPublicly");
+        let not_reported_publicly = currentElement.getAttribute("data-notReportedPublicly");
+        let leftOver = 100 - (parseInt(reportedPublicly) + parseInt(not_reported_publicly))
+        console.log(leftOver)
 
         // Create an empty container for the quadrant
         const quadrant = document.createElement("div");
         quadrant.classList.add("quadrant");
+        quadrant.style.width = "100%";
 
-        // Iterate over the metrics
-        for (const metric of metrics) {
-            // Get the value of the current metric
-            const value = currentElement.getAttribute(`data-${metric}`);
+        //create a stacked barchart using the three variables of reportedPublicly, not_reported_publicly, and leftOver
+        const reportedPubliclyBar = document.createElement("div");
+        reportedPubliclyBar.classList.add("quadrant__bar");
+        reportedPubliclyBar.style.width = (reportedPublicly === 0 ? "2%" : `${reportedPublicly}%`)
+        reportedPubliclyBar.style.backgroundColor = "#F2C94C";
+        quadrant.appendChild(reportedPubliclyBar);
 
-            // Create a div for the current metric
-            const div = document.createElement("div");
-            div.classList.add("quadrant__item");
-            //give the div a class based on the metric
-            div.classList.add(`quadrant__item--${metric}`);
-            // give the div a data attribute based on the metric
-            div.setAttribute("data-metric", metric);
+        const not_reported_publiclyBar = document.createElement("div");
+        not_reported_publiclyBar.classList.add("quadrant__bar");
+        not_reported_publiclyBar.style.width = (not_reported_publicly === 0 ? "2%" : `${not_reported_publicly}%`)
+        not_reported_publiclyBar.style.backgroundColor = "#F2994A";
+        quadrant.appendChild(not_reported_publiclyBar);
 
-            // Set the background color of the div based on the value of the metric
-            if (value.toLowerCase().includes('yes')) {
-                div.style.backgroundColor = "#fddede";
-                div.style.border = "1.5px solid darkred";
-                //fill in the text of the div
-                //check the current metric and change the copy based on that
-                if (metric === "REPORTED") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Credit reporting allowed</span>`;
-                } else if (metric === "DEBT") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Selling patient debt allowed</span>`;
-                } else if (metric === "DENIED") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Denying care allowed</span>`;
-                } else if (metric === "SUED") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Legal action allowed </span>`;
-                }
-            } else if (value.toLowerCase().includes('no')) {
-                div.style.backgroundColor = "#dff5db";
-                div.style.border = "1.5px solid darkgreen";
-                //fill in the text of the div
-                if (metric === "REPORTED") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Credit reporting not allowed</span>`;
-                } else if (metric === "DEBT") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Selling patient debt not allowed</span>`;
-                } else if (metric === "DENIED") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Denying care not allowed</span>`;
-                } else if (metric === "SUED") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Legal action not allowed</span>`;
-                }
-            } else {
-                div.style.backgroundColor = "#e1e1e1";
-                div.style.border = "1.5px solid gray";
-                if (metric === "REPORTED") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Unclear if credit reporting allowed</span>`;
-                } else if (metric === "DEBT") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Unclear if selling debt allowed</span>`;
-                } else if (metric === "DENIED") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Unclear if denying care allowed</span>`;
-                } else if (metric === "SUED") {
-                    div.innerHTML = `<span class="quadrant__item--copy">Unclear if legal action allowed</span>`;
-                }
-            }
-            //append a title before the quadrant
-            // Append the div to the quadrant
-            quadrant.appendChild(div);
+        const leftOverBar = document.createElement("div");
+        leftOverBar.classList.add("quadrant__bar");
+        leftOverBar.style.width = (leftOver === 0 ? "2%" : `${leftOver}%`)
+        leftOverBar.style.backgroundColor = "#dfdfdf";
+        quadrant.appendChild(leftOverBar);
+
+        // Define style properties for key text elements
+        const keyTextYes = document.createElement("div");
+        keyTextYes.dataset.selection = "% reported publicly";
+        keyTextYes.style.display = "inline-flex";
+        keyTextYes.innerHTML = `<span>% reported publicly</span>`;
+
+        const keyTextOther = document.createElement("div");
+        keyTextOther.dataset.selection = "% reported to oversight body";
+        keyTextOther.style.display = "inline-flex";
+        keyTextOther.innerHTML = `<span>% reported to oversight body</span>`;
+
+        const keyTextNotReq = document.createElement("div");
+        keyTextNotReq.style.display = "inline-flex";
+        keyTextNotReq.innerHTML = `<span>% not needing reporting</span>`;
+
+        // Define style properties for key bar graph elements
+        const keyBarGraphYes = document.createElement("div");
+        keyBarGraphYes.dataset.selection = "% reported publicly";
+
+        const keyBarGraphOther = document.createElement("div");
+        keyBarGraphOther.dataset.selection = "% reported to oversight body";
+
+        const keyBarGraphNotReq = document.createElement("div");
+        keyBarGraphOther.dataset.selection = "% not needing reporting";
+
+        // Set the values of the key bar graph elements using the variables
+        keyBarGraphYes.style.height = "20px";
+        if (reportedPublicly == 0) {
+            keyBarGraphYes.style.width = "0px";
+            keyBarGraphYes.style.color = "black";
+        } else {
+            keyBarGraphYes.style.width = `${reportedPublicly}%`;
+            keyBarGraphYes.style.color = "white";
         }
+        keyBarGraphYes.style.marginBottom = "2px";
+        keyBarGraphYes.style.backgroundColor = "#c56f6f";
+        keyBarGraphYes.innerHTML = `<span>` + reportedPublicly + `%</span>`;
+
+        // Set the values of the key bar graph elements using the variables
+        keyBarGraphOther.style.height = "20px";
+        if (not_reported_publicly == 0) {
+            keyBarGraphOther.style.width = "0px";
+            keyBarGraphOther.style.color = "black";
+        } else {
+            keyBarGraphOther.style.width = `${not_reported_publicly}%`;
+            keyBarGraphOther.style.color = "white";
+        }
+        keyBarGraphOther.style.marginBottom = "2px";
+        keyBarGraphOther.style.backgroundColor = "#c56f6f";
+        keyBarGraphOther.innerHTML = `<span>` + not_reported_publicly + `%</span>`;
+
+        // Set the values of the key bar graph elements using the variables
+        keyBarGraphNotReq.style.height = "20px";
+        if (leftOver == 0) {
+            keyBarGraphNotReq.style.width = "0px";
+            keyBarGraphNotReq.style.color = "black";
+        } else {
+            keyBarGraphNotReq.style.width = `${leftOver}%`;
+            keyBarGraphNotReq.style.color = "white";
+        }
+        keyBarGraphNotReq.style.marginBottom = "2px";
+        keyBarGraphNotReq.style.backgroundColor = "#c56f6f";
+        keyBarGraphNotReq.innerHTML =  `<span>` + leftOver + `%</span>`;
+
         //attach quadrant to radarChart
         const radarChart = document.getElementById("radarChart")
-        const title = document.createElement("h3");
-        title.classList.add("quadrant__title");
-        title.innerHTML = `<span class="modalTitle">HOSPITAL COLLECTION POLICIES:</span>`;
-        radarChart.appendChild(title);
-        radarChart.appendChild(quadrant)
+        const keyContainer = document.createElement("div");
+        keyContainer.id = "keyContainer";
 
+        const keyWrapper = document.createElement("div");
+        keyWrapper.id = "keyWrapper";
+
+        const keyTextWrapper = document.createElement("div");
+        keyTextWrapper.id = "keyTextWrapper";
+        keyTextWrapper.style.display = "inline-flex";
+        keyTextWrapper.appendChild(keyTextYes);
+        keyTextWrapper.appendChild(keyTextOther);
+        keyTextWrapper.appendChild(keyTextNotReq);
+
+        const keyBarGraph = document.createElement("div");
+        keyBarGraph.id = "keyBarGraph2";
+        keyBarGraph.appendChild(keyBarGraphYes);
+        keyBarGraph.appendChild(keyBarGraphOther);
+        keyBarGraph.appendChild(keyBarGraphNotReq);
+
+        const key = document.createElement("div");
+        key.id = "key";
+        key.appendChild(keyWrapper);
+
+        keyWrapper.appendChild(keyTextWrapper);
+        keyWrapper.appendChild(keyBarGraph);
+        keyContainer.appendChild(key);
+
+        const title = document.createElement("div");
+        title.innerHTML = keyContainer.outerHTML;
+
+        radarChart.appendChild(title);
         return quadrant;
     }
 };
+
