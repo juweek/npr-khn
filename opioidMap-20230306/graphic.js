@@ -77,7 +77,7 @@ METHOD: fetch the data and draw the chart
           let stateData = data.find((d) => (d.state_name).toLowerCase() == stateName);
           let currentDebt = stateData.reported_publicly
           //have the color of the state change based on the debt. make it a gradient from black to white
-          return d3.interpolateRgb("#000000", "#ffffff")(currentDebt / 100);
+          return d3.interpolateRgb("#cbc19f", "#0c7c16")(currentDebt / 100);
         })
         .attr('data-state', (d) => {
           let stateName = d.properties.name.toLowerCase();
@@ -205,6 +205,20 @@ METHOD: fetch the data and draw the chart
             return stateData['Teva']
           }
         })
+        .attr('data-otherSettlements', (d) => {
+          let stateName = d.properties.name.toLowerCase();
+          let stateData = data.find((d) => (d.state_name).toLowerCase() == stateName);
+          if (stateData != undefined) {
+            return stateData['applies_to_other_settlements']
+          }
+        })
+        .attr('data-otherDescription', (d) => {
+          let stateName = d.properties.name.toLowerCase();
+          let stateData = data.find((d) => (d.state_name).toLowerCase() == stateName);
+          if (stateData != undefined) {
+            return stateData['otherDescription']
+          }
+        })
         .attr("stroke", "#fff")
         .attr("stroke-width", 0.5)
         .attr("data-coordinates", (d) => `${path.centroid(d)}`)
@@ -236,28 +250,6 @@ METHOD: fetch the data and draw the chart
         //change the fill color of the circle back to its original color
       })
 
-
-      /*
-      ------------------------------
-      METHOD: build out and populate the side column
-      ------------------------------
-      */
-      let fixedSideColumn = document.getElementById("fixedSideColumn");
-      //let fixedSideColumnTop = document.getElementById('fixedSideColumnTop')
-      svg.select("g")
-        .selectAll(".state")
-        .attr("data-state", function (d) {
-          //find the 
-          if (d.properties.name != undefined) {
-            let stateData = data.find((currentData) => currentData.state_name == d.properties.name);
-            return stateData['state_name']
-          }
-          else {
-
-            return 'undefined'
-          }
-        })
-
       const sortedData = Object.values(data).sort(function (a, b) {
         if (a['state_name'] < b['state_name']) {
           return -1;
@@ -267,23 +259,14 @@ METHOD: fetch the data and draw the chart
         }
       });
 
-      for (const entry in sortedData) {
-        console.log(entry)
-        let currentState = (data[entry])
-        let sideColumnDiv = document.createElement("div");
-        sideColumnDiv.className = "sideColumnHospital";
-        sideColumnDiv.setAttribute("data-state", currentState['state_name'])
-        sideColumnDiv.setAttribute("data-settlement", currentState['Total'])
-        sideColumnDiv.innerHTML = `<div class="hoverableContent ${currentState['state_name']}"><div><b>${currentState['state_name']}</b></div><div><b>Amount owed: </b>${currentState['Total']}</div></div>`
-        fixedSideColumn.appendChild(sideColumnDiv);
-        //attach a click event handler that finds the corresponding svg element with the same data-state attribute and calls the click event handler
-        sideColumnDiv.addEventListener('click', function (e) {
-          let stateName = e.target.getAttribute('data-state')
-          //let stateSvg = document.querySelector(`[data-state="${stateName}"]`)
-          let stateSvg = document.querySelector('.state[data-state="' + stateName + '"]');
-          modalFunctions.clickCircle(stateSvg, data)
-        })
-      }
+      //create a dropdown event listener that listens to the dropdown, takes in the text, and calls clickCircle using the text as the state name
+      let dropdown = document.getElementById('stateDropdownSelector')
+      dropdown.addEventListener('change', function (e) {
+        let stateName = e.target.value
+        //let stateSvg = document.querySelector(`[data-state="${stateName}"]`)
+        let stateSvg = document.querySelector('.state[data-state="' + stateName + '"]');
+        modalFunctions.clickCircle(stateSvg, data)
+      })
     });
   }
 

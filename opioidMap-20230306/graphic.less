@@ -526,7 +526,11 @@ div.tooltip {
   margin-top: 4px;
   margin-bottom: 20px;
   font-size: 12px;
-  color: var(--subtitle-color, #333)
+  color: var(--subtitle-color, #333);
+
+  @media screen and (min-width: 728px) {
+    height: 60px;
+  }
 }
 
 //select all elements that are both h2 and modalTitles
@@ -595,8 +599,6 @@ h2.modalTitle {
 #keyContainer {
   position: relative;
   width: 100%;
-  margin-bottom: 20px;
-
 
   h3 {
     font-size: 15px;
@@ -706,7 +708,6 @@ button {
 #radarChart {
   align-items: center;
   position: relative;
-  padding-top: 10px;
 }
 
 .levels path {
@@ -764,7 +765,7 @@ button {
 
 .modalContentGroup {
   border-top: 1px solid #333;
-  padding-bottom: 20px;
+  padding-bottom: 14px;
 
   @media screen and (max-width: 728px) {
     width: 100%;
@@ -793,6 +794,13 @@ button {
     min-width: 100%;
   }
 }
+
+.radarChartComment {
+  margin-top: 20px;
+  font-size: 12px;
+  font-style: italic;
+}
+
 
 .keyBlock {
   flex-direction: column;
@@ -832,7 +840,7 @@ button {
 }
 
 .settlementDiv {
-  background-color: rgb(221, 221, 221);
+  background-color: black;
   padding: 5px 8px;
   border-radius: 100px;
   border: 1px solid #333;
@@ -850,6 +858,12 @@ button {
   &.active {
     background-color: #c56f6f;
     color: white;
+    opacity: 1;
+  }
+
+  &.notApplicable {
+    background-color: rgb(221, 221, 221);
+    color: black;
     opacity: 1;
   }
 }
@@ -917,10 +931,6 @@ button {
 }
 
 body.khn {
-  .modalTitle {
-    text-align: center;
-  }
-
   .quadrant__title {
     text-align: left;
   }
@@ -950,7 +960,7 @@ body.khn {
   left: 0;
   height: 20px;
   width: 100%;
-  background: linear-gradient(to right, black, white);
+  background: linear-gradient(to right, #cbc19f, #0c7c16);
 }
 
 .label-container {
@@ -961,12 +971,23 @@ body.khn {
   width: 100%;
   position: absolute;
   bottom: 0;
+
+  @media screen and (max-width: 728px) {
+    height: 0px;
+  }
 }
 
 .less-transparent {
-  margin-left: 10px;
+  margin-left: 5px;
+  @media screen and (max-width: 728px) {
+    margin-left: 0px;
+  }
 }
 
 .more-transparent {
-  margin-right: 10px;
+  margin-right: 5px;
+  @media screen and (max-width: 728px) {
+    text-align: right;
+    margin-right: 0px;
+  }
 }

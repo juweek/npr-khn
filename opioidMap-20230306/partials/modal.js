@@ -49,42 +49,43 @@ export const modalFunctions = {
         modalContent.html(
             `
             <h2 class="modalTitle">${currentElement.getAttribute("data-state")}</h2>
-            <h3 class="modalTitle" style="text-align: center; margin-bottom: 20px;">Total from Settlements: ${currentElement.getAttribute("data-Total")}</h3>
+            <h3 class="modalTitle" style="text-align: center; margin-bottom: 20px;">Total From Distributors/J&J Settlements: ${currentElement.getAttribute("data-Total")}</h3>
             <div class="introContainer">
             <div class="modalContentGroup introText">
-            <h3 class="modalTitle">Who controls the money?:</h3><p class="modalText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <div class="modal__text"><b>Amount owed:</b><span class="cardLocation">${currentElement.getAttribute("data-Total")}</span></div>
-            ${currentElement.getAttribute("data-stateShare") != 0 ? `<div class="modal__text"><b>% controlled by the State</b> <span class="cardLocation">${currentElement.getAttribute("data-stateShare")}%</span></div>` : ""}
-            ${currentElement.getAttribute("data-fundShare") != 0 ? `<div class="modal__text"><b>% controlled by the Abatement Fund</b> <span class="cardLocation">${currentElement.getAttribute("data-fundShare")}%</span></div>` : ""}
-            ${currentElement.getAttribute("data-localShare") != 0 ? `<div class="modal__text"><b>% controlled by the Local communities</b> <span class="cardLocation">${currentElement.getAttribute("data-localShare")}%</span></div>` : ""}
-            ${currentElement.getAttribute("data-otherShare") != 0 ? `<div class="modal__text"><b>% controlled by the other entities</b> <span class="cardLocation">${currentElement.getAttribute("data-otherShare")}%</span></div>` : ""}
+            <h3 class="modalTitle">Who controls the money?:</h3><p class="modalText">Settlement funds are divided up with</p>
+            ${currentElement.getAttribute("data-stateShare") != 0 ? `<div class="modal__text"><b>% controlled by State Govt</b> <span class="cardLocation">${currentElement.getAttribute("data-stateShare")}%</span></div>` : ""}
+            ${currentElement.getAttribute("data-fundShare") != 0 ? `<div class="modal__text"><b>% controlled by Abatement Fund*</b> <span class="cardLocation">${currentElement.getAttribute("data-fundShare")}%</span></div>` : ""}
+            ${currentElement.getAttribute("data-localShare") != 0 ? `<div class="modal__text"><b>% controlled by the Local Govt</b> <span class="cardLocation">${currentElement.getAttribute("data-localShare")}%</span></div>` : ""}
+            ${currentElement.getAttribute("data-otherShare") != 0 ? `<div class="modal__text"><b>% controlled by the Other*</b> <span class="cardLocation">${currentElement.getAttribute("data-otherShare")}%</span></div>` : ""}
+            ${currentElement.getAttribute("data-otherDescription") != 0 ? `<div class="radarChartComment">*${currentElement.getAttribute("data-otherDescription")}</div>` : ""}
             </div>
             <div class="modalContentGroup introImage">
-            <h3 class="modalTitle">Required reporting:</h3>
-            <p class="modalText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <h3 class="modalTitle">Promised Reporting:</h3>
+            <p class="modalText">At a minimum, states must report non-opioid uses of the money. We’ve determined how much additional reporting each state is promising.</p>
                 <div id="radarChart"></div>
             </div>
             </div>
             <div class="modalContentGroup">
             <h3 class="modalTitle">Participating in settlements:</h3>
-            <div class="modal__text">
+            <div class="modal__text" style="border: none;">
             <div class="settlementButtonsContainer">
-                ${currentElement.getAttribute("data-distributors") != 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">Distributors</span></div>` : ``}
-                ${currentElement.getAttribute("data-JJ") == 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">J&J</span></span></div>` : `<div class="settlementDiv"><span class="settlementSpan">J&J</span></span></div>`}
-                ${currentElement.getAttribute("data-CVS") == 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">CVS</span></div>` : `<div class="settlementDiv"><span class="settlementSpan">CVS</span></span></div>`}
-                ${currentElement.getAttribute("data-Walgreens") == 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">Walgreens</span></div>` : `<div class="settlementDiv"><span class="settlementSpan">Walgreens</span></span></div>`}
-                ${currentElement.getAttribute("data-Walmart") == 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">Walmart</span></div>` : `<div class="settlementDiv"><span class="settlementSpan">Walmart</span></span></div>`}
-                ${currentElement.getAttribute("data-Allergan") == 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">Allergan</span></div>` : `<div class="settlementDiv"><span class="settlementSpan">Allergan</span></span></div>`}
-                ${currentElement.getAttribute("data-Teva") == 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">Teva</span></div>` : `<div class="settlementDiv"><span class="settlementSpan">Teva</span></span></div>`}
+                ${currentElement.getAttribute("data-distributors") == 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">Distributors</span></span></div>` : currentElement.getAttribute("data-distributors") == 'No' ? `<div class="settlementDiv notApplicable"><span class="settlementSpan">Distributors</span></span></div>` : `<div class="settlementDiv"><span class="settlementSpan">Distributors</span></span></div>`}
+                ${currentElement.getAttribute("data-JJ") == 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">J&J</span></span></div>` : currentElement.getAttribute("data-JJ") == 'No' ? `<div class="settlementDiv notApplicable"><span class="settlementSpan">Distributors</span></span></div>` : `<div class="settlementDiv"><span class="settlementSpan">J&J</span></span></div>`}
+                ${currentElement.getAttribute("data-CVS") == 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">CVS</span></span></div>` : currentElement.getAttribute("data-JJ") == 'No' ? `<div class="settlementDiv notApplicable"><span class="settlementSpan">CVS</span></span></div>` : `<div class="settlementDiv"><span class="settlementSpan">CVS</span></span></div>`}
+                ${currentElement.getAttribute("data-Walgreens") == 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">Walgreens</span></span></div>` : currentElement.getAttribute("data-Walgreens") == 'No' ? `<div class="settlementDiv notApplicable"><span class="settlementSpan">Walgreens</span></span></div>` : `<div class="settlementDiv"><span class="settlementSpan">Walgreens</span></span></div>`}
+                ${currentElement.getAttribute("data-Walmart") == 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">Walmart</span></span></div>` : currentElement.getAttribute("data-Walmart") == 'No' ? `<div class="settlementDiv notApplicable"><span class="settlementSpan">Walmart</span></span></div>` : `<div class="settlementDiv"><span class="settlementSpan">Walmart</span></span></div>`}
+                ${currentElement.getAttribute("data-Allergan") == 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">Allergan</span></span></div>` : currentElement.getAttribute("data-Allergan") == 'No' ? `<div class="settlementDiv notApplicable"><span class="settlementSpan">Allergan</span></span></div>` : `<div class="settlementDiv"><span class="settlementSpan">Allergan</span></span></div>`}
+                ${currentElement.getAttribute("data-Teva") == 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">Teva</span></span></div>` : currentElement.getAttribute("data-Teva") == 'No' ? `<div class="settlementDiv notApplicable"><span class="settlementSpan">Teva</span></span></div>` : `<div class="settlementDiv"><span class="settlementSpan">Teva</span></span></div>`}
             </div>
             </div>
             </div>
-            <div class="modalContentGroup">
-            <h3 class="modalTitle">More info: </h3>
-            <div class="modal__text">
-            <u><a href="${currentElement.getAttribute("data-websiteLink")}">${currentElement.getAttribute("data-website")}</a></u>
-            </div>
+            <div class="modalContentGroup" style="padding-top: 10px;">
+            ${currentElement.getAttribute("data-fundShare") != 0 ? `<div class="modal__text">*An 'abatement fund' is a state-created fund, overseen by a dedicated council or similar entity, to hold opioid settlement dollars.</div>` : ""}
+            
+            ${currentElement.getAttribute("data-websiteLink") != 0 ? `
+            <div class="modal__text">More info provided by: <u><a href="${currentElement.getAttribute("data-websiteLink")}">${currentElement.getAttribute("data-website")}</a></u></div>` : ""}
             </div>`
+            
         )
         //this.createRadarChart(currentElement, originalData)
         this.createQuadrant(currentElement)
@@ -138,7 +139,7 @@ export const modalFunctions = {
 
         const keyTextNotReq = document.createElement("div");
         keyTextNotReq.style.display = "inline-flex";
-        keyTextNotReq.innerHTML = `<span>% not needing reporting</span>`;
+        keyTextNotReq.innerHTML = `<span>% no additional reporting</span>`;
 
         // Define style properties for key bar graph elements
         const keyBarGraphYes = document.createElement("div");
@@ -148,7 +149,7 @@ export const modalFunctions = {
         keyBarGraphOther.dataset.selection = "% reported to oversight body";
 
         const keyBarGraphNotReq = document.createElement("div");
-        keyBarGraphOther.dataset.selection = "% not needing reporting";
+        keyBarGraphOther.dataset.selection = "% no additional reporting";
 
         // Set the values of the key bar graph elements using the variables
         keyBarGraphYes.style.height = "20px";
@@ -222,6 +223,12 @@ export const modalFunctions = {
         title.innerHTML = keyContainer.outerHTML;
 
         radarChart.appendChild(title);
+        let appliedSettlements = currentElement.getAttribute("data-otherSettlements");
+        const appliesToOtherSettlements = document.createElement("div")
+        appliesToOtherSettlements.classList.add("radarChartComment");
+        appliesToOtherSettlements.innerHTML = `Applies to other settlements? ${appliedSettlements}`;
+        radarChart.appendChild(appliesToOtherSettlements);
+
         return quadrant;
     }
 };

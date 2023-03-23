@@ -1,4 +1,4 @@
-state_name,abbreviation,avg_medical_debt,Distributors,J&J,CVS,Walgreens,Walmart,Allergan,Teva,Total,stateShare,fundShare,localShare,otherShare,Other Description,reported_publicly,not_reported_publicly,Reporting Requirements Apply to Settlements Other Than Distributors/J&J,Which Settlements Reporting Requirements Apply To (in addition to distributors/J&J),websiteLink,website
+state_name,abbreviation,avg_medical_debt,Distributors,JJ,CVS,Walgreens,Walmart,Allergan,Teva,Total,stateShare,fundShare,localShare,otherShare,otherDescription,reported_publicly,not_reported_publicly,applies_to_other_settlements,Which Settlements Reporting Requirements Apply To (in addition to distributors/J&J),websiteLink,website
 Alabama,AL,986,No,Yes,Yes,Yes,Not Applicable,Yes,Yes,"$211,300,000",50,0,50,0,,0,0,Y,unspecified,https://mh.alabama.gov/faq/alabama-opioid-overdose-and-addiction-council/,Opioid Overdose and Addiction Council 
 Alaska,AK,1363,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$58,000,000",85,0,15,0,,0,0,Y,unspecified,,
 Arizona,AZ,919,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$542,000,000",44,0,56,0,,100,0,Y,all ,https://www.azag.gov/consumer/opioids,Attorney General opioid settlement site
