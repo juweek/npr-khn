@@ -211,7 +211,7 @@ h1 {
 #fixedSideColumnTop {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   position: relative;
 }
 
@@ -519,17 +519,19 @@ div.tooltip {
 
   .khn & {
     font-weight: normal;
+    text-transform: none;
   }
 }
 
 .modalText {
   margin-top: 4px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   font-size: 12px;
   color: var(--subtitle-color, #333);
 
   @media screen and (min-width: 728px) {
     height: 60px;
+    margin-bottom: 20px;
   }
 }
 
@@ -603,7 +605,6 @@ h2.modalTitle {
   h3 {
     font-size: 15px;
     margin-bottom: 4px;
-
   }
 }
 
@@ -770,6 +771,7 @@ button {
   @media screen and (max-width: 728px) {
     width: 100%;
   }
+  
 }
 
 .modalContentGroupWrap {
@@ -837,6 +839,10 @@ button {
   justify-content: space-between;
   margin-top: 20px;
   flex-wrap: wrap;
+
+  @media screen and (max-width: 728px) {
+    justify-content: flex-start;
+}
 }
 
 .settlementDiv {
@@ -990,4 +996,9 @@ body.khn {
     text-align: right;
     margin-right: 0px;
   }
+}
+
+a, a:link, a:visited {
+  color: #c70000;
+  text-decoration: underline;
 }

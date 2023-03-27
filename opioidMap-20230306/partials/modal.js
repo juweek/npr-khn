@@ -9,6 +9,28 @@ Export the modal and the close button
 ------------------------------
 */
 export const modalFunctions = {
+    //abbreviate text to millions or billions
+    abbreviateNumber: function(numString) {
+        // Convert the string to a number and get the number of digits
+        //remove dollar sign and commas
+        numString = numString.replace(/[$,]/g, '');
+        const num = Number(numString);
+        const digits = numString.length;
+      
+        // Abbreviate to millions if the number has 8-9 digits
+        if (digits >= 8 && digits <= 9) {
+          return `$${(num / 1000000).toFixed(0)} million`;
+        }
+        // Abbreviate to billions if the number has 10-12 digits
+        else if (digits >= 10 && digits <= 12) {
+          return `$${(num / 1000000000).toFixed(1)} billion`;
+        }
+        // Otherwise, return the original number string
+        else {
+          return numString;
+        }
+    },
+      
     // When the user enters the tooltip
     closeCircle: function () {
         let modalElement = document.getElementsByClassName("modal")[0]
@@ -49,15 +71,15 @@ export const modalFunctions = {
         modalContent.html(
             `
             <h2 class="modalTitle">${currentElement.getAttribute("data-state")}</h2>
-            <h3 class="modalTitle" style="text-align: center; margin-bottom: 20px;">Total From Distributors/J&J Settlements: ${currentElement.getAttribute("data-Total")}</h3>
+            <h3 class="modalTitle" style="text-align: center; margin-bottom: 20px;">Total From Distributors/J&J Settlements: ${this.abbreviateNumber(currentElement.getAttribute("data-Total"))}</h3>
             <div class="introContainer">
             <div class="modalContentGroup introText">
-            <h3 class="modalTitle">Who controls the money?:</h3><p class="modalText">Settlement funds are divided up with</p>
-            ${currentElement.getAttribute("data-stateShare") != 0 ? `<div class="modal__text"><b>% controlled by State Govt</b> <span class="cardLocation">${currentElement.getAttribute("data-stateShare")}%</span></div>` : ""}
-            ${currentElement.getAttribute("data-fundShare") != 0 ? `<div class="modal__text"><b>% controlled by Abatement Fund*</b> <span class="cardLocation">${currentElement.getAttribute("data-fundShare")}%</span></div>` : ""}
-            ${currentElement.getAttribute("data-localShare") != 0 ? `<div class="modal__text"><b>% controlled by the Local Govt</b> <span class="cardLocation">${currentElement.getAttribute("data-localShare")}%</span></div>` : ""}
-            ${currentElement.getAttribute("data-otherShare") != 0 ? `<div class="modal__text"><b>% controlled by the Other*</b> <span class="cardLocation">${currentElement.getAttribute("data-otherShare")}%</span></div>` : ""}
-            ${currentElement.getAttribute("data-otherDescription") != 0 ? `<div class="radarChartComment">*${currentElement.getAttribute("data-otherDescription")}</div>` : ""}
+            <h3 class="modalTitle">Who controls the money?</h3><p class="modalText"></p>
+            ${currentElement.getAttribute("data-stateShare") != 0 ? `<div class="modal__text"><b>${currentElement.getAttribute("data-stateShare")}% controlled by state government</b></div>` : ""}
+            ${currentElement.getAttribute("data-fundShare") != 0 ? `<div class="modal__text"><b>${currentElement.getAttribute("data-fundShare")}% controlled by abatement fund*</b></div>` : ""}
+            ${currentElement.getAttribute("data-localShare") != 0 ? `<div class="modal__text"><b>${currentElement.getAttribute("data-localShare")}% controlled by local government</b></div>` : ""}
+            ${currentElement.getAttribute("data-otherShare") != 0 ? `<div class="modal__text"><b>${currentElement.getAttribute("data-otherShare")}% controlled by other entities**</b></div>` : ""}
+            ${currentElement.getAttribute("data-otherDescription") != 0 ? `<div class="radarChartComment">**${currentElement.getAttribute("data-otherDescription")}</div>` : ""}
             </div>
             <div class="modalContentGroup introImage">
             <h3 class="modalTitle">Promised Reporting:</h3>
@@ -67,6 +89,7 @@ export const modalFunctions = {
             </div>
             <div class="modalContentGroup">
             <h3 class="modalTitle">Participating in settlements:</h3>
+            <span style="font-size: 12px;">Grayed buttons means not applicable. Certains settled before national agreements were reached and thus were not eligible for those settlements.</span>
             <div class="modal__text" style="border: none;">
             <div class="settlementButtonsContainer">
                 ${currentElement.getAttribute("data-distributors") == 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">Distributors</span></span></div>` : currentElement.getAttribute("data-distributors") == 'No' ? `<div class="settlementDiv notApplicable"><span class="settlementSpan">Distributors</span></span></div>` : `<div class="settlementDiv"><span class="settlementSpan">Distributors</span></span></div>`}
@@ -80,10 +103,10 @@ export const modalFunctions = {
             </div>
             </div>
             <div class="modalContentGroup" style="padding-top: 10px;">
-            ${currentElement.getAttribute("data-fundShare") != 0 ? `<div class="modal__text">*An 'abatement fund' is a state-created fund, overseen by a dedicated council or similar entity, to hold opioid settlement dollars.</div>` : ""}
+            ${currentElement.getAttribute("data-fundShare") != 0 ? `<div class="modal__text">*An "abatement fund" is a state-created fund, overseen by a dedicated council or similar entity, to hold opioid settlement dollars.</div>` : ""}
             
             ${currentElement.getAttribute("data-websiteLink") != 0 ? `
-            <div class="modal__text">More info provided by: <u><a href="${currentElement.getAttribute("data-websiteLink")}">${currentElement.getAttribute("data-website")}</a></u></div>` : ""}
+            <div class="modal__text" style="border-bottom: none;">More info: <u><a href="${currentElement.getAttribute("data-websiteLink")}">${currentElement.getAttribute("data-website")}</a></u></div>` : ""}
             </div>`
             
         )
@@ -100,7 +123,6 @@ export const modalFunctions = {
         let reportedPublicly = currentElement.getAttribute("data-reportedPublicly");
         let not_reported_publicly = currentElement.getAttribute("data-notReportedPublicly");
         let leftOver = 100 - (parseInt(reportedPublicly) + parseInt(not_reported_publicly))
-        console.log(leftOver)
 
         // Create an empty container for the quadrant
         const quadrant = document.createElement("div");

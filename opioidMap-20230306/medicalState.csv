@@ -1,52 +1,52 @@
 state_name,abbreviation,avg_medical_debt,Distributors,JJ,CVS,Walgreens,Walmart,Allergan,Teva,Total,stateShare,fundShare,localShare,otherShare,otherDescription,reported_publicly,not_reported_publicly,applies_to_other_settlements,Which Settlements Reporting Requirements Apply To (in addition to distributors/J&J),websiteLink,website
-Alabama,AL,986,No,Yes,Yes,Yes,Not Applicable,Yes,Yes,"$211,300,000",50,0,50,0,,0,0,Y,unspecified,https://mh.alabama.gov/faq/alabama-opioid-overdose-and-addiction-council/,Opioid Overdose and Addiction Council 
-Alaska,AK,1363,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$58,000,000",85,0,15,0,,0,0,Y,unspecified,,
-Arizona,AZ,919,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$542,000,000",44,0,56,0,,100,0,Y,all ,https://www.azag.gov/consumer/opioids,Attorney General opioid settlement site
-Arkansas,AR,641,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$216,000,000",33.3,0,66.6,0,,66.6,0.0,Y,unspecified,https://www.arorp.org/progress/,Arkansas Opioid Recovery Partnership funded projects (via local share)
-California,CA,740,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$2,050,000,000",15,70,15,0,,15,85,Y,all ,https://www.dhcs.ca.gov/provgovpart/Pages/California-Opioid-Settlements.aspx,Department of Health Care Services opioid settlement site
-Colorado,CO,753,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$385,000,000",10,0,80,10,statewide infrastructure overseen by Colorado Opioid Abatement Council,100,0,Y,all ,https://geoinfo.coag.gov/portal/apps/sites/#/settlement-distributions/pages/about,Opioid Settlement Dashboard
-Connecticut,CT,532,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$300,000,000",85,0,15,0,,85,0,Y,all ,https://portal.ct.gov/DMHAS/Newsworthy/News-Items/CT-Opioid-Settlement-Advisory-Committee,Opioid Settlement Advisory Committee
-Delaware,DE,744,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$100,000,000",0,100,0,0,,100,0,Y,all ,https://ltgov.delaware.gov/prescription-opioid-settlement-distribution-commission/,Prescription Opioid Settlement Distribution Commission
-District of Columbia,DC,790,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$47,000,000",0,90,0,10,"non-opioid related uses, including administrative & legal costs",90,0,Y,all ,,
-Florida,FL,1006,Yes,Yes,Not Applicable,Not Applicable,Not Applicable,Not Applicable,Not Applicable,"$1,600,000,000",45,0,55,0,,0,0,Y,unspecified,https://www.flcorenetwork.com/,Coordinated Opioid Recovery (CORE) Network
-Georgia,GA,965,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$636,000,000",75,0,25,0,,75,0,N,,https://law.georgia.gov/key-issues/opioid-abuse,Attorney General opioid abuse site
-Hawaii,HI,432,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$78,000,000",85,0,15,0,,0,0,Y,"Mallinckrodt, Purdue",,
-Idaho,ID,935,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$119,000,000",40,0,60,0,,100,0,Y,all,https://www.ag.idaho.gov/consumer-protection/opioid-settlement/,Attorney General opioid settlement site
-Illinois,IL,649,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$760,000,000",20,55,25,0,,0,23,Y,all,https://www.dhs.state.il.us/page.aspx?item=146327,Opioid Remediation Advisory Board
-Indiana,IN,797,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$507,000,000",15,35,50,0,,0,0,Y,all,https://www.in.gov/recovery/settlement/,Next Level Recovery settlement site
-Iowa,IA,582,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$174,000,000",0,50,50,0,,50,0,Y,all,https://www.iowaattorneygeneral.gov/newsroom/opioid-settlement-information,Attorney General opioid settlement information
-Kansas,KS,841,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$190,000,000",0,75,25,0,,0,75,Y,all,https://ag.ks.gov/in-your-corner-kansas/resources/opioid-settlements,Attorney General opioid settlement site
-Kentucky,KY,520,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$478,000,000",0,50,50,0,,50,50,Y,all,https://www.ag.ky.gov/Priorities/Tackling-the-Drug-Epidemic/Pages/Opioid-Abatement-Advisory-Commission-.aspx,Opioid Abatement Advisory Commission site
-Louisiana,LA,824,Yes,Yes,Yes,Yes,Yes,Not Applicable,Not Applicable,"$325,000,000",0,0,80,20,sheriffs,80,0,Y,unspecified,,
-Maine,ME,857,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$130,000,000",20,50,30,0,,50,20,Y,all,https://www.maine.gov/ag/recovery-council/index.shtml,Recovery Council 
-Maryland,MD,522,Yes,Yes,No,Yes,Yes,Yes,Yes,"$395,000,000",15,60,25,0,,0,75,Y,all,https://beforeitstoolate.maryland.gov/orf/,Opioid Restitution Fund Advisory Council
-Massachusetts,MA,405,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$525,000,000",0,60,40,0,,98.8,0,Y,"CVS, Walmart, Walgreens, Allergan, Teva",https://www.mass.gov/info-details/opioid-recovery-and-remediation-fund-advisory-council-meeting-materials,Opioid Recovery and Remediation Fund Advisory Council
-Michigan,MI,458,Yes,Yes,Yes,No,Yes,Yes,Yes,"$776,000,000",50,0,50,0,,0,0,N,,http://council.legislature.mi.gov/Council/OAC,Opioid Advisory Commission
-Minnesota,MN,425,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$303,000,000",25,0,75,0,,75,0,Y,all,https://www.ag.state.mn.us/opioids/,Attorney General opioid settlement site
-Mississippi,MS,839,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$203,000,000",15,0,15,70,University of Mississippi Medical Center's Center for Addiction Medicine ,0,0,Y,all,https://www.ago.state.ms.us/opioidsettlement/,Attorney General opioid settlement site
-Missouri,MO,855,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$458,000,000",60,0,40,0,,100,0,Y,"Mallinckrodt, Purdue",https://ago.mo.gov/opioidsettlement,Attorney General opioid settlement site
-Montana,MT,764,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$80,000,000",15,70,15,0,,0,0,Y,all,https://www.mtcounties.org/resources-data/national-opioid-settlement/,Association of Counties opioid settlement site
-Nebraska,NE,785,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$100,000,000",0,85,15,0,,0,0,Y,all,https://dhhs.ne.gov/Pages/Opioid-Settlement-Workgroup.aspx,Opioid Settlement Remediation Advisory Committee
-Nevada,NV,867,Yes,Yes,No,No,Yes,No,No,"$284,000,000",43.86,0,56.14,0,,0,100,Y,all,https://dhhs.nv.gov/Programs/Grants/Advisory_Committees/ACRN/Home/,Advisory Committee for a Resilient Nevada
-New Hampshire,NH,498,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$155,500,000",0,85,15,0,,100,0,Y,all,https://www.dhhs.nh.gov/about-dhhs/advisory-organizations/nh-opioid-abatement-trust-fund-advisory-commission,Opioid Abatement Trust Fund & Advisory Commission
-New Jersey,NJ,500,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$641,000,000",50,0,50,0,,100,0,Y,"CVS, Walmart, Walgreens, Teva, Mallinckrodt",https://www.nj.gov/opioidfunds/,Governor opioid settlement site
-New Mexico,NM,742,Yes,Yes,Not Applicable,No,Not Applicable,Yes,Yes,"$195,500,000",45,0,55,0,,0,0,Y,all,,
-New York,NY,464,Yes,Yes,Yes,Yes,Yes,Not Applicable,Yes,"$1,330,000,000",17.5,20,62.5,0,,73.89,20.71,Y,all,https://oasas.ny.gov/opioid-settlement-fund-advisory-board,Opioid Settlement Fund Advisory Board
-North Carolina,NC,757,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$750,000,000",15,0,85,0,,85,0,Y,all,https://ncopioidsettlement.org/,Opioid Settlements Data Dashboard
-North Dakota,ND,579,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$45,500,000",85,0,15,0,,85,0,Y,all,https://apps.nd.gov/gov/boards/Board,Opioid Settlement Advisory Committee
-Ohio,OH,657,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$1,013,400,000",15,55,30,0,,0,0,Y,all,https://www.oneohiofoundation.com/,One Ohio Recovery Foundation
-Oklahoma,OK,974,Yes,Not Applicable,Yes,Yes,Yes,Yes,Not Applicable,"$250,000,000",75,0,25,0,,0,100,Y,all,https://www.oag.ok.gov/opioid-abatement-board,Opioid Abatement Board
-Oregon,OR,618,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$329,000,000",45,0,55,0,,100,0,Y,all,https://www.oregon.gov/oha/ph/preventionwellness/substanceuse/opioids/pages/settlement-funds.aspx,Health Authority opioid settlements site
-Pennsylvania,PA,550,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$1,070,000,000",15,0,85,0,,85,0,Y,all,,
-Rhode Island,RI,522,Yes,Yes,Yes,Yes,Yes,Not Applicable,Not Applicable,"$111,911,000",80,0,20,0,,0,80,Y,all,https://eohhs.ri.gov/Opioid-Settlement-Advisory-Committee,Opioid Settlement Advisory Committee
+Alabama,AL,986,No,Yes,Yes,Yes,Not Applicable,Yes,Yes,"$211,300,000",50,0,50,0,,0,0,Yes,unspecified,https://mh.alabama.gov/faq/alabama-opioid-overdose-and-addiction-council/,Opioid Overdose and Addiction Council 
+Alaska,AK,1363,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$58,000,000",85,0,15,0,,0,0,Yes,unspecified,,
+Arizona,AZ,919,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$542,000,000",44,0,56,0,,100,0,Yes,all ,https://www.azag.gov/consumer/opioids,Attorney General opioid settlement site
+Arkansas,AR,641,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$216,000,000",33.3,0,66.6,0,,66.6,0.0,Yes,unspecified,https://www.arorp.org/progress/,Arkansas Opioid Recovery Partnership funded projects (via local share)
+California,CA,740,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$2,050,000,000",15,70,15,0,,15,85,Yes,all ,https://www.dhcs.ca.gov/provgovpart/Pages/California-Opioid-Settlements.aspx,Department of Health Care Services opioid settlement site
+Colorado,CO,753,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$385,000,000",10,0,80,10,statewide infrastructure overseen by Colorado Opioid Abatement Council,100,0,Yes,all ,https://geoinfo.coag.gov/portal/apps/sites/#/settlement-distributions/pages/about,Opioid Settlement Dashboard
+Connecticut,CT,532,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$300,000,000",85,0,15,0,,85,0,Yes,all ,https://portal.ct.gov/DMHAS/Newsworthy/News-Items/CT-Opioid-Settlement-Advisory-Committee,Opioid Settlement Advisory Committee
+Delaware,DE,744,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$100,000,000",0,100,0,0,,100,0,Yes,all ,https://ltgov.delaware.gov/prescription-opioid-settlement-distribution-commission/,Prescription Opioid Settlement Distribution Commission
+District of Columbia,DC,790,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$47,000,000",0,90,0,10,"non-opioid related uses, including administrative & legal costs",90,0,Yes,all ,,
+Florida,FL,1006,Yes,Yes,Not Applicable,Not Applicable,Not Applicable,Not Applicable,Not Applicable,"$1,600,000,000",45,0,55,0,,0,0,Yes,unspecified,https://www.flcorenetwork.com/,Coordinated Opioid Recovery (CORE) Network
+Georgia,GA,965,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$636,000,000",75,0,25,0,,75,0,No,,https://law.georgia.gov/key-issues/opioid-abuse,Attorney General opioid abuse site
+Hawaii,HI,432,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$78,000,000",85,0,15,0,,0,0,Yes,"Mallinckrodt, Purdue",,
+Idaho,ID,935,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$119,000,000",40,0,60,0,,100,0,Yes,all,https://www.ag.idaho.gov/consumer-protection/opioid-settlement/,Attorney General opioid settlement site
+Illinois,IL,649,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$760,000,000",20,55,25,0,,0,23,Yes,all,https://www.dhs.state.il.us/page.aspx?item=146327,Opioid Remediation Advisory Board
+Indiana,IN,797,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$507,000,000",15,35,50,0,,0,0,Yes,all,https://www.in.gov/recovery/settlement/,Next Level Recovery settlement site
+Iowa,IA,582,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$174,000,000",0,50,50,0,,50,0,Yes,all,https://www.iowaattorneygeneral.gov/newsroom/opioid-settlement-information,Attorney General opioid settlement information
+Kansas,KS,841,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$190,000,000",0,75,25,0,,0,75,Yes,all,https://ag.ks.gov/in-your-corner-kansas/resources/opioid-settlements,Attorney General opioid settlement site
+Kentucky,KY,520,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$478,000,000",0,50,50,0,,50,50,Yes,all,https://www.ag.ky.gov/Priorities/Tackling-the-Drug-Epidemic/Pages/Opioid-Abatement-Advisory-Commission-.aspx,Opioid Abatement Advisory Commission site
+Louisiana,LA,824,Yes,Yes,Yes,Yes,Yes,Not Applicable,Not Applicable,"$325,000,000",0,0,80,20,sheriffs,80,0,Yes,unspecified,,
+Maine,ME,857,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$130,000,000",20,50,30,0,,50,20,Yes,all,https://www.maine.gov/ag/recovery-council/index.shtml,Recovery Council 
+Maryland,MD,522,Yes,Yes,No,Yes,Yes,Yes,Yes,"$395,000,000",15,60,25,0,,0,75,Yes,all,https://beforeitstoolate.maryland.gov/orf/,Opioid Restitution Fund Advisory Council
+Massachusetts,MA,405,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$525,000,000",0,60,40,0,,98.8,0,Yes,"CVS, Walmart, Walgreens, Allergan, Teva",https://www.mass.gov/info-details/opioid-recovery-and-remediation-fund-advisory-council-meeting-materials,Opioid Recovery and Remediation Fund Advisory Council
+Michigan,MI,458,Yes,Yes,Yes,No,Yes,Yes,Yes,"$776,000,000",50,0,50,0,,0,0,No,,http://council.legislature.mi.gov/Council/OAC,Opioid Advisory Commission
+Minnesota,MN,425,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$303,000,000",25,0,75,0,,75,0,Yes,all,https://www.ag.state.mn.us/opioids/,Attorney General opioid settlement site
+Mississippi,MS,839,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$203,000,000",15,0,15,70,University of Mississippi Medical Center's Center for Addiction Medicine ,0,0,Yes,all,https://www.ago.state.ms.us/opioidsettlement/,Attorney General opioid settlement site
+Missouri,MO,855,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$458,000,000",60,0,40,0,,100,0,Yes,"Mallinckrodt, Purdue",https://ago.mo.gov/opioidsettlement,Attorney General opioid settlement site
+Montana,MT,764,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$80,000,000",15,70,15,0,,0,0,Yes,all,https://www.mtcounties.org/resources-data/national-opioid-settlement/,Association of Counties opioid settlement site
+Nebraska,NE,785,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$100,000,000",0,85,15,0,,0,0,Yes,all,https://dhhs.ne.gov/Pages/Opioid-Settlement-Workgroup.aspx,Opioid Settlement Remediation Advisory Committee
+Nevada,NV,867,Yes,Yes,No,No,Yes,No,No,"$284,000,000",43.86,0,56.14,0,,0,100,Yes,all,https://dhhs.nv.gov/Programs/Grants/Advisory_Committees/ACRN/Home/,Advisory Committee for a Resilient Nevada
+New Hampshire,NH,498,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$155,500,000",0,85,15,0,,100,0,Yes,all,https://www.dhhs.nh.gov/about-dhhs/advisory-organizations/nh-opioid-abatement-trust-fund-advisory-commission,Opioid Abatement Trust Fund & Advisory Commission
+New Jersey,NJ,500,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$641,000,000",50,0,50,0,,100,0,Yes,"CVS, Walmart, Walgreens, Teva, Mallinckrodt",https://www.nj.gov/opioidfunds/,Governor opioid settlement site
+New Mexico,NM,742,Yes,Yes,Not Applicable,No,Not Applicable,Yes,Yes,"$195,500,000",45,0,55,0,,0,0,Yes,all,,
+New York,NY,464,Yes,Yes,Yes,Yes,Yes,Not Applicable,Yes,"$1,330,000,000",17.5,20,62.5,0,,73.89,20.71,Yes,all,https://oasas.ny.gov/opioid-settlement-fund-advisory-board,Opioid Settlement Fund Advisory Board
+North Carolina,NC,757,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$750,000,000",15,0,85,0,,85,0,Yes,all,https://ncopioidsettlement.org/,Opioid Settlements Data Dashboard
+North Dakota,ND,579,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$45,500,000",85,0,15,0,,85,0,Yes,all,https://apps.nd.gov/gov/boards/Board,Opioid Settlement Advisory Committee
+Ohio,OH,657,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$1,013,400,000",15,55,30,0,,0,0,Yes,all,https://www.oneohiofoundation.com/,One Ohio Recovery Foundation
+Oklahoma,OK,974,Yes,Not Applicable,Yes,Yes,Yes,Yes,Not Applicable,"$250,000,000",75,0,25,0,,0,100,Yes,all,https://www.oag.ok.gov/opioid-abatement-board,Opioid Abatement Board
+Oregon,OR,618,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$329,000,000",45,0,55,0,,100,0,Yes,all,https://www.oregon.gov/oha/ph/preventionwellness/substanceuse/opioids/pages/settlement-funds.aspx,Health Authority opioid settlements site
+Pennsylvania,PA,550,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$1,070,000,000",15,0,85,0,,85,0,Yes,all,,
+Rhode Island,RI,522,Yes,Yes,Yes,Yes,Yes,Not Applicable,Not Applicable,"$111,911,000",80,0,20,0,,0,80,Yes,all,https://eohhs.ri.gov/Opioid-Settlement-Advisory-Committee,Opioid Settlement Advisory Committee
 South Carolina,SC,980,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$300,000,000",0,15,85,0,,100,0,Y ,all,https://scorf.sc.gov/,Opioid Recovery Fund Board
-South Dakota,SD,683,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$52,000,000",70,0,30,0,,70,30,Y,all,"https://dss.sd.gov/behavioralhealth/grantinfo.aspx#:~:text=Awareness%20Training%20Grant-,Settlements,-In%20law%2C%20a",Department of Social Services settlements info
-Tennessee,TN,970,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$600,000,000",15,45.5,39.5,0,,0,70,Y,all,https://www.tn.gov/oac.html,Opioid Abatement Council
-Texas,TX,990,Yes,Yes,Yes,Yes,Yes,Yes,Not Applicable,"$1,460,000,000",15,70,15,0,,0,59.5,Y,unspecified,https://comptroller.texas.gov/programs/opioid-council/council.php,Opioid Abatement Council
-Utah,UT,1011,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$266,000,000",50,0,50,0,,100,0,Y,all,https://www.utahopioidpriorities.org/,Opioid Task Force settlements page
-Vermont,VT,510,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$64,000,000",15,70,15,0,,0,0,Y,all,https://www.healthvermont.gov/alcohol-drugs/reports/public-meetings,Opioid Settlement Advisory Committee
-Virginia,VA,753,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$530,000,000",15,55,30,0,,55,0,Y,all,https://www.oaa.virginia.gov/about/,Opioid Abatement Authority
-Washington,WA,606,Yes,No,Yes,Yes,Yes,Yes,Yes,"$518,000,000",50,0,50,0,,50,0,Y,"CVS, Walmart, Walgreens, Teva, Allergan",https://waportal.org/partners/home/washington-state-opioid-settlements,Washington State Opioid Settlements
-West Virginia,WV,628,Not Applicable,Yes,Not Applicable,No,Not Applicable,Not Applicable,Not Applicable,"$572,000,000",3,72.5,24.5,0,,72.5,24.5,Y,all,,
-Wisconsin,WI,922,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$400,000,000",30,0,70,0,,0,100,Y,all,https://dhs.wisconsin.gov/opioids/settlement-funds.htm,Department of Health Services opioid settlements page
-Wyoming,WY,1611,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$52,000,000",35,0,65,0,,35,65,Y,all,https://health.wyo.gov/admin/opioid-settlement-funds/,Department of Health opioid settlements page
+South Dakota,SD,683,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$52,000,000",70,0,30,0,,70,30,Yes,all,"https://dss.sd.gov/behavioralhealth/grantinfo.aspx#:~:text=Awareness%20Training%20Grant-,Settlements,-In%20law%2C%20a",Department of Social Services settlements info
+Tennessee,TN,970,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$600,000,000",15,45.5,39.5,0,,0,70,Yes,all,https://www.tn.gov/oac.html,Opioid Abatement Council
+Texas,TX,990,Yes,Yes,Yes,Yes,Yes,Yes,Not Applicable,"$1,460,000,000",15,70,15,0,,0,59.5,Yes,unspecified,https://comptroller.texas.gov/programs/opioid-council/council.php,Opioid Abatement Council
+Utah,UT,1011,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$266,000,000",50,0,50,0,,100,0,Yes,all,https://www.utahopioidpriorities.org/,Opioid Task Force settlements page
+Vermont,VT,510,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$64,000,000",15,70,15,0,,0,0,Yes,all,https://www.healthvermont.gov/alcohol-drugs/reports/public-meetings,Opioid Settlement Advisory Committee
+Virginia,VA,753,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$530,000,000",15,55,30,0,,55,0,Yes,all,https://www.oaa.virginia.gov/about/,Opioid Abatement Authority
+Washington,WA,606,Yes,No,Yes,Yes,Yes,Yes,Yes,"$518,000,000",50,0,50,0,,50,0,Yes,"CVS, Walmart, Walgreens, Teva, Allergan",https://waportal.org/partners/home/washington-state-opioid-settlements,Washington State Opioid Settlements
+West Virginia,WV,628,Not Applicable,Yes,Not Applicable,No,Not Applicable,Not Applicable,Not Applicable,"$572,000,000",3,72.5,24.5,0,,72.5,24.5,Yes,all,,
+Wisconsin,WI,922,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$400,000,000",30,0,70,0,,0,100,Yes,all,https://dhs.wisconsin.gov/opioids/settlement-funds.htm,Department of Health Services opioid settlements page
+Wyoming,WY,1611,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"$52,000,000",35,0,65,0,,35,65,Yes,all,https://health.wyo.gov/admin/opioid-settlement-funds/,Department of Health opioid settlements page
