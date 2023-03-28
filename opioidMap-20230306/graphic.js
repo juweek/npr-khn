@@ -49,11 +49,11 @@ METHOD: set the size of the canvas
     bottom: 0,
   };
 
-/*
-------------------------------
-METHOD: fetch the data and draw the chart
-------------------------------
-*/
+  /*
+  ------------------------------
+  METHOD: fetch the data and draw the chart
+  ------------------------------
+  */
   function update(svg, us) {
     d3.csv("./medicalState.csv").then(function (data) {
 
@@ -66,8 +66,27 @@ METHOD: fetch the data and draw the chart
         .select("g")
         .selectAll("path")
         .data(topojson.feature(us, us.objects.states).features)
-        .join("path")
-        .attr("d", path)
+  .join(
+    enter => {
+      // create a new <text> element for each state
+      const text = enter.append("text")
+        .attr("class", "state-abbr")
+        .attr("text-anchor", "middle")
+        .attr("font-size", "18px")
+        .attr("dy", "0.35em") // offset the text slightly for centering
+        .attr("stroke", "#000")
+        .attr("pointer-events", "none")
+        .attr("stroke-width", 1.5)
+        .text((d) => {
+          return states[d.properties.name]
+        }); // get the abbreviation based on state name
+
+      // position the text at the center of the state shape
+      text.attr("x", d => path.centroid(d)[0])
+        .attr("y", d => path.centroid(d)[1]);
+      
+      // return the <path> element for further manipulation
+      return enter.append("path")
         .attr("class", "state")
         .attr("fill", (d) => {
           //get the current state name from the topojson
@@ -76,8 +95,8 @@ METHOD: fetch the data and draw the chart
           //from the csv, get the entry where the state_name matches the current state name
           let stateData = data.find((d) => (d.state_name).toLowerCase() == stateName);
           let currentDebt = stateData.reported_publicly
-          //have the color of the state change based on the debt. make it a gradient from black to white
-          return d3.interpolateRgb("#cbc19f", "#0c7c16")(currentDebt / 100);
+          //have the color of the state change based on the transparency. make it a gradient from green to grey
+          return d3.interpolateRgb("#cdccc5", "#0c7c16")(currentDebt / 100);
         })
         .attr('data-state', (d) => {
           let stateName = d.properties.name.toLowerCase();
@@ -219,21 +238,28 @@ METHOD: fetch the data and draw the chart
             return stateData['otherDescription']
           }
         })
+        
         .attr("stroke", "#fff")
         .attr("stroke-width", 0.5)
-        .attr("data-coordinates", (d) => `${path.centroid(d)}`)
+        .attr("d", path)
+        .attr("data-coordinates", (d) => `${path.centroid(d)}`);
+    },
+    // update existing <path> elements
+    update => update,
+    // remove old <path> elements that are no longer needed
+    exit => exit.remove()
+  );
 
-
-       /*
-      ------------------------------
-      METHOD: attach the click events to each of the state paths
-      ------------------------------
-      */
+      /*
+     ------------------------------
+     METHOD: attach the click events to each of the state paths
+     ------------------------------
+     */
       svg
-      .selectAll(".state")
-      .on("click", function (d) {
+        .selectAll(".state")
+        .on("click", function (d) {
           modalFunctions.clickCircle(d.srcElement, data)
-      })
+        })
 
       /*
       ------------------------------
@@ -241,14 +267,14 @@ METHOD: fetch the data and draw the chart
       ------------------------------
       */
       svg
-      .selectAll(".state")
-      .on("mousemove", function (d) {
-        tooltipHandlers.mouseEnter(d.pageX, d.pageY, d.srcElement, data)
-      })
-      .on("mouseout", function (d) {
-        tooltipHandlers.mouseOut(d.srcElement)
-        //change the fill color of the circle back to its original color
-      })
+        .selectAll(".state")
+        .on("mousemove", function (d) {
+          tooltipHandlers.mouseEnter(d.pageX, d.pageY, d.srcElement, data)
+        })
+        .on("mouseout", function (d) {
+          tooltipHandlers.mouseOut(d.srcElement)
+          //change the fill color of the circle back to its original color
+        })
 
       const sortedData = Object.values(data).sort(function (a, b) {
         if (a['state_name'] < b['state_name']) {

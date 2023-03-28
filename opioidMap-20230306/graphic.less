@@ -171,6 +171,24 @@ h2 {
   margin-left: 10px;
   margin-bottom: 20px;
   max-width: 100%;
+  background: white;
+  padding: 20px;
+  height: 200px;
+  overflow: scroll;
+  border: 1px solid #333;
+}
+
+/* Style for the scrollbar */
+::-webkit-scrollbar {
+  width: 8px; /* width of the scrollbar */
+  background-color: #f1f1f1; /* background color of the scrollbar */
+}
+
+/* Style for the thumb */
+::-webkit-scrollbar-thumb {
+  background-color: #ccc; /* color of the scrollbar thumb */
+  background-color: #0077cc; /* blue color for the scrollbar thumb */
+  border-radius: 4px; /* rounded corners for the scrollbar thumb */
 }
 
 .graphic {
@@ -188,7 +206,6 @@ h2 {
 }
 
 h1 {
-  text-align: left;
   margin-bottom: 0;
 }
 
@@ -542,7 +559,7 @@ h2.modalTitle {
   color: rgb(47, 47, 47);
   margin-bottom: 10px;
   margin-top: 20px;
-  text-align: left;
+  text-align: center;
 
   @media screen and (min-width: 728px) {
     margin-top: 20px;
@@ -641,7 +658,7 @@ h2.modalTitle {
 
 #keyBarGraph2 {
   height: 100%;
-  width: 140px;
+  width: 100px;
 }
 
 #keyWrapper {
@@ -747,12 +764,14 @@ button {
 
 .introImage {
   margin-top: 0px;
-  max-width: 52%;
-  min-width: 52%;
+  max-width: 100%;
+  min-width: 100%;
 
-  @media screen and (max-width: 728px) {
-    max-width: 100%;
-    min-width: 100%;
+  @media screen and (min-width: 728px) {
+    max-width: 52%;
+    min-width: 52%;
+    border-left: 1px dashed #333;
+    padding-left: 10px;
   }
 }
 
@@ -788,8 +807,9 @@ button {
 }
 
 .introText {
-  max-width: 43%;
-  min-width: 43%;
+  max-width: 48%;
+  min-width: 48%;
+  padding-right: 20px;
 
   @media screen and (max-width: 728px) {
     max-width: 100%;
@@ -812,6 +832,25 @@ button {
 .keyBlockSub {
   display: flex;
 }
+
+.keyContainer {
+  display: flex;
+}
+
+.keyText {
+  margin-left: 0px !important;
+}
+
+.keyBlockActive, 
+.keyBlockInactive,
+.keyBlockNotApplicable {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  min-height: 16px;
+  margin-right: 4px;
+}
+
 
 .keyBlockYes,
 .keyBlockNo,
@@ -836,7 +875,7 @@ button {
 .settlementButtonsContainer {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-top: 20px;
   flex-wrap: wrap;
 
@@ -847,10 +886,9 @@ button {
 
 .settlementDiv {
   background-color: black;
-  padding: 5px 8px;
-  border-radius: 100px;
+  padding: 4px 6px;
   border: 1px solid #333;
-  margin-right: 6px;
+  margin-right: 4px;
   text-align: center;
   display: flex;
   margin-bottom: 4px;
@@ -872,6 +910,11 @@ button {
     color: black;
     opacity: 1;
   }
+}
+
+.settlementKey {
+  display: flex;
+  flex-direction: row;
 }
 
 .quadrant {
@@ -917,14 +960,18 @@ button {
 }
 
 .quadrant__bar {
-  min-width: 4px;
   height: 20px;
+  color: black;
+  margin-bottom: 2px;
+  background-color: #f3dce5;
+  margin-left: 44px;
+  @media screen and (max-width: 728px) {
+    margin-left: 0px;
+  }
 }
-
 #key span {
   font-size: 12px;
-  font-weight: bold;
-  margin-left: 3px;
+  font-weight: 500;
   margin-top: 6px;
   width: 100%;
   line-height: 20px;
@@ -933,12 +980,24 @@ button {
 #keyBarGraph2 div span {
   font-size: 12px;
   font-weight: bold;
-  margin-left: 2px;
+}
+
+.quadrant__bar span {
+  margin-left: -44px;
 }
 
 body.khn {
   .quadrant__title {
     text-align: left;
+  }
+
+  .defaultSubhead {
+    font-weight: normal;
+    color: #777;
+    font-size: 12px;
+    margin: 0 0 22px 0;
+    line-height: 1.6;
+    text-align: center;
   }
 }
 
@@ -966,7 +1025,7 @@ body.khn {
   left: 0;
   height: 20px;
   width: 100%;
-  background: linear-gradient(to right, #cbc19f, #0c7c16);
+  background: linear-gradient(to right, #cdccc5, #0c7c16);
 }
 
 .label-container {
@@ -995,7 +1054,14 @@ body.khn {
   @media screen and (max-width: 728px) {
     text-align: right;
     margin-right: 0px;
+    margin-left: 50px;
   }
+}
+
+.more-transparent, .less-transparent {
+    font-weight: normal;
+    color: #777;
+    font-size: 12px;
 }
 
 a, a:link, a:visited {

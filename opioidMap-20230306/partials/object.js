@@ -49,7 +49,7 @@ module.exports = {
   states: {
     "All states": "All",
   Alabama: "Ala.",
-  Alaska: "Alas.",
+  Alaska: "Alaska",
   Arizona: "Ariz.",
   Arkansas: "Ark.",
   California: "Calif.",

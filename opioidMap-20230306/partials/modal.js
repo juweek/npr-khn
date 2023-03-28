@@ -10,27 +10,34 @@ Export the modal and the close button
 */
 export const modalFunctions = {
     //abbreviate text to millions or billions
-    abbreviateNumber: function(numString) {
+    abbreviateNumber: function (numString) {
         // Convert the string to a number and get the number of digits
         //remove dollar sign and commas
         numString = numString.replace(/[$,]/g, '');
         const num = Number(numString);
         const digits = numString.length;
-      
+
         // Abbreviate to millions if the number has 8-9 digits
         if (digits >= 8 && digits <= 9) {
-          return `$${(num / 1000000).toFixed(0)} million`;
+            //check the sixth to last digit to see if it's a zero
+            if (numString.charAt(digits - 6) != 0) {
+                return `$${(num / 1000000).toFixed(1)} million`;
+            }
+            //otherwise, round to zero decimal places
+            else {
+                return `$${(num / 1000000).toFixed(0)} million`;
+            }
         }
         // Abbreviate to billions if the number has 10-12 digits
         else if (digits >= 10 && digits <= 12) {
-          return `$${(num / 1000000000).toFixed(1)} billion`;
+            return `$${(num / 1000000000).toFixed(1)} billion`;
         }
         // Otherwise, return the original number string
         else {
-          return numString;
+            return numString;
         }
     },
-      
+
     // When the user enters the tooltip
     closeCircle: function () {
         let modalElement = document.getElementsByClassName("modal")[0]
@@ -74,23 +81,39 @@ export const modalFunctions = {
             <h3 class="modalTitle" style="text-align: center; margin-bottom: 20px;">Total From Distributors/J&J Settlements: ${this.abbreviateNumber(currentElement.getAttribute("data-Total"))}</h3>
             <div class="introContainer">
             <div class="modalContentGroup introText">
-            <h3 class="modalTitle">Who controls the money?</h3><p class="modalText"></p>
-            ${currentElement.getAttribute("data-stateShare") != 0 ? `<div class="modal__text"><b>${currentElement.getAttribute("data-stateShare")}% controlled by state government</b></div>` : ""}
-            ${currentElement.getAttribute("data-fundShare") != 0 ? `<div class="modal__text"><b>${currentElement.getAttribute("data-fundShare")}% controlled by abatement fund*</b></div>` : ""}
-            ${currentElement.getAttribute("data-localShare") != 0 ? `<div class="modal__text"><b>${currentElement.getAttribute("data-localShare")}% controlled by local government</b></div>` : ""}
-            ${currentElement.getAttribute("data-otherShare") != 0 ? `<div class="modal__text"><b>${currentElement.getAttribute("data-otherShare")}% controlled by other entities**</b></div>` : ""}
+            <h3 class="modalTitle"><b>Who controls the money?</b></h3><p class="modalText"></p>
+            ${currentElement.getAttribute("data-stateShare") != 0 ? `<div class="modal__text">${currentElement.getAttribute("data-stateShare")}% controlled by state government</b></div>` : ""}
+            ${currentElement.getAttribute("data-fundShare") != 0 ? `<div class="modal__text">${currentElement.getAttribute("data-fundShare")}% controlled by abatement fund*</div>` : ""}
+            ${currentElement.getAttribute("data-localShare") != 0 ? `<div class="modal__text">${currentElement.getAttribute("data-localShare")}% controlled by local government</div>` : ""}
+            ${currentElement.getAttribute("data-otherShare") != 0 ? `<div class="modal__text">${currentElement.getAttribute("data-otherShare")}% controlled by other entities**</div>` : ""}
             ${currentElement.getAttribute("data-otherDescription") != 0 ? `<div class="radarChartComment">**${currentElement.getAttribute("data-otherDescription")}</div>` : ""}
             </div>
             <div class="modalContentGroup introImage">
-            <h3 class="modalTitle">Promised Reporting:</h3>
+            <h3 class="modalTitle"><b>Promised Reporting:</b></h3>
             <p class="modalText">At a minimum, states must report non-opioid uses of the money. We’ve determined how much additional reporting each state is promising.</p>
                 <div id="radarChart"></div>
             </div>
             </div>
             <div class="modalContentGroup">
-            <h3 class="modalTitle">Participating in settlements:</h3>
-            <span style="font-size: 12px;">Grayed buttons means not applicable. Certains settled before national agreements were reached and thus were not eligible for those settlements.</span>
-            <div class="modal__text" style="border: none;">
+            <h3 class="modalTitle"><b>Participating in settlements:</b></h3>
+            <div style="display: flex;">
+            <span style="font-size: 12px; width: 48%; padding-right: 10px;">Certain states settled before national agreements were reached and thus were not eligible for those settlements.</span>
+            <div class="parentDiv" style="font-size: 12px; padding-left: 12px;">
+            <div class="keyContainer">
+                <div class="keyBlockActive" style="background-color: #BD6464;"></div>
+                <span class="keyText">Participating</span>
+            </div>
+            <div class="keyContainer">
+                <div class="keyBlockNotApplicable" style="background-color: #D8D8D8; border: 1px solid #333;"></div>
+                <span class="keyText">Not participating</span>
+            </div>
+            <div class="keyContainer">
+                <div class="keyBlockInactive" style="background-color: #7D7D7D;"></div>
+                <span class="keyText">Not applicable</span>
+            </div>
+        </div>
+            </div>
+            <div class="modal__text" style="border: none; flex-direction: column;">
             <div class="settlementButtonsContainer">
                 ${currentElement.getAttribute("data-distributors") == 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">Distributors</span></span></div>` : currentElement.getAttribute("data-distributors") == 'No' ? `<div class="settlementDiv notApplicable"><span class="settlementSpan">Distributors</span></span></div>` : `<div class="settlementDiv"><span class="settlementSpan">Distributors</span></span></div>`}
                 ${currentElement.getAttribute("data-JJ") == 'Yes' ? `<div class="settlementDiv active"><span class="settlementSpan">J&J</span></span></div>` : currentElement.getAttribute("data-JJ") == 'No' ? `<div class="settlementDiv notApplicable"><span class="settlementSpan">Distributors</span></span></div>` : `<div class="settlementDiv"><span class="settlementSpan">J&J</span></span></div>`}
@@ -108,9 +131,15 @@ export const modalFunctions = {
             ${currentElement.getAttribute("data-websiteLink") != 0 ? `
             <div class="modal__text" style="border-bottom: none;">More info: <u><a href="${currentElement.getAttribute("data-websiteLink")}">${currentElement.getAttribute("data-website")}</a></u></div>` : ""}
             </div>`
-            
+
         )
         //this.createRadarChart(currentElement, originalData)
+        //make an html element for the key and append it after settlementButtonsContainer. The key should have three divs for three states: active, notApplicable, and inactive
+        const key = document.createElement("div");
+        key.classList.add("settlementKey");
+        key.innerHTML = `
+        `
+        document.querySelector(".settlementButtonsContainer").after(key);
         this.createQuadrant(currentElement)
     },
     /*
@@ -122,31 +151,19 @@ export const modalFunctions = {
         // Define the four metrics
         let reportedPublicly = currentElement.getAttribute("data-reportedPublicly");
         let not_reported_publicly = currentElement.getAttribute("data-notReportedPublicly");
-        let leftOver = 100 - (parseInt(reportedPublicly) + parseInt(not_reported_publicly))
+        //instead of parseInt, use parseFloat to account for 1 decimal place
+        let leftOver = 100 - parseFloat(reportedPublicly) - parseFloat(not_reported_publicly);
+        //if the number doesn't have a decimal, take it as a whole number. if it does, take it as a decimal and round it to how many decimal places it has
+        if (leftOver % 1 == 0) {
+            leftOver = leftOver;
+        } else {
+            leftOver = leftOver.toFixed(2);
+        }
 
         // Create an empty container for the quadrant
         const quadrant = document.createElement("div");
         quadrant.classList.add("quadrant");
         quadrant.style.width = "100%";
-
-        //create a stacked barchart using the three variables of reportedPublicly, not_reported_publicly, and leftOver
-        const reportedPubliclyBar = document.createElement("div");
-        reportedPubliclyBar.classList.add("quadrant__bar");
-        reportedPubliclyBar.style.width = (reportedPublicly === 0 ? "2%" : `${reportedPublicly}%`)
-        reportedPubliclyBar.style.backgroundColor = "#F2C94C";
-        quadrant.appendChild(reportedPubliclyBar);
-
-        const not_reported_publiclyBar = document.createElement("div");
-        not_reported_publiclyBar.classList.add("quadrant__bar");
-        not_reported_publiclyBar.style.width = (not_reported_publicly === 0 ? "2%" : `${not_reported_publicly}%`)
-        not_reported_publiclyBar.style.backgroundColor = "#F2994A";
-        quadrant.appendChild(not_reported_publiclyBar);
-
-        const leftOverBar = document.createElement("div");
-        leftOverBar.classList.add("quadrant__bar");
-        leftOverBar.style.width = (leftOver === 0 ? "2%" : `${leftOver}%`)
-        leftOverBar.style.backgroundColor = "#dfdfdf";
-        quadrant.appendChild(leftOverBar);
 
         // Define style properties for key text elements
         const keyTextYes = document.createElement("div");
@@ -174,43 +191,34 @@ export const modalFunctions = {
         keyBarGraphOther.dataset.selection = "% no additional reporting";
 
         // Set the values of the key bar graph elements using the variables
-        keyBarGraphYes.style.height = "20px";
+        keyBarGraphYes.classList.add("quadrant__bar");
         if (reportedPublicly == 0) {
             keyBarGraphYes.style.width = "0px";
-            keyBarGraphYes.style.color = "black";
         } else {
             keyBarGraphYes.style.width = `${reportedPublicly}%`;
-            keyBarGraphYes.style.color = "white";
+            keyBarGraphYes.style.border = "1px solid black";
         }
-        keyBarGraphYes.style.marginBottom = "2px";
-        keyBarGraphYes.style.backgroundColor = "#c56f6f";
         keyBarGraphYes.innerHTML = `<span>` + reportedPublicly + `%</span>`;
 
         // Set the values of the key bar graph elements using the variables
-        keyBarGraphOther.style.height = "20px";
+        keyBarGraphOther.classList.add("quadrant__bar");
         if (not_reported_publicly == 0) {
             keyBarGraphOther.style.width = "0px";
-            keyBarGraphOther.style.color = "black";
         } else {
             keyBarGraphOther.style.width = `${not_reported_publicly}%`;
-            keyBarGraphOther.style.color = "white";
+            keyBarGraphOther.style.border = "1px solid black";
         }
-        keyBarGraphOther.style.marginBottom = "2px";
-        keyBarGraphOther.style.backgroundColor = "#c56f6f";
         keyBarGraphOther.innerHTML = `<span>` + not_reported_publicly + `%</span>`;
 
         // Set the values of the key bar graph elements using the variables
-        keyBarGraphNotReq.style.height = "20px";
+        keyBarGraphNotReq.classList.add("quadrant__bar");
         if (leftOver == 0) {
             keyBarGraphNotReq.style.width = "0px";
-            keyBarGraphNotReq.style.color = "black";
         } else {
             keyBarGraphNotReq.style.width = `${leftOver}%`;
-            keyBarGraphNotReq.style.color = "white";
+            keyBarGraphNotReq.style.border = "1px solid black";
         }
-        keyBarGraphNotReq.style.marginBottom = "2px";
-        keyBarGraphNotReq.style.backgroundColor = "#c56f6f";
-        keyBarGraphNotReq.innerHTML =  `<span>` + leftOver + `%</span>`;
+        keyBarGraphNotReq.innerHTML = `<span>` + leftOver + `%</span>`;
 
         //attach quadrant to radarChart
         const radarChart = document.getElementById("radarChart")
